@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { CoreTheme } from './global/Themes/CoreTheme';
 import { RWDProvider } from './global/RWD';
-import { HeaderPageFooter } from './global/Layouts/HeaderPageFooter/HeaderPageFooter';
+// import { HeaderPageFooter } from './global/Layouts/HeaderPageFooter/HeaderPageFooter';
 import { GlobalStyles } from './global/GlobalStyles/GlobalStyles';
 import { ErrorHandler } from './global/ErrorHandler/ErrorHandler';
 import { AppRouter } from './global/AppRouter/AppRouter';
@@ -16,13 +16,10 @@ const App: FunctionComponent = () => (
     <ApolloProvider client={client}>
       <RWDProvider>
         <Router>
-          <HeaderPageFooter>
-            <GlobalStyles>
-              <ErrorHandler>
-                <AppRouter />
-              </ErrorHandler>
-            </GlobalStyles>
-          </HeaderPageFooter>
+          <GlobalStyles />
+          <ErrorHandler>
+            <AppRouter />
+          </ErrorHandler>
         </Router>
       </RWDProvider>
     </ApolloProvider>

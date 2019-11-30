@@ -4,10 +4,8 @@ import { Home } from '../../pages/Home/Home';
 
 export const AppRouter: FunctionComponent = () => {
   return (
-    <>
-      <Switch>
-        <Route path="/" exact component={Home} />
-      </Switch>
-    </>
+    <Switch>
+      <Route path="/" exact component={Home} />
+    </Switch>
   );
 };

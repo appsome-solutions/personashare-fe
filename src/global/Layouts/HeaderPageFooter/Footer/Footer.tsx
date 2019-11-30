@@ -7,7 +7,6 @@ const FooterWrapper = styled.div`
   height: 322px;
   background-color: ${props => props.theme.colors.utils.text.dark};
   color: ${props => props.theme.colors.utils.text.light};
-
   position: absolute;
   bottom: 0;
   width: 100%;
