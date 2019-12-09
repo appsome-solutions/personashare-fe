@@ -5,19 +5,39 @@ import { Icon } from 'components/Icon/Icon';
 import QrCodeNavSvg from 'assets/qr-code-nav.svg';
 
 const StyledRow = styled(Row)`
-  background-color: white;
+  background-color: ${props => props.theme.colors.utils.background.light};
   height: 48px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+`;
+
+type MenuIcon = {
+  isActive: boolean;
+};
+
+const MenuIcon = styled(Icon)<MenuIcon>`
+  background-color: ${props =>
+    props.isActive ? props.theme.colors.main.primary : props.theme.colors.functional.disabled};
+`;
+
+const CenteredCol = styled(Col)`
+  && {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const StickyNavigation = () => {
   return (
     <StyledRow type="flex" justify="center">
-      <Col span={8}>
-        col-4
-        <Icon svgLink={QrCodeNavSvg} color={'black'} />
-      </Col>
-      <Col span={8}>col-4</Col>
-      <Col span={8}>col-4</Col>
+      <CenteredCol span={8}>
+        <MenuIcon svgLink={QrCodeNavSvg} isActive={true} />
+      </CenteredCol>
+      <CenteredCol span={8}>col-4</CenteredCol>
+      <CenteredCol span={8}>col-4</CenteredCol>
     </StyledRow>
   );
 };

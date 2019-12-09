@@ -19,4 +19,53 @@ export const CoreTheme = {
       disabled: '#B7B7B7',
     },
   },
+
+  typography: {
+    subtitle: {
+      1: {
+        fontWeight: 'normal',
+        size: '16px',
+        textTransform: 'none',
+        letterSpacing: '0.0015em',
+      },
+      2: {
+        fontWeight: '500',
+        size: '14px',
+        textTransform: 'none',
+        letterSpacing: '0.001em',
+      },
+    },
+    body: {
+      1: {
+        fontWeight: 'normal',
+        size: '16px',
+        textTransform: 'none',
+        letterSpacing: '0.005em',
+      },
+      2: {
+        fontWeight: 'normal',
+        size: '14px',
+        textTransform: 'none',
+        letterSpacing: '0.0025em',
+      },
+    },
+    button: {
+      fontWeight: '500',
+      size: '14px',
+      textTransform: 'uppercase',
+      letterSpacing: '0.0125em',
+    },
+    caption: {
+      fontWeight: 'normal',
+      size: '12px',
+      textTransform: 'none',
+      letterSpacing: '0.004em',
+    },
+    overline: {
+      fontWeight: 'normal',
+      size: '10px',
+      textTransform: 'uppercase',
+      letterSpacing: '0.015em',
+    },
+  },
 };
