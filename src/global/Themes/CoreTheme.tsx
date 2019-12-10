@@ -21,33 +21,29 @@ export const CoreTheme = {
   },
 
   typography: {
-    subtitle: {
-      1: {
-        fontWeight: 'normal',
-        size: '16px',
-        textTransform: 'none',
-        letterSpacing: '0.0015em',
-      },
-      2: {
-        fontWeight: '500',
-        size: '14px',
-        textTransform: 'none',
-        letterSpacing: '0.001em',
-      },
+    subtitle1: {
+      fontWeight: 'normal',
+      size: '16px',
+      textTransform: 'none',
+      letterSpacing: '0.0015em',
     },
-    body: {
-      1: {
-        fontWeight: 'normal',
-        size: '16px',
-        textTransform: 'none',
-        letterSpacing: '0.005em',
-      },
-      2: {
-        fontWeight: 'normal',
-        size: '14px',
-        textTransform: 'none',
-        letterSpacing: '0.0025em',
-      },
+    subtitle2: {
+      fontWeight: '500',
+      size: '14px',
+      textTransform: 'none',
+      letterSpacing: '0.001em',
+    },
+    body1: {
+      fontWeight: 'normal',
+      size: '16px',
+      textTransform: 'none',
+      letterSpacing: '0.005em',
+    },
+    body2: {
+      fontWeight: 'normal',
+      size: '14px',
+      textTransform: 'none',
+      letterSpacing: '0.0025em',
     },
     button: {
       fontWeight: '500',
