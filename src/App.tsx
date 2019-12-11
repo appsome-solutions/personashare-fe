@@ -5,7 +5,6 @@ import { ThemeProvider } from 'styled-components';
 
 import { CoreTheme } from './global/Themes/CoreTheme';
 import { RWDProvider } from './global/RWD';
-// import { HeaderPageFooter } from './global/Layouts/HeaderPageFooter/HeaderPageFooter';
 import { GlobalStyles } from './global/GlobalStyles/GlobalStyles';
 import { ErrorHandler } from './global/ErrorHandler/ErrorHandler';
 import { AppRouter } from './global/AppRouter/AppRouter';

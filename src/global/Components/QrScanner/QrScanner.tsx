@@ -1,10 +1,16 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, RefObject } from 'react';
 import styled from 'styled-components';
 import Webcam from 'react-webcam';
 import { QRCode } from 'jsqr';
+import getPixels from 'get-pixels';
+// eslint-disable-next-line
+//@ts-ignore
+import Worker from 'worker-loader!./decodeWorker.worker';
+import VideoOverlay from './VideoOverlay';
 
 const Wrapper = styled.div`
-  position: relative;
+  display: flex;
+  justify-content: center;
 `;
 
 const Button = styled.button`
@@ -20,27 +26,43 @@ const Button = styled.button`
   transform: translate(-50%);
 `;
 
+type ExtendedWebcam = {
+  ref: RefObject<Webcam>;
+};
+
+const StyledWebcam = styled(Webcam)<ExtendedWebcam>`
+  width: 100%;
+  height: 100vh;
+  object-fit: fill;
+`;
+
 type defaultProps = {
   videoConstraints: MediaTrackConstraints;
   interval: number;
   buttonMode: boolean;
-  style: React.CSSProperties;
+  className: string;
   onError: (error: string) => void;
 };
 
 type Props = {
   onCode: (code: QRCode) => void;
   onUserMediaError?: (error: string) => void;
-  style?: React.CSSProperties;
 } & defaultProps;
+
+type ImagePxels = {
+  data: Uint8ClampedArray;
+  offset: number;
+  shape: Array<number>;
+  stride: Array<number>;
+};
 
 let webWorker: Worker | null = null;
 
 export const QrScanner = ({
-  /*  onCode,
-  onError, */
+  onCode,
+  onError,
   onUserMediaError,
-  style,
+  className,
   videoConstraints,
   interval,
   buttonMode,
@@ -48,29 +70,25 @@ export const QrScanner = ({
   const webcamRef = React.useRef<Webcam>(null);
 
   const capture = useCallback(() => {
-    const imageSrc = webcamRef && webcamRef.current && webcamRef.current.getScreenshot();
+    const imageSrc = webcamRef?.current?.getScreenshot();
     if (!imageSrc) {
       return;
     }
-    webWorker && webWorker.postMessage(imageSrc);
-    /*  getPixels(imageSrc, (err: string, image: ImagePxels) => {
+    getPixels(imageSrc, (err: string, image: ImagePxels) => {
       if (err) {
         onError(err);
         return;
       }
-      const res = jsQr(image.data, image.shape[0], image.shape[1]);
-      if (res) {
-        onCode(res);
-      }
-    }); */
+      webWorker?.postMessage(image);
+    });
   }, [webcamRef]);
 
   const onMessage = (message: MessageEvent): void => {
-    console.warn(message);
+    onCode(message.data);
   };
 
   useEffect(() => {
-    webWorker = new Worker('./decodeWorker.ts');
+    webWorker = new Worker();
     webWorker.addEventListener('message', onMessage);
     const timer = setInterval(capture, interval);
     return () => {
@@ -84,8 +102,9 @@ export const QrScanner = ({
 
   return (
     <Wrapper>
-      <Webcam
-        style={style}
+      <VideoOverlay />
+      <StyledWebcam
+        className={className}
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
@@ -103,8 +122,7 @@ QrScanner.defaultProps = {
   onError: (err: string) => {
     console.error(err);
   },
-  style: { width: '100%' },
-  buttonMode: true,
+  buttonMode: false,
 } as defaultProps;
 
 export default QrScanner;
