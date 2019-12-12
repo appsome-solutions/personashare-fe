@@ -1,12 +1,10 @@
-import React, { useEffect, useCallback, RefObject } from 'react';
+import React, { useCallback, RefObject } from 'react';
 import styled from 'styled-components';
 import Webcam from 'react-webcam';
 import { QRCode } from 'jsqr';
 import getPixels from 'get-pixels';
-// eslint-disable-next-line
-//@ts-ignore
-import Worker from 'worker-loader!./decodeWorker.worker';
 import VideoOverlay from './VideoOverlay';
+import { useWorkerDecode } from './hooks/useWorkerDecode';
 
 const Wrapper = styled.div`
   display: flex;
@@ -49,11 +47,11 @@ type Props = {
   onUserMediaError?: (error: string) => void;
 } & defaultProps;
 
-type ImagePxels = {
+export type ImagePixels = {
   data: Uint8ClampedArray;
   offset: number;
-  shape: Array<number>;
-  stride: Array<number>;
+  shape: number[];
+  stride: number[];
 };
 
 let webWorker: Worker | null = null;
@@ -71,34 +69,20 @@ export const QrScanner = ({
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef?.current?.getScreenshot();
+
     if (!imageSrc) {
       return;
     }
-    getPixels(imageSrc, (err: string, image: ImagePxels) => {
+    getPixels(imageSrc, (err: string, image: ImagePixels) => {
       if (err) {
         onError(err);
         return;
       }
       webWorker?.postMessage(image);
     });
-  }, [webcamRef]);
+  }, [webcamRef, onError]);
 
-  const onMessage = (message: MessageEvent): void => {
-    onCode(message.data);
-  };
-
-  useEffect(() => {
-    webWorker = new Worker();
-    webWorker.addEventListener('message', onMessage);
-    const timer = setInterval(capture, interval);
-    return () => {
-      if (webWorker) {
-        webWorker.terminate();
-        webWorker = null;
-      }
-      clearInterval(timer);
-    };
-  }, [capture, interval]);
+  webWorker = useWorkerDecode({ capture, interval, onCode });
 
   return (
     <Wrapper>
@@ -116,9 +100,11 @@ export const QrScanner = ({
   );
 };
 
+const defaultInterval = 500;
+
 QrScanner.defaultProps = {
   videoConstraints: { facingMode: 'environment' },
-  interval: 500,
+  interval: defaultInterval,
   onError: (err: string) => {
     console.error(err);
   },
