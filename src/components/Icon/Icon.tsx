@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export interface IconProps {
   svgLink: string;
@@ -28,8 +28,13 @@ const Icon = styled.div.attrs({
   mask-repeat: no-repeat, no-repeat;
   display: inline-block;
 
+  // transparent causes disapearing icons bug
   &:hover {
-    background-color: ${props => props.hoverBackground || 'transparent'};
+    ${props =>
+      props.hoverBackground &&
+      css`
+        background-color: props.hoverBackground;
+      `}
   }
 `;
 
