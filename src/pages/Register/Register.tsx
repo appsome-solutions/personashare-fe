@@ -25,8 +25,8 @@ const CreateAccountText = styled.h5`
 const StyledCard = styled(Card)`
   display: flex;
   justify-content: center;
-  margin-top: 27px;
-  margin-bottom: 34px;
+  padding-top: 27px;
+  padding-bottom: 34px;
 `;
 
 export const Register = () => {
