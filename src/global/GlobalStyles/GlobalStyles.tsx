@@ -25,4 +25,45 @@ export const GlobalStyles = createGlobalStyle<ThemeInterface>`
     text-decoration: none;
   }
   
+  h1 {
+    font-weight: 300;
+    size: 96px;
+    text-transform: none;
+    letter-spacing: -0.015em;
+  }
+  
+  h2 {
+    font-weight: 300;
+    size: 60px;
+    text-transform: none;
+    letter-spacing: -0.005em;
+  }
+  
+  h3 {
+    font-weight: normal;
+    size: 48px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  
+  h4 {
+    font-weight: normal;
+    size: 34px;
+    text-transform: none;
+    letter-spacing: 0.0025em;
+  }
+  
+  h5 {
+    font-weight: normal;
+    size: 24px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  
+  h6 {
+    font-weight: 500;
+    size: 20px;
+    text-transform: none;
+    letter-spacing: 0.0015em;
+  }  
 `;

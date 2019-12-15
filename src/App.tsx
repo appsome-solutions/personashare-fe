@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { CoreTheme } from './global/Themes/CoreTheme';
 import { RWDProvider } from './global/RWD';
+import { StickyNavigation } from './global/Layouts/StickyNavigation/StickyNavigation';
 import { GlobalStyles } from './global/GlobalStyles/GlobalStyles';
 import { ErrorHandler } from './global/ErrorHandler/ErrorHandler';
 import { AppRouter } from './global/AppRouter/AppRouter';
@@ -19,6 +20,7 @@ const App: FunctionComponent = () => (
           <ErrorHandler>
             <AppRouter />
           </ErrorHandler>
+          <StickyNavigation />
         </Router>
       </RWDProvider>
     </ApolloProvider>

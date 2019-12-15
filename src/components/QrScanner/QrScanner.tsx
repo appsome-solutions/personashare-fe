@@ -110,5 +110,3 @@ QrScanner.defaultProps = {
   },
   buttonMode: false,
 } as defaultProps;
-
-export default QrScanner;
