@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export interface IconProps {
   svgLink: string;
@@ -24,16 +24,12 @@ const Icon = styled.div.attrs({
   cursor: ${props => props.cursor};
   mask-image: url(${props => props.svgLink});
   mask-position: center;
-  background: ${props => (props.color ? props.color : props.theme.colors.utils.text.dark)} no-repeat;
+  background: ${props => props.color || props.theme.colors.utils.text.dark} no-repeat;
   mask-repeat: no-repeat, no-repeat;
   display: inline-block;
 
   &:hover {
-    ${props =>
-      props.hoverBackground &&
-      css`
-        background-color: props.hoverBackground;
-      `}
+    background-color: ${props => props.hoverBackground || 'transparent'};
   }
 `;
 

@@ -65,3 +65,7 @@ export const CoreTheme = {
     },
   },
 };
+
+export type CoreThemePropsType = {
+  theme: typeof CoreTheme;
+};
