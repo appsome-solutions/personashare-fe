@@ -5,6 +5,7 @@ export const CoreTheme = {
     },
     utils: {
       text: {
+        light: '#FFFFFF',
         dark: '#32325D',
       },
       background: {
