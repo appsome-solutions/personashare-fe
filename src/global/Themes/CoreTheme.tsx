@@ -1,32 +1,71 @@
 export const CoreTheme = {
   colors: {
     main: {
-      primary: '#4E2683',
+      primary: '#5585FF',
     },
     utils: {
       text: {
-        dark: '#140C1E',
-        light: '#ECEEF1',
+        dark: '#32325D',
+      },
+      background: {
+        light: '#FFFFFF',
+        mid: '#F8F9FE',
       },
       border: {
-        mid: '#DEDEDE',
-        dark: '#392F46',
-      },
-      link: '#3C7EFF',
-      placeholder: '#959595',
-      background: {
-        mid: {
-          color: '#000',
-          opacity: '28%',
-        },
-        light: '#FFFFFF',
-        accent: '#FAF6FF',
+        mid: '#A4A5AB',
       },
     },
     functional: {
-      error: '#C64D4D',
-      success: '#4DC66E',
-      disabled: '#A5A5A5',
+      disabled: '#B7B7B7',
     },
   },
+
+  typography: {
+    subtitle1: {
+      fontWeight: 'normal',
+      size: '16px',
+      textTransform: 'none',
+      letterSpacing: '0.0015em',
+    },
+    subtitle2: {
+      fontWeight: '500',
+      size: '14px',
+      textTransform: 'none',
+      letterSpacing: '0.001em',
+    },
+    body1: {
+      fontWeight: 'normal',
+      size: '16px',
+      textTransform: 'none',
+      letterSpacing: '0.005em',
+    },
+    body2: {
+      fontWeight: 'normal',
+      size: '14px',
+      textTransform: 'none',
+      letterSpacing: '0.0025em',
+    },
+    button: {
+      fontWeight: '500',
+      size: '14px',
+      textTransform: 'uppercase',
+      letterSpacing: '0.0125em',
+    },
+    caption: {
+      fontWeight: 'normal',
+      size: '12px',
+      textTransform: 'none',
+      letterSpacing: '0.004em',
+    },
+    overline: {
+      fontWeight: 'normal',
+      size: '10px',
+      textTransform: 'uppercase',
+      letterSpacing: '0.015em',
+    },
+  },
+};
+
+export type CoreThemePropsType = {
+  theme: typeof CoreTheme;
 };
