@@ -5,6 +5,7 @@ export const CoreTheme = {
     },
     utils: {
       text: {
+        light: '#FFFFFF',
         dark: '#32325D',
       },
       background: {
@@ -23,43 +24,43 @@ export const CoreTheme = {
   typography: {
     subtitle1: {
       fontWeight: 'normal',
-      size: '16px',
+      fontSize: '16px',
       textTransform: 'none',
       letterSpacing: '0.0015em',
     },
     subtitle2: {
       fontWeight: '500',
-      size: '14px',
+      fontSize: '14px',
       textTransform: 'none',
       letterSpacing: '0.001em',
     },
     body1: {
       fontWeight: 'normal',
-      size: '16px',
+      fontSize: '16px',
       textTransform: 'none',
       letterSpacing: '0.005em',
     },
     body2: {
       fontWeight: 'normal',
-      size: '14px',
+      fontSize: '14px',
       textTransform: 'none',
       letterSpacing: '0.0025em',
     },
     button: {
       fontWeight: '500',
-      size: '14px',
+      fontSize: '14px',
       textTransform: 'uppercase',
       letterSpacing: '0.0125em',
     },
     caption: {
       fontWeight: 'normal',
-      size: '12px',
+      fontSize: '12px',
       textTransform: 'none',
       letterSpacing: '0.004em',
     },
     overline: {
       fontWeight: 'normal',
-      size: '10px',
+      fontSize: '10px',
       textTransform: 'uppercase',
       letterSpacing: '0.015em',
     },
