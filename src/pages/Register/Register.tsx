@@ -3,6 +3,7 @@ import { TopNav } from 'components/TopNav/TopNav';
 import LogoSvg from 'assets/logo.svg';
 import styled from 'styled-components';
 import { Card } from 'components/Card/Card';
+import { EmailInput } from 'components/EmailInput/EmailInput';
 
 const StyledLogo = styled.img`
   margin-top: 46px;
@@ -13,7 +14,7 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 16px;
+  padding: 0 16px;
   background-color: ${props => props.theme.colors.utils.background.mid};
 `;
 
@@ -24,9 +25,9 @@ const CreateAccountText = styled.h5`
 
 const StyledCard = styled(Card)`
   display: flex;
-  justify-content: center;
-  padding-top: 27px;
-  padding-bottom: 34px;
+  flex-direction: column;
+  align-items: center;
+  padding: 27px 24px 34px;
 `;
 
 export const Register = () => {
@@ -37,6 +38,7 @@ export const Register = () => {
         <StyledLogo src={LogoSvg} alt="logo" />
         <StyledCard>
           <CreateAccountText> Create Account </CreateAccountText>
+          <EmailInput />
         </StyledCard>
       </PageWrapper>
     </div>
