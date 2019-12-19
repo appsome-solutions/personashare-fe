@@ -2,8 +2,6 @@ import { normalize } from 'styled-normalize';
 import { createGlobalStyle } from 'styled-components';
 import { ThemeInterface } from 'typings';
 
-import 'antd/dist/antd.min.css';
-
 export const GlobalStyles = createGlobalStyle<ThemeInterface>`
   ${normalize}
   
@@ -21,8 +19,8 @@ export const GlobalStyles = createGlobalStyle<ThemeInterface>`
   }
   
   a {
-    color: ${props => props.theme.colors.utils.link};
-    text-decoration: none;
+    color: ${props => props.theme.colors.main.primary};
+    text-decoration: underline;
   }
   
   h1 {
