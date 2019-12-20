@@ -23,33 +23,28 @@ class Firebase {
     firebase.auth().useDeviceLanguage();
   }
 
-  googleProvider(scope?: string): firebase.auth.GoogleAuthProvider {
+  getCurrentUser = (): firebase.User | null => firebase.auth().currentUser;
+
+  googleProvider = (scope?: string): firebase.auth.GoogleAuthProvider => {
     const provider = new firebase.auth.GoogleAuthProvider();
 
     provider.addScope(scope || 'https://www.googleapis.com/auth/userinfo.profile');
 
     return provider;
-  }
+  };
 
-  emailAndPasswordProvider(): firebase.auth.EmailAuthProvider {
-    return new firebase.auth.EmailAuthProvider();
-  }
+  emailAndPasswordProvider = (): firebase.auth.EmailAuthProvider => new firebase.auth.EmailAuthProvider();
 
-  async createUserWithEmailAndPassword(email: string, password: string): Promise<firebase.auth.UserCredential> {
-    return await firebase.auth().createUserWithEmailAndPassword(email, password);
-  }
+  createUserWithEmailAndPassword = async (email: string, password: string): Promise<firebase.auth.UserCredential> =>
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
 
-  async signInWithEmailAndPassword(email: string, password: string): Promise<firebase.auth.UserCredential> {
-    return await firebase.auth().signInWithEmailAndPassword(email, password);
-  }
+  signInWithEmailAndPassword = async (email: string, password: string): Promise<firebase.auth.UserCredential> =>
+    await firebase.auth().signInWithEmailAndPassword(email, password);
 
-  async signIn(provider: firebase.auth.AuthProvider): Promise<firebase.auth.UserCredential> {
-    return await firebase.auth().signInWithPopup(provider);
-  }
+  signIn = async (provider: firebase.auth.AuthProvider): Promise<firebase.auth.UserCredential> =>
+    await firebase.auth().signInWithPopup(provider);
 
-  async signOut(): Promise<void> {
-    return await firebase.auth().signOut();
-  }
+  signOut = async (): Promise<void> => await firebase.auth().signOut();
 }
 
 export default Firebase;
