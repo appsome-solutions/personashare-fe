@@ -1,7 +1,7 @@
-import React, { useContext, FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { useMutation } from '@apollo/react-hooks';
-import Firebase, { FirebaseContext } from 'global/Firebase';
+import { Firebase, useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
 import { Button } from 'components/Button';
@@ -35,7 +35,7 @@ const signInWithGoogle = async (firebase: Firebase): Promise<string | undefined>
 };
 
 export const Login: FunctionComponent = () => {
-  const firebase = useContext(FirebaseContext);
+  const firebase = useFirebase();
   const [signIn, { data }] = useMutation<SignInResponse>(SIGN_IN);
 
   if (!firebase) {

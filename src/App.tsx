@@ -10,12 +10,12 @@ import { GlobalStyles } from './global/GlobalStyles/GlobalStyles';
 import { ErrorHandler } from './global/ErrorHandler/ErrorHandler';
 import { AppRouter } from './global/AppRouter/AppRouter';
 import { client } from 'global/ApolloClient/ApolloClient';
-import Firebase, { FirebaseContext } from './global/Firebase';
+import { FirebaseProvider, Firebase } from './global/Firebase';
 
 const App: FunctionComponent = () => (
   <ThemeProvider theme={CoreTheme}>
     <ApolloProvider client={client}>
-      <FirebaseContext.Provider value={new Firebase()}>
+      <FirebaseProvider value={new Firebase()}>
         <RWDProvider>
           <Router>
             <GlobalStyles />
@@ -25,7 +25,7 @@ const App: FunctionComponent = () => (
             <StickyNavigation />
           </Router>
         </RWDProvider>
-      </FirebaseContext.Provider>
+      </FirebaseProvider>
     </ApolloProvider>
   </ThemeProvider>
 );

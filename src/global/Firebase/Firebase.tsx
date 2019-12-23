@@ -1,4 +1,6 @@
-import firebase from 'firebase';
+import { auth, apps, initializeApp, User } from 'firebase/app';
+import 'firebase/app';
+import 'firebase/auth';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -10,41 +12,40 @@ const config = {
 };
 
 class Firebase {
-  auth: firebase.auth.Auth;
+  auth: auth.Auth;
 
   constructor() {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(config);
+    if (!apps.length) {
+      initializeApp(config);
 
-      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+      auth().setPersistence(auth.Auth.Persistence.NONE);
     }
 
-    this.auth = firebase.auth();
-    firebase.auth().useDeviceLanguage();
+    this.auth = auth();
+    auth().useDeviceLanguage();
   }
 
-  getCurrentUser = (): firebase.User | null => firebase.auth().currentUser;
+  getCurrentUser = (): User | null => auth().currentUser;
 
-  googleProvider = (scope?: string): firebase.auth.GoogleAuthProvider => {
-    const provider = new firebase.auth.GoogleAuthProvider();
+  googleProvider = (scope?: string): auth.GoogleAuthProvider => {
+    const provider = new auth.GoogleAuthProvider();
 
     provider.addScope(scope || 'https://www.googleapis.com/auth/userinfo.profile');
 
     return provider;
   };
 
-  emailAndPasswordProvider = (): firebase.auth.EmailAuthProvider => new firebase.auth.EmailAuthProvider();
+  emailAndPasswordProvider = (): auth.EmailAuthProvider => new auth.EmailAuthProvider();
 
-  createUserWithEmailAndPassword = async (email: string, password: string): Promise<firebase.auth.UserCredential> =>
-    await firebase.auth().createUserWithEmailAndPassword(email, password);
+  createUserWithEmailAndPassword = async (email: string, password: string): Promise<auth.UserCredential> =>
+    await auth().createUserWithEmailAndPassword(email, password);
 
-  signInWithEmailAndPassword = async (email: string, password: string): Promise<firebase.auth.UserCredential> =>
-    await firebase.auth().signInWithEmailAndPassword(email, password);
+  signInWithEmailAndPassword = async (email: string, password: string): Promise<auth.UserCredential> =>
+    await auth().signInWithEmailAndPassword(email, password);
 
-  signIn = async (provider: firebase.auth.AuthProvider): Promise<firebase.auth.UserCredential> =>
-    await firebase.auth().signInWithPopup(provider);
+  signIn = async (provider: auth.AuthProvider): Promise<auth.UserCredential> => await auth().signInWithPopup(provider);
 
-  signOut = async (): Promise<void> => await firebase.auth().signOut();
+  signOut = async (): Promise<void> => await auth().signOut();
 }
 
 export default Firebase;

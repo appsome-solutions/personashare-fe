@@ -1,6 +1,6 @@
-import React from 'react';
 import Firebase from './Firebase';
+import { createCtx } from '../../helpers/Context';
 
-const FirebaseContext = React.createContext<Firebase | null>(null);
+const [useFirebase, FirebaseProvider] = createCtx<Firebase>();
 
-export default FirebaseContext;
+export { useFirebase, FirebaseProvider };
