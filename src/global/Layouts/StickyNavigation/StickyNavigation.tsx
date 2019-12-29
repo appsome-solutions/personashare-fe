@@ -9,10 +9,10 @@ import { NavigationElement } from './NavigationElement/NavigationElement';
 
 const StyledRow = styled(Row)`
   background-color: ${props => props.theme.colors.utils.background.light};
-  border: 1px solid ${props => props.theme.colors.functional.disabled};
+  border-top: 2px solid ${props => props.theme.colors.functional.disabled};
   height: 52px;
   width: 100%;
-  position: absolute;
+  position: sticky;
   bottom: 0;
 `;
 

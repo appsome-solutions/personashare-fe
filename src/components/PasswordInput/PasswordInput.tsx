@@ -5,7 +5,7 @@ import { InputProps } from 'antd/lib/input';
 import LockIcon from 'assets/lock.svg';
 import { Icon as IconComponent } from 'components/Icon';
 
-const Container = styled.span`
+export const Container = styled.span`
   margin: 0;
   padding: 0;
   background: ${props => props.theme.colors.utils.background.light};
@@ -29,15 +29,15 @@ const Icon = styled(IconComponent)`
   background-color: ${props => props.theme.colors.utils.border.mid};
 `;
 
-const Input = styled(AntInput.Password)`
+export const Input = styled(AntInput.Password)`
   && {
     padding-right: 30px;
   }
 `;
 
-export const PasswordInput = (props: InputProps) => (
-  <Container>
+export const PasswordInput = ({ className, ...rest }: InputProps) => (
+  <Container className={className}>
     <Icon svgLink={LockIcon} />
-    <Input {...props} visibilityToggle={false} />
+    <Input {...rest} visibilityToggle={false} />
   </Container>
 );

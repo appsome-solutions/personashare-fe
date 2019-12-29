@@ -7,6 +7,7 @@ import { EmailInput } from 'components/EmailInput/EmailInput';
 import { Checkbox } from 'components/Checkbox';
 import { Link } from 'react-router-dom';
 import { Button } from 'components/Button';
+import { PasswordInput } from 'components/PasswordInput';
 
 const StyledLogo = styled.img`
   margin-top: 46px;
@@ -19,6 +20,7 @@ const PageWrapper = styled.div`
   justify-content: center;
   padding: 0 16px;
   background-color: ${props => props.theme.colors.utils.background.mid};
+  min-height: calc(100vh - 108px);
 `;
 
 const CreateAccountText = styled.h5`
@@ -61,6 +63,10 @@ const LogInCaption = styled(Caption)`
   margin-bottom: 24px;
 `;
 
+const StyledPasswordInput = styled(PasswordInput)`
+  margin-top: 20px;
+`;
+
 export const Register = () => {
   return (
     <div>
@@ -69,7 +75,9 @@ export const Register = () => {
         <StyledLogo src={LogoSvg} alt="logo" />
         <StyledCard>
           <CreateAccountText> Create Account </CreateAccountText>
-          <EmailInput />
+          <EmailInput placeholder="Email" />
+          <StyledPasswordInput placeholder="Password" />
+          <StyledPasswordInput placeholder="Repeat password" />
           <StyledCheckbox>
             <Caption>
               I read and agree to <Link to="/terms-and-conditions">Terms & Conditions</Link>
