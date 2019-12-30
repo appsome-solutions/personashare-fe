@@ -1,3 +1,5 @@
+import 'antd/dist/antd.min.css';
+
 export const CoreTheme = {
   colors: {
     main: {

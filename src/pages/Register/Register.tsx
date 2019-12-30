@@ -3,6 +3,11 @@ import { TopNav } from 'components/TopNav/TopNav';
 import LogoSvg from 'assets/logo.svg';
 import styled from 'styled-components';
 import { Card } from 'components/Card/Card';
+import { EmailInput } from 'components/EmailInput/EmailInput';
+import { Checkbox } from 'components/Checkbox';
+import { Link } from 'react-router-dom';
+import { Button } from 'components/Button';
+import { PasswordInput } from 'components/PasswordInput';
 
 const StyledLogo = styled.img`
   margin-top: 46px;
@@ -13,8 +18,9 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 16px;
+  padding: 0 16px;
   background-color: ${props => props.theme.colors.utils.background.mid};
+  min-height: calc(100vh - 108px);
 `;
 
 const CreateAccountText = styled.h5`
@@ -24,9 +30,41 @@ const CreateAccountText = styled.h5`
 
 const StyledCard = styled(Card)`
   display: flex;
-  justify-content: center;
-  padding-top: 27px;
-  padding-bottom: 34px;
+  flex-direction: column;
+  align-items: center;
+  padding: 27px 24px 34px;
+`;
+
+const Caption = styled.span(props => props.theme.typography.caption);
+
+const StyledCheckbox = styled(Checkbox)`
+  align-self: start;
+  margin-top: 24px;
+`;
+
+const RegisterButton = styled(Button)`
+  margin-top: 28px;
+`;
+
+// Specific color for this specific button:
+const GoogleButton = styled(Button)`
+  && {
+    background-color: #e62b33;
+  }
+`;
+
+const OrRegisterCaption = styled(Caption)`
+  margin: 18px 0;
+`;
+
+const LogInCaption = styled(Caption)`
+  text-align: center;
+  margin-top: 32px;
+  margin-bottom: 24px;
+`;
+
+const StyledPasswordInput = styled(PasswordInput)`
+  margin-top: 20px;
 `;
 
 export const Register = () => {
@@ -37,7 +75,21 @@ export const Register = () => {
         <StyledLogo src={LogoSvg} alt="logo" />
         <StyledCard>
           <CreateAccountText> Create Account </CreateAccountText>
+          <EmailInput placeholder="Email" />
+          <StyledPasswordInput placeholder="Password" />
+          <StyledPasswordInput placeholder="Repeat password" />
+          <StyledCheckbox>
+            <Caption>
+              I read and agree to <Link to="/terms-and-conditions">Terms & Conditions</Link>
+            </Caption>
+          </StyledCheckbox>
+          <RegisterButton block>REGISTER NOW</RegisterButton>
+          <OrRegisterCaption>Or Register using social Media</OrRegisterCaption>
+          <GoogleButton block>GOOGLE</GoogleButton>
         </StyledCard>
+        <LogInCaption>
+          Already have an account? <Link to="/login">Login</Link>
+        </LogInCaption>
       </PageWrapper>
     </div>
   );
