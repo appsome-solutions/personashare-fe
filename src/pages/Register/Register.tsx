@@ -50,6 +50,11 @@ const RegisterButton = styled(Button)`
 const GoogleButton = styled(Button)`
   && {
     background-color: #e62b33;
+    &&:active,
+    &&:hover {
+      color: ${props => props.theme.colors.utils.text.light};
+      background-color: #e62b33;
+    }
   }
 `;
 
