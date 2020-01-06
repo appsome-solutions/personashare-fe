@@ -25,6 +25,8 @@
     "react-scripts": "3.2.0",
     "react-webcam": "^4.0.0",
     "serve": "^11.2.0",
+    "slate": "^0.57.1",
+    "slate-react": "^0.57.1",
     "styled-components": "^4.4.0",
     "styled-normalize": "^8.0.6",
     "typescript": "^3.7.2"
