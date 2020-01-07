@@ -11,17 +11,9 @@ import { EmailInput } from 'components/EmailInput/EmailInput';
 import { PasswordInput } from 'components/PasswordInput';
 import { Card } from 'components/Card/Card';
 import { Link } from 'react-router-dom';
+import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 
 const Caption = styled.span(props => props.theme.typography.caption);
-
-const PageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 16px;
-  background-color: ${props => props.theme.colors.utils.background.mid};
-  min-height: calc(100vh - 108px);
-`;
 
 const StyledLogo = styled.img`
   margin-top: 46px;
@@ -37,12 +29,10 @@ const StyledCard = styled(Card)`
 
 const HeyText = styled.h4`
   margin-bottom: 0;
-  color: ${props => props.theme.colors.utils.text.dark};
 `;
 
 const LoginText = styled.h5`
   margin-bottom: 20px;
-  color: ${props => props.theme.colors.utils.text.dark};
 `;
 
 const StyledPasswordInput = styled(PasswordInput)`
