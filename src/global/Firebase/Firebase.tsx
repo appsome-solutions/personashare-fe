@@ -18,7 +18,7 @@ class Firebase {
     if (!apps.length) {
       initializeApp(config);
 
-      auth().setPersistence(auth.Auth.Persistence.NONE);
+      auth().setPersistence(auth.Auth.Persistence.LOCAL);
     }
 
     this.auth = auth();
