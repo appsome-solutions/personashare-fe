@@ -8,19 +8,11 @@ import { Checkbox } from 'components/Checkbox';
 import { Link } from 'react-router-dom';
 import { Button } from 'components/Button';
 import { PasswordInput } from 'components/PasswordInput';
+import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 
 const StyledLogo = styled.img`
   margin-top: 46px;
   margin-bottom: 36px;
-`;
-
-const PageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 16px;
-  background-color: ${props => props.theme.colors.utils.background.mid};
-  min-height: calc(100vh - 108px);
 `;
 
 const CreateAccountText = styled.h5`
@@ -50,6 +42,11 @@ const RegisterButton = styled(Button)`
 const GoogleButton = styled(Button)`
   && {
     background-color: #e62b33;
+    &&:active,
+    &&:hover {
+      color: ${props => props.theme.colors.utils.text.light};
+      background-color: #e62b33;
+    }
   }
 `;
 

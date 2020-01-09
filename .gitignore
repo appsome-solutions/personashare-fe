@@ -19,6 +19,7 @@
 /build
 
 # misc
+secretKey.json
 .DS_Store
 .env.local
 .env.development.local
