@@ -6,7 +6,7 @@ import { createEditor } from 'slate';
 // Import the Slate components and React plugin.
 import { Slate, Editable, withReact } from 'slate-react';
 
-export const Wall = () => {
+export const Page = () => {
   const editor = useMemo(() => withReact(createEditor()), []);
   // Add the initial value when setting up our state.
   const [value, setValue] = useState([
@@ -19,7 +19,6 @@ export const Wall = () => {
   return (
     // @ts-ignore
     <Slate editor={editor} value={value} onChange={value => setValue(value)}>
-      <div>testM</div>
       <Editable />
     </Slate>
   );
