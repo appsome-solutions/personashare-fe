@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 import { TopNav } from 'components/TopNav/TopNav';
 import LogoSvg from 'assets/logo.svg';
@@ -78,6 +78,8 @@ const signInWithGoogle = async (firebase: Firebase): Promise<string | undefined>
 };
 
 export const Login: FunctionComponent = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const firebase = useFirebase();
   const [signIn, { data }] = useMutation<SignInResponse>(SIGN_IN);
 
@@ -85,16 +87,29 @@ export const Login: FunctionComponent = () => {
     return null;
   }
 
+  const handleBEConnection = async (idToken: string): Promise<void> => {
+    const data = await signIn({ variables: { idToken } });
+    const token = data?.data?.loginUser.accessToken || '';
+
+    if (token) {
+      localStorage.setItem(PS_TOKEN_NAME, token);
+    }
+  };
+
   const handleGoogleLogin = async (): Promise<void> => {
     const idToken = await signInWithGoogle(firebase);
 
     if (idToken) {
-      const data = await signIn({ variables: { idToken } });
-      const token = data?.data?.loginUser.accessToken || '';
+      handleBEConnection(idToken);
+    }
+  };
 
-      if (token) {
-        localStorage.setItem(PS_TOKEN_NAME, token);
-      }
+  const handleLogin = async (email: string, password: string): Promise<void> => {
+    await firebase.auth.signInWithEmailAndPassword(email, password);
+    const idToken = await firebase?.getCurrentUser()?.getIdToken();
+
+    if (idToken) {
+      handleBEConnection(idToken);
     }
   };
 
@@ -106,12 +121,18 @@ export const Login: FunctionComponent = () => {
         <StyledCard>
           <HeyText>Hey!</HeyText>
           <LoginText>Sign into your Account</LoginText>
-          <EmailInput placeholder="Email" />
-          <StyledPasswordInput placeholder="Password" />
+          <EmailInput placeholder="Email" value={email} onChange={event => setEmail(event.target.value)} />
+          <StyledPasswordInput
+            placeholder="Password"
+            value={password}
+            onChange={event => setPassword(event.target.value)}
+          />
           <ResetPassword>
             Forgot your <Link to="/reset-password">Password?</Link>
           </ResetPassword>
-          <LoginButton block>LOGIN</LoginButton>
+          <LoginButton block onClick={() => handleLogin(email, password)}>
+            LOGIN
+          </LoginButton>
           <OrLoginCaption>Or Login using social Media</OrLoginCaption>
           <GoogleButton block onClick={handleGoogleLogin}>
             GOOGLE
