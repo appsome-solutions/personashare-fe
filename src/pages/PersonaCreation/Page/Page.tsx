@@ -19,7 +19,7 @@ export const Page = () => {
   return (
     // @ts-ignore
     <Slate editor={editor} value={value} onChange={value => setValue(value)}>
-      <Editable />
+      <Editable onFocus={() => console.log('test')} />
     </Slate>
   );
 };
