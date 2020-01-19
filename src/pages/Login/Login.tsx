@@ -1,17 +1,54 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
+import { TopNav } from 'components/TopNav/TopNav';
+import LogoSvg from 'assets/logo.svg';
 import { useMutation } from '@apollo/react-hooks';
 import { Firebase, useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
 import { Button } from 'components/Button';
-import { Input } from 'components/Input';
-import { Icon as IconComponent } from 'components/Icon';
-import EmailIconSvg from 'assets/email.svg';
-import { Checkbox } from 'components/Checkbox';
+import { EmailInput } from 'components/EmailInput/EmailInput';
 import { PasswordInput } from 'components/PasswordInput';
+import { Card } from 'components/Card/Card';
+import { Link } from 'react-router-dom';
+import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 
-const RedButton = styled(Button)`
+const Caption = styled.span(props => props.theme.typography.caption);
+
+const StyledLogo = styled.img`
+  margin-top: 46px;
+  margin-bottom: 36px;
+`;
+
+const StyledCard = styled(Card)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 27px 24px 34px;
+`;
+
+const HeyText = styled.h4`
+  margin-bottom: 0;
+`;
+
+const LoginText = styled.h5`
+  margin-bottom: 20px;
+`;
+
+const StyledPasswordInput = styled(PasswordInput)`
+  margin-top: 20px;
+`;
+
+const ResetPassword = styled(Caption)`
+  margin-top: 20px;
+  align-self: flex-end;
+`;
+
+const LoginButton = styled(Button)`
+  margin-top: 28px;
+`;
+
+const GoogleButton = styled(Button)`
   && {
     background-color: #e62b33;
     &&:active,
@@ -22,8 +59,14 @@ const RedButton = styled(Button)`
   }
 `;
 
-const Icon = styled(IconComponent)`
-  background-color: ${props => props.theme.colors.utils.border.mid};
+const OrLoginCaption = styled(Caption)`
+  margin: 18px 0;
+`;
+
+const RegisterCaption = styled(Caption)`
+  text-align: center;
+  margin-top: 32px;
+  margin-bottom: 24px;
 `;
 
 const signInWithGoogle = async (firebase: Firebase): Promise<string | undefined> => {
@@ -35,6 +78,8 @@ const signInWithGoogle = async (firebase: Firebase): Promise<string | undefined>
 };
 
 export const Login: FunctionComponent = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const firebase = useFirebase();
   const [signIn, { data }] = useMutation<SignInResponse>(SIGN_IN);
 
@@ -42,34 +87,67 @@ export const Login: FunctionComponent = () => {
     return null;
   }
 
+  const handleBEConnection = async (idToken: string): Promise<void> => {
+    const data = await signIn({ variables: { idToken } });
+    const token = data?.data?.loginUser.accessToken || '';
+
+    if (token) {
+      localStorage.setItem(PS_TOKEN_NAME, token);
+    }
+  };
+
+  const handleGoogleLogin = async (): Promise<void> => {
+    const idToken = await signInWithGoogle(firebase);
+
+    if (idToken) {
+      handleBEConnection(idToken);
+    }
+  };
+
+  const handleLogin = async (email: string, password: string): Promise<void> => {
+    await firebase.auth.signInWithEmailAndPassword(email, password);
+    const idToken = await firebase?.getCurrentUser()?.getIdToken();
+
+    if (idToken) {
+      handleBEConnection(idToken);
+    }
+  };
+
   return (
     <div>
-      <Button
-        onClick={async () => {
-          const idToken = await signInWithGoogle(firebase);
-
-          if (idToken) {
-            const data = await signIn({ variables: { idToken } });
-            const token = data?.data?.loginUser.accessToken || '';
-
-            if (token) {
-              localStorage.setItem(PS_TOKEN_NAME, token);
-            }
-          }
-        }}
-      >
-        Google Sign In
-      </Button>
-      <RedButton>AAAA</RedButton>
-      <Input suffix={<Icon svgLink={EmailIconSvg} />} />
-      <Checkbox />
-      <PasswordInput />
-      {data?.loginUser && (
-        <div>
-          <div>Access Token</div>
-          <div>{data?.loginUser?.accessToken}</div>
-        </div>
-      )}
+      <TopNav isWithBackArrow />
+      <PageWrapper>
+        <StyledLogo src={LogoSvg} alt="logo" />
+        <StyledCard>
+          <HeyText>Hey!</HeyText>
+          <LoginText>Sign into your Account</LoginText>
+          <EmailInput placeholder="Email" value={email} onChange={event => setEmail(event.target.value)} />
+          <StyledPasswordInput
+            placeholder="Password"
+            value={password}
+            onChange={event => setPassword(event.target.value)}
+          />
+          <ResetPassword>
+            Forgot your <Link to="/reset-password">Password?</Link>
+          </ResetPassword>
+          <LoginButton block onClick={() => handleLogin(email, password)}>
+            LOGIN
+          </LoginButton>
+          <OrLoginCaption>Or Login using social Media</OrLoginCaption>
+          <GoogleButton block onClick={handleGoogleLogin}>
+            GOOGLE
+          </GoogleButton>
+          {data?.loginUser && (
+            <div>
+              <div>Access Token</div>
+              <div>{data?.loginUser?.accessToken}</div>
+            </div>
+          )}
+        </StyledCard>
+        <RegisterCaption>
+          Don’t have account? <Link to="/register">Register Now</Link>
+        </RegisterCaption>
+      </PageWrapper>
     </div>
   );
 };
