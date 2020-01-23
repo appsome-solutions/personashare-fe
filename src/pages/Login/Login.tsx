@@ -12,7 +12,8 @@ import { PasswordInput } from 'components/PasswordInput';
 import { Card } from 'components/Card/Card';
 import { Link } from 'react-router-dom';
 import { PageWrapper } from 'components/PageWrapper/PageWrapper';
-import { Upload } from '../../components/Upload/Upload';
+// TODO: Remove after real integration
+import { StorageExample } from '../../components/StorageExample/StorageExample';
 
 const Caption = styled.span(props => props.theme.typography.caption);
 
@@ -144,7 +145,7 @@ export const Login: FunctionComponent = () => {
               <div>{data?.loginUser?.accessToken}</div>
             </div>
           )}
-          <Upload />
+          <StorageExample />
         </StyledCard>
         <RegisterCaption>
           Don’t have account? <Link to="/register">Register Now</Link>
