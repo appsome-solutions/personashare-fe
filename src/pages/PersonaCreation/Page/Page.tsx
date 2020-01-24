@@ -34,8 +34,8 @@ export const Page = () => {
       <StyledPageWrapper>
         {/* 
   // @ts-ignore */}
-        <Slate editor={editor} value={value} onChange={value => setValue(value)}>
-          <Editable onFocus={() => setActiveTools('bloc')} onBlur={() => setActiveTools(false)} />
+        <Slate editor={editor} value={value} onChange={value => setValue(value)} onBlur={() => setActiveTools(false)}>
+          <Editable onFocus={() => setActiveTools('bloc')} />
           {activeTools === 'bloc' && <BlockTools />}
         </Slate>
       </StyledPageWrapper>

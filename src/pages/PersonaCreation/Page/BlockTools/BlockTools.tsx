@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon';
 import AddSvg from 'assets/add-24px.svg';
+import { DrawerPage } from 'components/DrawerPage/DrawerPage';
 
 export const StyledWrapper = styled.div`
   height: 36px;
@@ -36,7 +37,7 @@ export const BlockTools = () => {
     <StyledWrapper>
       <AddIcon svgLink={AddSvg} />
       <Separator />
-      <TurnInto>Turn into</TurnInto>
+      <DrawerPage OnClickComponent={() => <TurnInto>Turn into</TurnInto>}>Drawer content</DrawerPage>
     </StyledWrapper>
   );
 };
