@@ -1,6 +1,7 @@
-import { auth, apps, initializeApp, User } from 'firebase/app';
+import { auth, apps, initializeApp, User, app, storage } from 'firebase/app';
 import 'firebase/app';
 import 'firebase/auth';
+import 'firebase/storage';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -13,10 +14,11 @@ const config = {
 
 class Firebase {
   auth: auth.Auth;
+  app?: app.App;
 
   constructor() {
     if (!apps.length) {
-      initializeApp(config);
+      this.app = initializeApp(config);
 
       auth().setPersistence(auth.Auth.Persistence.LOCAL);
     }
@@ -46,6 +48,8 @@ class Firebase {
   signIn = async (provider: auth.AuthProvider): Promise<auth.UserCredential> => await auth().signInWithPopup(provider);
 
   signOut = async (): Promise<void> => await auth().signOut();
+
+  getStorageRef = (): storage.Reference | undefined => this.app?.storage().ref();
 }
 
 export default Firebase;
