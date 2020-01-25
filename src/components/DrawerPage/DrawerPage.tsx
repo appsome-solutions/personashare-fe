@@ -34,6 +34,7 @@ const TitleMenu = styled.div`
 const CancelLink = styled.a`
   position: absolute;
   right: 16px;
+  color: ${props => props.theme.colors.utils.text.light};
 `;
 
 export const DrawerPage = ({ title, children, OnClickComponent }: DrawerPageProps) => {

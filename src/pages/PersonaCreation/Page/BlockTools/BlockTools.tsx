@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon';
 import AddSvg from 'assets/add-24px.svg';
+import Heading1 from 'assets/editor_heading1.svg';
 import { DrawerPage } from 'components/DrawerPage/DrawerPage';
+import { BlockMethod } from './BlockMethod/BlockMethod';
 
 export const StyledWrapper = styled.div`
   height: 36px;
@@ -32,13 +34,19 @@ const TurnInto = styled.span`
   margin-left: 8px;
 `;
 
+const DrawerContent = styled.div`
+  margin: 16px 0;
+`;
+
 export const BlockTools = () => {
   return (
     <StyledWrapper>
       <AddIcon svgLink={AddSvg} />
       <Separator />
       <DrawerPage OnClickComponent={() => <TurnInto>Turn into</TurnInto>} title="Turn Into">
-        Drawer content
+        <DrawerContent>
+          <BlockMethod title="Heading 1" svgLink={Heading1} />
+        </DrawerContent>
       </DrawerPage>
     </StyledWrapper>
   );
