@@ -37,7 +37,9 @@ export const BlockTools = () => {
     <StyledWrapper>
       <AddIcon svgLink={AddSvg} />
       <Separator />
-      <DrawerPage OnClickComponent={() => <TurnInto>Turn into</TurnInto>}>Drawer content</DrawerPage>
+      <DrawerPage OnClickComponent={() => <TurnInto>Turn into</TurnInto>} title="Turn Into">
+        Drawer content
+      </DrawerPage>
     </StyledWrapper>
   );
 };

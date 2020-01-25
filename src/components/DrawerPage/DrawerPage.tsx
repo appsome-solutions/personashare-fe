@@ -6,24 +6,42 @@ const StyledDrawer = styled(Drawer)`
   .ant-drawer-content {
     background-color: ${props => props.theme.colors.utils.background.mid};
   }
+
+  .ant-drawer-body {
+    padding: 0;
+  }
 `;
 
 type DrawerPageProps = {
+  title: string;
   children: JSX.Element | string;
-  OnClickComponent: any;
+  OnClickComponent: React.ElementType;
 };
 
-export const DrawerPage = ({ children, OnClickComponent }: DrawerPageProps) => {
+const TitleMenu = styled.div`
+  ${props => props.theme.typography.body2}
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+  padding: 16px;
+  font-weight: 500;
+
+  background-color: ${props => props.theme.colors.main.primary};
+  color: ${props => props.theme.colors.utils.text.light};
+
+  display: flex;
+  justify-content: center;
+`;
+
+const CancelLink = styled.a`
+  position: absolute;
+  right: 16px;
+`;
+
+export const DrawerPage = ({ title, children, OnClickComponent }: DrawerPageProps) => {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
     <>
-      <div
-        onClick={() => {
-          console.log('clicked');
-          setIsOpened(true);
-        }}
-      >
+      <div onClick={() => setIsOpened(true)}>
         <OnClickComponent />
       </div>
       <StyledDrawer
@@ -33,7 +51,10 @@ export const DrawerPage = ({ children, OnClickComponent }: DrawerPageProps) => {
         height="100vh"
         closable={false}
       >
-        <button onClick={() => setIsOpened(false)}> Close </button>
+        <TitleMenu>
+          {title}
+          <CancelLink onClick={() => setIsOpened(false)}>Cancel</CancelLink>
+        </TitleMenu>
         {children}
       </StyledDrawer>
     </>
