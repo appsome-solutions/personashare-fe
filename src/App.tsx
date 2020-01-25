@@ -11,20 +11,25 @@ import { ErrorHandler } from './global/ErrorHandler/ErrorHandler';
 import { AppRouter } from './global/AppRouter/AppRouter';
 import { client } from 'global/ApolloClient/ApolloClient';
 import { FirebaseProvider, Firebase } from './global/Firebase';
+import { StorageProvider, Storage } from './global/Storage';
+
+const firebase = new Firebase();
 
 const App: FunctionComponent = () => (
   <ThemeProvider theme={CoreTheme}>
     <ApolloProvider client={client}>
-      <FirebaseProvider value={new Firebase()}>
-        <RWDProvider>
-          <Router>
-            <GlobalStyles />
-            <ErrorHandler>
-              <AppRouter />
-            </ErrorHandler>
-            <StickyNavigation />
-          </Router>
-        </RWDProvider>
+      <FirebaseProvider value={firebase}>
+        <StorageProvider value={new Storage(firebase.getStorageRef())}>
+          <RWDProvider>
+            <Router>
+              <GlobalStyles />
+              <ErrorHandler>
+                <AppRouter />
+              </ErrorHandler>
+              <StickyNavigation />
+            </Router>
+          </RWDProvider>
+        </StorageProvider>
       </FirebaseProvider>
     </ApolloProvider>
   </ThemeProvider>
