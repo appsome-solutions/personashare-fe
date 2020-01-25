@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon';
+import { useSlate } from 'slate-react';
+import { toggleBlock, EditorBlockFormats } from '../EditorFunctionalities/EditorFunctionalities';
 
-const BlockMethodWrapper = styled.div`
+const BlockButtonWrapper = styled.div`
   border-top: 1px solid ${props => props.theme.colors.functional.disabled};
   border-bottom: 1px solid ${props => props.theme.colors.functional.disabled};
   display: flex;
@@ -21,18 +23,25 @@ const IconWrapper = styled.span`
   border-radius: 4px;
 `;
 
-type BlockMethodType = {
+type BlockButtonType = {
   svgLink: string;
   title: string;
+  format: EditorBlockFormats;
 };
 
-export const BlockMethod = ({ svgLink, title }: BlockMethodType) => {
+export const BlockButton = ({ svgLink, title, format }: BlockButtonType) => {
+  const editor = useSlate();
   return (
-    <BlockMethodWrapper>
+    <BlockButtonWrapper
+      onMouseDown={event => {
+        event.preventDefault();
+        toggleBlock(editor, format);
+      }}
+    >
       <IconWrapper>
         <Icon svgLink={svgLink} />
       </IconWrapper>
       {title}
-    </BlockMethodWrapper>
+    </BlockButtonWrapper>
   );
 };

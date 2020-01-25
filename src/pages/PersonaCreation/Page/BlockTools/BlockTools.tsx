@@ -4,7 +4,7 @@ import { Icon } from 'components/Icon';
 import AddSvg from 'assets/add-24px.svg';
 import Heading1 from 'assets/editor_heading1.svg';
 import { DrawerPage } from 'components/DrawerPage/DrawerPage';
-import { BlockMethod } from './BlockMethod/BlockMethod';
+import { BlockButton } from './BlockButton/BlockButton';
 
 export const StyledWrapper = styled.div`
   height: 36px;
@@ -45,7 +45,7 @@ export const BlockTools = () => {
       <Separator />
       <DrawerPage OnClickComponent={() => <TurnInto>Turn into</TurnInto>} title="Turn Into">
         <DrawerContent>
-          <BlockMethod title="Heading 1" svgLink={Heading1} />
+          <BlockButton title="Heading 1" svgLink={Heading1} format="heading-one" />
         </DrawerContent>
       </DrawerPage>
     </StyledWrapper>
