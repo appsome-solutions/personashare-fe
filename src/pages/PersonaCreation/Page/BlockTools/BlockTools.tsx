@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { Icon } from 'components/Icon';
 import AddSvg from 'assets/add-24px.svg';
 import Heading1 from 'assets/editor_heading1.svg';
+import Heading2 from 'assets/editor_heading2.svg';
+import Heading3 from 'assets/editor_heading3.svg';
+import TextSvg from 'assets/editor_text.svg';
 import { DrawerPage } from 'components/DrawerPage/DrawerPage';
 import { BlockButton } from './BlockButton/BlockButton';
 
@@ -45,7 +48,10 @@ export const BlockTools = () => {
       <Separator />
       <DrawerPage OnClickComponent={() => <TurnInto>Turn into</TurnInto>} title="Turn Into">
         <DrawerContent>
+          <BlockButton title="Text" svgLink={TextSvg} format="paragraph" />
           <BlockButton title="Heading 1" svgLink={Heading1} format="heading-one" />
+          <BlockButton title="Heading 2" svgLink={Heading2} format="heading-two" />
+          <BlockButton title="Heading 3" svgLink={Heading3} format="heading-three" />
         </DrawerContent>
       </DrawerPage>
     </StyledWrapper>

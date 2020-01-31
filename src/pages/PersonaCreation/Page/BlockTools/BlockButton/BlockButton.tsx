@@ -7,7 +7,9 @@ import { useEditorContext } from '../../EditorContext';
 
 const BlockButtonWrapper = styled.div`
   border-top: 1px solid ${props => props.theme.colors.functional.disabled};
-  border-bottom: 1px solid ${props => props.theme.colors.functional.disabled};
+  &:last-child {
+    border-bottom: 1px solid ${props => props.theme.colors.functional.disabled};
+  }
   display: flex;
   align-items: center;
 `;

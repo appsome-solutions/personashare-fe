@@ -7,8 +7,10 @@ export type EditorBlockFormats =
   | 'bulleted-list'
   | 'heading-one'
   | 'heading-two'
+  | 'heading-three'
   | 'list-item'
-  | 'numbered-list';
+  | 'numbered-list'
+  | 'paragraph';
 
 const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 
@@ -22,6 +24,8 @@ export const Element = ({ attributes, children, element }: any) => {
       return <h1 {...attributes}>{children}</h1>;
     case 'heading-two':
       return <h2 {...attributes}>{children}</h2>;
+    case 'heading-three':
+      return <h3 {...attributes}>{children}</h3>;
     case 'list-item':
       return <li {...attributes}>{children}</li>;
     case 'numbered-list':
