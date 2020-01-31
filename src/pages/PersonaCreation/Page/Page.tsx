@@ -14,12 +14,22 @@ import { BlockTools } from './BlockTools/BlockTools';
 import { Element } from './BlockTools/EditorFunctionalities/EditorFunctionalities';
 import { EditorContextProvider, EditorContextType } from './EditorContext';
 
+type ActiveToolsType = 'bloc' | 'inline' | false;
+
+type StyledPageWrapperType = {
+  activeTools: ActiveToolsType;
+};
+
 const StyledPageWrapper = styled(PageWrapper)`
   position: relative;
   padding: 0px;
+  min-height: calc(100vh - 108px);
 `;
 
-type ActiveToolsType = 'bloc' | 'inline' | false;
+const StyledEditable = styled(Editable)<StyledPageWrapperType>`
+  flex: 1;
+  margin-bottom: ${props => (props.activeTools === 'bloc' ? '36px' : '0')};
+`;
 
 export const Page = () => {
   const [activeTools, setActiveTools] = useState<ActiveToolsType>(false);
@@ -52,7 +62,11 @@ export const Page = () => {
             return setValue(value);
           }}
         >
-          <Editable onFocus={() => setActiveTools('bloc')} renderElement={renderElement} />
+          <StyledEditable
+            activeTools={activeTools}
+            onFocus={() => setActiveTools('bloc')}
+            renderElement={renderElement}
+          />
           {activeTools === 'bloc' && <BlockTools />}
         </Slate>
       </StyledPageWrapper>

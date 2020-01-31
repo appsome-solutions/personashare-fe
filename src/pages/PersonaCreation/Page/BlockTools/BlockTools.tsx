@@ -11,8 +11,8 @@ import { BlockButton } from './BlockButton/BlockButton';
 
 export const StyledWrapper = styled.div`
   height: 36px;
-  position: absolute;
-  bottom: 0px;
+  position: fixed;
+  bottom: 50px;
   width: 100%;
 
   display: flex;
