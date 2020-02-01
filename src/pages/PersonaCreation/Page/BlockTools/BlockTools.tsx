@@ -7,6 +7,8 @@ import Heading2 from 'assets/editor_heading2.svg';
 import Heading3 from 'assets/editor_heading3.svg';
 import TextSvg from 'assets/editor_text.svg';
 import QuoteSvg from 'assets/editor_quote.svg';
+import NumberedListSvg from 'assets/editor_numbered_list.svg';
+import BulletedListSvg from 'assets/editor_bulleted_list.svg';
 import { DrawerPage } from 'components/DrawerPage/DrawerPage';
 import { BlockButton } from './BlockButton/BlockButton';
 
@@ -54,6 +56,8 @@ export const BlockTools = () => {
           <BlockButton title="Heading 2" svgLink={Heading2} format="heading-two" />
           <BlockButton title="Heading 3" svgLink={Heading3} format="heading-three" />
           <BlockButton title="Quote" svgLink={QuoteSvg} format="block-quote" />
+          <BlockButton title="Numbered list" svgLink={NumberedListSvg} format="numbered-list" />
+          <BlockButton title="Bulleted list" svgLink={BulletedListSvg} format="bulleted-list" />
         </DrawerContent>
       </DrawerPage>
     </StyledWrapper>

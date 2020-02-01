@@ -20,4 +20,12 @@ export const StyledEditable = styled(Editable)<StyledPageWrapperType>`
     margin-top: 4px;
     margin-bottom: 4px;
   }
+
+  ol {
+    padding-left: 36px;
+
+    li {
+      padding-left: 4px;
+    }
+  }
 `;
