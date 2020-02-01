@@ -6,29 +6,19 @@ import { Editor as EditorType } from 'slate/dist';
 import { createEditor } from 'slate';
 
 // Import the Slate components and React plugin.
-import { Slate, Editable, withReact, ReactEditor } from 'slate-react';
+import { Slate, withReact, ReactEditor } from 'slate-react';
 import { PageWrapper } from 'components/PageWrapper';
 import styled from 'styled-components';
 import { TopNav } from 'components/TopNav/TopNav';
 import { BlockTools } from './BlockTools/BlockTools';
 import { Element } from './BlockTools/EditorFunctionalities/EditorFunctionalities';
 import { EditorContextProvider, EditorContextType } from './EditorContext';
-
-type ActiveToolsType = 'bloc' | 'inline' | false;
-
-type StyledPageWrapperType = {
-  activeTools: ActiveToolsType;
-};
+import { ActiveToolsType, StyledEditable } from './EditorStyles';
 
 const StyledPageWrapper = styled(PageWrapper)`
   position: relative;
   padding: 0px;
   min-height: calc(100vh - 108px);
-`;
-
-const StyledEditable = styled(Editable)<StyledPageWrapperType>`
-  flex: 1;
-  margin-bottom: ${props => (props.activeTools === 'bloc' ? '36px' : '0')};
 `;
 
 export const Page = () => {

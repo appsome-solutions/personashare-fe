@@ -17,6 +17,7 @@ const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 export const Element = ({ attributes, children, element }: any) => {
   switch (element.type) {
     case 'block-quote':
+      console.log(element.type);
       return <blockquote {...attributes}>{children}</blockquote>;
     case 'bulleted-list':
       return <ul {...attributes}>{children}</ul>;
