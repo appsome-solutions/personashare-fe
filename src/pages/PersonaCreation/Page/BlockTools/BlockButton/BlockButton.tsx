@@ -4,6 +4,7 @@ import { Icon } from 'components/Icon';
 import { useSlate } from 'slate-react';
 import { toggleBlock, EditorBlockFormats } from '../EditorFunctionalities/EditorFunctionalities';
 import { useEditorContext } from '../../EditorContext';
+import { Transforms } from 'slate';
 
 const BlockButtonWrapper = styled.div`
   border-top: 1px solid ${props => props.theme.colors.functional.disabled};
@@ -26,13 +27,14 @@ const IconWrapper = styled.span`
   border-radius: 4px;
 `;
 
-type BlockButtonType = {
+export type BlockButtonType = {
   svgLink: string;
   title: string;
   format: EditorBlockFormats;
+  addInNewLine?: boolean;
 };
 
-export const BlockButton = ({ svgLink, title, format }: BlockButtonType) => {
+export const BlockButton = ({ svgLink, title, format, addInNewLine = false }: BlockButtonType) => {
   const editor = useSlate();
   const editorContext = useEditorContext();
 
@@ -40,10 +42,23 @@ export const BlockButton = ({ svgLink, title, format }: BlockButtonType) => {
     <BlockButtonWrapper
       onMouseDown={event => {
         event.preventDefault();
+
         // overriding lost selection with last one:
         editor.selection = editorContext.selection;
-        toggleBlock(editor, format);
+
+        if (addInNewLine && editor.selection) {
+          const newNodeRow = editor.selection.anchor.path[0] + 1;
+
+          Transforms.insertNodes(editor, [{ type: format, children: [{ text: '' }] }], {
+            at: [newNodeRow],
+            select: true,
+          });
+        } else {
+          toggleBlock(editor, format);
+        }
+
         editorContext.closeActiveTools();
+        // editor.focus();
       }}
     >
       <IconWrapper>
