@@ -68,6 +68,7 @@ export const GlobalStyles = createGlobalStyle<ThemeInterface>`
     font-size: 20px;
     text-transform: none;
     letter-spacing: 0.0015em;
+    line-height: 23px;
     color: ${props => props.theme.colors.utils.text.dark};
   }
 `;
