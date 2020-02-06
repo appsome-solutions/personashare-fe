@@ -9,9 +9,10 @@ import {
   GetCardType,
   GetCurrentStepType,
 } from 'global/graphqls/Persona';
-import { TopNav } from 'components/TopNav/TopNav';
 
-import { WideButton } from '../components/WideButton';
+import { TopNav } from 'components/TopNav/TopNav';
+import { WideButton } from 'components/Button/WideButton';
+import { PageWrapperFromBottom } from '../../../components/PageWrapper';
 
 export const CreateCard: FC = () => {
   const [getInitializedState, { data }] = useLazyQuery<GetCurrentStepType>(GET_PERSONA_STEP_PATH);
@@ -44,7 +45,9 @@ export const CreateCard: FC = () => {
   return (
     <div>
       <TopNav isWithBackArrow />
-      <WideButton onClick={onNextClick}>Next</WideButton>
+      <PageWrapperFromBottom>
+        <WideButton onClick={onNextClick}>Next Step</WideButton>
+      </PageWrapperFromBottom>
     </div>
   );
 };

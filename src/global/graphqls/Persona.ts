@@ -4,7 +4,7 @@ import { Persona, PersonaCard, PersonaPage } from 'global/ApolloLinkState/namesp
 
 export type GetPageType = {
   persona: {
-    page: WithTypeName & PersonaPage;
+    page: PersonaPage;
   };
 };
 
@@ -22,7 +22,7 @@ export const GET_PAGE = gql`
 
 export type GetCardType = {
   persona: {
-    card: WithTypeName & PersonaCard;
+    card: PersonaCard;
   };
 };
 

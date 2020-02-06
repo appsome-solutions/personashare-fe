@@ -1,8 +1,12 @@
 import React, { FC, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
+
 import { GET_PAGE, GET_PERSONA_STEP_PATH, GetCurrentStepType, GetPageType } from 'global/graphqls/Persona';
-import { TopNav } from '../../../components/TopNav/TopNav';
+
+import { TopNav } from 'components/TopNav/TopNav';
+import { PageWrapperFromBottom } from '../../../components/PageWrapper';
+import { WideButton } from '../../../components/Button';
 
 export const CreatePage: FC = () => {
   const [getInitializedState, { data }] = useLazyQuery<GetCurrentStepType>(GET_PERSONA_STEP_PATH);
@@ -35,6 +39,9 @@ export const CreatePage: FC = () => {
   return (
     <div>
       <TopNav isWithBackArrow />
+      <PageWrapperFromBottom>
+        <WideButton>Create Persona</WideButton>
+      </PageWrapperFromBottom>
     </div>
   );
 };
