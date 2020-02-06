@@ -20,6 +20,7 @@ export const CoreTheme = {
     },
     functional: {
       disabled: '#B7B7B7',
+      error: '#D42A2A',
     },
   },
 

@@ -1,14 +1,21 @@
 import React from 'react';
+import { object, string, ref, boolean } from 'yup';
+import { useMutation } from '@apollo/react-hooks';
+import { useHistory } from 'react-router-dom';
+import { Formik, Form, ErrorMessage, FormikHelpers, Field } from 'formik';
 import { TopNav } from 'components/TopNav/TopNav';
 import LogoSvg from 'assets/logo.svg';
 import styled from 'styled-components';
 import { Card } from 'components/Card/Card';
 import { EmailInput } from 'components/EmailInput/EmailInput';
-import { Checkbox } from 'components/Checkbox';
 import { Link } from 'react-router-dom';
 import { Button } from 'components/Button';
 import { PasswordInput } from 'components/PasswordInput';
 import { PageWrapper } from 'components/PageWrapper/PageWrapper';
+import { useFirebase } from 'global/Firebase';
+import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
+import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
+import FormikCheckbox from 'components/FormikFields/FormikChecbox/FormikCheckbox';
 
 const StyledLogo = styled.img`
   margin-top: 46px;
@@ -29,7 +36,7 @@ const StyledCard = styled(Card)`
 
 const Caption = styled.span(props => props.theme.typography.caption);
 
-const StyledCheckbox = styled(Checkbox)`
+const StyledCheckbox = styled(FormikCheckbox)`
   align-self: start;
   margin-top: 24px;
 `;
@@ -64,30 +71,97 @@ const StyledPasswordInput = styled(PasswordInput)`
   margin-top: 20px;
 `;
 
+const ErrorField = styled(Field)`
+  display: none;
+`;
+
+const StyledErrorMessage = styled(ErrorMessage)`
+  color: ${props => props.theme.colors.functional.error};
+`;
+
+const validationSchema = object({
+  email: string().email(),
+  password: string().required('Password is required'),
+  repeatPassword: string()
+    .oneOf([ref('password'), null], "Passwords don't match")
+    .required('Password confirm is required'),
+  termsAccepted: boolean()
+    .required('The terms and conditions must be accepted.')
+    .oneOf([true], 'The terms and conditions must be accepted.'),
+});
+
+interface FormValues {
+  email: string;
+  password: string;
+  repeatPassword: string;
+  termsAccepted: boolean;
+  firebaseError: string;
+}
+
+const initialValues: FormValues = {
+  email: '',
+  password: '',
+  repeatPassword: '',
+  termsAccepted: false,
+  firebaseError: '',
+};
+
 export const Register = () => {
+  const firebase = useFirebase();
+  const [signIn] = useMutation<SignInResponse>(SIGN_IN);
+  const history = useHistory();
+
+  const handleRegister = async (
+    { email, password }: FormValues,
+    formikHelpers: FormikHelpers<FormValues>
+  ): Promise<void> => {
+    try {
+      await firebase.createUserWithEmailAndPassword(email, password);
+      const idToken = await firebase?.getCurrentUser()?.getIdToken();
+      const data = await signIn({ variables: { idToken } });
+      const token = data?.data?.loginUser.accessToken || '';
+      if (token) {
+        localStorage.setItem(PS_TOKEN_NAME, token);
+        history.push('./create_persona');
+      }
+    } catch (error) {
+      formikHelpers.setFieldError('firebaseError', error.message);
+    }
+  };
+
   return (
-    <div>
-      <TopNav isWithBackArrow />
-      <PageWrapper>
-        <StyledLogo src={LogoSvg} alt="logo" />
-        <StyledCard>
-          <CreateAccountText> Create Account </CreateAccountText>
-          <EmailInput placeholder="Email" />
-          <StyledPasswordInput placeholder="Password" />
-          <StyledPasswordInput placeholder="Repeat password" />
-          <StyledCheckbox>
-            <Caption>
-              I read and agree to <Link to="/terms-and-conditions">Terms & Conditions</Link>
-            </Caption>
-          </StyledCheckbox>
-          <RegisterButton block>REGISTER NOW</RegisterButton>
-          <OrRegisterCaption>Or Register using social Media</OrRegisterCaption>
-          <GoogleButton block>GOOGLE</GoogleButton>
-        </StyledCard>
-        <LogInCaption>
-          Already have an account? <Link to="/login">Login</Link>
-        </LogInCaption>
-      </PageWrapper>
-    </div>
+    <Formik initialValues={initialValues} onSubmit={handleRegister} validationSchema={validationSchema}>
+      {() => (
+        <Form translate>
+          <div>
+            <TopNav isWithBackArrow />
+            <PageWrapper>
+              <StyledLogo src={LogoSvg} alt="logo" />
+              <StyledCard>
+                <CreateAccountText> Create Account </CreateAccountText>
+                <EmailInput name="email" placeholder="Email" />
+                <StyledPasswordInput name="password" placeholder="Password" />
+                <StyledPasswordInput name="repeatPassword" placeholder="Repeat password" />
+                <ErrorField name="firebaseError" />
+                <StyledErrorMessage component="div" name="firebaseError" />
+                <StyledCheckbox name="termsAccepted">
+                  <Caption>
+                    I read and agree to <Link to="/terms-and-conditions">Terms & Conditions</Link>
+                  </Caption>
+                </StyledCheckbox>
+                <RegisterButton htmlType="submit" block>
+                  REGISTER NOW
+                </RegisterButton>
+                <OrRegisterCaption>Or Register using social Media</OrRegisterCaption>
+                <GoogleButton block>GOOGLE</GoogleButton>
+              </StyledCard>
+              <LogInCaption>
+                Already have an account? <Link to="/login">Login</Link>
+              </LogInCaption>
+            </PageWrapper>
+          </div>
+        </Form>
+      )}
+    </Formik>
   );
 };
