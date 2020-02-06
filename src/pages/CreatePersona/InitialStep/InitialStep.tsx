@@ -1,8 +1,5 @@
 import React, { FC, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useMutation } from '@apollo/react-hooks';
-
-import { CHANGE_PERSONA_STEP_PATH } from 'global/graphqls/Persona';
 
 import { TopNav } from 'components/TopNav/TopNav';
 import { PageWrapperFromBottom } from 'components/PageWrapper';
@@ -10,16 +7,13 @@ import { InfoCard } from 'components/InfoCard/InfoCard';
 import { WideButton } from 'components/Button';
 
 export const InitialStep: FC = () => {
-  const [personaStepPath] = useMutation(CHANGE_PERSONA_STEP_PATH);
   const history = useHistory();
 
   const onNextClick = useCallback((): void => {
-    personaStepPath({ variables: { personaStepPath: 'card' } }).then(_r => {
-      history.push({
-        pathname: 'createpersona/card',
-      });
+    history.push({
+      pathname: 'createpersona/card',
     });
-  }, [personaStepPath, history]);
+  }, [history]);
 
   return (
     <div>

@@ -10,7 +10,6 @@ export type PersonaCard = WithTypeName & {
 export type PersonaPage = WithTypeName & Pick<PersonaCard, 'avatar' | 'background'> & { content: string };
 
 export type Persona = WithTypeName & {
-  personaStepPath: string;
   card: PersonaCard | null;
   page: PersonaPage | null;
   personaUUIDs: string[];

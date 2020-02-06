@@ -1,40 +1,32 @@
 import React, { FC, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { isEqual } from 'lodash';
 
-import { GET_PAGE, GET_PERSONA_STEP_PATH, GetCurrentStepType, GetPageType } from 'global/graphqls/Persona';
+import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/Persona';
+import { cardDefaults } from 'global/ApolloLinkState/persona';
 
 import { TopNav } from 'components/TopNav/TopNav';
-import { PageWrapperFromBottom } from '../../../components/PageWrapper';
-import { WideButton } from '../../../components/Button';
+import { PageWrapperFromBottom } from 'components/PageWrapper';
+import { WideButton } from 'components/Button';
 
 export const CreatePage: FC = () => {
-  const [getInitializedState, { data }] = useLazyQuery<GetCurrentStepType>(GET_PERSONA_STEP_PATH);
-  const [getPage, pageData] = useLazyQuery<GetPageType>(GET_PAGE);
-  const history = useHistory();
+  const [getPage, { data }] = useLazyQuery<GetPageType>(GET_PAGE);
+  const [getCard, card] = useLazyQuery<GetCardType>(GET_CARD);
 
   useEffect(() => {
-    getInitializedState();
     getPage();
-  }, [getInitializedState, getPage]);
+    getCard();
+  }, [getPage, getCard]);
 
-  useEffect(() => {
-    if (data) {
-      if (data.persona.personaStepPath === '') {
-        history.push({
-          pathname: 'createpersona',
-        });
-      }
+  if (card && card.data && isEqual(cardDefaults, card.data.persona.card)) {
+    return <Redirect to="/createpersona/card" />;
+  }
 
-      if (data.persona.personaStepPath === 'card') {
-        history.push({
-          pathname: 'createpersona/card',
-        });
-      }
-    }
-  }, [data, history]);
-
-  console.error(pageData.data);
+  if (data) {
+    // TODO: integrate with formik
+    console.error(data.persona.page);
+  }
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import { Resolvers } from 'apollo-boost';
 
-import { GET_CARD, GET_PAGE, GET_PERSONA_STEP_PATH } from 'global/graphqls/Persona';
+import { GET_CARD, GET_PAGE } from 'global/graphqls/Persona';
 
 import { Persona, PersonaCard, PersonaPage } from './namespace';
 
@@ -21,7 +21,6 @@ const pageDefaults: PersonaPage = {
 
 const personaDefaults: Persona = {
   __typename: 'Persona',
-  personaStepPath: '',
   card: cardDefaults,
   page: pageDefaults,
   personaUUIDs: [],
@@ -29,23 +28,6 @@ const personaDefaults: Persona = {
 
 const personaResolvers: Resolvers = {
   Mutation: {
-    changePersonaStepPath: (_, { personaStepPath }: Persona, { cache }) => {
-      const previousState = cache.readQuery({ query: GET_PERSONA_STEP_PATH });
-
-      const data = {
-        persona: {
-          ...previousState.persona,
-          personaStepPath,
-        },
-      };
-
-      cache.writeQuery({
-        query: GET_PERSONA_STEP_PATH,
-        data,
-      });
-
-      return personaStepPath;
-    },
     changeCard: (_, { card }: Persona, { cache }) => {
       const previousState = cache.readQuery({ query: GET_CARD });
 
@@ -83,4 +65,4 @@ const personaResolvers: Resolvers = {
   },
 };
 
-export { personaDefaults, personaResolvers };
+export { personaDefaults, personaResolvers, pageDefaults, cardDefaults };
