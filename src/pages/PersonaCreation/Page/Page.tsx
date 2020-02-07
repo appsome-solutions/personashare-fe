@@ -1,6 +1,6 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState, FC } from 'react';
 import _ from 'lodash';
-import { Editor as EditorType } from 'slate/dist';
+import { Editor as EditorType, Node, Element as EditorElement } from 'slate/dist';
 
 // Import the Slate editor factory.
 import { createEditor } from 'slate';
@@ -17,11 +17,11 @@ import { ActiveToolsType, StyledEditable } from './EditorStyles';
 
 const StyledPageWrapper = styled(PageWrapper)`
   position: relative;
-  padding: 0px;
+  padding: 0;
   min-height: calc(100vh - 108px);
 `;
 
-export const Page = () => {
+export const Page: FC = () => {
   const [activeTools, setActiveTools] = useState<ActiveToolsType>(false);
   const editor: EditorType = useMemo(() => withReact(createEditor()), []);
   const renderElement = useCallback(props => <Element {...props} />, []);
@@ -33,7 +33,7 @@ export const Page = () => {
   };
 
   // Add the initial value when setting up our state.
-  const [value, setValue] = useState([
+  const [value, setValue] = useState<EditorElement[]>([
     {
       type: 'paragraph',
       children: [{ text: 'A line of text in a paragraph.' }],
@@ -47,9 +47,8 @@ export const Page = () => {
         <Slate
           editor={editor as ReactEditor}
           value={value}
-          onChange={value => {
-            // @ts-ignore
-            return setValue(value);
+          onChange={(value: Node[]) => {
+            setValue(value as EditorElement[]);
           }}
         >
           <StyledEditable
