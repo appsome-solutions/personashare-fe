@@ -19,6 +19,11 @@ class ErrorHandlerClass extends Component<ErrorHandlerClassProps, ErrorHandlerSt
   }
 
   render(): ReactNode {
+    // to have errors on development:
+    if (process.env.NODE_ENV === 'development') {
+      return this.props.children;
+    }
+
     if (this.state.errorOccurred) {
       setTimeout(() => window.location.reload(), 5000);
     }
