@@ -1,5 +1,7 @@
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Editable } from 'slate-react';
+import { EditableProps } from 'slate-react/dist/components/editable';
 
 export type ActiveToolsType = 'bloc' | 'inline' | false;
 
@@ -7,7 +9,12 @@ type StyledPageWrapperType = {
   activeTools: ActiveToolsType;
 };
 
-export const StyledEditable = styled(Editable)<StyledPageWrapperType>`
+type StyledEditableProps = StyledPageWrapperType & EditableProps;
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const StyledEditable = styled<FC<StyledEditableProps>>(({ activeTools, ...restProps }: StyledEditableProps) => (
+  <Editable {...restProps} />
+))`
   flex: 1;
   margin: 8px;
   margin-bottom: ${props => (props.activeTools === 'bloc' ? '36px' : '0')};

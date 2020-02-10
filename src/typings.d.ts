@@ -14,3 +14,7 @@ export type TranslationsType = typeof Dictionary.pl.translation;
 declare module 'react-i18next' {
   export function t(translate: TranslationsType): string;
 }
+
+export interface WithTypeName {
+  __typename: string;
+}
