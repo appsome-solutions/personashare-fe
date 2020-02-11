@@ -12,4 +12,18 @@ const StyledInput = styled(AntInput)`
   }
 `;
 
-export const Input = (props: InputProps) => <StyledInput {...props} />;
+const PasswordInput = styled(AntInput.Password)`
+  && {
+    padding-right: 30px;
+  }
+`;
+
+export type Props = InputProps & {
+  hasError?: boolean;
+  visibilityToggle?: boolean;
+};
+
+export const Input = (props: Props) => {
+  const InputComponent = props.type === 'password' ? PasswordInput : StyledInput;
+  return <InputComponent {...props} />;
+};
