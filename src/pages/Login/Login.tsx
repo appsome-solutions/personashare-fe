@@ -1,7 +1,10 @@
 import React, { FunctionComponent, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { TopNav } from 'components/TopNav/TopNav';
 import LogoSvg from 'assets/logo.svg';
+import { Formik, Form } from 'formik';
+import { object, string, InferType } from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 import { Firebase, useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
@@ -14,6 +17,7 @@ import { Link } from 'react-router-dom';
 import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 // TODO: Remove after real integration
 import { StorageExample } from '../../components/StorageExample/StorageExample';
+import { Stepper } from 'components/Stepper';
 
 const Caption = styled.span(props => props.theme.typography.caption);
 
@@ -71,6 +75,17 @@ const RegisterCaption = styled(Caption)`
   margin-bottom: 24px;
 `;
 
+const StyledErrorMessage = styled.div`
+  color: ${props => props.theme.colors.functional.error};
+`;
+
+const validationSchema = object({
+  email: string().email(),
+  password: string().required('Password is required'),
+});
+
+type FormValues = InferType<typeof validationSchema>;
+
 const signInWithGoogle = async (firebase: Firebase): Promise<string | undefined> => {
   const provider = firebase.googleProvider();
   provider && (await firebase.signIn(provider));
@@ -79,11 +94,16 @@ const signInWithGoogle = async (firebase: Firebase): Promise<string | undefined>
   return user?.getIdToken(true);
 };
 
+const initialValues: FormValues = {
+  email: '',
+  password: '',
+};
+
 export const Login: FunctionComponent = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [apiError, setApiError] = useState('');
   const firebase = useFirebase();
   const [signIn, { data }] = useMutation<SignInResponse>(SIGN_IN);
+  const history = useHistory();
 
   if (!firebase) {
     return null;
@@ -95,6 +115,7 @@ export const Login: FunctionComponent = () => {
 
     if (token) {
       localStorage.setItem(PS_TOKEN_NAME, token);
+      history.push('./create_persona');
     }
   };
 
@@ -106,51 +127,59 @@ export const Login: FunctionComponent = () => {
     }
   };
 
-  const handleLogin = async (email: string, password: string): Promise<void> => {
-    await firebase.auth.signInWithEmailAndPassword(email, password);
-    const idToken = await firebase?.getCurrentUser()?.getIdToken();
+  const handleLogin = async ({ email, password }: FormValues): Promise<void> => {
+    try {
+      await firebase.auth.signInWithEmailAndPassword(email, password);
+      const idToken = await firebase?.getCurrentUser()?.getIdToken();
 
-    if (idToken) {
-      handleBEConnection(idToken);
+      if (idToken) {
+        handleBEConnection(idToken);
+      }
+    } catch (error) {
+      setApiError(error.message);
     }
   };
 
   return (
-    <div>
-      <TopNav isWithBackArrow />
-      <PageWrapper>
-        <StyledLogo src={LogoSvg} alt="logo" />
-        <StyledCard>
-          <HeyText>Hey!</HeyText>
-          <LoginText>Sign into your Account</LoginText>
-          <EmailInput placeholder="Email" value={email} onChange={event => setEmail(event.target.value)} />
-          <StyledPasswordInput
-            placeholder="Password"
-            value={password}
-            onChange={event => setPassword(event.target.value)}
-          />
-          <ResetPassword>
-            Forgot your <Link to="/reset-password">Password?</Link>
-          </ResetPassword>
-          <LoginButton block onClick={() => handleLogin(email, password)}>
-            LOGIN
-          </LoginButton>
-          <OrLoginCaption>Or Login using social Media</OrLoginCaption>
-          <GoogleButton block onClick={handleGoogleLogin}>
-            GOOGLE
-          </GoogleButton>
-          {data?.loginUser && (
-            <div>
-              <div>Access Token</div>
-              <div>{data?.loginUser?.accessToken}</div>
-            </div>
-          )}
-          <StorageExample />
-        </StyledCard>
-        <RegisterCaption>
-          Don’t have account? <Link to="/register">Register Now</Link>
-        </RegisterCaption>
-      </PageWrapper>
-    </div>
+    <Formik initialValues={initialValues} onSubmit={handleLogin} validationSchema={validationSchema}>
+      {() => (
+        <Form>
+          <div>
+            <TopNav isWithBackArrow />
+            <PageWrapper>
+              <StyledLogo src={LogoSvg} alt="logo" />
+              <StyledCard>
+                <Stepper items={[1, 2, 3]} current={2} />
+                <HeyText>Hey!</HeyText>
+                <LoginText>Sign into your Account</LoginText>
+                <EmailInput name="email" placeholder="Email" />
+                <StyledPasswordInput name="password" placeholder="Password" />
+                <StyledErrorMessage>{apiError}</StyledErrorMessage>
+                <ResetPassword>
+                  Forgot your <Link to="/reset-password">Password?</Link>
+                </ResetPassword>
+                <LoginButton block htmlType="submit">
+                  LOGIN
+                </LoginButton>
+                <OrLoginCaption>Or Login using social Media</OrLoginCaption>
+                <GoogleButton block onClick={handleGoogleLogin}>
+                  GOOGLE
+                </GoogleButton>
+                {data?.loginUser && (
+                  <div>
+                    <div>Access Token</div>
+                    <div>{data?.loginUser?.accessToken}</div>
+                  </div>
+                )}
+                <StorageExample />
+              </StyledCard>
+              <RegisterCaption>
+                Don’t have account? <Link to="/register">Register Now</Link>
+              </RegisterCaption>
+            </PageWrapper>
+          </div>
+        </Form>
+      )}
+    </Formik>
   );
 };

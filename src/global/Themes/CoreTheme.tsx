@@ -22,7 +22,7 @@ export const CoreTheme = {
     },
     functional: {
       disabled: '#B7B7B7',
-      error: '#E62B33',
+      error: '#D42A2A',
     },
   },
 
