@@ -34,6 +34,7 @@
       {
         "allowExpressions": true
       }
-    ]
+    ],
+    "@typescript-eslint/ban-ts-ignore": "warn"
   }
 }

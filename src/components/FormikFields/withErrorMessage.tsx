@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
-import { ErrorMessage } from 'formik';
+import { ErrorMessage, FieldProps } from 'formik';
 import styled from 'styled-components';
 
-type fieldComponent = (props: any) => ReactElement<any>;
+type fieldComponent = (props: FieldProps) => ReactElement<any>;
 
 const WithErrorMessageContainer = styled.div`
   width: 100%;
