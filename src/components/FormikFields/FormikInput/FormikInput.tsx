@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { ChangeEvent } from 'react';
-import { Field } from 'formik';
+import { Field, FieldProps } from 'formik';
 import get from 'lodash/get';
 import { Input, Props as InputProps } from 'components/Input';
 import { setFieldValueAndTouched } from '../helpers';
@@ -27,5 +27,7 @@ const CustomInputComponent = (props: FormikInputProps) => {
 };
 
 export default React.memo<InputProps>((props: InputProps) => (
-  <Field {...props}>{(fieldProps: any) => withErrorMessage(CustomInputComponent)({ ...props, ...fieldProps })}</Field>
+  <Field {...props}>
+    {(fieldProps: FieldProps) => withErrorMessage(CustomInputComponent)({ ...props, ...fieldProps })}
+  </Field>
 ));

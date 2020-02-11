@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { TopNav } from 'components/TopNav/TopNav';
 import LogoSvg from 'assets/logo.svg';
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
-import { object, string } from 'yup';
+import { Formik, Form } from 'formik';
+import { object, string, InferType } from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 import { Firebase, useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
@@ -75,24 +75,16 @@ const RegisterCaption = styled(Caption)`
   margin-bottom: 24px;
 `;
 
-const ErrorField = styled(Field)`
-  display: none;
-`;
-
-const StyledErrorMessage = styled(ErrorMessage)`
+const StyledErrorMessage = styled.div`
   color: ${props => props.theme.colors.functional.error};
 `;
-
-interface FormValues {
-  email: string;
-  password: string;
-  firebaseError: string;
-}
 
 const validationSchema = object({
   email: string().email(),
   password: string().required('Password is required'),
 });
+
+type FormValues = InferType<typeof validationSchema>;
 
 const signInWithGoogle = async (firebase: Firebase): Promise<string | undefined> => {
   const provider = firebase.googleProvider();
@@ -105,10 +97,10 @@ const signInWithGoogle = async (firebase: Firebase): Promise<string | undefined>
 const initialValues: FormValues = {
   email: '',
   password: '',
-  firebaseError: '',
 };
 
 export const Login: FunctionComponent = () => {
+  const [apiError, setApiError] = useState('');
   const firebase = useFirebase();
   const [signIn, { data }] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
@@ -135,10 +127,7 @@ export const Login: FunctionComponent = () => {
     }
   };
 
-  const handleLogin = async (
-    { email, password }: FormValues,
-    formikHelpers: FormikHelpers<FormValues>
-  ): Promise<void> => {
+  const handleLogin = async ({ email, password }: FormValues): Promise<void> => {
     try {
       await firebase.auth.signInWithEmailAndPassword(email, password);
       const idToken = await firebase?.getCurrentUser()?.getIdToken();
@@ -147,14 +136,14 @@ export const Login: FunctionComponent = () => {
         handleBEConnection(idToken);
       }
     } catch (error) {
-      formikHelpers.setFieldError('firebaseError', error.message);
+      setApiError(error.message);
     }
   };
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleLogin} validationSchema={validationSchema}>
       {() => (
-        <Form translate>
+        <Form>
           <div>
             <TopNav isWithBackArrow />
             <PageWrapper>
@@ -165,8 +154,7 @@ export const Login: FunctionComponent = () => {
                 <LoginText>Sign into your Account</LoginText>
                 <EmailInput name="email" placeholder="Email" />
                 <StyledPasswordInput name="password" placeholder="Password" />
-                <ErrorField name="firebaseError" />
-                <StyledErrorMessage component="div" name="firebaseError" />
+                <StyledErrorMessage>{apiError}</StyledErrorMessage>
                 <ResetPassword>
                   Forgot your <Link to="/reset-password">Password?</Link>
                 </ResetPassword>

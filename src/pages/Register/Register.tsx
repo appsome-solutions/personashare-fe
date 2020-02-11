@@ -1,8 +1,8 @@
-import React from 'react';
-import { object, string, ref, boolean } from 'yup';
+import React, { useState } from 'react';
+import { object, string, ref, boolean, InferType } from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
-import { Formik, Form, ErrorMessage, FormikHelpers, Field } from 'formik';
+import { Formik, Form } from 'formik';
 import { TopNav } from 'components/TopNav/TopNav';
 import LogoSvg from 'assets/logo.svg';
 import styled from 'styled-components';
@@ -71,11 +71,7 @@ const StyledPasswordInput = styled(PasswordInput)`
   margin-top: 20px;
 `;
 
-const ErrorField = styled(Field)`
-  display: none;
-`;
-
-const StyledErrorMessage = styled(ErrorMessage)`
+const StyledErrorMessage = styled.div`
   color: ${props => props.theme.colors.functional.error};
 `;
 
@@ -90,31 +86,22 @@ const validationSchema = object({
     .oneOf([true], 'The terms and conditions must be accepted.'),
 });
 
-interface FormValues {
-  email: string;
-  password: string;
-  repeatPassword: string;
-  termsAccepted: boolean;
-  firebaseError: string;
-}
+type FormValues = InferType<typeof validationSchema>;
 
 const initialValues: FormValues = {
   email: '',
   password: '',
   repeatPassword: '',
   termsAccepted: false,
-  firebaseError: '',
 };
 
 export const Register = () => {
+  const [apiError, setApiError] = useState('');
   const firebase = useFirebase();
   const [signIn] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
 
-  const handleRegister = async (
-    { email, password }: FormValues,
-    formikHelpers: FormikHelpers<FormValues>
-  ): Promise<void> => {
+  const handleRegister = async ({ email, password }: FormValues): Promise<void> => {
     try {
       await firebase.createUserWithEmailAndPassword(email, password);
       const idToken = await firebase?.getCurrentUser()?.getIdToken();
@@ -125,14 +112,14 @@ export const Register = () => {
         history.push('./create_persona');
       }
     } catch (error) {
-      formikHelpers.setFieldError('firebaseError', error.message);
+      setApiError(error.message);
     }
   };
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleRegister} validationSchema={validationSchema}>
       {() => (
-        <Form translate>
+        <Form>
           <div>
             <TopNav isWithBackArrow />
             <PageWrapper>
@@ -142,8 +129,7 @@ export const Register = () => {
                 <EmailInput name="email" placeholder="Email" />
                 <StyledPasswordInput name="password" placeholder="Password" />
                 <StyledPasswordInput name="repeatPassword" placeholder="Repeat password" />
-                <ErrorField name="firebaseError" />
-                <StyledErrorMessage component="div" name="firebaseError" />
+                <StyledErrorMessage>{apiError}</StyledErrorMessage>
                 <StyledCheckbox name="termsAccepted">
                   <Caption>
                     I read and agree to <Link to="/terms-and-conditions">Terms & Conditions</Link>
