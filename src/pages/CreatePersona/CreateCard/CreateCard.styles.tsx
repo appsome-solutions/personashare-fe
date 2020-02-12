@@ -1,26 +1,29 @@
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Input as AntInput } from 'antd';
 
 import EditIcon from 'assets/edit_icon.svg';
+import { InputProps } from 'antd/lib/input/Input';
 
-type CardInputProps = {
+type CardInputProps = InputProps & {
   hasError: boolean;
 };
 
-export const CardName = styled(AntInput)<CardInputProps>`
-  background-color: ${props => props.theme.colors.utils.background.light};
+const CardInput = styled(AntInput)`
   text-align: center;
-  border: ${props => (props.hasError ? '1px solid #E62B33' : 0)};
-  ${props => props.theme.typography.subtitle2}
+  background-color: ${props => props.theme.colors.utils.background.light};
 `;
 
-export const CardDescription = styled(AntInput)<CardInputProps>`
-  background-color: ${props => props.theme.colors.utils.background.light};
+export const CardName = styled<FC<CardInputProps>>(({ hasError, ...restProps }) => <CardInput {...restProps} />)`
+  ${props => props.theme.typography.subtitle2};
+  border: ${props => (props.hasError ? '1px solid #E62B33' : 0)};
+`;
+
+export const CardDescription = styled<FC<CardInputProps>>(({ hasError, ...restProps }) => <CardInput {...restProps} />)`
+  ${props => props.theme.typography.body2};
+  border: ${props => (props.hasError ? '1px solid #E62B33' : 0)};
   margin-top: 23px;
   margin-bottom: 34px;
-  border: ${props => (props.hasError ? '1px solid #E62B33' : 0)};
-  text-align: center;
-  ${props => props.theme.typography.body2}
 `;
 
 export const CardBody = styled.div`

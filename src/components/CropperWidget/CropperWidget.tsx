@@ -56,7 +56,7 @@ export const CropperWidget: FC<CropperWidgetProps> = ({ imageRef, onCrop }) => {
         minCropBoxHeight: imageRef.minCropBoxHeight || 154,
         background: true,
         responsive: true,
-        viewMode: 1,
+        viewMode: 3,
       });
     }
   }, [imageRef]);

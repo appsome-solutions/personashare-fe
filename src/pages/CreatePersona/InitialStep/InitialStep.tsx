@@ -2,10 +2,10 @@ import React, { FC, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { TopNav } from 'components/TopNav/TopNav';
-import { PageWrapperFromBottom } from 'components/PageWrapper';
+import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { InfoCard } from 'components/InfoCard/InfoCard';
 import { WideButton } from 'components/Button';
-import { MockedStepper } from 'components/MockedStepper/MockedStepper';
+import { Stepper } from 'components/Stepper';
 
 export const InitialStep: FC = () => {
   const history = useHistory();
@@ -19,14 +19,16 @@ export const InitialStep: FC = () => {
   return (
     <div>
       <TopNav isWithBackArrow />
-      <PageWrapperFromBottom>
-        <MockedStepper justifyContent="center">Mocked Stepper</MockedStepper>
-        <InfoCard title="Welcome in a Persona Share!" marginBottom={173}>
-          The only application on the market where you decide which data you want share. Just create your first
-          predefined set of data you want to exchange with 3 simple steps.
-        </InfoCard>
+      <PageWrapperSpaceBetween>
+        <div>
+          <Stepper items={[1, 2, 3]} current={1} mb={31} />
+          <InfoCard title="Welcome in a Persona Share!">
+            The only application on the market where you decide which data you want share. Just create your first
+            predefined set of data you want to exchange with 3 simple steps.
+          </InfoCard>
+        </div>
         <WideButton onClick={onNextClick}>Next Step</WideButton>
-      </PageWrapperFromBottom>
+      </PageWrapperSpaceBetween>
     </div>
   );
 };

@@ -1,5 +1,4 @@
-/* eslint-disable react/display-name */
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Field, FieldProps } from 'formik';
 import get from 'lodash/get';
 import { Checkbox } from 'components/Checkbox';
@@ -9,7 +8,7 @@ import { CheckboxProps, CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 type FormikCheckboxProps = CheckboxProps & FieldProps;
 
-const CustomInputComponent = (props: FormikCheckboxProps) => {
+const CustomInputComponent = (props: FormikCheckboxProps): ReactElement<FormikCheckboxProps> => {
   const { field, form, value, onChange, ...fieldProps } = props;
   const inputValue = value || get(form.values, field.name);
   return (
@@ -26,6 +25,12 @@ const CustomInputComponent = (props: FormikCheckboxProps) => {
   );
 };
 
-export default React.memo<CheckboxProps>((props: CheckboxProps) => (
-  <Field {...props}>{(fieldProps: any) => withErrorMessage(CustomInputComponent)({ ...props, ...fieldProps })}</Field>
+const FormikCheckbox = React.memo<CheckboxProps>((props: CheckboxProps) => (
+  <Field {...props}>
+    {(fieldProps: any) => withErrorMessage<FormikCheckboxProps>(CustomInputComponent)({ ...props, ...fieldProps })}
+  </Field>
 ));
+
+FormikCheckbox.displayName = 'FormikCheckbox';
+
+export default FormikCheckbox;
