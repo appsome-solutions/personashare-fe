@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import Cropper from 'cropperjs';
+
 import { Portal } from '../Portal/Portal';
 import { WideButton } from '../Button';
-import Cropper from 'cropperjs';
 
 export type ImageRef = {
   blobUrl: string;
@@ -31,6 +32,7 @@ const WidgetWrapper = styled.div`
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   width: 100%;
   z-index: 90000000;
+  transition: 400ms ease all;
 `;
 
 const Overlay = styled.div`
@@ -40,6 +42,7 @@ const Overlay = styled.div`
   height: 100%;
   background-color: ${props => props.theme.colors.functional.disabled};
   opacity: 0.75;
+  z-index: 1000;
 `;
 
 export const CropperWidget: FC<CropperWidgetProps> = ({ imageRef, onCrop }) => {

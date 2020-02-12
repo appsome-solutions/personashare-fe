@@ -40,7 +40,7 @@ export const CreateCard: FC = () => {
   const history = useHistory();
   const initialValues = data ? data.persona.card : cardInitialValues;
 
-  const { values, setFieldValue, setFieldTouched, handleSubmit, errors } = useFormik<CardType>({
+  const { values, setFieldValue, setFieldTouched, handleSubmit, errors, isValid } = useFormik<CardType>({
     initialValues,
     onSubmit: formValues => {
       updateCard({
@@ -135,7 +135,9 @@ export const CreateCard: FC = () => {
               />
             </CardBody>
           </Card>
-          <WideButton htmlType="submit">Next Step</WideButton>
+          <WideButton htmlType="submit" disabled={!isValid}>
+            Next Step
+          </WideButton>
         </form>
       </PageWrapperSpaceBetween>
       <CropperWidget imageRef={imageRef} onCrop={onCrop} />
