@@ -36,7 +36,7 @@ const WidgetWrapper = styled.div`
 `;
 
 const Overlay = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   height: 100%;

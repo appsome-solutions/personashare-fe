@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, useState, useCallback } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -58,41 +58,56 @@ export const CreateCard: FC = () => {
 
   const { name, description, avatar, background } = values;
 
-  const onAvatarChange = (avatarFile: File): void => {
-    setImageRef({
-      blobUrl: URL.createObjectURL(avatarFile),
-      fieldName: 'avatar',
-      blob: avatarFile,
-      minCropBoxHeight: 42,
-      aspectRatio: 1,
-    });
-  };
+  const onAvatarChange = useCallback(
+    (avatarFile: File): void => {
+      setImageRef({
+        blobUrl: URL.createObjectURL(avatarFile),
+        fieldName: 'avatar',
+        blob: avatarFile,
+        minCropBoxHeight: 42,
+        aspectRatio: 1,
+      });
+    },
+    [setImageRef]
+  );
 
-  const onBgChange = (bgFile: File): void => {
-    setImageRef({
-      blobUrl: URL.createObjectURL(bgFile),
-      fieldName: 'background',
-      blob: bgFile,
-      minCropBoxHeight: 154,
-      aspectRatio: (window.innerWidth - 32) / 154,
-    });
-  };
+  const onBgChange = useCallback(
+    (bgFile: File): void => {
+      setImageRef({
+        blobUrl: URL.createObjectURL(bgFile),
+        fieldName: 'background',
+        blob: bgFile,
+        minCropBoxHeight: 154,
+        aspectRatio: (window.innerWidth - 32) / 154,
+      });
+    },
+    [setImageRef]
+  );
 
-  const onCrop = (data: ImageRef): void => {
-    setFieldValue(data.fieldName, URL.createObjectURL(data.blob));
-    setFieldTouched(data.fieldName, true, true);
-    setImageRef(initialState);
-  };
+  const onCrop = useCallback(
+    (data: ImageRef): void => {
+      setFieldValue(data.fieldName, URL.createObjectURL(data.blob));
+      setFieldTouched(data.fieldName, true, true);
+      setImageRef(initialState);
+    },
+    [setFieldValue, setFieldTouched, setImageRef]
+  );
 
-  const handleNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setFieldValue('name', e.target.value);
-    setFieldTouched('name', true, true);
-  };
+  const handleNameChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      setFieldValue('name', e.target.value);
+      setFieldTouched('name', true, true);
+    },
+    [setFieldValue, setFieldTouched]
+  );
 
-  const handleDescriptionChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setFieldValue('description', e.target.value);
-    setFieldTouched('description', true, true);
-  };
+  const handleDescriptionChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      setFieldValue('description', e.target.value);
+      setFieldTouched('description', true, true);
+    },
+    [setFieldValue, setFieldTouched]
+  );
 
   return (
     <div>
