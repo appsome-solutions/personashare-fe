@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Cropper from 'cropperjs';
 
@@ -47,20 +47,22 @@ const Overlay = styled.div`
 
 export const CropperWidget: FC<CropperWidgetProps> = ({ imageRef, onCrop }) => {
   const ref = useRef<HTMLImageElement>(null);
-  let cropper: Cropper;
+  const [cropper, setCropper] = useState<Cropper>();
 
   useEffect(() => {
     if (ref.current) {
-      cropper = new Cropper(ref.current, {
-        aspectRatio: imageRef.aspectRatio || 16 / 9,
-        center: true,
-        zoomable: false,
-        cropBoxResizable: false,
-        minCropBoxHeight: imageRef.minCropBoxHeight || 154,
-        background: true,
-        responsive: true,
-        viewMode: 3,
-      });
+      setCropper(
+        new Cropper(ref.current, {
+          aspectRatio: imageRef.aspectRatio || 16 / 9,
+          center: true,
+          zoomable: false,
+          cropBoxResizable: false,
+          minCropBoxHeight: imageRef.minCropBoxHeight || 154,
+          background: true,
+          responsive: true,
+          viewMode: 3,
+        })
+      );
     }
   }, [imageRef]);
 
