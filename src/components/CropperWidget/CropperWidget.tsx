@@ -45,6 +45,17 @@ const Overlay = styled.div`
   z-index: 1000;
 `;
 
+export const cropperDefaults: Cropper.Options = {
+  aspectRatio: 16 / 9,
+  minCropBoxHeight: 154,
+  viewMode: 3,
+  center: true,
+  zoomable: false,
+  cropBoxResizable: false,
+  background: true,
+  responsive: true,
+};
+
 export const CropperWidget: FC<CropperWidgetProps> = ({ imageRef, onCrop }) => {
   const ref = useRef<HTMLImageElement>(null);
   const [cropper, setCropper] = useState<Cropper>();
@@ -53,14 +64,9 @@ export const CropperWidget: FC<CropperWidgetProps> = ({ imageRef, onCrop }) => {
     if (ref.current) {
       setCropper(
         new Cropper(ref.current, {
-          aspectRatio: imageRef.aspectRatio || 16 / 9,
-          center: true,
-          zoomable: false,
-          cropBoxResizable: false,
-          minCropBoxHeight: imageRef.minCropBoxHeight || 154,
-          background: true,
-          responsive: true,
-          viewMode: 3,
+          ...cropperDefaults,
+          aspectRatio: imageRef.aspectRatio || cropperDefaults.aspectRatio,
+          minCropBoxHeight: imageRef.minCropBoxHeight || cropperDefaults.minCropBoxHeight,
         })
       );
     }
