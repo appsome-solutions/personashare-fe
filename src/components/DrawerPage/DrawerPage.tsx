@@ -16,6 +16,7 @@ type DrawerPageProps = {
   title: string;
   children: JSX.Element | string;
   OnClickComponent: React.ElementType;
+  isVisible: boolean;
 };
 
 const TitleMenu = styled.div`
@@ -37,7 +38,7 @@ const CancelLink = styled.a`
   color: ${props => props.theme.colors.utils.text.light};
 `;
 
-export const DrawerPage = ({ title, children, OnClickComponent }: DrawerPageProps) => {
+export const DrawerPage = ({ title, children, OnClickComponent, isVisible = true }: DrawerPageProps) => {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
@@ -48,7 +49,7 @@ export const DrawerPage = ({ title, children, OnClickComponent }: DrawerPageProp
       <StyledDrawer
         placement="bottom"
         onClose={() => setIsOpened(false)}
-        visible={isOpened}
+        visible={isVisible && isOpened}
         height="100vh"
         closable={false}
       >

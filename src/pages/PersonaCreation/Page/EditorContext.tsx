@@ -3,6 +3,7 @@ import { Range } from 'slate/dist/interfaces/range';
 
 export type EditorContextType = {
   selection: Range | null;
+  areEditorButtonsVisible: boolean;
   closeActiveTools: () => void;
 };
 
