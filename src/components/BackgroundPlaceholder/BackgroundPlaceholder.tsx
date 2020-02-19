@@ -1,4 +1,4 @@
-import React, { FC, MutableRefObject } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import BgPlaceholder from 'assets/bg_placeholder.svg';
 import AddPhoto from 'assets/add_photo.svg';
@@ -11,7 +11,6 @@ const Placeholder = styled.div`
 `;
 
 const BgImage = styled.img`
-  // width: 100%;
   max-height: 154px;
   max-width: 100%;
 `;
@@ -34,7 +33,6 @@ const EditBgIcon = styled.img`
 type BackgroundPlaceholderProps = {
   alt: string;
   background?: string;
-  ref?: MutableRefObject<HTMLDivElement | undefined>;
 };
 
 export const BackgroundPlaceholder: FC<BackgroundPlaceholderProps> = ({ background, children, alt }) => (
