@@ -40,7 +40,7 @@ export const CreateCard: FC = () => {
   const history = useHistory();
   const initialValues = data ? data.persona.card : cardInitialValues;
 
-  const { values, setFieldValue, setFieldTouched, handleSubmit, errors, isValid } = useFormik<CardType>({
+  const { values, setFieldValue, handleSubmit, errors, isValid } = useFormik<CardType>({
     initialValues,
     onSubmit: formValues => {
       updateCard({
@@ -79,19 +79,16 @@ export const CreateCard: FC = () => {
   };
 
   const onCrop = (data: ImageRef): void => {
-    setFieldValue(data.fieldName, URL.createObjectURL(data.blob));
-    setFieldTouched(data.fieldName, true, true);
+    setFieldValue(data.fieldName, URL.createObjectURL(data.blob), true);
     setImageRef(initialState);
   };
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setFieldValue('name', e.target.value);
-    setFieldTouched('name', true, true);
+    setFieldValue('name', e.target.value, true);
   };
 
   const handleDescriptionChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setFieldValue('description', e.target.value);
-    setFieldTouched('description', true, true);
+    setFieldValue('description', e.target.value, true);
   };
 
   return (
