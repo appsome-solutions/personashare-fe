@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
+import { Flex, BoxProps } from '../FlexBox/FlexBox';
 
 type StepperProps = {
   items: number[];
   current: number;
-};
+} & BoxProps;
 
 type StepperItemsProps = {
   isNextStep: boolean;
 };
 
-const StepperWrapper = styled.div`
+const StepperWrapper = styled(Flex)`
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -47,9 +48,9 @@ const StepperItem = styled.div<StepperItemsProps>`
     `}
 `;
 
-export const Stepper = ({ items, current }: StepperProps) => {
+export const Stepper: FC<StepperProps> = ({ items, current, ...restProps }: StepperProps) => {
   return (
-    <StepperWrapper>
+    <StepperWrapper {...restProps}>
       {items.map((item, index) => (
         <StepperItem key={item} isNextStep={index + 1 > current}>
           {item}

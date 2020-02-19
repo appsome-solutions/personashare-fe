@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 import InfoIcon from 'assets/info.svg';
 import { Icon } from 'components/Icon';
+import { BoxProps } from 'components/FlexBox/FlexBox';
+import { Card } from 'components/Card/Card';
 
 const TopBar = styled.div`
   color: ${props => props.theme.colors.utils.text.light};
@@ -12,13 +14,6 @@ const TopBar = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 4px 4px 0 0;
-`;
-
-const CardWrapper = styled.div`
-  background-color: ${props => props.theme.colors.utils.background.light};
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-  margin-bottom: 173px;
 `;
 
 const CardBody = styled.div`
@@ -31,8 +26,8 @@ type InfoCardProps = {
 
 const ChildrenWrapper = styled.span(props => props.theme.typography.body1);
 
-export const InfoCard: FC<InfoCardProps> = ({ children, title }) => (
-  <CardWrapper>
+export const InfoCard: FC<InfoCardProps & BoxProps> = ({ children, title, ...rest }) => (
+  <Card {...rest}>
     <TopBar>
       <Icon svgLink={InfoIcon} cursor="normal" color="white" />
     </TopBar>
@@ -40,5 +35,5 @@ export const InfoCard: FC<InfoCardProps> = ({ children, title }) => (
       <h6>{title}</h6>
       <ChildrenWrapper>{children}</ChildrenWrapper>
     </CardBody>
-  </CardWrapper>
+  </Card>
 );

@@ -37,3 +37,9 @@ export const GET_CARD = gql`
     }
   }
 `;
+
+export const UPDATE_CARD = gql`
+  mutation updateCard($card: Card!) {
+    updateCard(card: $card) @client
+  }
+`;

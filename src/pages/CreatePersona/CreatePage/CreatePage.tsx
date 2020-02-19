@@ -7,7 +7,7 @@ import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/Pe
 import { cardDefaults } from 'global/ApolloLinkState/persona';
 
 import { TopNav } from 'components/TopNav/TopNav';
-import { PageWrapperFromBottom } from 'components/PageWrapper';
+import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { WideButton } from 'components/Button';
 
 export const CreatePage: FC = () => {
@@ -31,9 +31,9 @@ export const CreatePage: FC = () => {
   return (
     <div>
       <TopNav isWithBackArrow />
-      <PageWrapperFromBottom>
+      <PageWrapperSpaceBetween>
         <WideButton>Create Persona</WideButton>
-      </PageWrapperFromBottom>
+      </PageWrapperSpaceBetween>
     </div>
   );
 };

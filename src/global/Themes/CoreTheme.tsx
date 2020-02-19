@@ -1,5 +1,7 @@
 import 'antd/dist/antd.min.css';
 
+import 'cropperjs/dist/cropper.min.css';
+
 export const CoreTheme = {
   colors: {
     main: {

@@ -28,13 +28,16 @@ const personaDefaults: Persona = {
 
 const personaResolvers: Resolvers = {
   Mutation: {
-    changeCard: (_, { card }: Persona, { cache }) => {
+    updateCard: (_, { card }: Persona, { cache }) => {
       const previousState = cache.readQuery({ query: GET_CARD });
 
       const data = {
         persona: {
           ...previousState.persona,
-          card,
+          card: {
+            ...previousState.persona.card,
+            ...card,
+          },
         },
       };
 

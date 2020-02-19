@@ -1,15 +1,14 @@
-/* eslint-disable react/display-name */
-import React, { ChangeEvent } from 'react';
-import { Field, FieldProps } from 'formik';
+import React, { ChangeEvent, ReactElement } from 'react';
+import { Field } from 'formik';
 import get from 'lodash/get';
 import { Input, Props as InputProps } from 'components/Input';
 import { setFieldValueAndTouched } from '../helpers';
 import { withErrorMessage } from '../withErrorMessage';
 import { InterfaceInputComponent } from '../types';
 
-type FormikInputProps = InterfaceInputComponent & InputProps;
+export type FormikInputProps = InterfaceInputComponent & InputProps;
 
-const CustomInputComponent = (props: FormikInputProps) => {
+const CustomInputComponent = (props: FormikInputProps): ReactElement<FormikInputProps> => {
   const { field, form, value, isValid = true, onChange, ...fieldProps } = props;
   const inputValue = value || get(form.values, field.name);
   return (
@@ -26,8 +25,12 @@ const CustomInputComponent = (props: FormikInputProps) => {
   );
 };
 
-export default React.memo<InputProps>((props: InputProps) => (
+const FormikInput = React.memo<InputProps>((props: InputProps) => (
   <Field {...props}>
-    {(fieldProps: FieldProps) => withErrorMessage(CustomInputComponent)({ ...props, ...fieldProps })}
+    {(fieldProps: any) => withErrorMessage<FormikInputProps>(CustomInputComponent)({ ...props, ...fieldProps })}
   </Field>
 ));
+
+FormikInput.displayName = 'FormikInput';
+
+export default FormikInput;

@@ -1,2 +1,2 @@
 export * from './PageWrapper';
-export * from './PageWrapperFromBottom';
+export * from './PageWrapperSpaceBetween';
