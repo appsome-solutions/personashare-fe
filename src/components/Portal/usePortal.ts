@@ -24,7 +24,7 @@ const addRootElement = (rootElem: Node): void => {
  * @returns {HTMLElement} The DOM node to use as the Portal target.
  */
 export const usePortal = (id: string) => {
-  const rootElemRef = useRef<HTMLElement>(null);
+  const rootElemRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     // Look for existing target dom element to append to
@@ -55,7 +55,6 @@ export const usePortal = (id: string) => {
 
   const getRootElem = (): HTMLElement => {
     if (!rootElemRef.current) {
-      // @ts-ignore
       rootElemRef.current = document.createElement('div');
     }
     return rootElemRef.current;
