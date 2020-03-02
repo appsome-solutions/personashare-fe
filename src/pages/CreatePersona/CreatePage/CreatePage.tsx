@@ -102,19 +102,16 @@ export const CreatePage: FC = () => {
         const uploadedAssets = await uploadAssets(storageRef, uid, assetsBlobs);
 
         const payload = {
-          uuid: 'sss',
-          persona: {
-            card: {
-              name,
-              description,
-              avatar: getUrl(uploadedAssets, AssetType.CARD_AVATAR),
-              background: getUrl(uploadedAssets, AssetType.CARD_BACKGROUND),
-            },
-            page: {
-              avatar: getUrl(uploadedAssets, AssetType.PAGE_AVATAR),
-              background: getUrl(uploadedAssets, AssetType.PAGE_BACKGROUND),
-              content: JSON.stringify(formValues.content),
-            },
+          card: {
+            name,
+            description,
+            avatar: getUrl(uploadedAssets, AssetType.CARD_AVATAR),
+            background: getUrl(uploadedAssets, AssetType.CARD_BACKGROUND),
+          },
+          page: {
+            avatar: getUrl(uploadedAssets, AssetType.PAGE_AVATAR),
+            background: getUrl(uploadedAssets, AssetType.PAGE_BACKGROUND),
+            content: JSON.stringify(formValues.content),
           },
         };
 
@@ -125,7 +122,7 @@ export const CreatePage: FC = () => {
         });
 
         // redirect to personas carouse view
-        history.push('/persona');
+        history.push('/personas');
       }
     },
     validationSchema: pageSchema,

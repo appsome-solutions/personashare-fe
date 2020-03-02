@@ -45,8 +45,8 @@ export const UPDATE_CARD = gql`
 `;
 
 export const CREATE_PERSONA = gql`
-  mutation createPersona($payload: AddPersonaInput!) {
-    createPersona(input: $payload) {
+  mutation createPersona($payload: CreatePersonaInput!) {
+    createPersona(persona: $payload) {
       uuid
       card {
         name

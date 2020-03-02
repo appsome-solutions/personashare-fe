@@ -26,7 +26,7 @@ export const StyledEditable = styled<FC<StyledEditableProps>>(
   margin-bottom: ${props => (props.activeTools === 'bloc' ? '36px' : '0')};
   transition: all 0.3s;
   touch-action: manipulation;
-  border: ${props => (props.hasError ? '1px solid #E62B33' : 0)};
+  border: ${props => (props.hasError ? `1px solid ${props.theme.colors.functional.error}` : 0)};
 
   ${props => (props.activeTools === 'bloc' ? mimicFocus : '')};
 
