@@ -4,6 +4,7 @@ import Cropper from 'cropperjs';
 
 import { Portal } from '../Portal/Portal';
 import { WideButton } from '../Button';
+import { Overlay } from '../Overlay/Overlay';
 
 export type ImageRef = {
   blobUrl: string;
@@ -33,16 +34,6 @@ const WidgetWrapper = styled.div`
   width: 100%;
   z-index: 90000000;
   transition: 400ms ease all;
-`;
-
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: ${props => props.theme.colors.functional.disabled};
-  opacity: 0.75;
-  z-index: 1000;
 `;
 
 export const cropperDefaults: Cropper.Options = {
@@ -76,17 +67,26 @@ export const CropperWidget: FC<CropperWidgetProps> = ({ imageRef, onCrop }) => {
     if (cropper) {
       cropper
         .crop()
-        .getCroppedCanvas()
-        .toBlob(blob => {
-          onCrop({
-            blobUrl: imageRef.blobUrl,
-            fieldName: imageRef.fieldName,
-            blob,
-          });
+        .getCroppedCanvas({
+          imageSmoothingEnabled: false,
+        })
+        .toBlob(
+          blob => {
+            if (blob) {
+              onCrop({
+                blobUrl: URL.createObjectURL(blob),
+                fieldName: imageRef.fieldName,
+                blob,
+              });
 
-          cropper.destroy();
-          URL.revokeObjectURL(imageRef.blobUrl);
-        });
+              URL.revokeObjectURL(imageRef.blobUrl);
+            }
+
+            cropper.destroy();
+          },
+          'image/jpeg',
+          0.9
+        );
     }
   };
 

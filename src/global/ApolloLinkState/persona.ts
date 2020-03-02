@@ -8,22 +8,22 @@ const cardDefaults: PersonaCard = {
   __typename: 'PersonaCard',
   name: '',
   description: '',
-  avatar: '',
-  background: '',
+  avatar: null,
+  background: null,
 };
 
 const pageDefaults: PersonaPage = {
   __typename: 'PersonaPage',
-  background: '',
-  avatar: '',
-  content: '',
+  background: null,
+  avatar: null,
+  content: null,
 };
 
 const personaDefaults: Persona = {
   __typename: 'Persona',
   card: cardDefaults,
   page: pageDefaults,
-  personaUUIDs: [],
+  uuid: '',
 };
 
 const personaResolvers: Resolvers = {

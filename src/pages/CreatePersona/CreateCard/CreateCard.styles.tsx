@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Input as AntInput } from 'antd';
 
-import EditIcon from 'assets/edit_icon.svg';
 import { InputProps } from 'antd/lib/input/Input';
 
 type CardInputProps = InputProps & {
@@ -16,12 +15,12 @@ const CardInput = styled(AntInput)`
 
 export const CardName = styled<FC<CardInputProps>>(({ hasError, ...restProps }) => <CardInput {...restProps} />)`
   ${props => props.theme.typography.subtitle2};
-  border: ${props => (props.hasError ? '1px solid #E62B33' : 0)};
+  border: ${props => (props.hasError ? `1px solid ${props.theme.colors.functional.error}` : 0)};
 `;
 
 export const CardDescription = styled<FC<CardInputProps>>(({ hasError, ...restProps }) => <CardInput {...restProps} />)`
   ${props => props.theme.typography.body2};
-  border: ${props => (props.hasError ? '1px solid #E62B33' : 0)};
+  border: ${props => (props.hasError ? `1px solid ${props.theme.colors.functional.error}` : 0)};
   margin-top: 23px;
   margin-bottom: 34px;
 `;
@@ -31,11 +30,4 @@ export const CardBody = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 0 16px;
-`;
-
-export const EditButton = styled.img.attrs(() => ({
-  src: EditIcon,
-}))`
-  width: 42px;
-  height: 42px;
 `;

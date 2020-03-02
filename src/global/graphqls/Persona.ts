@@ -43,3 +43,22 @@ export const UPDATE_CARD = gql`
     updateCard(card: $card) @client
   }
 `;
+
+export const CREATE_PERSONA = gql`
+  mutation createPersona($payload: CreatePersonaInput!) {
+    createPersona(persona: $payload) {
+      uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+    }
+  }
+`;

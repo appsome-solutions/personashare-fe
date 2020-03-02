@@ -1,21 +1,33 @@
 import { WithTypeName } from 'typings';
 import * as Yup from 'yup';
 
+import { ImageRef } from 'components/CropperWidget/CropperWidget';
+
 export const cardSchema = Yup.object({
   name: Yup.string().required(),
   description: Yup.string().required(),
-  avatar: Yup.string(),
-  background: Yup.string(),
+  avatar: Yup.mixed<ImageRef>().nullable(true),
+  background: Yup.mixed<ImageRef>().nullable(true),
+});
+
+export const pageSchema = Yup.object({
+  content: Yup.mixed()
+    .required()
+    .nullable(true),
+  avatar: Yup.mixed<ImageRef>().nullable(true),
+  background: Yup.mixed<ImageRef>().nullable(true),
 });
 
 export type CardType = Yup.InferType<typeof cardSchema>;
 
 export type PersonaCard = WithTypeName & CardType;
 
-export type PersonaPage = WithTypeName & Pick<PersonaCard, 'avatar' | 'background'> & { content: string };
+export type PageType = Yup.InferType<typeof pageSchema>;
+
+export type PersonaPage = WithTypeName & PageType;
 
 export type Persona = WithTypeName & {
+  uuid: string;
   card: PersonaCard | null;
   page: PersonaPage | null;
-  personaUUIDs: string[];
 };
