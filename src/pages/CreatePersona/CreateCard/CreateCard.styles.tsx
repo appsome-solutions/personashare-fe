@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Input as AntInput } from 'antd';
 
-import EditIcon from 'assets/edit_icon.svg';
 import { InputProps } from 'antd/lib/input/Input';
 
 type CardInputProps = InputProps & {
@@ -31,11 +30,4 @@ export const CardBody = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 0 16px;
-`;
-
-export const EditButton = styled.img.attrs(() => ({
-  src: EditIcon,
-}))`
-  width: 42px;
-  height: 42px;
 `;
