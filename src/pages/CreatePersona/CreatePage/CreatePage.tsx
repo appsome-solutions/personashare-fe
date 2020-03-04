@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
 import { isEqual } from 'lodash';
@@ -27,7 +27,7 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { EditIndicator } from 'components/EditIndicator/EditIndicator';
 import { Editor } from 'components/Editor/Editor';
 
-import { onAvatarChangeHelper, onBgChangeHelper } from '../helpers';
+import { onAvatarChangeHelper, onBgChangeHelper, revokeObjectURLS } from '../helpers';
 import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
 
 const pageInitialValues: PageType = {
@@ -53,7 +53,7 @@ export const CreatePage: FC = () => {
 
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
 
-  const initialValues = data ? data.persona.page : pageInitialValues;
+  const initialValues = data?.persona?.page || pageInitialValues;
   const { values, setFieldValue, handleSubmit, errors, isValid, setStatus, setSubmitting, isSubmitting } = useFormik<
     PageType
   >({
@@ -73,33 +73,33 @@ export const CreatePage: FC = () => {
         return;
       }
 
-      if (card && card.data) {
+      if (card?.data) {
         const { name, description, avatar, background } = card.data.persona.card;
-        const uid = user.uid;
+        const timestamp = Date.now();
         const assetsBlobs: AssetBlob[] = [
           {
-            name: `card_${uid}_${avatar?.fieldName}.jpg`,
+            name: `card_${timestamp}_${avatar?.fieldName}.jpg`,
             blob: avatar?.blob || null,
             metaData: { customMetadata: { assetType: AssetType.CARD_AVATAR } },
           },
           {
-            name: `card_${uid}_${background?.fieldName}.jpg`,
+            name: `card_${timestamp}_${background?.fieldName}.jpg`,
             blob: background?.blob || null,
             metaData: { customMetadata: { assetType: AssetType.CARD_BACKGROUND } },
           },
           {
-            name: `page_${uid}_${formValues?.avatar?.fieldName}.jpg`,
+            name: `page_${timestamp}_${formValues?.avatar?.fieldName}.jpg`,
             blob: formValues?.avatar?.blob || null,
             metaData: { customMetadata: { assetType: AssetType.PAGE_AVATAR } },
           },
           {
-            name: `page_${uid}_${formValues?.background?.fieldName}.jpg`,
+            name: `page_${timestamp}_${formValues?.background?.fieldName}.jpg`,
             blob: formValues?.background?.blob || null,
             metaData: { customMetadata: { assetType: AssetType.PAGE_BACKGROUND } },
           },
         ];
 
-        const uploadedAssets = await uploadAssets(storageRef, uid, assetsBlobs);
+        const uploadedAssets = await uploadAssets(storageRef, user.uid, assetsBlobs);
 
         const payload = {
           card: {
@@ -128,7 +128,15 @@ export const CreatePage: FC = () => {
     validationSchema: pageSchema,
   });
 
-  if (card && card.data && isEqual(cardDefaults, card.data.persona.card)) {
+  useEffect(() => () => {
+    if (card?.data) {
+      const { avatar, background } = card.data.persona.card;
+      const urls = [avatar?.blobUrl, background?.blobUrl, values?.avatar?.blobUrl, values?.background?.blobUrl];
+      revokeObjectURLS(urls);
+    }
+  });
+
+  if (card?.data && isEqual(cardDefaults, card.data.persona.card)) {
     return <Redirect to="/createpersona/card" />;
   }
 

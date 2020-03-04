@@ -21,3 +21,11 @@ export const onBgChangeHelper = (file: File, cb: Cb): void => {
     aspectRatio: (window.innerWidth - 32) / 154,
   });
 };
+
+export const revokeObjectURLS = (objectUrls: (string | undefined)[]): void => {
+  objectUrls.forEach(objectUrl => {
+    if (objectUrl) {
+      URL.revokeObjectURL(objectUrl);
+    }
+  });
+};
