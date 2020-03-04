@@ -53,7 +53,7 @@ export const CreatePage: FC = () => {
 
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
 
-  const initialValues = data ? data.persona.page : pageInitialValues;
+  const initialValues = data?.persona?.page || pageInitialValues;
   const { values, setFieldValue, handleSubmit, errors, isValid, setStatus, setSubmitting, isSubmitting } = useFormik<
     PageType
   >({
@@ -73,7 +73,7 @@ export const CreatePage: FC = () => {
         return;
       }
 
-      if (card && card.data) {
+      if (card?.data) {
         const { name, description, avatar, background } = card.data.persona.card;
         const timestamp = Date.now();
         const assetsBlobs: AssetBlob[] = [
@@ -129,14 +129,14 @@ export const CreatePage: FC = () => {
   });
 
   useEffect(() => () => {
-    if (card && card.data) {
+    if (card?.data) {
       const { avatar, background } = card.data.persona.card;
       const urls = [avatar?.blobUrl, background?.blobUrl, values?.avatar?.blobUrl, values?.background?.blobUrl];
       revokeObjectURLS(urls);
     }
   });
 
-  if (card && card.data && isEqual(cardDefaults, card.data.persona.card)) {
+  if (card?.data && isEqual(cardDefaults, card.data.persona.card)) {
     return <Redirect to="/createpersona/card" />;
   }
 
