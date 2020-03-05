@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState, useCallback } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -17,14 +17,16 @@ import { Flex } from 'components/FlexBox/FlexBox';
 import { FileInput } from 'components/FileInput/FileInput';
 import { CropperWidget, ImageRef } from 'components/CropperWidget/CropperWidget';
 import { Stepper } from 'components/Stepper';
+import { EditIndicator } from 'components/EditIndicator/EditIndicator';
 
-import { CardBody, CardDescription, CardName, EditButton } from './CreateCard.styles';
+import { CardBody, CardDescription, CardName } from './CreateCard.styles';
+import { onAvatarChangeHelper, onBgChangeHelper } from '../helpers';
 
 const cardInitialValues: CardType = {
   name: '',
   description: '',
-  avatar: '',
-  background: '',
+  avatar: null,
+  background: null,
 };
 
 const initialState: ImageRef = {
@@ -40,7 +42,7 @@ export const CreateCard: FC = () => {
   const history = useHistory();
   const initialValues = data ? data.persona.card : cardInitialValues;
 
-  const { values, setFieldValue, setFieldTouched, handleSubmit, errors, isValid } = useFormik<CardType>({
+  const { values, setFieldValue, handleSubmit, errors, isValid } = useFormik<CardType>({
     initialValues,
     onSubmit: formValues => {
       updateCard({
@@ -58,56 +60,26 @@ export const CreateCard: FC = () => {
 
   const { name, description, avatar, background } = values;
 
-  const onAvatarChange = useCallback(
-    (avatarFile: File): void => {
-      setImageRef({
-        blobUrl: URL.createObjectURL(avatarFile),
-        fieldName: 'avatar',
-        blob: avatarFile,
-        minCropBoxHeight: 42,
-        aspectRatio: 1,
-      });
-    },
-    [setImageRef]
-  );
+  const onAvatarChange = (avatarFile: File): void => {
+    onAvatarChangeHelper(avatarFile, setImageRef);
+  };
 
-  const onBgChange = useCallback(
-    (bgFile: File): void => {
-      setImageRef({
-        blobUrl: URL.createObjectURL(bgFile),
-        fieldName: 'background',
-        blob: bgFile,
-        minCropBoxHeight: 154,
-        aspectRatio: (window.innerWidth - 32) / 154,
-      });
-    },
-    [setImageRef]
-  );
+  const onBgChange = (bgFile: File): void => {
+    onBgChangeHelper(bgFile, setImageRef);
+  };
 
-  const onCrop = useCallback(
-    (data: ImageRef): void => {
-      setFieldValue(data.fieldName, URL.createObjectURL(data.blob));
-      setFieldTouched(data.fieldName, true, true);
-      setImageRef(initialState);
-    },
-    [setFieldValue, setFieldTouched, setImageRef]
-  );
+  const onCrop = (data: ImageRef): void => {
+    setFieldValue(data.fieldName, data, true);
+    setImageRef(initialState);
+  };
 
-  const handleNameChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>): void => {
-      setFieldValue('name', e.target.value);
-      setFieldTouched('name', true, true);
-    },
-    [setFieldValue, setFieldTouched]
-  );
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFieldValue('name', e.target.value, true);
+  };
 
-  const handleDescriptionChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>): void => {
-      setFieldValue('description', e.target.value);
-      setFieldTouched('description', true, true);
-    },
-    [setFieldValue, setFieldTouched]
-  );
+  const handleDescriptionChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFieldValue('description', e.target.value, true);
+  };
 
   return (
     <div>
@@ -120,14 +92,14 @@ export const CreateCard: FC = () => {
             short description.
           </InfoCard>
           <Card mt={31} mb={40} position="relative">
-            <BackgroundPlaceholder background={background} alt="Card background">
+            <BackgroundPlaceholder background={background?.blobUrl || ''} alt="Card background">
               <FileInput onFileChange={onBgChange} name="background" id="background" accept="image/*" />
               <PersonaCircleWrapper>
-                <PersonaCircle avatar={avatar} alt="Avatar card" onAvatarSet={onAvatarChange} />
+                <PersonaCircle avatar={avatar?.blobUrl || ''} alt="Avatar card" onAvatarSet={onAvatarChange} />
               </PersonaCircleWrapper>
             </BackgroundPlaceholder>
-            <Flex justifyContent="flex-end" mr={14} ml={14} mt={10}>
-              <EditButton alt="Edit card" />
+            <Flex justifyContent="flex-end" mx={14} my={10}>
+              <EditIndicator alt="Edit card" />
             </Flex>
             <CardBody>
               <CardName

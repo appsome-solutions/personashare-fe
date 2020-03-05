@@ -44,13 +44,10 @@ export const UPDATE_CARD = gql`
   }
 `;
 
-export type GetPersonaType = {
-  personas: Persona[];
-};
-
-export const GET_PERSONAS = gql`
-  {
-    personas: getPersonas {
+export const CREATE_PERSONA = gql`
+  mutation createPersona($payload: CreatePersonaInput!) {
+    createPersona(persona: $payload) {
+      uuid
       card {
         name
         description
@@ -62,7 +59,6 @@ export const GET_PERSONAS = gql`
         avatar
         content
       }
-      personaUUIDs
     }
   }
 `;

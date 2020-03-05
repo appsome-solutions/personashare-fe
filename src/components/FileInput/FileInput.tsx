@@ -9,7 +9,7 @@ const AbsoluteLabel = styled.label`
   width: 100%;
   height: 100%;
   position: absolute;
-  z-index: 1000;
+  z-index: 2;
 `;
 
 type FileInputProps = InputHTMLAttributes<HTMLInputElement> & {
