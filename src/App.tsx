@@ -12,6 +12,7 @@ import { AppRouter } from './global/AppRouter/AppRouter';
 import { client } from 'global/ApolloClient/ApolloClient';
 import { FirebaseProvider, Firebase } from './global/Firebase';
 import { StorageProvider, Storage } from './global/Storage';
+import { UserProvider } from 'global/UserContext/UserContext';
 
 const firebase = new Firebase();
 
@@ -20,15 +21,17 @@ const App: FunctionComponent = () => (
     <ApolloProvider client={client}>
       <FirebaseProvider value={firebase}>
         <StorageProvider value={new Storage(firebase.getStorageRef())}>
-          <RWDProvider>
-            <Router>
-              <GlobalStyles />
-              <ErrorHandler>
-                <AppRouter />
-              </ErrorHandler>
-              <StickyNavigation />
-            </Router>
-          </RWDProvider>
+          <UserProvider>
+            <RWDProvider>
+              <Router>
+                <GlobalStyles />
+                <ErrorHandler>
+                  <AppRouter />
+                </ErrorHandler>
+                <StickyNavigation />
+              </Router>
+            </RWDProvider>
+          </UserProvider>
         </StorageProvider>
       </FirebaseProvider>
     </ApolloProvider>

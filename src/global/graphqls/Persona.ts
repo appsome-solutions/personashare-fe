@@ -1,5 +1,6 @@
 import { gql } from 'apollo-boost';
-import { PersonaCard, PersonaPage, Persona } from 'global/ApolloLinkState/namespace';
+import { PersonaCard, PersonaPage } from 'global/ApolloLinkState/namespace';
+import { gqlPersona } from './schema';
 
 export type GetPageType = {
   persona: {
@@ -59,6 +60,30 @@ export const CREATE_PERSONA = gql`
         avatar
         content
       }
+    }
+  }
+`;
+
+export type GetPersonaType = {
+  personas: gqlPersona[];
+};
+
+export const GET_PERSONAS = gql`
+  {
+    personas: getPersonas {
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+      personaUUIDs
+      qrCodeLink
     }
   }
 `;
