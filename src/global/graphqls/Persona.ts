@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { PersonaCard, PersonaPage } from 'global/ApolloLinkState/namespace';
+import { PersonaCard, PersonaPage, Persona } from 'global/ApolloLinkState/namespace';
 
 export type GetPageType = {
   persona: {
@@ -41,5 +41,28 @@ export const GET_CARD = gql`
 export const UPDATE_CARD = gql`
   mutation updateCard($card: Card!) {
     updateCard(card: $card) @client
+  }
+`;
+
+export type GetPersonaType = {
+  personas: Persona[];
+};
+
+export const GET_PERSONAS = gql`
+  {
+    personas: getPersonas {
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+      personaUUIDs
+    }
   }
 `;

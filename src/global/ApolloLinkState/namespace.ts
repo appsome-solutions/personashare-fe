@@ -15,7 +15,8 @@ export type PersonaCard = WithTypeName & CardType;
 export type PersonaPage = WithTypeName & Pick<PersonaCard, 'avatar' | 'background'> & { content: string };
 
 export type Persona = WithTypeName & {
-  card: PersonaCard | null;
-  page: PersonaPage | null;
+  uuid?: string;
+  card: PersonaCard;
+  page: PersonaPage;
   personaUUIDs: string[];
 };

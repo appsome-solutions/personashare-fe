@@ -25,7 +25,8 @@ export const CreatePage: FC = () => {
 
   if (data) {
     // TODO: integrate with formik
-    console.error(data.persona.page);
+    console.warn(card);
+    console.error(data.persona);
   }
 
   return (
