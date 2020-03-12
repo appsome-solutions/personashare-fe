@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import BgPlaceholder from 'assets/bg_placeholder.svg';
 import AddPhoto from 'assets/add_photo.svg';
+import { ImageRef } from 'components/CropperWidget/CropperWidget';
 
 const Placeholder = styled.div`
   position: relative;
@@ -32,13 +33,13 @@ const EditBgIcon = styled.img`
 
 type BackgroundPlaceholderProps = {
   alt: string;
-  background?: string;
+  background?: string | ImageRef | null;
 };
 
 export const BackgroundPlaceholder: FC<BackgroundPlaceholderProps> = ({ background, children, alt }) => (
   <Placeholder>
     <BgWrapper>
-      <BgImage src={background || BgPlaceholder} alt={alt} />
+      <BgImage src={(background as string) || BgPlaceholder} alt={alt} />
     </BgWrapper>
     {!background && <EditBgIcon src={AddPhoto} alt={alt} />}
     {children}

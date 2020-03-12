@@ -70,7 +70,8 @@ export type GetPersonaType = {
 
 export const GET_PERSONAS = gql`
   {
-    personas: getPersonas {
+    personas {
+      uuid
       card {
         name
         description
@@ -84,6 +85,14 @@ export const GET_PERSONAS = gql`
       }
       personaUUIDs
       qrCodeLink
+    }
+  }
+`;
+
+export const SET_DEFAULT_PERSONA = gql`
+  mutation setDefaultPersona($uuid: String!) {
+    setDefaultPersona(uuid: $uuid) {
+      uuid
     }
   }
 `;

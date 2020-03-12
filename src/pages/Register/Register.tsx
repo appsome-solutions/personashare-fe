@@ -16,6 +16,7 @@ import { useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
 import FormikCheckbox from 'components/FormikFields/FormikChecbox/FormikCheckbox';
+import { useUserContext } from 'global/UserContext/UserContext';
 
 const StyledLogo = styled.img`
   margin-top: 46px;
@@ -97,6 +98,7 @@ const initialValues: FormValues = {
 
 export const Register = () => {
   const [apiError, setApiError] = useState('');
+  const { setUser } = useUserContext();
   const firebase = useFirebase();
   const [signIn] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
@@ -109,6 +111,9 @@ export const Register = () => {
       const token = data?.data?.loginUser.accessToken || '';
       if (token) {
         localStorage.setItem(PS_TOKEN_NAME, token);
+        const userUuid = data?.data?.loginUser?.user?.uuid || '';
+        localStorage.setItem('USER_UUID', userUuid);
+        setUser(data?.data?.loginUser?.user || null);
         history.push('./create_persona');
       }
     } catch (error) {

@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 
 import { ImageRef } from 'components/CropperWidget/CropperWidget';
 
+// make optional 'avatarUpload' 'backgroundUpload', change current to strings
 export const cardSchema = Yup.object({
   name: Yup.string().required(),
   description: Yup.string().required(),
@@ -28,6 +29,6 @@ export type PersonaPage = WithTypeName & PageType;
 
 export type Persona = WithTypeName & {
   uuid: string;
-  card: PersonaCard | null;
-  page: PersonaPage | null;
+  card: PersonaCard;
+  page: PersonaPage;
 };

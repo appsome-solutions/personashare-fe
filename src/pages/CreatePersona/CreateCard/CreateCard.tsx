@@ -70,6 +70,7 @@ export const CreateCard: FC = () => {
 
   const onCrop = (data: ImageRef): void => {
     setFieldValue(data.fieldName, data, true);
+    // setFieldValue(mapper[data.fieldName], data.blobUrl, true);
     setImageRef(initialState);
   };
 

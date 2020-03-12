@@ -14,8 +14,8 @@ export const client = new ApolloClient({
     },
     resolvers: merge(personaResolvers),
   },
-  // uri: process.env.REACT_APP_GRAPHQL_API_URL || '',
-  uri: 'http://localhost:3000/graphql',
+  uri: process.env.REACT_APP_GRAPHQL_API_URL || '',
+  // uri: 'http://localhost:3000/graphql',
   credentials: 'same-origin',
   request: operation => {
     const token = localStorage.getItem(PS_TOKEN_NAME);

@@ -1,25 +1,27 @@
-import React, { createContext, useContext, FC, useState, Dispatch, SetStateAction } from 'react';
-import { gqlUser } from 'global/graphqls/schema';
+import React, { FC, useState, Dispatch, SetStateAction, useEffect } from 'react';
+import { gqlUser, gqlUserResponse } from 'global/graphqls/schema';
+import { GET_USER } from 'global/graphqls/User';
+import { useQuery } from '@apollo/react-hooks';
+import { createCtx } from 'helpers/Context';
 
 interface UserContext {
-  user: gqlUser | undefined;
-  setUser: Dispatch<SetStateAction<gqlUser | undefined>>;
+  user: gqlUser | null;
+  setUser: Dispatch<SetStateAction<gqlUser | null>>;
 }
 
-const UserContext = createContext<UserContext | undefined>(undefined);
-
-const useUserContext = (): UserContext => {
-  const context = useContext(UserContext);
-  if (context === undefined) {
-    throw new Error('useUserContext must be used within a UserProvider');
-  }
-  return context;
-};
+const [useUserContext, UserContext] = createCtx<UserContext>();
 
 const UserProvider: FC = ({ children }) => {
-  const [user, setUser] = useState<gqlUser>();
-  // add graphlql query for user?
-  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
+  const [user, setUser] = useState<gqlUser | null>(null);
+  const { data } = useQuery<gqlUserResponse>(GET_USER, {
+    variables: { condition: { uuid: localStorage.getItem('USER_UUID') } },
+  });
+  useEffect(() => {
+    if (data) {
+      setUser(data.user);
+    }
+  }, [data]);
+  return <UserContext value={{ user, setUser }}>{children}</UserContext>;
 };
 
 export { useUserContext, UserProvider };
