@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { object, string, ref, boolean, InferType } from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
@@ -96,7 +96,7 @@ const initialValues: FormValues = {
   termsAccepted: false,
 };
 
-export const Register = () => {
+export const Register: FC = () => {
   const [apiError, setApiError] = useState('');
   const { setUser } = useUserContext();
   const firebase = useFirebase();
@@ -111,8 +111,6 @@ export const Register = () => {
       const token = data?.data?.loginUser.accessToken || '';
       if (token) {
         localStorage.setItem(PS_TOKEN_NAME, token);
-        const userUuid = data?.data?.loginUser?.user?.uuid || '';
-        localStorage.setItem('USER_UUID', userUuid);
         setUser(data?.data?.loginUser?.user || null);
         history.push('./create_persona');
       }

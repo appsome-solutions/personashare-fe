@@ -115,8 +115,6 @@ export const Login: FunctionComponent = () => {
 
     if (token) {
       localStorage.setItem(PS_TOKEN_NAME, token);
-      const userUuid = data?.data?.loginUser?.user?.uuid || '';
-      localStorage.setItem('USER_UUID', userUuid);
       setUser(data?.data?.loginUser?.user || null);
       history.push('./createpersona');
     }

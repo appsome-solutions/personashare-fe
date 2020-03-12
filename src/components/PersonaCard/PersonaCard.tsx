@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { PersonaCard as PersonaCardType } from 'global/ApolloLinkState/namespace';
+import { PersonaCard as PersonaCardType } from 'global/graphqls/schema';
 
 import { CardBody } from 'pages/CreatePersona/CreateCard/CreateCard.styles';
 import { BackgroundPlaceholder } from 'components/BackgroundPlaceholder/BackgroundPlaceholder';

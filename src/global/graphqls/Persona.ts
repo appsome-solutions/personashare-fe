@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { PersonaCard, PersonaPage } from 'global/ApolloLinkState/namespace';
+import { PersonaCard, PersonaPage } from 'global/graphqls/schema';
 import { gqlPersona } from './schema';
 
 export type GetPageType = {

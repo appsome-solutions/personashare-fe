@@ -1,5 +1,5 @@
 import React, { FC, useState, Dispatch, SetStateAction, useEffect } from 'react';
-import { gqlUser, gqlUserResponse } from 'global/graphqls/schema';
+import { gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
 import { useQuery } from '@apollo/react-hooks';
 import { createCtx } from 'helpers/Context';
@@ -13,7 +13,7 @@ const [useUserContext, UserContext] = createCtx<UserContext>();
 
 const UserProvider: FC = ({ children }) => {
   const [user, setUser] = useState<gqlUser | null>(null);
-  const { data } = useQuery<gqlUserResponse>(GET_USER, {
+  const { data } = useQuery<{ user: gqlUser }>(GET_USER, {
     variables: { condition: { uuid: localStorage.getItem('USER_UUID') } },
   });
   useEffect(() => {

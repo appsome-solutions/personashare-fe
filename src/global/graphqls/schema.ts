@@ -1,16 +1,53 @@
-import { PersonaCard, PersonaPage } from 'global/ApolloLinkState/namespace';
+import { WithTypeName } from 'typings';
+import * as Yup from 'yup';
 
-export type gqlPersona = {
+import { ImageRef } from 'components/CropperWidget/CropperWidget';
+
+export const cardSchema = Yup.object({
+  name: Yup.string().required(),
+  description: Yup.string().required(),
+  avatar: Yup.string().required(),
+  background: Yup.string().required(),
+  avatarUpload: Yup.mixed<ImageRef>()
+    .nullable(true)
+    .notRequired(),
+  backgroundUpload: Yup.mixed<ImageRef>()
+    .nullable(true)
+    .notRequired(),
+});
+
+export const pageSchema = Yup.object({
+  content: Yup.mixed()
+    .required()
+    .nullable(true),
+  avatar: Yup.string().required(),
+  background: Yup.string().required(),
+  avatarUpload: Yup.mixed<ImageRef>()
+    .nullable(true)
+    .notRequired(),
+  backgroundUpload: Yup.mixed<ImageRef>()
+    .nullable(true)
+    .notRequired(),
+});
+
+export type CardType = Yup.InferType<typeof cardSchema>;
+
+export type PersonaCard = WithTypeName & CardType;
+
+export type PageType = Yup.InferType<typeof pageSchema>;
+
+export type PersonaPage = WithTypeName & PageType;
+
+export type Persona = WithTypeName & {
   uuid: string;
   card: PersonaCard;
   page: PersonaPage;
-  personaUUIDs: string[];
-  qrCodeLink: string;
 };
 
-export type gqlUserResponse = {
-  user: gqlUser;
-};
+export type gqlPersona = {
+  personaUUIDs: string[];
+  qrCodeLink: string;
+} & Persona;
 
 export type gqlUser = {
   uuid: string;
