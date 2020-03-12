@@ -1,11 +1,11 @@
 import React, { FC, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { TopNav } from 'components/TopNav/TopNav';
 import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { InfoCard } from 'components/InfoCard/InfoCard';
 import { WideButton } from 'components/Button';
 import { Stepper } from 'components/Stepper';
+import { TopNav } from 'components/TopNav/TopNav';
 
 export const InitialStep: FC = () => {
   const history = useHistory();
