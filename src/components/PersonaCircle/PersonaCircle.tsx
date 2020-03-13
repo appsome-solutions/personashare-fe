@@ -44,7 +44,7 @@ export const PersonaCircle: FC<BoxProps & PersonaCircleProps> = ({ alt, avatar, 
   return (
     <PersonCircle {...restProps}>
       <AvatarImage src={(avatar as string) || AddPhoto} alt={alt} />
-      <FileInput onFileChange={onAvatarSet} name="avatar" id="avatar" accept="image/*" />
+      <FileInput onFileChange={onAvatarSet} name="avatarUpload" id="avatar" accept="image/*" />
     </PersonCircle>
   );
 };

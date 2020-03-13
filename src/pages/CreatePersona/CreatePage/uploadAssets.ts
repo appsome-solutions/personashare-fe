@@ -45,5 +45,5 @@ export const uploadAssets = async (
   );
 };
 
-export const getUrl = (assets: UploadedAsset[], assetType: AssetType) =>
+export const getUrl = (assets: UploadedAsset[], assetType: AssetType): string =>
   assets.filter(asset => asset.assetType === assetType).map(entry => entry.url)[0] || '';

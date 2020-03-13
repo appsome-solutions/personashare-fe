@@ -15,6 +15,8 @@ export const GET_PAGE = gql`
         background
         avatar
         content
+        backgroundUpload
+        avatarUpload
       }
     }
   }
@@ -34,6 +36,8 @@ export const GET_CARD = gql`
         description
         avatar
         background
+        avatarUpload
+        backgroundUpload
       }
     }
   }
