@@ -7,12 +7,11 @@ import { PersonaCircle, PersonaCircleWrapper } from 'components/PersonaCircle/Pe
 import { Card } from 'components/Card/Card';
 
 type Props = {
-  uuid?: string;
   card: PersonaCardType;
 };
 
-export const PersonaCard: FC<Props> = ({ uuid, card }) => (
-  <Card mt={31} mb={40} position="relative" key={uuid}>
+export const PersonaCard: FC<Props> = ({ card }) => (
+  <Card mt={31} mb={40} position="relative">
     <BackgroundPlaceholder background={card.background} alt="Card background">
       <PersonaCircleWrapper>
         <PersonaCircle avatar={card.avatar} alt="Avatar card" onAvatarSet={() => {}} />

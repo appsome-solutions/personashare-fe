@@ -5,8 +5,8 @@ import { ImageRef } from 'components/CropperWidget/CropperWidget';
 
 export const cardSchema = Yup.object({
   name: Yup.string().required(),
-  description: Yup.string().required(),
-  avatar: Yup.string().required(),
+  description: Yup.string().notRequired(),
+  avatar: Yup.string().notRequired(),
   background: Yup.string().required(),
   avatarUpload: Yup.mixed<ImageRef>()
     .nullable(true)
@@ -20,8 +20,8 @@ export const pageSchema = Yup.object({
   content: Yup.mixed()
     .required()
     .nullable(true),
-  avatar: Yup.string().required(),
-  background: Yup.string().required(),
+  avatar: Yup.string().notRequired(),
+  background: Yup.string().notRequired(),
   avatarUpload: Yup.mixed<ImageRef>()
     .nullable(true)
     .notRequired(),

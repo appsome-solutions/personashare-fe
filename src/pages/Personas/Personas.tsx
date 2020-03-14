@@ -9,6 +9,8 @@ import { Button } from 'components/Button';
 import Carousel from 'components/Carousel/Carousel';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { gqlPersona } from 'global/graphqls/schema';
+import { Spinner } from 'components/Spinner/Spinner';
+import { Overlay } from 'components/Overlay/Overlay';
 
 const StyledButton = styled(Button)`
   width: 80%;
@@ -52,7 +54,11 @@ export const Personas: FC = () => {
   const { user } = useUserContext();
   const [defaultPersonaUuid, setDefaultPersonaUuid] = useState(user?.defaultPersona);
   if (loading) {
-    return <div>Loading</div>;
+    return (
+      <Overlay>
+        <Spinner />
+      </Overlay>
+    );
   }
   if (!data) {
     return <div>No personas...</div>;
@@ -74,7 +80,7 @@ export const Personas: FC = () => {
             data.personas.map((persona: gqlPersona) => (
               <CaruouselItem key={persona.uuid}>
                 <Wrapper>
-                  <PersonaCard uuid={persona.uuid} card={persona.card} />
+                  <PersonaCard card={persona.card} />
                   {persona.uuid === defaultPersonaUuid ? (
                     <DefaultBlock>DEFAULT</DefaultBlock>
                   ) : (

@@ -36,14 +36,14 @@ export const AvatarImage = styled.img`
 
 type PersonaCircleProps = {
   alt: string;
-  avatar?: string | ImageRef | null;
+  avatar?: string;
   onAvatarSet(file: File): void;
 };
 
 export const PersonaCircle: FC<BoxProps & PersonaCircleProps> = ({ alt, avatar, onAvatarSet, ...restProps }) => {
   return (
     <PersonCircle {...restProps}>
-      <AvatarImage src={(avatar as string) || AddPhoto} alt={alt} />
+      <AvatarImage src={avatar || AddPhoto} alt={alt} />
       <FileInput onFileChange={onAvatarSet} name="avatarUpload" id="avatar" accept="image/*" />
     </PersonCircle>
   );
