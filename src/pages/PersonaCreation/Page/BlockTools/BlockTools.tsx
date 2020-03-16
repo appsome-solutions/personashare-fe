@@ -4,6 +4,7 @@ import { Icon } from 'components/Icon';
 import AddSvg from 'assets/add-24px.svg';
 import { DrawerPage } from 'components/DrawerPage/DrawerPage';
 import { EditorButtons } from './EditorButtons/EditorButtons';
+import { useEditorContext } from '../EditorContext';
 
 export const StyledWrapper = styled.div`
   height: 36px;
@@ -34,13 +35,23 @@ const TurnInto = styled.span`
 `;
 
 export const BlockTools = () => {
+  const { areEditorButtonsVisible } = useEditorContext();
+
   return (
     <StyledWrapper>
-      <DrawerPage OnClickComponent={() => <AddIcon svgLink={AddSvg} />} title="Turn Into">
+      <DrawerPage
+        isVisible={areEditorButtonsVisible}
+        OnClickComponent={() => <AddIcon svgLink={AddSvg} />}
+        title="Turn Into"
+      >
         <EditorButtons addInNewLine />
       </DrawerPage>
       <Separator />
-      <DrawerPage OnClickComponent={() => <TurnInto>Turn into</TurnInto>} title="Turn Into">
+      <DrawerPage
+        isVisible={areEditorButtonsVisible}
+        OnClickComponent={() => <TurnInto>Turn into</TurnInto>}
+        title="Turn Into"
+      >
         <EditorButtons />
       </DrawerPage>
     </StyledWrapper>

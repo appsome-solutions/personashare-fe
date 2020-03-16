@@ -14,6 +14,7 @@ import { BlockTools } from './BlockTools/BlockTools';
 import { Element } from './BlockTools/EditorFunctionalities/EditorFunctionalities';
 import { EditorContextProvider, EditorContextType } from './EditorContext';
 import { ActiveToolsType, StyledEditable } from './EditorStyles';
+import { InlineTools } from './InlineTools/InlineTools';
 
 const StyledPageWrapper = styled(PageWrapper)`
   position: relative;
@@ -21,15 +22,32 @@ const StyledPageWrapper = styled(PageWrapper)`
   min-height: calc(100vh - 108px);
 `;
 
+const getActiveTool = (editor: EditorType): ActiveToolsType => {
+  const { selection } = editor;
+
+  if (!selection) {
+    return false;
+  }
+  if (selection.anchor.offset !== selection.focus.offset) {
+    return 'inline';
+  }
+
+  return 'bloc';
+};
+
 export const Page: FC = () => {
-  const [activeTools, setActiveTools] = useState<ActiveToolsType>(false);
   const editor: EditorType = useMemo(() => withReact(createEditor()), []);
   const renderElement = useCallback(props => <Element {...props} />, []);
+  const [activeToolbar, setActiveToolbar] = useState<ActiveToolsType>(false);
+  const [areEditorButtonsVisible, setAreEditorButtonsVisible] = useState(false);
 
   // I need to mutate it to keep reference to last selected elements
   const editorContextValue: EditorContextType = {
     selection: null,
-    closeActiveTools: () => setActiveTools(false),
+    activeToolbar,
+    areEditorButtonsVisible,
+    setAreEditorButtonsVisible,
+    closeActiveTools: () => setActiveToolbar(false),
   };
 
   // Add the initial value when setting up our state.
@@ -49,14 +67,12 @@ export const Page: FC = () => {
           value={value}
           onChange={(value: Node[]) => {
             setValue(value as EditorElement[]);
+            setActiveToolbar(getActiveTool(editor));
           }}
         >
-          <StyledEditable
-            activeTools={activeTools}
-            onFocus={() => setActiveTools('bloc')}
-            renderElement={renderElement}
-          />
-          {activeTools === 'bloc' && <BlockTools />}
+          {activeToolbar === 'inline' && <InlineTools />}
+          <StyledEditable activeTools={activeToolbar} renderElement={renderElement} />
+          {activeToolbar === 'bloc' && <BlockTools />}
         </Slate>
       </StyledPageWrapper>
     </EditorContextProvider>

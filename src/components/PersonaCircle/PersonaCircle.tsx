@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { BoxProps } from 'components/FlexBox/FlexBox';
 import AddPhoto from 'assets/add_photo.svg';
 import { FileInput } from '../FileInput/FileInput';
-import { ImageRef } from 'components/CropperWidget/CropperWidget';
 
 const PersonCircle = styled.div`
   position: relative;
