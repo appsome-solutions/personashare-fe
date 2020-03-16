@@ -14,7 +14,7 @@ export const PersonaCard: FC<Props> = ({ card }) => (
   <Card mt={31} mb={40} position="relative">
     <BackgroundPlaceholder background={card.background} alt="Card background">
       <PersonaCircleWrapper>
-        <PersonaCircle avatar={card.avatar} alt="Avatar card" onAvatarSet={() => {}} />
+        <PersonaCircle avatar={card.avatar} alt="Avatar card" />
       </PersonaCircleWrapper>
     </BackgroundPlaceholder>
     <CardBody>

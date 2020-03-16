@@ -37,7 +37,7 @@ export const AvatarImage = styled.img`
 type PersonaCircleProps = {
   alt: string;
   avatar?: string;
-  onAvatarSet(file: File): void;
+  onAvatarSet?: (file: File) => void;
 };
 
 export const PersonaCircle: FC<BoxProps & PersonaCircleProps> = ({ alt, avatar, onAvatarSet, ...restProps }) => {
