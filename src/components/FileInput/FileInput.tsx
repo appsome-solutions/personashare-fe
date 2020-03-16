@@ -13,7 +13,7 @@ const AbsoluteLabel = styled.label`
 `;
 
 type FileInputProps = InputHTMLAttributes<HTMLInputElement> & {
-  onFileChange(file: File): void;
+  onFileChange?: (file: File) => void;
 };
 
 export const FileInput: FC<FileInputProps> = ({ name, id, onFileChange }) => (
@@ -24,7 +24,7 @@ export const FileInput: FC<FileInputProps> = ({ name, id, onFileChange }) => (
       id={id}
       onChange={e => {
         if (e && e.target && e.target.files) {
-          onFileChange(e.target.files[0]);
+          onFileChange && onFileChange(e.target.files[0]);
         }
       }}
     />

@@ -5,7 +5,7 @@ type Cb = (imageRef: ImageRef) => void;
 export const onAvatarChangeHelper = (file: File, cb: Cb): void => {
   cb({
     blobUrl: URL.createObjectURL(file),
-    fieldName: 'avatar',
+    fieldName: 'avatarUpload',
     blob: file,
     minCropBoxHeight: 42,
     aspectRatio: 1,
@@ -15,7 +15,7 @@ export const onAvatarChangeHelper = (file: File, cb: Cb): void => {
 export const onBgChangeHelper = (file: File, cb: Cb): void => {
   cb({
     blobUrl: URL.createObjectURL(file),
-    fieldName: 'background',
+    fieldName: 'backgroundUpload',
     blob: file,
     minCropBoxHeight: 154,
     aspectRatio: (window.innerWidth - 32) / 154,
@@ -28,4 +28,9 @@ export const revokeObjectURLS = (objectUrls: (string | undefined)[]): void => {
       URL.revokeObjectURL(objectUrl);
     }
   });
+};
+
+export const formUploadMapper: Record<string, string> = {
+  avatarUpload: 'avatar',
+  backgroundUpload: 'background',
 };

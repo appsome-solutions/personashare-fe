@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { BoxProps } from 'components/FlexBox/FlexBox';
 import AddPhoto from 'assets/add_photo.svg';
 import { FileInput } from '../FileInput/FileInput';
+import { ImageRef } from 'components/CropperWidget/CropperWidget';
 
 const PersonCircle = styled.div`
   position: relative;
@@ -36,14 +37,14 @@ export const AvatarImage = styled.img`
 type PersonaCircleProps = {
   alt: string;
   avatar?: string;
-  onAvatarSet(file: File): void;
+  onAvatarSet?: (file: File) => void;
 };
 
 export const PersonaCircle: FC<BoxProps & PersonaCircleProps> = ({ alt, avatar, onAvatarSet, ...restProps }) => {
   return (
     <PersonCircle {...restProps}>
       <AvatarImage src={avatar || AddPhoto} alt={alt} />
-      <FileInput onFileChange={onAvatarSet} name="avatar" id="avatar" accept="image/*" />
+      <FileInput onFileChange={onAvatarSet} name="avatarUpload" id="avatar" accept="image/*" />
     </PersonCircle>
   );
 };
