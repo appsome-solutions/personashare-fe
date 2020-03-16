@@ -24,6 +24,7 @@ export const BlockTools = () => {
       <DrawerPage
         isVisible={areEditorButtonsVisible}
         OnClickComponent={() => <BarIcon svgLink={AddSvg} onClick={() => setAreEditorButtonsVisible(true)} />}
+        onClose={() => setAreEditorButtonsVisible(false)}
         title="Turn Into"
       >
         <EditorButtons addInNewLine />
@@ -32,6 +33,7 @@ export const BlockTools = () => {
       <DrawerPage
         isVisible={areEditorButtonsVisible}
         OnClickComponent={() => <TurnInto onClick={() => setAreEditorButtonsVisible(true)}>Turn into</TurnInto>}
+        onClose={() => setAreEditorButtonsVisible(false)}
         title="Turn Into"
       >
         <EditorButtons />

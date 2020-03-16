@@ -24,13 +24,21 @@ const StyledPageWrapper = styled(PageWrapper)`
   min-height: calc(100vh - 108px);
 `;
 
+const isSelected = (editor: EditorType) => {
+  if (!editor.selection) {
+    return false;
+  }
+
+  return editor.selection.anchor.offset !== editor.selection.focus.offset;
+};
+
 const getActiveTool = (editor: EditorType): ActiveToolsType => {
   const { selection } = editor;
 
   if (!selection) {
     return false;
   }
-  if (selection.anchor.offset !== selection.focus.offset) {
+  if (isSelected(editor)) {
     return 'inline';
   }
 

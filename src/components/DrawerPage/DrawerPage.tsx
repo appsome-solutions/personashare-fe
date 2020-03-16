@@ -15,6 +15,7 @@ const StyledDrawer = styled(Drawer)`
 type DrawerPageProps = {
   title: string;
   children: JSX.Element | string;
+  onClose: () => any;
   OnClickComponent: React.ElementType;
   isVisible: boolean;
 };
@@ -45,7 +46,7 @@ const OnClickComponentWrapper = styled.div`
   align-items: center;
 `;
 
-export const DrawerPage = ({ title, children, OnClickComponent, isVisible = true }: DrawerPageProps) => {
+export const DrawerPage = ({ title, children, onClose, OnClickComponent, isVisible = true }: DrawerPageProps) => {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
@@ -55,14 +56,23 @@ export const DrawerPage = ({ title, children, OnClickComponent, isVisible = true
       </OnClickComponentWrapper>
       <StyledDrawer
         placement="bottom"
-        onClose={() => setIsOpened(false)}
+        onClose={() => {
+          setIsOpened(false);
+        }}
         visible={isVisible && isOpened}
         height="100vh"
         closable={false}
       >
         <TitleMenu>
           {title}
-          <CancelLink onClick={() => setIsOpened(false)}>Cancel</CancelLink>
+          <CancelLink
+            onClick={() => {
+              onClose();
+              setIsOpened(false);
+            }}
+          >
+            Cancel
+          </CancelLink>
         </TitleMenu>
         {children}
       </StyledDrawer>
