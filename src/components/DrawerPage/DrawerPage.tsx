@@ -38,14 +38,21 @@ const CancelLink = styled.a`
   color: ${props => props.theme.colors.utils.text.light};
 `;
 
+const OnClickComponentWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const DrawerPage = ({ title, children, OnClickComponent, isVisible = true }: DrawerPageProps) => {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
     <>
-      <div onClick={() => setIsOpened(true)}>
+      <OnClickComponentWrapper onClick={() => setIsOpened(true)}>
         <OnClickComponent />
-      </div>
+      </OnClickComponentWrapper>
       <StyledDrawer
         placement="bottom"
         onClose={() => setIsOpened(false)}

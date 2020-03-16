@@ -1,19 +1,8 @@
 import React from 'react';
-import { useSlate, ReactEditor } from 'slate-react';
-import { Editor, Range } from 'slate';
+import { useEditorContext } from '../EditorContext';
 
 export const InlineTools = () => {
-  const editor = useSlate();
-  const { selection } = editor;
+  const { setAreEditorButtonsVisible } = useEditorContext();
 
-  if (
-    !selection ||
-    !ReactEditor.isFocused(editor) ||
-    Range.isCollapsed(selection) ||
-    Editor.string(editor, selection) === ''
-  ) {
-    return null;
-  }
-
-  return <div>Inline</div>;
+  return <div onClick={() => setAreEditorButtonsVisible(true)}>Inline</div>;
 };

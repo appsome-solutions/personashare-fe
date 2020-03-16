@@ -35,13 +35,13 @@ const TurnInto = styled.span`
 `;
 
 export const BlockTools = () => {
-  const { areEditorButtonsVisible } = useEditorContext();
+  const { areEditorButtonsVisible, setAreEditorButtonsVisible } = useEditorContext();
 
   return (
     <StyledWrapper>
       <DrawerPage
         isVisible={areEditorButtonsVisible}
-        OnClickComponent={() => <AddIcon svgLink={AddSvg} />}
+        OnClickComponent={() => <AddIcon svgLink={AddSvg} onClick={() => setAreEditorButtonsVisible(true)} />}
         title="Turn Into"
       >
         <EditorButtons addInNewLine />
@@ -49,7 +49,7 @@ export const BlockTools = () => {
       <Separator />
       <DrawerPage
         isVisible={areEditorButtonsVisible}
-        OnClickComponent={() => <TurnInto>Turn into</TurnInto>}
+        OnClickComponent={() => <TurnInto onClick={() => setAreEditorButtonsVisible(true)}>Turn into</TurnInto>}
         title="Turn Into"
       >
         <EditorButtons />

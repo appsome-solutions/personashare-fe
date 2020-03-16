@@ -47,7 +47,7 @@ export const Page: FC = () => {
     activeToolbar,
     areEditorButtonsVisible,
     setAreEditorButtonsVisible,
-    closeActiveTools: () => setActiveToolbar(false),
+    closeActiveTools: () => setAreEditorButtonsVisible(false),
   };
 
   // Add the initial value when setting up our state.
@@ -61,13 +61,19 @@ export const Page: FC = () => {
   return (
     <EditorContextProvider value={editorContextValue}>
       <TopNav isWithBackArrow />
-      <StyledPageWrapper onBlur={() => (editorContextValue.selection = _.cloneDeep(editor.selection))}>
+      <StyledPageWrapper
+        onBlur={() => {
+          editorContextValue.selection = _.cloneDeep(editor.selection);
+        }}
+      >
         <Slate
           editor={editor as ReactEditor}
           value={value}
           onChange={(value: Node[]) => {
             setValue(value as EditorElement[]);
-            setActiveToolbar(getActiveTool(editor));
+            if (!areEditorButtonsVisible) {
+              setActiveToolbar(getActiveTool(editor));
+            }
           }}
         >
           {activeToolbar === 'inline' && <InlineTools />}
