@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { object, string, ref, boolean, InferType } from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
@@ -16,6 +16,7 @@ import { useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
 import FormikCheckbox from 'components/FormikFields/FormikChecbox/FormikCheckbox';
+import { useUserContext } from 'global/UserContext/UserContext';
 
 const StyledLogo = styled.img`
   margin-top: 46px;
@@ -95,8 +96,9 @@ const initialValues: FormValues = {
   termsAccepted: false,
 };
 
-export const Register = () => {
+export const Register: FC = () => {
   const [apiError, setApiError] = useState('');
+  const { setUser } = useUserContext();
   const firebase = useFirebase();
   const [signIn] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
@@ -109,6 +111,7 @@ export const Register = () => {
       const token = data?.data?.loginUser.accessToken || '';
       if (token) {
         localStorage.setItem(PS_TOKEN_NAME, token);
+        setUser(data?.data?.loginUser?.user || null);
         history.push('./create_persona');
       }
     } catch (error) {

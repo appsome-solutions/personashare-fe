@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
 import { isEqual } from 'lodash';
@@ -14,7 +14,7 @@ import { useStorage } from 'global/Storage';
 import { TopNav } from 'components/TopNav/TopNav';
 import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { WideButton } from 'components/Button';
-import { pageSchema, PageType, Persona } from 'global/ApolloLinkState/namespace';
+import { pageSchema, PageType, Persona } from 'global/graphqls/schema';
 import { Stepper } from 'components/Stepper';
 import { InfoCard } from 'components/InfoCard/InfoCard';
 import { FileInput } from 'components/FileInput/FileInput';
@@ -27,13 +27,15 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { EditIndicator } from 'components/EditIndicator/EditIndicator';
 import { Editor } from 'components/Editor/Editor';
 
-import { onAvatarChangeHelper, onBgChangeHelper, revokeObjectURLS } from '../helpers';
+import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper, revokeObjectURLS } from '../helpers';
 import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
 
 const pageInitialValues: PageType = {
   content: null,
-  avatar: null,
-  background: null,
+  avatar: '',
+  background: '',
+  avatarUpload: null,
+  backgroundUpload: null,
 };
 
 const initialState: ImageRef = {
@@ -74,27 +76,27 @@ export const CreatePage: FC = () => {
       }
 
       if (card?.data) {
-        const { name, description, avatar, background } = card.data.persona.card;
+        const { name, description, avatarUpload, backgroundUpload } = card.data.persona.card;
         const timestamp = Date.now();
         const assetsBlobs: AssetBlob[] = [
           {
-            name: `card_${timestamp}_${avatar?.fieldName}.jpg`,
-            blob: avatar?.blob || null,
+            name: `card_${timestamp}_${avatarUpload?.fieldName}.jpg`,
+            blob: avatarUpload?.blob || null,
             metaData: { customMetadata: { assetType: AssetType.CARD_AVATAR } },
           },
           {
-            name: `card_${timestamp}_${background?.fieldName}.jpg`,
-            blob: background?.blob || null,
+            name: `card_${timestamp}_${backgroundUpload?.fieldName}.jpg`,
+            blob: backgroundUpload?.blob || null,
             metaData: { customMetadata: { assetType: AssetType.CARD_BACKGROUND } },
           },
           {
-            name: `page_${timestamp}_${formValues?.avatar?.fieldName}.jpg`,
-            blob: formValues?.avatar?.blob || null,
+            name: `page_${timestamp}_${formValues?.avatarUpload?.fieldName}.jpg`,
+            blob: formValues?.avatarUpload?.blob || null,
             metaData: { customMetadata: { assetType: AssetType.PAGE_AVATAR } },
           },
           {
-            name: `page_${timestamp}_${formValues?.background?.fieldName}.jpg`,
-            blob: formValues?.background?.blob || null,
+            name: `page_${timestamp}_${formValues?.backgroundUpload?.fieldName}.jpg`,
+            blob: formValues?.backgroundUpload?.blob || null,
             metaData: { customMetadata: { assetType: AssetType.PAGE_BACKGROUND } },
           },
         ];
@@ -121,19 +123,19 @@ export const CreatePage: FC = () => {
           },
         });
 
+        const urls = [
+          avatarUpload?.blobUrl,
+          backgroundUpload?.blobUrl,
+          formValues?.avatarUpload?.blobUrl,
+          formValues?.backgroundUpload?.blobUrl,
+        ];
+        revokeObjectURLS(urls);
+
         // redirect to personas carouse view
         history.push('/personas');
       }
     },
     validationSchema: pageSchema,
-  });
-
-  useEffect(() => () => {
-    if (card?.data) {
-      const { avatar, background } = card.data.persona.card;
-      const urls = [avatar?.blobUrl, background?.blobUrl, values?.avatar?.blobUrl, values?.background?.blobUrl];
-      revokeObjectURLS(urls);
-    }
   });
 
   if (card?.data && isEqual(cardDefaults, card.data.persona.card)) {
@@ -142,6 +144,7 @@ export const CreatePage: FC = () => {
 
   const onCrop = (data: ImageRef): void => {
     setFieldValue(data.fieldName, data, true);
+    setFieldValue(formUploadMapper[data.fieldName], data?.blobUrl, true);
     setImageRef(initialState);
   };
 
@@ -157,7 +160,7 @@ export const CreatePage: FC = () => {
     setFieldValue('content', value, true);
   };
 
-  const { avatar, background } = values;
+  const { avatarUpload, backgroundUpload } = values;
 
   return (
     <div>
@@ -175,10 +178,10 @@ export const CreatePage: FC = () => {
           </InfoCard>
           <form id="page-form" onSubmit={handleSubmit}>
             <div>
-              <BackgroundPlaceholder background={background?.blobUrl || ''} alt="Card background">
-                <FileInput onFileChange={onBgChange} name="background" id="background" accept="image/*" />
+              <BackgroundPlaceholder background={backgroundUpload?.blobUrl || ''} alt="Card background">
+                <FileInput onFileChange={onBgChange} name="backgroundUpload" id="background" accept="image/*" />
                 <PersonaCircleWrapper>
-                  <PersonaCircle avatar={avatar?.blobUrl || ''} alt="Avatar card" onAvatarSet={onAvatarChange} />
+                  <PersonaCircle avatar={avatarUpload?.blobUrl || ''} alt="Avatar card" onAvatarSet={onAvatarChange} />
                 </PersonaCircleWrapper>
               </BackgroundPlaceholder>
             </div>

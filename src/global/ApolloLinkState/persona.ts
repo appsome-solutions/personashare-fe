@@ -2,21 +2,25 @@ import { Resolvers } from 'apollo-boost';
 
 import { GET_CARD, GET_PAGE } from 'global/graphqls/Persona';
 
-import { Persona, PersonaCard, PersonaPage } from './namespace';
+import { Persona, PersonaCard, PersonaPage } from 'global/graphqls/schema';
 
 const cardDefaults: PersonaCard = {
   __typename: 'PersonaCard',
   name: '',
   description: '',
-  avatar: null,
-  background: null,
+  avatar: '',
+  background: '',
+  avatarUpload: null,
+  backgroundUpload: null,
 };
 
 const pageDefaults: PersonaPage = {
   __typename: 'PersonaPage',
-  background: null,
-  avatar: null,
-  content: null,
+  background: '',
+  avatar: '',
+  content: '',
+  avatarUpload: null,
+  backgroundUpload: null,
 };
 
 const personaDefaults: Persona = {

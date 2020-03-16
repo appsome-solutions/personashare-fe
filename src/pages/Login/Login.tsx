@@ -16,8 +16,7 @@ import { Card } from 'components/Card/Card';
 import { Link } from 'react-router-dom';
 import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 // TODO: Remove after real integration
-import { StorageExample } from '../../components/StorageExample/StorageExample';
-import { Stepper } from 'components/Stepper';
+import { useUserContext } from 'global/UserContext/UserContext';
 
 const Caption = styled.span(props => props.theme.typography.caption);
 
@@ -101,6 +100,7 @@ const initialValues: FormValues = {
 
 export const Login: FunctionComponent = () => {
   const [apiError, setApiError] = useState('');
+  const { setUser } = useUserContext();
   const firebase = useFirebase();
   const [signIn, { data }] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
@@ -115,6 +115,7 @@ export const Login: FunctionComponent = () => {
 
     if (token) {
       localStorage.setItem(PS_TOKEN_NAME, token);
+      setUser(data?.data?.loginUser?.user || null);
       history.push('./createpersona');
     }
   };
@@ -149,7 +150,6 @@ export const Login: FunctionComponent = () => {
             <PageWrapper>
               <StyledLogo src={LogoSvg} alt="logo" />
               <StyledCard>
-                <Stepper items={[1, 2, 3]} current={2} />
                 <HeyText>Hey!</HeyText>
                 <LoginText>Sign into your Account</LoginText>
                 <EmailInput name="email" placeholder="Email" />
@@ -171,7 +171,6 @@ export const Login: FunctionComponent = () => {
                     <div>{data?.loginUser?.accessToken}</div>
                   </div>
                 )}
-                <StorageExample />
               </StyledCard>
               <RegisterCaption>
                 Don’t have account? <Link to="/register">Register Now</Link>

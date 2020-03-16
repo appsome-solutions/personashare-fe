@@ -9,7 +9,7 @@ import { TopNav } from 'components/TopNav/TopNav';
 import { WideButton } from 'components/Button/WideButton';
 import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { InfoCard } from 'components/InfoCard/InfoCard';
-import { CardType, cardSchema } from 'global/ApolloLinkState/namespace';
+import { CardType, cardSchema } from 'global/graphqls/schema';
 import { Card } from 'components/Card/Card';
 import { BackgroundPlaceholder } from 'components/BackgroundPlaceholder/BackgroundPlaceholder';
 import { PersonaCircle, PersonaCircleWrapper } from 'components/PersonaCircle/PersonaCircle';
@@ -20,13 +20,15 @@ import { Stepper } from 'components/Stepper';
 import { EditIndicator } from 'components/EditIndicator/EditIndicator';
 
 import { CardBody, CardDescription, CardName } from './CreateCard.styles';
-import { onAvatarChangeHelper, onBgChangeHelper } from '../helpers';
+import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper } from '../helpers';
 
 const cardInitialValues: CardType = {
   name: '',
   description: '',
-  avatar: null,
-  background: null,
+  avatar: '',
+  background: '',
+  avatarUpload: null,
+  backgroundUpload: null,
 };
 
 const initialState: ImageRef = {
@@ -58,7 +60,7 @@ export const CreateCard: FC = () => {
     validationSchema: cardSchema,
   });
 
-  const { name, description, avatar, background } = values;
+  const { name, description, avatarUpload, backgroundUpload } = values;
 
   const onAvatarChange = (avatarFile: File): void => {
     onAvatarChangeHelper(avatarFile, setImageRef);
@@ -70,6 +72,7 @@ export const CreateCard: FC = () => {
 
   const onCrop = (data: ImageRef): void => {
     setFieldValue(data.fieldName, data, true);
+    setFieldValue(formUploadMapper[data.fieldName], data?.blobUrl, true);
     setImageRef(initialState);
   };
 
@@ -92,10 +95,10 @@ export const CreateCard: FC = () => {
             short description.
           </InfoCard>
           <Card mt={31} mb={40} position="relative">
-            <BackgroundPlaceholder background={background?.blobUrl || ''} alt="Card background">
-              <FileInput onFileChange={onBgChange} name="background" id="background" accept="image/*" />
+            <BackgroundPlaceholder background={backgroundUpload?.blobUrl || ''} alt="Card background">
+              <FileInput onFileChange={onBgChange} name="backgroundUpload" id="background" accept="image/*" />
               <PersonaCircleWrapper>
-                <PersonaCircle avatar={avatar?.blobUrl || ''} alt="Avatar card" onAvatarSet={onAvatarChange} />
+                <PersonaCircle avatar={avatarUpload?.blobUrl || ''} alt="Avatar card" onAvatarSet={onAvatarChange} />
               </PersonaCircleWrapper>
             </BackgroundPlaceholder>
             <Flex justifyContent="flex-end" mx={14} my={10}>
