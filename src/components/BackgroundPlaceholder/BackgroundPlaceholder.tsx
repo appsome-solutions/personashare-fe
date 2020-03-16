@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import BgPlaceholder from 'assets/bg_placeholder.svg';
 import AddPhoto from 'assets/add_photo.svg';
-import { ImageRef } from 'components/CropperWidget/CropperWidget';
 
 const Placeholder = styled.div`
   position: relative;
