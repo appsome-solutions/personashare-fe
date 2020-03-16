@@ -15,6 +15,7 @@ import { Element } from './BlockTools/EditorFunctionalities/EditorFunctionalitie
 import { EditorContextProvider, EditorContextType } from './EditorContext';
 import { ActiveToolsType, StyledEditable } from './EditorStyles';
 import { InlineTools } from './InlineTools/InlineTools';
+import { Range } from 'slate/dist/interfaces/range';
 
 const StyledPageWrapper = styled(PageWrapper)`
   position: relative;
@@ -39,11 +40,12 @@ export const Page: FC = () => {
   const editor: EditorType = useMemo(() => withReact(createEditor()), []);
   const renderElement = useCallback(props => <Element {...props} />, []);
   const [activeToolbar, setActiveToolbar] = useState<ActiveToolsType>(false);
+  const [selection, setSelection] = useState<Range | null>(null);
   const [areEditorButtonsVisible, setAreEditorButtonsVisible] = useState(false);
 
   // I need to mutate it to keep reference to last selected elements
   const editorContextValue: EditorContextType = {
-    selection: null,
+    selection,
     activeToolbar,
     areEditorButtonsVisible,
     setAreEditorButtonsVisible,
@@ -61,17 +63,14 @@ export const Page: FC = () => {
   return (
     <EditorContextProvider value={editorContextValue}>
       <TopNav isWithBackArrow />
-      <StyledPageWrapper
-        onBlur={() => {
-          editorContextValue.selection = _.cloneDeep(editor.selection);
-        }}
-      >
+      <StyledPageWrapper>
         <Slate
           editor={editor as ReactEditor}
           value={value}
           onChange={(value: Node[]) => {
             setValue(value as EditorElement[]);
             if (!areEditorButtonsVisible) {
+              setSelection(_.cloneDeep(editor.selection));
               setActiveToolbar(getActiveTool(editor));
             }
           }}
