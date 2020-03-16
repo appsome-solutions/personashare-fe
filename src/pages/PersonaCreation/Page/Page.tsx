@@ -24,12 +24,12 @@ const StyledPageWrapper = styled(PageWrapper)`
   min-height: calc(100vh - 108px);
 `;
 
-const isSelected = (editor: EditorType) => {
-  if (!editor.selection) {
+const isSelected = (selection: Range | null) => {
+  if (!selection) {
     return false;
   }
 
-  return editor.selection.anchor.offset !== editor.selection.focus.offset;
+  return selection.anchor.offset !== selection.focus.offset;
 };
 
 const getActiveTool = (editor: EditorType): ActiveToolsType => {
@@ -38,7 +38,7 @@ const getActiveTool = (editor: EditorType): ActiveToolsType => {
   if (!selection) {
     return false;
   }
-  if (isSelected(editor)) {
+  if (isSelected(editor.selection)) {
     return 'inline';
   }
 
@@ -78,7 +78,7 @@ export const Page: FC = () => {
           value={value}
           onChange={(value: Node[]) => {
             setValue(value as EditorElement[]);
-            if (!areEditorButtonsVisible) {
+            if (!areEditorButtonsVisible || (isSelected(selection) && !isSelected(editor.selection))) {
               setSelection(_.cloneDeep(editor.selection));
               setActiveToolbar(getActiveTool(editor));
             }
