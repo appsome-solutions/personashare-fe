@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { Editor as EditorType, Node, Element as EditorElement } from 'slate/dist';
 
 // Import the Slate editor factory.
-import { createEditor, Editor, Range } from 'slate';
+import { createEditor } from 'slate';
 
 // Import the Slate components and React plugin.
 import { Slate, withReact, ReactEditor } from 'slate-react';
@@ -25,19 +25,10 @@ const StyledPageWrapper = styled(PageWrapper)`
 const getActiveTool = (editor: EditorType): ActiveToolsType => {
   const { selection } = editor;
 
-  if (
-    !selection ||
-    !ReactEditor.isFocused(editor as ReactEditor) ||
-    Range.isCollapsed(selection) ||
-    Editor.string(editor, selection) === ''
-  ) {
+  if (!selection) {
     return false;
-  } else if (
-    selection &&
-    ReactEditor.isFocused(editor as ReactEditor) &&
-    !Range.isCollapsed(selection) &&
-    Editor.string(editor, selection) !== ''
-  ) {
+  }
+  if (selection.anchor.offset !== selection.focus.offset) {
     return 'inline';
   }
 
@@ -47,13 +38,16 @@ const getActiveTool = (editor: EditorType): ActiveToolsType => {
 export const Page: FC = () => {
   const editor: EditorType = useMemo(() => withReact(createEditor()), []);
   const renderElement = useCallback(props => <Element {...props} />, []);
+  const [activeToolbar, setActiveToolbar] = useState<ActiveToolsType>(false);
   const [areEditorButtonsVisible, setAreEditorButtonsVisible] = useState(false);
 
   // I need to mutate it to keep reference to last selected elements
   const editorContextValue: EditorContextType = {
     selection: null,
+    activeToolbar,
     areEditorButtonsVisible,
-    closeActiveTools: () => setAreEditorButtonsVisible(false),
+    setAreEditorButtonsVisible,
+    closeActiveTools: () => setActiveToolbar(false),
   };
 
   // Add the initial value when setting up our state.
@@ -64,8 +58,6 @@ export const Page: FC = () => {
     },
   ]);
 
-  const activeToolbar = getActiveTool(editor);
-
   return (
     <EditorContextProvider value={editorContextValue}>
       <TopNav isWithBackArrow />
@@ -75,6 +67,7 @@ export const Page: FC = () => {
           value={value}
           onChange={(value: Node[]) => {
             setValue(value as EditorElement[]);
+            setActiveToolbar(getActiveTool(editor));
           }}
         >
           {activeToolbar === 'inline' && <InlineTools />}

@@ -8,6 +8,7 @@ import { InitialStep } from 'pages/CreatePersona/InitialStep/InitialStep';
 import { CreateCard } from 'pages/CreatePersona/CreateCard/CreateCard';
 import { CreatePage } from 'pages/CreatePersona/CreatePage/CreatePage';
 import { Personas } from 'pages/Personas/Personas';
+import { Page } from 'pages/PersonaCreation/Page/Page';
 
 export const AppRouter: FunctionComponent = () => {
   return (
@@ -20,6 +21,7 @@ export const AppRouter: FunctionComponent = () => {
       <Route path="/createpersona" exact component={InitialStep} />
       <Route path="/createpersona/card" exact component={CreateCard} />
       <Route path="/createpersona/page" exact component={CreatePage} />
+      <Route path="/persona-creation/page" exact component={Page} />
     </Switch>
   );
 };

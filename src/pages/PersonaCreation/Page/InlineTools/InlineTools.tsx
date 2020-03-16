@@ -15,5 +15,5 @@ export const InlineTools = () => {
     return null;
   }
 
-  return <div>test</div>;
+  return <div>Inline</div>;
 };
