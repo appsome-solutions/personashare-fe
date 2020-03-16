@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import { Editable } from 'slate-react';
 import { EditableProps } from 'slate-react/dist/components/editable';
+import { Icon } from 'components/Icon';
 
 export type ActiveToolsType = 'bloc' | 'inline' | false;
 
@@ -46,4 +47,43 @@ export const StyledEditable = styled<FC<StyledEditableProps>>(
       padding-left: 4px;
     }
   }
+`;
+
+export const EditorBarWrapper = styled.div`
+  height: 36px;
+  position: fixed;
+  bottom: 50px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  background-color: ${props => props.theme.colors.utils.background.light};
+  border-top: 1px solid ${props => props.theme.colors.functional.disabled};
+`;
+
+export const BarIcon = styled(Icon)`
+  height: 36px;
+  width: 36px;
+`;
+
+export const EditorButtonWrapper = styled.div`
+  border-top: 1px solid ${props => props.theme.colors.functional.disabled};
+  &:last-child {
+    border-bottom: 1px solid ${props => props.theme.colors.functional.disabled};
+  }
+  display: flex;
+  align-items: center;
+`;
+
+export const EditorButtonIconWrapper = styled.span`
+  margin: 12px;
+  border: 1px solid ${props => props.theme.colors.functional.disabled};
+
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
 `;

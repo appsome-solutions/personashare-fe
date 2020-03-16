@@ -16,6 +16,7 @@ import { EditorContextProvider, EditorContextType } from './EditorContext';
 import { ActiveToolsType, StyledEditable } from './EditorStyles';
 import { InlineTools } from './InlineTools/InlineTools';
 import { Range } from 'slate/dist/interfaces/range';
+import { Leaf } from './InlineTools/EditorFunctionalities/EditorFunctionalities';
 
 const StyledPageWrapper = styled(PageWrapper)`
   position: relative;
@@ -75,8 +76,12 @@ export const Page: FC = () => {
             }
           }}
         >
+          <StyledEditable
+            activeTools={activeToolbar}
+            renderElement={renderElement}
+            renderLeaf={props => <Leaf {...props} />}
+          />
           {activeToolbar === 'inline' && <InlineTools />}
-          <StyledEditable activeTools={activeToolbar} renderElement={renderElement} />
           {activeToolbar === 'bloc' && <BlockTools />}
         </Slate>
       </StyledPageWrapper>
