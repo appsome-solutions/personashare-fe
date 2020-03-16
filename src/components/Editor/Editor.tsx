@@ -26,6 +26,9 @@ export const Editor: FC<EditorProps> = ({ hasError, onChange }) => {
 
   const editorContextValue: EditorContextType = {
     selection: null,
+    activeToolbar: false,
+    areEditorButtonsVisible: false,
+    setAreEditorButtonsVisible: () => {},
     closeActiveTools: () => setActiveTools(false),
   };
 
