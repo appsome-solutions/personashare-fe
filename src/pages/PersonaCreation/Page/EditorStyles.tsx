@@ -47,6 +47,12 @@ export const StyledEditable = styled<FC<StyledEditableProps>>(
       padding-left: 4px;
     }
   }
+
+  code {
+    font-family: monospace;
+    background-color: #eee;
+    padding: 4px;
+  }
 `;
 
 export const EditorBarWrapper = styled.div`
