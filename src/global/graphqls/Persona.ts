@@ -1,5 +1,6 @@
 import { gql } from 'apollo-boost';
-import { PersonaCard, PersonaPage } from 'global/ApolloLinkState/namespace';
+import { PersonaCard, PersonaPage } from 'global/graphqls/schema';
+import { gqlPersona } from './schema';
 
 export type GetPageType = {
   persona: {
@@ -14,6 +15,8 @@ export const GET_PAGE = gql`
         background
         avatar
         content
+        backgroundUpload
+        avatarUpload
       }
     }
   }
@@ -33,7 +36,67 @@ export const GET_CARD = gql`
         description
         avatar
         background
+        avatarUpload
+        backgroundUpload
       }
+    }
+  }
+`;
+
+export const UPDATE_CARD = gql`
+  mutation updateCard($card: Card!) {
+    updateCard(card: $card) @client
+  }
+`;
+
+export const CREATE_PERSONA = gql`
+  mutation createPersona($payload: CreateShareableInput!) {
+    createPersona(persona: $payload) {
+      uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+    }
+  }
+`;
+
+export type GetPersonaType = {
+  personas: gqlPersona[];
+};
+
+export const GET_PERSONAS = gql`
+  {
+    personas {
+      uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+      personaUUIDs
+      qrCodeLink
+    }
+  }
+`;
+
+export const SET_DEFAULT_PERSONA = gql`
+  mutation setDefaultPersona($uuid: String!) {
+    setDefaultPersona(uuid: $uuid) {
+      uuid
     }
   }
 `;

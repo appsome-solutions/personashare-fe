@@ -2,7 +2,7 @@ import { Resolvers } from 'apollo-boost';
 
 import { GET_CARD, GET_PAGE } from 'global/graphqls/Persona';
 
-import { Persona, PersonaCard, PersonaPage } from './namespace';
+import { Persona, PersonaCard, PersonaPage } from 'global/graphqls/schema';
 
 const cardDefaults: PersonaCard = {
   __typename: 'PersonaCard',
@@ -10,6 +10,8 @@ const cardDefaults: PersonaCard = {
   description: '',
   avatar: '',
   background: '',
+  avatarUpload: null,
+  backgroundUpload: null,
 };
 
 const pageDefaults: PersonaPage = {
@@ -17,24 +19,29 @@ const pageDefaults: PersonaPage = {
   background: '',
   avatar: '',
   content: '',
+  avatarUpload: null,
+  backgroundUpload: null,
 };
 
 const personaDefaults: Persona = {
   __typename: 'Persona',
   card: cardDefaults,
   page: pageDefaults,
-  personaUUIDs: [],
+  uuid: '',
 };
 
 const personaResolvers: Resolvers = {
   Mutation: {
-    changeCard: (_, { card }: Persona, { cache }) => {
+    updateCard: (_, { card }: Persona, { cache }) => {
       const previousState = cache.readQuery({ query: GET_CARD });
 
       const data = {
         persona: {
           ...previousState.persona,
-          card,
+          card: {
+            ...previousState.persona.card,
+            ...card,
+          },
         },
       };
 

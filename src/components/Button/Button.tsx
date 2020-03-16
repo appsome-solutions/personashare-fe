@@ -8,14 +8,13 @@ export const Button = styled(AntdButton)`
     height: 36px;
     cursor: pointer;
     border-radius: 4px;
-    &:disabled {
+    &&:disabled {
       cursor: not-allowed;
       background-color: ${props => props.theme.colors.functional.disabled};
     }
     &&:active,
     &&:hover {
       color: ${props => props.theme.colors.utils.text.light};
-      background-color: ${props => props.theme.colors.main.primary};
     }
   }
 `;

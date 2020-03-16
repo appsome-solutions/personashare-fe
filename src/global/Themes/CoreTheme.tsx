@@ -1,5 +1,7 @@
 import 'antd/dist/antd.min.css';
 
+import 'cropperjs/dist/cropper.min.css';
+
 export const CoreTheme = {
   colors: {
     main: {
@@ -20,6 +22,7 @@ export const CoreTheme = {
     },
     functional: {
       disabled: '#B7B7B7',
+      error: '#D42A2A',
     },
   },
 

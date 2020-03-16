@@ -7,12 +7,14 @@ import { Login } from 'pages/Login/Login';
 import { InitialStep } from 'pages/CreatePersona/InitialStep/InitialStep';
 import { CreateCard } from 'pages/CreatePersona/CreateCard/CreateCard';
 import { CreatePage } from 'pages/CreatePersona/CreatePage/CreatePage';
+import { Personas } from 'pages/Personas/Personas';
 
 export const AppRouter: FunctionComponent = () => {
   return (
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/scanner" exact component={() => <QrScanner onCode={res => alert(res.data)} />} />
+      <Route path="/personas" exact component={Personas} />
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
       <Route path="/createpersona" exact component={InitialStep} />
