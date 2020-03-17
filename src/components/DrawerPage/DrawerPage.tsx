@@ -15,7 +15,7 @@ const StyledDrawer = styled(Drawer)`
 type DrawerPageProps = {
   title: string;
   children: JSX.Element | string;
-  onClose: () => any;
+  onClose: () => void;
   OnClickComponent: React.ElementType;
   isVisible: boolean;
 };
