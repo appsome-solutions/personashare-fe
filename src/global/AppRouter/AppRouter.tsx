@@ -9,6 +9,7 @@ import { CreateCard } from 'pages/CreatePersona/CreateCard/CreateCard';
 import { CreatePage } from 'pages/CreatePersona/CreatePage/CreatePage';
 import { Personas } from 'pages/Personas/Personas';
 import { Page } from 'pages/PersonaCreation/Page/Page';
+import { MySpots } from 'components/MySpots/MySpots';
 
 export const AppRouter: FunctionComponent = () => {
   return (
@@ -16,6 +17,7 @@ export const AppRouter: FunctionComponent = () => {
       <Route path="/" exact component={Home} />
       <Route path="/scanner" exact component={() => <QrScanner onCode={res => alert(res.data)} />} />
       <Route path="/personas" exact component={Personas} />
+      <Route path="/my-spots" exact component={MySpots} />
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
       <Route path="/createpersona" exact component={InitialStep} />
