@@ -1,31 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Icon } from 'components/Icon';
 import { useSlate } from 'slate-react';
 import { toggleBlock, EditorBlockFormats } from '../EditorFunctionalities/EditorFunctionalities';
 import { useEditorContext } from '../../EditorContext';
 import { Transforms } from 'slate';
-
-const BlockButtonWrapper = styled.div`
-  border-top: 1px solid ${props => props.theme.colors.functional.disabled};
-  &:last-child {
-    border-bottom: 1px solid ${props => props.theme.colors.functional.disabled};
-  }
-  display: flex;
-  align-items: center;
-`;
-
-const IconWrapper = styled.span`
-  margin: 12px;
-  border: 1px solid ${props => props.theme.colors.functional.disabled};
-
-  height: 32px;
-  width: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-`;
+import { EditorButtonWrapper, EditorButtonIconWrapper } from '../../EditorStyles';
 
 export type BlockButtonType = {
   svgLink: string;
@@ -39,7 +18,7 @@ export const BlockButton = ({ svgLink, title, format, addInNewLine = false }: Bl
   const editorContext = useEditorContext();
 
   return (
-    <BlockButtonWrapper
+    <EditorButtonWrapper
       onMouseDown={event => {
         event.preventDefault();
 
@@ -61,10 +40,10 @@ export const BlockButton = ({ svgLink, title, format, addInNewLine = false }: Bl
         // editor.focus();
       }}
     >
-      <IconWrapper>
+      <EditorButtonIconWrapper>
         <Icon svgLink={svgLink} />
-      </IconWrapper>
+      </EditorButtonIconWrapper>
       {title}
-    </BlockButtonWrapper>
+    </EditorButtonWrapper>
   );
 };

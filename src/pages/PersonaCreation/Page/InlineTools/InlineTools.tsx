@@ -1,19 +1,30 @@
 import React from 'react';
-import { useSlate, ReactEditor } from 'slate-react';
-import { Editor, Range } from 'slate';
+import { useEditorContext } from '../EditorContext';
+import { InlineButton } from './InlineButton/InlineButton';
+
+import BoldSvg from 'assets/format_bold.svg';
+import ItalicSvg from 'assets/format_italic.svg';
+import UnderlineSvg from 'assets/format_underlined.svg';
+import CodeSvg from 'assets/code.svg';
+
+import { EditorBarWrapper } from '../EditorStyles';
+import styled from 'styled-components';
+
+const StyledEditorBarWrapper = styled(EditorBarWrapper)`
+  & > div {
+    border-right: 1px solid ${props => props.theme.colors.functional.disabled};
+  }
+`;
 
 export const InlineTools = () => {
-  const editor = useSlate();
-  const { selection } = editor;
+  const { setAreEditorButtonsVisible } = useEditorContext();
 
-  if (
-    !selection ||
-    !ReactEditor.isFocused(editor) ||
-    Range.isCollapsed(selection) ||
-    Editor.string(editor, selection) === ''
-  ) {
-    return null;
-  }
-
-  return <div>Inline</div>;
+  return (
+    <StyledEditorBarWrapper onClick={() => setAreEditorButtonsVisible(true)}>
+      <InlineButton format="bold" svgLink={BoldSvg} />
+      <InlineButton format="code" svgLink={CodeSvg} />
+      <InlineButton format="italic" svgLink={ItalicSvg} />
+      <InlineButton format="underline" svgLink={UnderlineSvg} />
+    </StyledEditorBarWrapper>
+  );
 };
