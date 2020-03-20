@@ -45,7 +45,7 @@ export const MySpots = () => {
       <HamburgerMenu isWithHamburger={false} />
       <Wrapper>
         <TextAndImg>
-          <img src={BoxInSpots} alt="dsa" />
+          <img src={BoxInSpots} alt="Box In Spots" />
           <TextUnderImg>no spots created</TextUnderImg>
         </TextAndImg>
         <NavLink to="/spot-creation/1">

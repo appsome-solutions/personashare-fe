@@ -1,28 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Icon } from 'components/Icon';
 import AddSvg from 'assets/add-24px.svg';
 import { DrawerPage } from 'components/DrawerPage/DrawerPage';
 import { EditorButtons } from './EditorButtons/EditorButtons';
 import { useEditorContext } from '../EditorContext';
-
-export const StyledWrapper = styled.div`
-  height: 36px;
-  position: fixed;
-  bottom: 50px;
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-
-  background-color: ${props => props.theme.colors.utils.background.light};
-  border-top: 1px solid ${props => props.theme.colors.functional.disabled};
-`;
-
-const AddIcon = styled(Icon)`
-  height: 36px;
-  width: 36px;
-`;
+import { BarIcon, EditorBarWrapper } from '../EditorStyles';
 
 const Separator = styled.div`
   width: 1px;
@@ -35,13 +17,14 @@ const TurnInto = styled.span`
 `;
 
 export const BlockTools = () => {
-  const { areEditorButtonsVisible } = useEditorContext();
+  const { areEditorButtonsVisible, setAreEditorButtonsVisible } = useEditorContext();
 
   return (
-    <StyledWrapper>
+    <EditorBarWrapper>
       <DrawerPage
         isVisible={areEditorButtonsVisible}
-        OnClickComponent={() => <AddIcon svgLink={AddSvg} />}
+        OnClickComponent={() => <BarIcon svgLink={AddSvg} onClick={() => setAreEditorButtonsVisible(true)} />}
+        onClose={() => setAreEditorButtonsVisible(false)}
         title="Turn Into"
       >
         <EditorButtons addInNewLine />
@@ -49,11 +32,12 @@ export const BlockTools = () => {
       <Separator />
       <DrawerPage
         isVisible={areEditorButtonsVisible}
-        OnClickComponent={() => <TurnInto>Turn into</TurnInto>}
+        OnClickComponent={() => <TurnInto onClick={() => setAreEditorButtonsVisible(true)}>Turn into</TurnInto>}
+        onClose={() => setAreEditorButtonsVisible(false)}
         title="Turn Into"
       >
         <EditorButtons />
       </DrawerPage>
-    </StyledWrapper>
+    </EditorBarWrapper>
   );
 };
