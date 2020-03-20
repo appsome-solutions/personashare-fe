@@ -5,6 +5,7 @@ import { QRCode } from 'jsqr';
 import getPixels from 'get-pixels';
 import VideoOverlay from './VideoOverlay';
 import { useWorkerDecode } from './hooks/useWorkerDecode';
+import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
 
 const Wrapper = styled.div`
   display: flex;
@@ -85,18 +86,21 @@ export const QrScanner = ({
   webWorker = useWorkerDecode({ capture, interval, onCode });
 
   return (
-    <Wrapper>
-      <VideoOverlay />
-      <StyledWebcam
-        className={className}
-        audio={false}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        videoConstraints={videoConstraints}
-        onUserMediaError={onUserMediaError}
-      />
-      {buttonMode ? <Button onClick={capture} /> : null}
-    </Wrapper>
+    <>
+      <HamburgerMenu isWithHamburger />
+      <Wrapper>
+        <VideoOverlay />
+        <StyledWebcam
+          className={className}
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat="image/jpeg"
+          videoConstraints={videoConstraints}
+          onUserMediaError={onUserMediaError}
+        />
+        {buttonMode ? <Button onClick={capture} /> : null}
+      </Wrapper>
+    </>
   );
 };
 
