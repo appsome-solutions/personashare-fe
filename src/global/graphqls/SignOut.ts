@@ -1,9 +1,6 @@
 import { gql } from 'apollo-boost';
 
 export interface SignOutResponse {
-  loginUser: {
-    accessToken: string;
-  };
   logout: boolean;
 }
 

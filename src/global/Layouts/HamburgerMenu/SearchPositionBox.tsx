@@ -18,15 +18,15 @@ const SearchInputStyled = styled.input`
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-sizing: border-box;
   border-radius: 4px;
-  :: placeholder {
-     ${props => props.theme.typography.body2};
+  :: placeholder{
+    ${props => props.theme.typography.body2};
     color: rgba(50, 50, 93, 0.5);
-    }
+  }
   :focus {
     outline: none;
     }
   :hover {
-    border:1px solid ${props => props.theme.colors.utils.background.light};
+    border:1px solid ${props => props.theme.colors.utils.background.light}
     }
 `;
 
@@ -35,11 +35,9 @@ const SearchImg = styled.img`
   margin-left: 8px;
 `;
 
-export const SearchPositionBox = () => {
-  return (
-    <SearchPositionBoxStyled>
-      <SearchInputStyled placeholder="Search..." />
-      <SearchImg src={SearchIcon} alt="Search Icon " />
-    </SearchPositionBoxStyled>
-  );
-};
+export const SearchPositionBox = () => (
+  <SearchPositionBoxStyled>
+    <SearchInputStyled placeholder="Search..." />
+    <SearchImg src={SearchIcon} alt="something " />
+  </SearchPositionBoxStyled>
+);
