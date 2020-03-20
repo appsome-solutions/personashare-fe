@@ -20,7 +20,11 @@ import { Stepper } from 'components/Stepper';
 import { EditIndicator } from 'components/EditIndicator/EditIndicator';
 
 import { CardBody, CardDescription, CardName } from './CreateCard.styles';
-import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper } from '../helpers';
+import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper } from '../../../pages/CreatePersona/helpers';
+
+export interface LinkProps {
+  pathSpotOrPersona: any;
+}
 
 const cardInitialValues: CardType = {
   name: '',
@@ -37,7 +41,8 @@ const initialState: ImageRef = {
   blob: null,
 };
 
-export const CreateCard: FC = () => {
+export const CreateCard: FC<LinkProps> = (props: LinkProps) => {
+  const { pathSpotOrPersona } = props;
   const [updateCard] = useMutation<GetCardType>(UPDATE_CARD);
   const { data } = useQuery<GetCardType>(GET_CARD);
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
@@ -53,7 +58,7 @@ export const CreateCard: FC = () => {
         },
       }).then(() => {
         history.push({
-          pathname: 'page',
+          pathname: pathSpotOrPersona,
         });
       });
     },

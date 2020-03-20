@@ -48,7 +48,7 @@ export const MySpots = () => {
           <img src={BoxInSpots} alt="dsa" />
           <TextUnderImg>no spots created</TextUnderImg>
         </TextAndImg>
-        <NavLink to="/spot-creation/1">
+        <NavLink to="./creation/step/1/entity/spot">
           <CreateSpot>
             <CreateIcon src={AddIcon} alt="Create Icon" />
           </CreateSpot>

@@ -27,8 +27,19 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { EditIndicator } from 'components/EditIndicator/EditIndicator';
 import { Editor } from 'components/Editor/Editor';
 
-import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper, revokeObjectURLS } from '../helpers';
+import {
+  onAvatarChangeHelper,
+  onBgChangeHelper,
+  formUploadMapper,
+  revokeObjectURLS,
+} from '../../../pages/CreatePersona/helpers';
 import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
+
+export interface LinkProps {
+  previousStepPath: string;
+  nameSpotOrPersona: string;
+  nextStepPath: string;
+}
 
 const pageInitialValues: PageType = {
   content: null,
@@ -44,7 +55,8 @@ const initialState: ImageRef = {
   blob: null,
 };
 
-export const CreatePage: FC = () => {
+export const CreatePage: FC<LinkProps> = (props: LinkProps) => {
+  const { previousStepPath, nameSpotOrPersona, nextStepPath } = props;
   const { getCurrentUser } = useFirebase();
   const { storageRef } = useStorage();
   const history = useHistory();
@@ -132,14 +144,14 @@ export const CreatePage: FC = () => {
         revokeObjectURLS(urls);
 
         // redirect to personas carouse view
-        history.push('/personas');
+        history.push(nextStepPath);
       }
     },
     validationSchema: pageSchema,
   });
 
   if (card?.data && isEqual(cardDefaults, card.data.persona.card)) {
-    return <Redirect to="/createpersona/card" />;
+    return <Redirect to={previousStepPath} />;
   }
 
   const onCrop = (data: ImageRef): void => {
@@ -194,7 +206,7 @@ export const CreatePage: FC = () => {
           </form>
         </div>
         <WideButton htmlType="submit" form="page-form" disabled={!isValid}>
-          Create Persona
+          Create {nameSpotOrPersona}
         </WideButton>
       </PageWrapperSpaceBetween>
       <CropperWidget imageRef={imageRef} onCrop={onCrop} />
