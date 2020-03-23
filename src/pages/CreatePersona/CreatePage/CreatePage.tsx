@@ -132,7 +132,7 @@ export const CreatePage: FC = () => {
         revokeObjectURLS(urls);
 
         // redirect to personas carouse view
-        history.push('/personas');
+        history.push('/choose-persona');
       }
     },
     validationSchema: pageSchema,

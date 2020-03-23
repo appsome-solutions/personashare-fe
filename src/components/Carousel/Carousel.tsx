@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import styled from 'styled-components';
 import { Carousel as AntCarousel } from 'antd';
 import { CarouselProps as AntCarouselProps } from 'antd/lib/carousel';
@@ -9,9 +9,12 @@ const StyledCarousel = styled(AntCarousel)`
   }
 `;
 
-type CarouselProps = AntCarouselProps;
+type CarouselProps = {
+  children?: ReactNode | ReactNode[];
+} & AntCarouselProps;
 
-const Carousel: FC<CarouselProps> = ({ children, ...rest }) => {
+// eslint-disable-next-line react/display-name
+const Carousel = forwardRef<AntCarousel, CarouselProps>(({ children, ...rest }, ref) => {
   const settings = {
     centerMode: true,
     centerPadding: '60px',
@@ -29,10 +32,10 @@ const Carousel: FC<CarouselProps> = ({ children, ...rest }) => {
     ],
   };
   return (
-    <StyledCarousel dots={false} {...settings} {...rest}>
+    <StyledCarousel dots={false} {...settings} {...rest} ref={ref}>
       {children}
     </StyledCarousel>
   );
-};
+});
 
 export default Carousel;
