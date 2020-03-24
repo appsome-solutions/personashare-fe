@@ -32,7 +32,7 @@ import {
   onBgChangeHelper,
   formUploadMapper,
   revokeObjectURLS,
-} from '../../../pages/CreatePersona/helpers';
+} from 'pages/CreatePersona/helpers';
 import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
 
 export interface LinkProps {
