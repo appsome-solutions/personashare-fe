@@ -150,13 +150,13 @@ export const ChoosePersona: FC = () => {
     if (!data) {
       return;
     }
+    const actionType = pathnameArray[2];
+    const actionId = pathnameArray[4];
     if (pathnameArray.includes('persona')) {
-      // second element in action type, fourth is action id
-      callPersonaMutation(pathnameArray[2], pathnameArray[4], data.userPersonas[currentSlide].uuid);
+      callPersonaMutation(actionType, actionId, data.userPersonas[currentSlide].uuid);
     }
     if (pathnameArray.includes('spot')) {
-      // second element in action type, fourth is action id
-      callSpotMutation(pathnameArray[2], pathnameArray[4], data.userPersonas[currentSlide].uuid);
+      callSpotMutation(actionType, actionId, data.userPersonas[currentSlide].uuid);
     }
     return;
   };
