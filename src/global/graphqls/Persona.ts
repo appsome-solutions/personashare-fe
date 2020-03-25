@@ -69,12 +69,12 @@ export const CREATE_PERSONA = gql`
 `;
 
 export type GetPersonaType = {
-  personas: gqlPersona[];
+  userPersonas: gqlPersona[];
 };
 
 export const GET_PERSONAS = gql`
   {
-    personas {
+    userPersonas {
       uuid
       card {
         name
@@ -93,9 +93,29 @@ export const GET_PERSONAS = gql`
   }
 `;
 
+export interface SetDefaultPersonaResponse {
+  setDefaultPersona: {
+    uuid: string;
+  };
+}
+
 export const SET_DEFAULT_PERSONA = gql`
   mutation setDefaultPersona($uuid: String!) {
     setDefaultPersona(uuid: $uuid) {
+      uuid
+    }
+  }
+`;
+
+export interface RecommendPersonaResponse {
+  recommendPersona: {
+    uuid: string;
+  };
+}
+
+export const RECOMMEND_PERSONA = gql`
+  mutation recommendPersona($recommendedPersonaUuid: String!, $personaUuid: String!) {
+    recommendPersona(recommendedPersonaUuid: $recommendedPersonaUuid, personaUuid: $personaUuid) {
       uuid
     }
   }
