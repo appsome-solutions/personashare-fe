@@ -137,6 +137,10 @@ export const ChoosePersona: FC = () => {
   const carousel = useRef<AntCarousel>(null);
 
   useEffect(() => {
+    setDefaultPersonaUuid(user?.defaultPersona);
+  }, [user]);
+
+  useEffect(() => {
     if (data?.userPersonas) {
       const defaultPersonaIndex = data.userPersonas.findIndex(persona => persona.uuid === defaultPersonaUuid);
       const goToIndex = defaultPersonaIndex === -1 ? 0 : defaultPersonaIndex;
@@ -201,7 +205,6 @@ export const ChoosePersona: FC = () => {
             ))}
         </Carousel>
         <img src={`${data.userPersonas[currentSlide].qrCodeLink}`} />
-        {currentSlide}
       </PageWrapperSpaceBetween>
     </div>
   );
