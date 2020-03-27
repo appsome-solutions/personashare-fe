@@ -5,17 +5,14 @@ import { Home } from 'pages/Home/Home';
 import { Register } from 'pages/Register/Register';
 import { Login } from 'pages/Login/Login';
 import { InitialStep } from 'pages/CreatePersona/InitialStep/InitialStep';
-import { CreateCard } from 'pages/CreatePersona/CreateCard/CreateCard';
-import { CreatePage } from 'pages/CreatePersona/CreatePage/CreatePage';
 import { ChoosePersona } from 'pages/ChoosePersona/ChoosePersona';
 import { Page } from 'pages/PersonaCreation/Page/Page';
-import { MySpots } from 'components/MySpots/MySpots';
 import { CreateSpotsStep1 } from 'pages/CreateSpot/CreateSpotsStep1';
 import { CreateSpotsCard } from 'pages/CreateSpot/CreateSpotsCard';
 import { CreateSpotsPage } from 'pages/CreateSpot/CreateSpotsPage';
 import { CreatePersonaCard } from 'pages/CreatePersona/InitialStep/CreatePersonaCard';
 import { CreatePersonaPage } from 'pages/CreatePersona/InitialStep/CreatePersonaPage';
-
+import { MySpots } from 'components/MySpots/MySpots';
 export const AppRouter: FunctionComponent = () => {
   return (
     <Switch>

@@ -38,11 +38,26 @@ export type PageType = Yup.InferType<typeof pageSchema>;
 
 export type PersonaPage = WithTypeName & PageType;
 
+export type SpotPage = WithTypeName & PageType;
+
+export type SpotCard = WithTypeName & CardType;
+
 export type Persona = WithTypeName & {
   uuid: string;
   card: PersonaCard;
   page: PersonaPage;
 };
+
+export type Spot = WithTypeName & {
+  uuid: string;
+  card: SpotCard;
+  page: SpotPage;
+};
+
+export type gqlSpot = {
+  personaUUIDs: string[];
+  qrCodeLink: string;
+} & Spot;
 
 export type gqlPersona = {
   personaUUIDs: string[];

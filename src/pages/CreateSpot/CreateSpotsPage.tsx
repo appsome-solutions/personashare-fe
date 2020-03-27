@@ -4,11 +4,7 @@ import { CreatePage } from 'components/CreateSpotAndPersona/CreatePage/CreatePag
 export const CreateSpotsPage: FC = () => {
   return (
     <div>
-      <CreatePage
-        nextStepPath="/my-spots"
-        nameSpotOrPersona="Spot"
-        previousStepPath="/creation/step/2/entity/spot"
-      ></CreatePage>
+      <CreatePage nextStepPath="/my-spots" nameSpotOrPersona="Spot" previousStepPath="/creation/step/2/entity/spot" />
     </div>
   );
 };

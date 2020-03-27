@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 export interface CreateSpotStep1Props {
@@ -37,8 +37,7 @@ const ImgAboveContent = styled.img`
   margin: 40px 0 20px 0;
 `;
 
-export const SpotAndPersonaProps: FunctionComponent<CreateSpotStep1Props> = (props: CreateSpotStep1Props) => {
-  const { title, content, svgLink } = props;
+export const SpotAndPersona: FC<CreateSpotStep1Props> = ({ title, content, svgLink }) => {
   return (
     <MainBoxStyled>
       <ImgAboveContent src={svgLink} />

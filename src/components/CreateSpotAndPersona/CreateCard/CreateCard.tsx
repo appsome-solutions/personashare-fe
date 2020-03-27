@@ -3,8 +3,6 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 
-import { GET_CARD, GetCardType, UPDATE_CARD } from 'global/graphqls/Persona';
-
 import { TopNav } from 'components/TopNav/TopNav';
 import { WideButton } from 'components/Button/WideButton';
 import { PageWrapperSpaceBetween } from 'components/PageWrapper';
@@ -21,9 +19,10 @@ import { EditIndicator } from 'components/EditIndicator/EditIndicator';
 
 import { CardBody, CardDescription, CardName } from './CreateCard.styles';
 import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper } from '../../../pages/CreatePersona/helpers';
+import { GET_CARD, GetCardType, UPDATE_CARD } from '../../../global/graphqls/Spot';
 
 export interface LinkProps {
-  pathSpotOrPersona: any;
+  pathSpotOrPersona: string;
 }
 
 const cardInitialValues: CardType = {
@@ -41,13 +40,12 @@ const initialState: ImageRef = {
   blob: null,
 };
 
-export const CreateCard: FC<LinkProps> = (props: LinkProps) => {
-  const { pathSpotOrPersona } = props;
+export const CreateCard: FC<LinkProps> = ({ pathSpotOrPersona }) => {
   const [updateCard] = useMutation<GetCardType>(UPDATE_CARD);
   const { data } = useQuery<GetCardType>(GET_CARD);
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
   const history = useHistory();
-  const initialValues = data ? data.persona.card : cardInitialValues;
+  const initialValues = data ? data.spot.card : cardInitialValues;
 
   const { values, setFieldValue, handleSubmit, errors, isValid } = useFormik<CardType>({
     initialValues,

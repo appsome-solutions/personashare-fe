@@ -6,7 +6,6 @@ import { useFormik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { Node } from 'slate/dist';
 
-import { CREATE_PERSONA, GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/Persona';
 import { cardDefaults } from 'global/ApolloLinkState/persona';
 import { useFirebase } from 'global/Firebase';
 import { useStorage } from 'global/Storage';
@@ -14,7 +13,7 @@ import { useStorage } from 'global/Storage';
 import { TopNav } from 'components/TopNav/TopNav';
 import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { WideButton } from 'components/Button';
-import { pageSchema, PageType, Persona } from 'global/graphqls/schema';
+import { pageSchema, PageType, Spot } from 'global/graphqls/schema';
 import { Stepper } from 'components/Stepper';
 import { InfoCard } from 'components/InfoCard/InfoCard';
 import { FileInput } from 'components/FileInput/FileInput';
@@ -34,6 +33,7 @@ import {
   revokeObjectURLS,
 } from 'pages/CreatePersona/helpers';
 import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
+import { CREATE_SPOT, GET_CARD, GET_PAGE, GetCardType, GetPageType } from '../../../global/graphqls/Spot';
 
 export interface LinkProps {
   previousStepPath: string;
@@ -55,19 +55,15 @@ const initialState: ImageRef = {
   blob: null,
 };
 
-export const CreatePage: FC<LinkProps> = (props: LinkProps) => {
-  const { previousStepPath, nameSpotOrPersona, nextStepPath } = props;
+export const CreatePage: FC<LinkProps> = ({ previousStepPath, nameSpotOrPersona, nextStepPath }) => {
   const { getCurrentUser } = useFirebase();
   const { storageRef } = useStorage();
   const history = useHistory();
-
   const { data } = useQuery<GetPageType>(GET_PAGE);
   const card = useQuery<GetCardType>(GET_CARD);
-  const [createPersona] = useMutation<Persona>(CREATE_PERSONA);
-
+  const [createSpot] = useMutation<Spot>(CREATE_SPOT);
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
-
-  const initialValues = data?.persona?.page || pageInitialValues;
+  const initialValues = data?.spot?.page || pageInitialValues;
   const { values, setFieldValue, handleSubmit, errors, isValid, setStatus, setSubmitting, isSubmitting } = useFormik<
     PageType
   >({
@@ -88,7 +84,7 @@ export const CreatePage: FC<LinkProps> = (props: LinkProps) => {
       }
 
       if (card?.data) {
-        const { name, description, avatarUpload, backgroundUpload } = card.data.persona.card;
+        const { name, description, avatarUpload, backgroundUpload } = card.data.spot.card;
         const timestamp = Date.now();
         const assetsBlobs: AssetBlob[] = [
           {
@@ -128,8 +124,7 @@ export const CreatePage: FC<LinkProps> = (props: LinkProps) => {
             content: JSON.stringify(formValues.content),
           },
         };
-
-        await createPersona({
+        await createSpot({
           variables: {
             payload,
           },
@@ -142,15 +137,13 @@ export const CreatePage: FC<LinkProps> = (props: LinkProps) => {
           formValues?.backgroundUpload?.blobUrl,
         ];
         revokeObjectURLS(urls);
-
-        // redirect to personas carouse view
         history.push(nextStepPath);
       }
     },
     validationSchema: pageSchema,
   });
 
-  if (card?.data && isEqual(cardDefaults, card.data.persona.card)) {
+  if (card?.data && isEqual(cardDefaults, card.data.spot.card)) {
     return <Redirect to={previousStepPath} />;
   }
 

@@ -6,7 +6,7 @@ import { InfoCard } from 'components/InfoCard/InfoCard';
 import { WideButton } from 'components/Button';
 import { Stepper } from 'components/Stepper';
 import { TopNav } from 'components/TopNav/TopNav';
-import { SpotAndPersonaProps } from 'components/CreateSpotAndPersona/SpotAndPersonaProps';
+import { SpotAndPersona } from 'components/CreateSpotAndPersona/SpotAndPersonaProps';
 import ContentImg from 'assets/ContentImg.svg';
 import QrImg from 'assets/QrImg.svg';
 import TeamImg from 'assets/TeamImg.svg';
@@ -37,7 +37,7 @@ export const InitialStep: FC = () => {
             situations in your business, hobby or private life!
           </InfoCard>
         </div>
-        <SpotAndPersonaProps
+        <SpotAndPersona
           svgLink={ContentImg}
           title="Boosted business card"
           content="It is always up to date.
@@ -46,7 +46,7 @@ links to surveys, your social media, groups, products,
 services, booking pages, blogs, tutorials, books,
 articles, actually.. Anything you want! Just take a look at our build-in editor! "
         />
-        <SpotAndPersonaProps
+        <SpotAndPersona
           svgLink={QrImg}
           title="Share it easily"
           content="You can place your qr
@@ -54,18 +54,18 @@ code anywhere: on events, conferences, in b2b
 relations. And also sign your articles, books, texts,
 comments, photos and medias. Use your creativity and make your brand be visible everywhere."
         />
-        <SpotAndPersonaProps
+        <SpotAndPersona
           svgLink={TeamImg}
           title="Use spots"
           content="Spots are places where you can left your persona. It can be events, webinars, coffee bars, offices and any place where people meets together. You can join as spot participant, show persona and brief message to your viewers."
         />
-        <SpotAndPersonaProps
+        <SpotAndPersona
           svgLink={GpsImg}
           title="Recommendations network"
           content="Encourage your friends,
 partners and clients to recommend you. You are linked with your recommendators. Whenever they share persona you are visible there. Create you own recomendation net!"
         />
-        <SpotAndPersonaProps
+        <SpotAndPersona
           svgLink={SchemeImg}
           title="Recommendations network"
           content="Encourage your friends,

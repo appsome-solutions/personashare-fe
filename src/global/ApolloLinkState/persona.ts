@@ -1,8 +1,8 @@
 import { Resolvers } from 'apollo-boost';
 
-import { GET_CARD, GET_PAGE } from 'global/graphqls/Persona';
+import { GET_CARD, GET_PAGE } from 'global/graphqls/Spot';
 
-import { Persona, PersonaCard, PersonaPage } from 'global/graphqls/schema';
+import { Persona, PersonaCard, PersonaPage, Spot } from 'global/graphqls/schema';
 
 const cardDefaults: PersonaCard = {
   __typename: 'PersonaCard',
@@ -29,17 +29,23 @@ const personaDefaults: Persona = {
   page: pageDefaults,
   uuid: '',
 };
+const spotDefaults: Persona = {
+  __typename: 'Persona',
+  card: cardDefaults,
+  page: pageDefaults,
+  uuid: '',
+};
 
 const personaResolvers: Resolvers = {
   Mutation: {
-    updateCard: (_, { card }: Persona, { cache }) => {
+    updateCard: (_, { card }: Spot, { cache }) => {
       const previousState = cache.readQuery({ query: GET_CARD });
 
       const data = {
-        persona: {
-          ...previousState.persona,
+        spot: {
+          ...previousState.spot,
           card: {
-            ...previousState.persona.card,
+            ...previousState.spot.card,
             ...card,
           },
         },
@@ -52,12 +58,12 @@ const personaResolvers: Resolvers = {
 
       return card;
     },
-    changePage: (_, { page }: Persona, { cache }) => {
+    changePage: (_, { page }: Spot, { cache }) => {
       const previousState = cache.readQuery({ query: GET_PAGE });
 
       const data = {
-        persona: {
-          ...previousState.persona,
+        spot: {
+          ...previousState.spot,
           page,
         },
       };
@@ -72,4 +78,4 @@ const personaResolvers: Resolvers = {
   },
 };
 
-export { personaDefaults, personaResolvers, pageDefaults, cardDefaults };
+export { personaDefaults, personaResolvers, pageDefaults, cardDefaults, spotDefaults };

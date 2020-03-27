@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -7,7 +7,7 @@ import { InfoCard } from 'components/InfoCard/InfoCard';
 import { WideButton } from 'components/Button';
 import { Stepper } from 'components/Stepper';
 import { TopNav } from 'components/TopNav/TopNav';
-import { SpotAndPersonaProps } from 'components/CreateSpotAndPersona/SpotAndPersonaProps';
+import { SpotAndPersona } from 'components/CreateSpotAndPersona/SpotAndPersonaProps';
 import ContentImg from 'assets/ContentImg.svg';
 import TeamImg from 'assets/TeamImg.svg';
 import EyeImg from 'assets/EyeImg.svg';
@@ -34,11 +34,11 @@ const ContactUs = styled(NavLink)`
 export const CreateSpotsStep1: FC = () => {
   const history = useHistory();
 
-  const onNextClick = useCallback((): void => {
+  const onNextClick = () => {
     history.push({
       pathname: '/creation/step/2/entity/spot',
     });
-  }, [history]);
+  };
 
   return (
     <div>
@@ -51,27 +51,27 @@ export const CreateSpotsStep1: FC = () => {
             predefined set of data you want to exchange with 3 simple steps.
           </InfoCard>
         </div>
-        <SpotAndPersonaProps
+        <SpotAndPersona
           svgLink={ContentImg}
           title="Boosted business page"
           content="It is always up to date. You can insert there not only contact details, but also links to surveys, your social media, groups, products, services, booking pages, blogs, tutorials, books, articles, actually.. Anything you want! Just take a look at our build-in editor!"
         />
-        <SpotAndPersonaProps
+        <SpotAndPersona
           svgLink={CustomImg}
           title="Spot managers"
           content="You can add important personas to your spot. With that you promote their brands and increase your spot value."
         />
-        <SpotAndPersonaProps
+        <SpotAndPersona
           svgLink={TeamImg}
           title="Participant list"
           content="You can allow any persona to be visible on your spot. It will help integrate people and give them possibility to share brief message with others."
         />
-        <SpotAndPersonaProps
+        <SpotAndPersona
           svgLink={EyeImg}
           title="Make your brand visible"
           content="By using qr codes you can encourage others to see your spot details. With that you can show them your services and products, redirect to social medias and give them access to anything they should know. It all depends on creative usage!"
         />
-        <SpotAndPersonaProps
+        <SpotAndPersona
           svgLink={SchemeImg}
           title="Recommendations network"
           content="Get a recommendation from your friends, partners and clients. You are linked with your recommendators. Whenever they share persona you are visible there. Create you own recommendation net!"

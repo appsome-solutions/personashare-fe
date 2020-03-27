@@ -10,7 +10,7 @@ export const PS_TOKEN_NAME = 'psToken';
 export const client = new ApolloClient({
   clientState: {
     defaults: {
-      persona: personaDefaults,
+      spot: personaDefaults,
     },
     resolvers: merge(personaResolvers),
   },
