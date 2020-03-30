@@ -19,7 +19,7 @@ import { PersonaCard } from 'components/PersonaCard/PersonaCard';
 import { Button } from 'components/Button';
 import Carousel from 'components/Carousel/Carousel';
 import { useUserContext } from 'global/UserContext/UserContext';
-import { gqlPersona } from 'global/graphqls/schema';
+import { gqlEntity } from 'global/graphqls/schema';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { getPathnameArray } from 'helpers/url';
@@ -186,7 +186,7 @@ export const ChoosePersona: FC = () => {
       <PageWrapperSpaceBetween>
         <Carousel afterChange={setCurrentSlide} ref={carousel}>
           {data.userPersonas &&
-            data.userPersonas.map((persona: gqlPersona) => (
+            data.userPersonas.map((persona: gqlEntity) => (
               <CaruouselItem key={persona.uuid}>
                 <Wrapper>
                   <PersonaCard card={persona.card} />

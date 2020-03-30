@@ -6,7 +6,7 @@ import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { useQuery } from '@apollo/react-hooks';
 import { PersonaCard } from 'components/PersonaCard/PersonaCard';
 import Carousel from 'components/Carousel/Carousel';
-import { gqlSpot } from 'global/graphqls/schema';
+import { gqlEntity } from 'global/graphqls/schema';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 
@@ -46,7 +46,7 @@ export const MySpots: FC = () => {
       <PageWrapperSpaceBetween>
         <Carousel afterChange={setCurrentSlide} ref={carousel}>
           {data.userSpots &&
-            data.userSpots.map((spots: gqlSpot) => (
+            data.userSpots.map((spots: gqlEntity) => (
               <CaruouselItem key={spots.uuid}>
                 <Wrapper>
                   <PersonaCard card={spots.card} />

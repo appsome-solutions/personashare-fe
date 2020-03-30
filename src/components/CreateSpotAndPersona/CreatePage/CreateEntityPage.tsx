@@ -1,19 +1,17 @@
 import React, { FC, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { useFormik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { Node } from 'slate/dist';
 
-import { cardDefaults } from 'global/ApolloLinkState/persona';
 import { useFirebase } from 'global/Firebase';
 import { useStorage } from 'global/Storage';
 
 import { TopNav } from 'components/TopNav/TopNav';
 import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { WideButton } from 'components/Button';
-import { pageSchema, PageType, Spot } from 'global/graphqls/schema';
+import { pageSchema, PageType } from 'global/graphqls/schema';
 import { Stepper } from 'components/Stepper';
 import { InfoCard } from 'components/InfoCard/InfoCard';
 import { FileInput } from 'components/FileInput/FileInput';
@@ -33,21 +31,16 @@ import {
   revokeObjectURLS,
 } from 'pages/CreatePersona/helpers';
 import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
-import { CREATE_SPOT, GET_CARD, GET_PAGE, GetCardType, GetPageType } from '../../../global/graphqls/Spot';
 
 export interface LinkProps {
   previousStepPath: string;
   nameSpotOrPersona: string;
   nextStepPath: string;
+  initialValues: any;
+  createPersonaOrSpot: any;
+  card: any;
+  cardDefault: any;
 }
-
-const pageInitialValues: PageType = {
-  content: null,
-  avatar: '',
-  background: '',
-  avatarUpload: null,
-  backgroundUpload: null,
-};
 
 const initialState: ImageRef = {
   blobUrl: '',
@@ -55,15 +48,19 @@ const initialState: ImageRef = {
   blob: null,
 };
 
-export const CreatePage: FC<LinkProps> = ({ previousStepPath, nameSpotOrPersona, nextStepPath }) => {
+export const CreateEntityPage: FC<LinkProps> = ({
+  previousStepPath,
+  nameSpotOrPersona,
+  nextStepPath,
+  initialValues,
+  createPersonaOrSpot,
+  card,
+  cardDefault,
+}) => {
   const { getCurrentUser } = useFirebase();
   const { storageRef } = useStorage();
   const history = useHistory();
-  const { data } = useQuery<GetPageType>(GET_PAGE);
-  const card = useQuery<GetCardType>(GET_CARD);
-  const [createSpot] = useMutation<Spot>(CREATE_SPOT);
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
-  const initialValues = data?.spot?.page || pageInitialValues;
   const { values, setFieldValue, handleSubmit, errors, isValid, setStatus, setSubmitting, isSubmitting } = useFormik<
     PageType
   >({
@@ -83,67 +80,65 @@ export const CreatePage: FC<LinkProps> = ({ previousStepPath, nameSpotOrPersona,
         return;
       }
 
-      if (card?.data) {
-        const { name, description, avatarUpload, backgroundUpload } = card.data.spot.card;
-        const timestamp = Date.now();
-        const assetsBlobs: AssetBlob[] = [
-          {
-            name: `card_${timestamp}_${avatarUpload?.fieldName}.jpg`,
-            blob: avatarUpload?.blob || null,
-            metaData: { customMetadata: { assetType: AssetType.CARD_AVATAR } },
-          },
-          {
-            name: `card_${timestamp}_${backgroundUpload?.fieldName}.jpg`,
-            blob: backgroundUpload?.blob || null,
-            metaData: { customMetadata: { assetType: AssetType.CARD_BACKGROUND } },
-          },
-          {
-            name: `page_${timestamp}_${formValues?.avatarUpload?.fieldName}.jpg`,
-            blob: formValues?.avatarUpload?.blob || null,
-            metaData: { customMetadata: { assetType: AssetType.PAGE_AVATAR } },
-          },
-          {
-            name: `page_${timestamp}_${formValues?.backgroundUpload?.fieldName}.jpg`,
-            blob: formValues?.backgroundUpload?.blob || null,
-            metaData: { customMetadata: { assetType: AssetType.PAGE_BACKGROUND } },
-          },
-        ];
+      const { name, description, avatarUpload, backgroundUpload } = card;
+      const timestamp = Date.now();
+      const assetsBlobs: AssetBlob[] = [
+        {
+          name: `card_${timestamp}_${avatarUpload?.fieldName}.jpg`,
+          blob: avatarUpload?.blob || null,
+          metaData: { customMetadata: { assetType: AssetType.CARD_AVATAR } },
+        },
+        {
+          name: `card_${timestamp}_${backgroundUpload?.fieldName}.jpg`,
+          blob: backgroundUpload?.blob || null,
+          metaData: { customMetadata: { assetType: AssetType.CARD_BACKGROUND } },
+        },
+        {
+          name: `page_${timestamp}_${formValues?.avatarUpload?.fieldName}.jpg`,
+          blob: formValues?.avatarUpload?.blob || null,
+          metaData: { customMetadata: { assetType: AssetType.PAGE_AVATAR } },
+        },
+        {
+          name: `page_${timestamp}_${formValues?.backgroundUpload?.fieldName}.jpg`,
+          blob: formValues?.backgroundUpload?.blob || null,
+          metaData: { customMetadata: { assetType: AssetType.PAGE_BACKGROUND } },
+        },
+      ];
 
-        const uploadedAssets = await uploadAssets(storageRef, user.uid, assetsBlobs);
+      const uploadedAssets = await uploadAssets(storageRef, user.uid, assetsBlobs);
 
-        const payload = {
-          card: {
-            name,
-            description,
-            avatar: getUrl(uploadedAssets, AssetType.CARD_AVATAR),
-            background: getUrl(uploadedAssets, AssetType.CARD_BACKGROUND),
-          },
-          page: {
-            avatar: getUrl(uploadedAssets, AssetType.PAGE_AVATAR),
-            background: getUrl(uploadedAssets, AssetType.PAGE_BACKGROUND),
-            content: JSON.stringify(formValues.content),
-          },
-        };
-        await createSpot({
-          variables: {
-            payload,
-          },
-        });
+      const payload = {
+        card: {
+          name,
+          description,
+          avatar: getUrl(uploadedAssets, AssetType.CARD_AVATAR),
+          background: getUrl(uploadedAssets, AssetType.CARD_BACKGROUND),
+        },
+        page: {
+          avatar: getUrl(uploadedAssets, AssetType.PAGE_AVATAR),
+          background: getUrl(uploadedAssets, AssetType.PAGE_BACKGROUND),
+          content: JSON.stringify(formValues.content),
+        },
+      };
+      await createPersonaOrSpot({
+        variables: {
+          payload,
+        },
+      });
 
-        const urls = [
-          avatarUpload?.blobUrl,
-          backgroundUpload?.blobUrl,
-          formValues?.avatarUpload?.blobUrl,
-          formValues?.backgroundUpload?.blobUrl,
-        ];
-        revokeObjectURLS(urls);
-        history.push(nextStepPath);
-      }
+      const urls = [
+        avatarUpload?.blobUrl,
+        backgroundUpload?.blobUrl,
+        formValues?.avatarUpload?.blobUrl,
+        formValues?.backgroundUpload?.blobUrl,
+      ];
+      revokeObjectURLS(urls);
+      history.push(nextStepPath);
     },
     validationSchema: pageSchema,
   });
 
-  if (card?.data && isEqual(cardDefaults, card.data.spot.card)) {
+  if (card && isEqual(cardDefault, card)) {
     return <Redirect to={previousStepPath} />;
   }
 

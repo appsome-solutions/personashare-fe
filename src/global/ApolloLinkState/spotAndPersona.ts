@@ -1,11 +1,10 @@
 import { Resolvers } from 'apollo-boost';
 
-import { GET_CARD, GET_PAGE } from 'global/graphqls/Spot';
+import { Entity, EntityCard, EntityPage } from 'global/graphqls/schema';
+import { GET_CARD, GET_PAGE } from '../graphqls/SpotAndPersona';
 
-import { Persona, PersonaCard, PersonaPage, Spot } from 'global/graphqls/schema';
-
-const cardDefaults: PersonaCard = {
-  __typename: 'PersonaCard',
+const cardDefaults: EntityCard = {
+  __typename: 'EntityCard',
   name: '',
   description: '',
   avatar: '',
@@ -14,8 +13,8 @@ const cardDefaults: PersonaCard = {
   backgroundUpload: null,
 };
 
-const pageDefaults: PersonaPage = {
-  __typename: 'PersonaPage',
+const pageDefaults: EntityPage = {
+  __typename: 'EntityPage',
   background: '',
   avatar: '',
   content: '',
@@ -23,29 +22,23 @@ const pageDefaults: PersonaPage = {
   backgroundUpload: null,
 };
 
-const personaDefaults: Persona = {
-  __typename: 'Persona',
-  card: cardDefaults,
-  page: pageDefaults,
-  uuid: '',
-};
-const spotDefaults: Persona = {
-  __typename: 'Persona',
+const entityDefaults: Entity = {
+  __typename: 'Entity',
   card: cardDefaults,
   page: pageDefaults,
   uuid: '',
 };
 
-const personaResolvers: Resolvers = {
+const entityResolvers: Resolvers = {
   Mutation: {
-    updateCard: (_, { card }: Spot, { cache }) => {
+    updateCard: (_, { card }: Entity, { cache }) => {
       const previousState = cache.readQuery({ query: GET_CARD });
 
       const data = {
-        spot: {
-          ...previousState.spot,
+        entity: {
+          ...previousState.entity,
           card: {
-            ...previousState.spot.card,
+            ...previousState.entity.card,
             ...card,
           },
         },
@@ -58,12 +51,12 @@ const personaResolvers: Resolvers = {
 
       return card;
     },
-    changePage: (_, { page }: Spot, { cache }) => {
+    changePage: (_, { page }: Entity, { cache }) => {
       const previousState = cache.readQuery({ query: GET_PAGE });
 
       const data = {
-        spot: {
-          ...previousState.spot,
+        entity: {
+          ...previousState.entity,
           page,
         },
       };
@@ -77,5 +70,4 @@ const personaResolvers: Resolvers = {
     },
   },
 };
-
-export { personaDefaults, personaResolvers, pageDefaults, cardDefaults, spotDefaults };
+export { entityDefaults, entityResolvers, pageDefaults, cardDefaults };
