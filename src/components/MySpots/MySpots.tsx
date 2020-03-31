@@ -20,6 +20,14 @@ const CaruouselItem = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
+  padding-top: 32px;
+  width: auto;
+  height: 100vh;
+`;
+
+const TextAndImg = styled.div`
+  display: flex;
   flex-direction: column;
   height: 70vh;
 `;
