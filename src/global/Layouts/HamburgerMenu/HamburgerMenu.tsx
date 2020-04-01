@@ -46,10 +46,9 @@ const LinkRouterStyle = styled(NavLink)`
   width:100%;
   border-radius: 4px;
   text-decoration: none
-  :hover
-  {
-  background-color: rgba(85, 133, 255, 0.2);
-  }
+  :hover {
+    background-color: rgba(85, 133, 255, 0.2);
+    }
 `;
 
 const RightProfile = styled.img`
@@ -64,10 +63,9 @@ const LogoutButton = styled.div`
   width:100%;
   border-radius: 4px;
   text-decoration: none
-  :hover
-  {
-  background-color: rgba(85, 133, 255, 0.2);
-  }`;
+  :hover {
+    background-color: rgba(85, 133, 255, 0.2);
+    }`;
 
 export const HamburgerMenu = ({ isWithHamburger, isWithSearch }: HamburgerMenuType) => {
   const history = useHistory();
