@@ -19,8 +19,8 @@ import { CardBody, CardDescription, CardName } from './CreateCard.styles';
 import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper } from '../../../pages/CreatePersona/helpers';
 import { useHistory } from 'react-router-dom';
 type PropsCard = {
-  initialValues: any;
-  updateCard: any;
+  initialValues: CardType;
+  updateCard: Function;
   nextPathName: string;
 };
 
@@ -36,7 +36,7 @@ export const CreateEntityCard: FC<PropsCard> = ({ initialValues, updateCard, nex
 
   const { values, setFieldValue, handleSubmit, errors, isValid } = useFormik<CardType>({
     initialValues,
-    onSubmit: (formValues: any) => {
+    onSubmit: (formValues: CardType) => {
       updateCard({
         variables: {
           card: formValues,

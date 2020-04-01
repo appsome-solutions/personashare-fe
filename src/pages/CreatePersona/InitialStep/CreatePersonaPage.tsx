@@ -24,17 +24,16 @@ export const CreatePersonaPage: FC = () => {
   if (!personaData) {
     return null;
   }
+
   return (
-    <div>
-      <CreateEntityPage
-        cardDefault={cardDefaultPersona}
-        card={personaData.entity.card}
-        createPersonaOrSpot={createPersona}
-        initialValues={initialValues}
-        nextStepPath="/my-personas"
-        nameSpotOrPersona="Persona"
-        previousStepPath="/createpersona/card"
-      />
-    </div>
+    <CreateEntityPage
+      cardDefault={cardDefaultPersona}
+      card={personaData.entity.card}
+      createPersonaOrSpot={createPersona}
+      initialValues={initialValues}
+      nextStepPath="/my-personas"
+      nameSpotOrPersona="Persona"
+      previousStepPath="/createpersona/card"
+    />
   );
 };

@@ -20,21 +20,20 @@ export const CreateSpotsPage: FC = () => {
   const [createSpot] = useMutation<Entity>(CREATE_SPOT);
   const initialValues = data?.entity?.page || pageInitialValues;
   const cardDefaultSpot = cardDefaults;
+
   if (!spotData) {
     return null;
   }
 
   return (
-    <div>
-      <CreateEntityPage
-        cardDefault={cardDefaultSpot}
-        card={spotData.entity.card}
-        createPersonaOrSpot={createSpot}
-        initialValues={initialValues}
-        nextStepPath="/my-spots"
-        nameSpotOrPersona="Spot"
-        previousStepPath="/creation/step/2/entity/spot"
-      />
-    </div>
+    <CreateEntityPage
+      cardDefault={cardDefaultSpot}
+      card={spotData.entity.card}
+      createPersonaOrSpot={createSpot}
+      initialValues={initialValues}
+      nextStepPath="/my-spots"
+      nameSpotOrPersona="Spot"
+      previousStepPath="/creation/step/2/entity/spot"
+    />
   );
 };

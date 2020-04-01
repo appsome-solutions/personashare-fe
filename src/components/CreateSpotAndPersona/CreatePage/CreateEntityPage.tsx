@@ -11,7 +11,7 @@ import { useStorage } from 'global/Storage';
 import { TopNav } from 'components/TopNav/TopNav';
 import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { WideButton } from 'components/Button';
-import { pageSchema, PageType } from 'global/graphqls/schema';
+import { EntityCard, pageSchema, PageType } from 'global/graphqls/schema';
 import { Stepper } from 'components/Stepper';
 import { InfoCard } from 'components/InfoCard/InfoCard';
 import { FileInput } from 'components/FileInput/FileInput';
@@ -36,10 +36,10 @@ export interface LinkProps {
   previousStepPath: string;
   nameSpotOrPersona: string;
   nextStepPath: string;
-  initialValues: any;
-  createPersonaOrSpot: any;
-  card: any;
-  cardDefault: any;
+  initialValues: PageType;
+  createPersonaOrSpot: (variables: object) => void;
+  card: EntityCard;
+  cardDefault: object;
 }
 
 const initialState: ImageRef = {

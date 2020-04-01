@@ -13,6 +13,7 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { MySpotsWithoutSpots } from './MySpotsWithoutSpots';
 import { Route } from 'react-router-dom';
 import { GET_SPOT, GetSpotType } from '../../global/graphqls/Spot';
+import isEmpty from 'lodash/isEmpty';
 
 const CaruouselItem = styled.div`
   padding: 0 20px;
@@ -36,7 +37,7 @@ export const MySpots: FC = () => {
       </Overlay>
     );
   }
-  if (!data) {
+  if (isEmpty(data?.userSpots) || !data) {
     return <Route path="/my-spots" exact component={MySpotsWithoutSpots} />;
   }
 
