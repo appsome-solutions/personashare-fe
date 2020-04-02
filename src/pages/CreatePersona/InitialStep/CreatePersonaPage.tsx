@@ -25,7 +25,7 @@ export const CreatePersonaPage: FC = () => {
     return null;
   }
   return (
-    <div>
+    <>
       <CreateEntityPage
         cardDefault={cardDefaultPersona}
         card={personaData.entity.card}
@@ -35,6 +35,6 @@ export const CreatePersonaPage: FC = () => {
         nameSpotOrPersona="Persona"
         previousStepPath="/createpersona/card"
       />
-    </div>
+    </>
   );
 };

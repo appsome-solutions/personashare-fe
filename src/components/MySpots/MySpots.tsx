@@ -54,7 +54,7 @@ export const MySpots: FC = () => {
               </CaruouselItem>
             ))}
         </Carousel>
-        <img src={`${data.userSpots[currentSlide].qrCodeLink}`} />
+        <img src={`${data.userSpots[currentSlide].qrCodeLink}`} alt="QrCode" />
         {currentSlide}
       </PageWrapperSpaceBetween>
     </div>
