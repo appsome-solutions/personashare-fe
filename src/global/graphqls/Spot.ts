@@ -41,3 +41,17 @@ export const ADD_MENAGER = gql`
     }
   }
 `;
+
+export interface SaveSpotResponse {
+  saveSpot: {
+    uuid: string;
+  };
+}
+
+export const SAVE_SPOT = gql`
+  mutation saveSpot($savedSpotUuid: String!, $spotUuid: String!) {
+    saveSpot(savedPersonaUuid: $savedSpotUuid, spotUuid: $spotUuid) {
+      uuid
+    }
+  }
+`;

@@ -120,3 +120,17 @@ export const RECOMMEND_PERSONA = gql`
     }
   }
 `;
+
+export interface SavePersonaResponse {
+  savePersona: {
+    uuid: string;
+  };
+}
+
+export const SAVE_PERSONA = gql`
+  mutation savePersona($savedPersonaUuid: String!, $personaUuid: String!) {
+    savePersona(savedPersonaUuid: $savedPersonaUuid, personaUuid: $personaUuid) {
+      uuid
+    }
+  }
+`;

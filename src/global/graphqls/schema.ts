@@ -7,7 +7,7 @@ export const cardSchema = Yup.object({
   name: Yup.string().required(),
   description: Yup.string().notRequired(),
   avatar: Yup.string().notRequired(),
-  background: Yup.string().required(),
+  background: Yup.string().notRequired(),
   avatarUpload: Yup.mixed<ImageRef>()
     .nullable(true)
     .notRequired(),
