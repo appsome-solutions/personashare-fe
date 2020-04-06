@@ -10,12 +10,14 @@ import { CreatePage } from 'pages/CreatePersona/CreatePage/CreatePage';
 import { ChoosePersona } from 'pages/ChoosePersona/ChoosePersona';
 import { Page } from 'pages/PersonaCreation/Page/Page';
 import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
+import { MySpots } from 'components/MySpots/MySpots';
 
 export const AppRouter: FunctionComponent = () => {
   return (
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/scanner" exact component={() => <QrScanner onCode={res => alert(res.data)} />} />
+      <Route path="/my-spots" exact component={MySpots} />
       <PrivateRoute
         path={`/choose-persona/(saved|recommend|participant-joined|manager-joined)/(spot|persona)/:actionId`}
         exact

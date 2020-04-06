@@ -25,7 +25,12 @@ export const StickyNavigation = withRouter(({ location: { pathname } }) => {
         text="Scanner"
         redirectionLink={'/scanner'}
       />
-      <NavigationElement isActive={pathname === '/spots'} svg={MyLocationSvg} text="Spots" redirectionLink={'/spots'} />
+      <NavigationElement
+        isActive={pathname === '/my-spots'}
+        svg={MyLocationSvg}
+        text="Spots"
+        redirectionLink={'/my-spots'}
+      />
       <NavigationElement
         isActive={pathname === '/personas'}
         svg={MenuBookSvg}
