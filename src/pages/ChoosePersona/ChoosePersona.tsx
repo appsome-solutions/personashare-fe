@@ -104,9 +104,7 @@ const callSpotMutation = (
   action: string,
   spotId: string,
   selectedPersonaId: string
-): Promise<
-  ExecutionResult<RecommendSpotResponse | ParticipateResponse | AddManagerResponse | SaveSpotResponse>
-> | null => {
+): Promise<ExecutionResult<RecommendSpotResponse | ParticipateResponse | AddManagerResponse>> | null => {
   const recommendSpot = partial(client.mutate, { mutation: RECOMMEND_SPOT });
   const participate = partial(client.mutate, { mutation: PARTICIPATE });
   const addMenager = partial(client.mutate, { mutation: ADD_MENAGER });

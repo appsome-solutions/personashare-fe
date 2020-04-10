@@ -5,7 +5,6 @@ import { useQuery } from '@apollo/react-hooks';
 import { createCtx } from 'helpers/Context';
 import { Spinner } from 'components/Spinner/Spinner';
 import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
-// import { Spinner } from 'components/Spinner/Spinner';
 
 interface UserContext {
   user: gqlUser | null;
