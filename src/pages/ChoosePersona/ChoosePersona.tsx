@@ -107,19 +107,10 @@ const callSpotMutation = (
 ): Promise<
   ExecutionResult<RecommendSpotResponse | ParticipateResponse | AddManagerResponse | SaveSpotResponse>
 > | null => {
-  const saveSpot = partial(client.mutate, { mutation: SAVE_SPOT });
   const recommendSpot = partial(client.mutate, { mutation: RECOMMEND_SPOT });
   const participate = partial(client.mutate, { mutation: PARTICIPATE });
   const addMenager = partial(client.mutate, { mutation: ADD_MENAGER });
   switch (action) {
-    case 'saved':
-      return saveSpot({
-        variables: {
-          savedSpotUuid: spotId,
-          // should it be spotId not persona id?
-          spotId: selectedPersonaId,
-        },
-      });
     case 'recommended':
       return recommendSpot({
         variables: {
