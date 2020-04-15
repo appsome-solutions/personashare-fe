@@ -1,15 +1,11 @@
 import React, { ChangeEvent, FC, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
-
-import { GET_CARD, GetCardType, UPDATE_CARD } from 'global/graphqls/Persona';
 
 import { TopNav } from 'components/TopNav/TopNav';
 import { WideButton } from 'components/Button/WideButton';
 import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { InfoCard } from 'components/InfoCard/InfoCard';
-import { CardType, cardSchema } from 'global/graphqls/schema';
+import { cardSchema, CardType } from 'global/graphqls/schema';
 import { Card } from 'components/Card/Card';
 import { BackgroundPlaceholder } from 'components/BackgroundPlaceholder/BackgroundPlaceholder';
 import { PersonaCircle, PersonaCircleWrapper } from 'components/PersonaCircle/PersonaCircle';
@@ -20,15 +16,12 @@ import { Stepper } from 'components/Stepper';
 import { EditIndicator } from 'components/EditIndicator/EditIndicator';
 
 import { CardBody, CardDescription, CardName } from './CreateCard.styles';
-import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper } from '../helpers';
-
-const cardInitialValues: CardType = {
-  name: '',
-  description: '',
-  avatar: '',
-  background: '',
-  avatarUpload: null,
-  backgroundUpload: null,
+import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper } from '../../../pages/CreatePersona/helpers';
+import { useHistory } from 'react-router-dom';
+type PropsCard = {
+  initialValues: CardType;
+  updateCard: Function;
+  nextPathName: string;
 };
 
 const initialState: ImageRef = {
@@ -37,23 +30,20 @@ const initialState: ImageRef = {
   blob: null,
 };
 
-export const CreateCard: FC = () => {
-  const [updateCard] = useMutation<GetCardType>(UPDATE_CARD);
-  const { data } = useQuery<GetCardType>(GET_CARD);
+export const CreateEntityCard: FC<PropsCard> = ({ initialValues, updateCard, nextPathName }) => {
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
   const history = useHistory();
-  const initialValues = data ? data.persona.card : cardInitialValues;
 
   const { values, setFieldValue, handleSubmit, errors, isValid } = useFormik<CardType>({
     initialValues,
-    onSubmit: formValues => {
+    onSubmit: (formValues: CardType) => {
       updateCard({
         variables: {
           card: formValues,
         },
       }).then(() => {
         history.push({
-          pathname: 'page',
+          pathname: nextPathName,
         });
       });
     },

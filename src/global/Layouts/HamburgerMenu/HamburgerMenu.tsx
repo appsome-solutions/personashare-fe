@@ -96,7 +96,7 @@ export const HamburgerMenu = ({ isWithHamburger, isWithSearch }: HamburgerMenuTy
             </LogoutButton>
           </DrawerMenu>
           {isWithSearch && <SearchPositionBox />}
-          <RightProfile src={RightProfileSvg} alt="Something wrong" />
+          <RightProfile src={RightProfileSvg} alt="Profile Svg" />
         </HamburgerMenuStyled>
       )}
     </>

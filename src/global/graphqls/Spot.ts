@@ -1,4 +1,5 @@
 import { gql } from 'apollo-boost';
+import { gqlEntity } from './schema';
 
 export interface RecommendSpotResponse {
   recommendSpot: {
@@ -38,6 +39,50 @@ export const ADD_MENAGER = gql`
   mutation addMenager($personaId: String!, $spotId: String!) {
     addMenager(personaId: $personaId, spotId: $spotId) {
       uuid
+    }
+  }
+`;
+
+export const CREATE_SPOT = gql`
+  mutation createSpot($payload: CreateShareableInput!) {
+    createSpot(spot: $payload) {
+      uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+    }
+  }
+`;
+
+export type GetSpotType = {
+  userSpots: gqlEntity[];
+};
+
+export const GET_SPOT = gql`
+  {
+    userSpots {
+      uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+      personaUUIDs
+      qrCodeLink
     }
   }
 `;

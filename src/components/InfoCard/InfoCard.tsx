@@ -14,6 +14,7 @@ const TopBar = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 4px 4px 0 0;
+  width: 100%;
 `;
 
 const CardBody = styled.div`
@@ -31,7 +32,7 @@ export const InfoCard: FC<InfoCardProps & BoxProps> = ({ children, title, ...res
     <TopBar>
       <Icon svgLink={InfoIcon} cursor="normal" color="white" />
     </TopBar>
-    <CardBody>
+    <CardBody className={CardBody}>
       <h6>{title}</h6>
       <ChildrenWrapper>{children}</ChildrenWrapper>
     </CardBody>
