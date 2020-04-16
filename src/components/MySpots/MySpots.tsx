@@ -14,6 +14,7 @@ import { NavLink, Route } from 'react-router-dom';
 import { GET_SPOT, GetSpotType } from '../../global/graphqls/Spot';
 import AddIcon from 'assets/AddIcon.svg';
 import ShareQrCode from 'assets/ShareQrCode.svg';
+import isEmpty from 'lodash/isEmpty';
 
 const CaruouselItem = styled.div`
   padding: 0 20px;
@@ -66,7 +67,7 @@ export const MySpots: FC = () => {
       </Overlay>
     );
   }
-  if (!data) {
+  if (isEmpty(data?.userSpots) || !data) {
     return <Route path="/my-spots" exact component={MySpotsWithoutSpots} />;
   }
 

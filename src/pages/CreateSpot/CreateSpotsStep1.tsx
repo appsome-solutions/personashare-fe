@@ -15,15 +15,12 @@ import SchemeImg from 'assets/SchemeImg.svg';
 import CustomImg from 'assets/CustomImg.svg';
 
 const InformationUnderText = styled(InfoCard)`
-  && .iTLFNI {
-    padding: 0 8px 16px 12px;
-  }
-  && .dVWmBa {
-    ${props => props.theme.typography.subtitle2};
-  }
   margin: 40px 0 46px 0;
 `;
 
+const TextInInfo = styled.div`
+  ${props => props.theme.typography.subtitle2};
+`;
 const ContactUs = styled(NavLink)`
   ${props => props.theme.typography.subtitle2};
   margin-left: 4px;
@@ -77,7 +74,7 @@ export const CreateSpotsStep1: FC = () => {
           content="Get a recommendation from your friends, partners and clients. You are linked with your recommendators. Whenever they share persona you are visible there. Create you own recommendation net!"
         />
         <InformationUnderText title="">
-          <div>
+          <TextInInfo>
             You can use spots totally for free, but there are some limitations:
             <br /> - maximum 3 manager personas in spot
             <br /> - maximum 20 personas can join to spot
@@ -87,7 +84,7 @@ export const CreateSpotsStep1: FC = () => {
             <br />
             If you would be interested in exceeding them
             <ContactUs to="/contact">contact us</ContactUs>.
-          </div>
+          </TextInInfo>
         </InformationUnderText>
         <WideButton onClick={onNextClick}>CREATE FREE SPOT</WideButton>
       </PageWrapperSpaceBetween>

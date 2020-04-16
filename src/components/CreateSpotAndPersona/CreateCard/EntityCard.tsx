@@ -20,11 +20,11 @@ import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper } from 'pages/
 import { useHistory } from 'react-router-dom';
 
 type PropsCard = {
+  initialValues: CardType;
+  updateCard: Function;
   nextPathName: string;
   stepperNumbers: number[];
   currentNumber: number;
-  updateCard: Function;
-  initialValues: CardType;
 };
 
 const initialState: ImageRef = {
@@ -40,7 +40,7 @@ export const EntityCard = ({ nextPathName, stepperNumbers, currentNumber, update
   const { values, setFieldValue, handleSubmit, errors, isValid } = useFormik<CardType>({
     enableReinitialize: true,
     initialValues,
-    onSubmit: (formValues: any) => {
+    onSubmit: (formValues: CardType) => {
       updateCard({
         variables: {
           card: formValues,
@@ -117,7 +117,6 @@ export const EntityCard = ({ nextPathName, stepperNumbers, currentNumber, update
                 tabIndex={0}
                 hasError={!!errors.description}
               />
-              {console.log(values)}
             </CardBody>
           </Card>
           <WideButton htmlType="submit" disabled={!isValid}>
