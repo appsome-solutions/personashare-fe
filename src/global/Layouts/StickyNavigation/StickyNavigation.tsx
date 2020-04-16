@@ -32,10 +32,10 @@ export const StickyNavigation = withRouter(({ location: { pathname } }) => {
         redirectionLink={'/my-spots'}
       />
       <NavigationElement
-        isActive={pathname === '/personas'}
+        isActive={pathname === '/my-personas'}
         svg={MenuBookSvg}
         text="Personas"
-        redirectionLink={'/personas'}
+        redirectionLink={'/my-personas'}
       />
     </StyledRow>
   );

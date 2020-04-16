@@ -10,6 +10,7 @@ import styled from 'styled-components';
 type Props = {
   card: EntityType;
   uuid: string;
+  isWithEdit?: boolean;
 };
 
 const NameStyled = styled.div`
@@ -20,14 +21,14 @@ const DescriptionStyled = styled.div`
   margin-bottom: 16px;
 `;
 
-export const PersonaCard: FC<Props> = ({ card, uuid }) => {
+export const PersonaCard: FC<Props> = ({ card, uuid, isWithEdit }) => {
   return (
     <Card mt={31} mb={40} position="relative">
       <BackgroundPlaceholder background={card.background} alt="Card background">
         <PersonaCircleWrapper>
           <PersonaCircle avatar={card.avatar} alt="Avatar card" />
         </PersonaCircleWrapper>
-        <EditRemoveMenu uuid={uuid} />
+        {isWithEdit && <EditRemoveMenu uuid={uuid} />}
       </BackgroundPlaceholder>
       <CardBody>
         <NameStyled>{card.name}</NameStyled>

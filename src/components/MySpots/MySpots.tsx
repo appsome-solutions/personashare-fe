@@ -80,7 +80,7 @@ export const MySpots: FC = () => {
             data.userSpots.map((spots: gqlEntity) => (
               <CaruouselItem key={spots.uuid}>
                 <Wrapper>
-                  <PersonaCard card={spots.card} uuid={spots.uuid} />
+                  <PersonaCard card={spots.card} uuid={spots.uuid} isWithEdit={true} />
                 </Wrapper>
               </CaruouselItem>
             ))}
@@ -89,10 +89,9 @@ export const MySpots: FC = () => {
           <img src={`${data.userSpots[currentSlide].qrCodeLink}`} alt="QrCode" />
           <TextInShare>
             <ShareQrIcon src={ShareQrCode} alt="Share Qr Code" />
-            Share your QR
+            <a href={`${data.userSpots[currentSlide].qrCodeLink}`}>Share your QR</a>
           </TextInShare>
         </ShareQr>
-        {currentSlide}
       </PageWrapperSpaceBetween>
       <NavLink to="./creation/step/1/entity/spot">
         <CreateSpot>

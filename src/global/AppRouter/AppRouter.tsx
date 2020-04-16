@@ -17,6 +17,7 @@ import { EditSpotPage } from 'components/EditPageAndCard/EditSpot/EditSpotPage';
 import { EditSpotCard } from 'components/EditPageAndCard/EditSpot/EditSpotCard';
 import { EditPersonaPage } from 'components/EditPageAndCard/EditPersona/EditPersonaPage';
 import { EditPersonaCard } from 'components/EditPageAndCard/EditPersona/EditPersonaCard';
+import { MyPersona } from 'components/MyPersona/MyPersona';
 
 export const AppRouter: FunctionComponent = () => {
   return (
@@ -32,6 +33,7 @@ export const AppRouter: FunctionComponent = () => {
       <Route path="/edit/persona/:uuid/step/1" exact component={EditPersonaCard} />
       <Route path="/edit/spot/:uuid/step/2" exact component={EditSpotPage} />
       <Route path="/edit/persona/:uuid/step/2" exact component={EditPersonaPage} />
+      <Route path="/my-personas" exact component={MyPersona} />
       <Route path="/login" exact component={Login} />
       <Route path="/my-spots" exact component={MySpots} />
       <Route path="/creation/step/1/entity/spot" exact component={CreateSpotsStep1} />

@@ -21,7 +21,9 @@ export const EditPersonaCard: FC = () => {
   });
   const initialValues = data ? data.persona.card : cardInitialValues;
   const [updateCard] = useMutation<GetCardType>(UPDATE_PERSONA_CARD);
-
+  if (!data) {
+    return null;
+  }
   return (
     <EntityCard
       nextPathName={`/edit/persona/${uuid}/step/2`}
