@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import { EntityPage } from 'components/CreateSpotAndPersona/CreatePage/EntityPage';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { CREATE_SPOT } from 'global/graphqls/Spot';
-import { PageType, Entity } from 'global/graphqls/schema';
+import { UPDATE_SPOT } from 'global/graphqls/Spot';
+import { Entity, PageType } from 'global/graphqls/schema';
 import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
 import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
+import { useParams } from 'react-router-dom';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -14,12 +15,13 @@ const pageInitialValues: PageType = {
   backgroundUpload: null,
 };
 
-export const CreateSpotsPage: FC = () => {
+export const EditSpotPage: FC = () => {
   const { data } = useQuery<GetPageType>(GET_PAGE);
   const { data: spotData } = useQuery<GetCardType>(GET_CARD);
-  const [createSpot] = useMutation<Entity>(CREATE_SPOT);
+  const [updateSpot] = useMutation<Entity>(UPDATE_SPOT);
   const initialValues = data?.entity?.page || pageInitialValues;
   const cardDefaultSpot = cardDefaults;
+  const { uuid } = useParams();
 
   if (!spotData) {
     return null;
@@ -28,16 +30,16 @@ export const CreateSpotsPage: FC = () => {
   return (
     <div>
       <EntityPage
-        currentNumber={3}
-        stepperNumbers={[1, 2, 3]}
-        CreateOrSave="Create"
+        currentNumber={2}
+        stepperNumbers={[1, 2]}
+        CreateOrSave="Save"
         cardDefault={cardDefaultSpot}
         card={spotData.entity.card}
-        onPageSubmitCreateOrUpdate={createSpot}
+        onPageSubmitCreateOrUpdate={updateSpot}
         initialValues={initialValues}
         nextStepPath="/my-spots"
         nameSpotOrPersona="Spot"
-        previousStepPath="/creation/step/2/entity/spot"
+        previousStepPath={`/edit/spot/${uuid}/step/2`}
       />
     </div>
   );

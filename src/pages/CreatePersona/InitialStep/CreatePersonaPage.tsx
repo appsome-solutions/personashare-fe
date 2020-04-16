@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { CreateEntityPage } from 'components/CreateSpotAndPersona/CreatePage/CreateEntityPage';
+import { EntityPage } from 'components/CreateSpotAndPersona/CreatePage/EntityPage';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { PageType, Entity } from 'global/graphqls/schema';
 import { CREATE_PERSONA } from 'global/graphqls/Persona';
@@ -24,17 +24,19 @@ export const CreatePersonaPage: FC = () => {
   if (!personaData) {
     return null;
   }
+
   return (
-    <>
-      <CreateEntityPage
-        cardDefault={cardDefaultPersona}
-        card={personaData.entity.card}
-        createPersonaOrSpot={createPersona}
-        initialValues={initialValues}
-        nextStepPath="/my-personas"
-        nameSpotOrPersona="Persona"
-        previousStepPath="/createpersona/card"
-      />
-    </>
+    <EntityPage
+      currentNumber={3}
+      stepperNumbers={[1, 2, 3]}
+      onPageSubmitCreateOrUpdate={createPersona}
+      CreateOrSave="Create"
+      cardDefault={cardDefaultPersona}
+      card={personaData.entity.card}
+      initialValues={initialValues}
+      nextStepPath="/my-personas"
+      nameSpotOrPersona="Persona"
+      previousStepPath="/createpersona/card"
+    />
   );
 };
