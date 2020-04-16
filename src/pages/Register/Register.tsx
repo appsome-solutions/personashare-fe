@@ -15,8 +15,9 @@ import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 import { useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
-import FormikCheckbox from 'components/FormikFields/FormikChecbox/FormikCheckbox';
 import { useUserContext } from 'global/UserContext/UserContext';
+import { APP_ROUTES } from 'global/AppRouter/routes';
+import FormikCheckbox from 'components/FormikFields/FormikChecbox/FormikCheckbox';
 import { signInWithGoogle } from '../../helpers/signInWithGoogle';
 
 const StyledLogo = styled.img`
@@ -113,7 +114,7 @@ export const Register: FC = () => {
       if (token) {
         localStorage.setItem(PS_TOKEN_NAME, token);
         setUser(data?.data?.loginUser?.user || null);
-        history.push('./createpersona');
+        history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);
       }
     } catch (error) {
       setApiError(error.message);
@@ -130,7 +131,7 @@ export const Register: FC = () => {
       if (token) {
         localStorage.setItem(PS_TOKEN_NAME, token);
         setUser(data?.data?.loginUser?.user || null);
-        history.push('./createpersona');
+        history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);
       }
     }
   };
@@ -163,7 +164,7 @@ export const Register: FC = () => {
                 </GoogleButton>
               </StyledCard>
               <LogInCaption>
-                Already have an account? <Link to="/login">Login</Link>
+                Already have an account? <Link to={APP_ROUTES.LOGIN}>Login</Link>
               </LogInCaption>
             </PageWrapper>
           </div>

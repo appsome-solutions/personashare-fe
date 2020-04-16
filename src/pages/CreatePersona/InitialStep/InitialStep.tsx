@@ -1,6 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { APP_ROUTES } from 'global/AppRouter/routes';
 import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { InfoCard } from 'components/InfoCard/InfoCard';
 import { WideButton } from 'components/Button';
@@ -22,7 +23,7 @@ export const InitialStep: FC = () => {
 
   const onNextClick = useCallback((): void => {
     history.push({
-      pathname: 'createpersona/card',
+      pathname: APP_ROUTES.PERSONA_CREATION_STEP_2,
     });
   }, [history]);
 

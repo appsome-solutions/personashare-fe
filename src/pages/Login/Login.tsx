@@ -9,6 +9,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 import { Button } from 'components/Button';
 import { EmailInput } from 'components/EmailInput/EmailInput';
 import { PasswordInput } from 'components/PasswordInput';
@@ -109,7 +110,7 @@ export const Login: FunctionComponent = () => {
     if (token) {
       localStorage.setItem(PS_TOKEN_NAME, token);
       setUser(data?.data?.loginUser?.user || null);
-      history.push('./createpersona');
+      history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);
     }
   };
 
@@ -166,7 +167,7 @@ export const Login: FunctionComponent = () => {
                 )}
               </StyledCard>
               <RegisterCaption>
-                Don’t have account? <Link to="/register">Register Now</Link>
+                Don’t have account? <Link to={APP_ROUTES.REGISTER}>Register Now</Link>
               </RegisterCaption>
             </PageWrapper>
           </div>

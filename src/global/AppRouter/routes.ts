@@ -5,6 +5,7 @@ export const APP_ROUTES = {
   LOGIN: '/login',
   REGISTER: '/register',
   MY_SPOTS: '/my-spots',
+  MY_PERSONAS: '/my-personas',
   SPOT_CREATION_STEP_1: '/creation/step/1/entity/spot',
   SPOT_CREATION_STEP_2: '/creation/step/2/entity/spot',
   SPOT_CREATION_STEP_3: '/creation/step/3/entity/spot',

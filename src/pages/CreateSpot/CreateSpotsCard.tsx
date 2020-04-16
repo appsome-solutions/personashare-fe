@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { GET_CARD, GetCardType, UPDATE_CARD } from 'global/graphqls/SpotAndPersona';
 import { CardType } from 'global/graphqls/schema';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 import { CreateEntityCard } from 'components/CreateSpotAndPersona/CreateCard/CreateEntityCard';
 
 const cardInitialValues: CardType = {
@@ -22,7 +23,7 @@ export const CreateSpotsCard: FC = () => {
     <CreateEntityCard
       initialValues={initialValues}
       updateCard={updateCardSpot}
-      nextPathName="/creation/step/3/entity/spot"
+      nextPathName={APP_ROUTES.SPOT_CREATION_STEP_3}
     />
   );
 };
