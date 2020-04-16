@@ -17,6 +17,7 @@ import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
 import FormikCheckbox from 'components/FormikFields/FormikChecbox/FormikCheckbox';
 import { useUserContext } from 'global/UserContext/UserContext';
+import { signInWithGoogle } from '../../helpers/signInWithGoogle';
 
 const StyledLogo = styled.img`
   margin-top: 46px;
@@ -112,10 +113,25 @@ export const Register: FC = () => {
       if (token) {
         localStorage.setItem(PS_TOKEN_NAME, token);
         setUser(data?.data?.loginUser?.user || null);
-        history.push('./create_persona');
+        history.push('./createpersona');
       }
     } catch (error) {
       setApiError(error.message);
+    }
+  };
+
+  const handleGoogleLogin = async (): Promise<void> => {
+    const idToken = await signInWithGoogle(firebase);
+
+    if (idToken) {
+      const data = await signIn({ variables: { idToken } });
+      const token = data?.data?.loginUser.accessToken || '';
+
+      if (token) {
+        localStorage.setItem(PS_TOKEN_NAME, token);
+        setUser(data?.data?.loginUser?.user || null);
+        history.push('./createpersona');
+      }
     }
   };
 
@@ -142,7 +158,9 @@ export const Register: FC = () => {
                   REGISTER NOW
                 </RegisterButton>
                 <OrRegisterCaption>Or Register using social Media</OrRegisterCaption>
-                <GoogleButton block>GOOGLE</GoogleButton>
+                <GoogleButton block onClick={handleGoogleLogin}>
+                  GOOGLE
+                </GoogleButton>
               </StyledCard>
               <LogInCaption>
                 Already have an account? <Link to="/login">Login</Link>

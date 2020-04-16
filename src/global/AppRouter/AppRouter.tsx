@@ -13,25 +13,23 @@ import { CreateSpotsPage } from 'pages/CreateSpot/CreateSpotsPage';
 import { CreatePersonaCard } from 'pages/CreatePersona/InitialStep/CreatePersonaCard';
 import { CreatePersonaPage } from 'pages/CreatePersona/InitialStep/CreatePersonaPage';
 import { MySpots } from 'components/MySpots/MySpots';
+import { APP_ROUTES } from './routes';
+
 export const AppRouter: FunctionComponent = () => {
   return (
     <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/scanner" exact component={() => <QrScanner onCode={res => alert(res.data)} />} />
-      <Route
-        path={`/choose-persona/(saved|recommend|participant-joined|manager-joined)/(spot|persona)/:actionId`}
-        exact
-        component={ChoosePersona}
-      />
-      <Route path="/login" exact component={Login} />
-      <Route path="/my-spots" exact component={MySpots} />
-      <Route path="/creation/step/1/entity/spot" exact component={CreateSpotsStep1} />
-      <Route path="/creation/step/2/entity/spot" exact component={CreateSpotsCard} />
-      <Route path="/creation/step/3/entity/spot" exact component={CreateSpotsPage} />
-      <Route path="/register" exact component={Register} />
-      <Route path="/createpersona" exact component={InitialStep} />
-      <Route path="/createpersona/card" exact component={CreatePersonaCard} />
-      <Route path="/createpersona/page" exact component={CreatePersonaPage} />
+      <Route path={APP_ROUTES.ROOT} exact component={Home} />
+      <Route path={APP_ROUTES.SCANNER} exact component={() => <QrScanner onCode={res => alert(res.data)} />} />
+      <Route path={APP_ROUTES.CHOOSE_PERSONA} exact component={ChoosePersona} />
+      <Route path={APP_ROUTES.LOGIN} exact component={Login} />
+      <Route path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
+      <Route path={APP_ROUTES.SPOT_CREATION_STEP_1} exact component={CreateSpotsStep1} />
+      <Route path={APP_ROUTES.SPOT_CREATION_STEP_2} exact component={CreateSpotsCard} />
+      <Route path={APP_ROUTES.SPOT_CREATION_STEP_3} exact component={CreateSpotsPage} />
+      <Route path={APP_ROUTES.REGISTER} exact component={Register} />
+      <Route path={APP_ROUTES.PERSONA_CREATION_STEP_1} exact component={InitialStep} />
+      <Route path={APP_ROUTES.PERSONA_CREATION_STEP_2} exact component={CreatePersonaCard} />
+      <Route path={APP_ROUTES.PERSONA_CREATION_STEP_3} exact component={CreatePersonaPage} />
       <Route path="/persona-creation/page" exact component={Page} />
     </Switch>
   );
