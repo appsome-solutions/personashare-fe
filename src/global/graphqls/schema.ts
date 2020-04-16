@@ -32,22 +32,22 @@ export const pageSchema = Yup.object({
 
 export type CardType = Yup.InferType<typeof cardSchema>;
 
-export type PersonaCard = WithTypeName & CardType;
+export type EntityCard = WithTypeName & CardType;
 
 export type PageType = Yup.InferType<typeof pageSchema>;
 
-export type PersonaPage = WithTypeName & PageType;
+export type EntityPage = WithTypeName & PageType;
 
-export type Persona = WithTypeName & {
+export type Entity = WithTypeName & {
   uuid: string;
-  card: PersonaCard;
-  page: PersonaPage;
+  card: EntityCard;
+  page: EntityPage;
 };
 
-export type gqlPersona = {
+export type gqlEntity = {
   personaUUIDs: string[];
   qrCodeLink: string;
-} & Persona;
+} & Entity;
 
 export type gqlUser = {
   uuid: string;

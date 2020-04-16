@@ -5,11 +5,14 @@ import { Home } from 'pages/Home/Home';
 import { Register } from 'pages/Register/Register';
 import { Login } from 'pages/Login/Login';
 import { InitialStep } from 'pages/CreatePersona/InitialStep/InitialStep';
-import { CreateCard } from 'pages/CreatePersona/CreateCard/CreateCard';
-import { CreatePage } from 'pages/CreatePersona/CreatePage/CreatePage';
 import { ChoosePersona } from 'pages/ChoosePersona/ChoosePersona';
 import { Page } from 'pages/PersonaCreation/Page/Page';
 import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
+import { CreateSpotsStep1 } from 'pages/CreateSpot/CreateSpotsStep1';
+import { CreateSpotsCard } from 'pages/CreateSpot/CreateSpotsCard';
+import { CreateSpotsPage } from 'pages/CreateSpot/CreateSpotsPage';
+import { CreatePersonaCard } from 'pages/CreatePersona/InitialStep/CreatePersonaCard';
+import { CreatePersonaPage } from 'pages/CreatePersona/InitialStep/CreatePersonaPage';
 import { MySpots } from 'components/MySpots/MySpots';
 
 export const AppRouter: FunctionComponent = () => {
@@ -24,10 +27,14 @@ export const AppRouter: FunctionComponent = () => {
         component={ChoosePersona}
       />
       <Route path="/login" exact component={Login} />
+      <Route path="/my-spots" exact component={MySpots} />
+      <Route path="/creation/step/1/entity/spot" exact component={CreateSpotsStep1} />
+      <Route path="/creation/step/2/entity/spot" exact component={CreateSpotsCard} />
+      <Route path="/creation/step/3/entity/spot" exact component={CreateSpotsPage} />
       <Route path="/register" exact component={Register} />
       <PrivateRoute path="/createpersona" exact component={InitialStep} />
-      <Route path="/createpersona/card" exact component={CreateCard} />
-      <Route path="/createpersona/page" exact component={CreatePage} />
+      <Route path="/createpersona/card" exact component={CreatePersonaCard} />
+      <Route path="/createpersona/page" exact component={CreatePersonaPage} />
       <Route path="/persona-creation/page" exact component={Page} />
     </Switch>
   );

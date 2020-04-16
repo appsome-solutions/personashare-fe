@@ -2,8 +2,9 @@ import ApolloClient from 'apollo-boost';
 import { ErrorHandler } from 'apollo-link-error';
 import { GraphQLError } from 'graphql';
 import { merge } from 'lodash';
-import { personaDefaults, personaResolvers } from 'global/ApolloLinkState/persona';
 import history from 'global/AppRouter/history';
+import { entityDefaults, entityResolvers } from '../ApolloLinkState/spotAndPersona';
+
 //based on: https://www.apollographql.com/docs/react/networking/authentication/
 // https://dev.to/rdegges/please-stop-using-local-storage-1i04
 
@@ -25,9 +26,9 @@ const logoutLink: ErrorHandler = error => {
 export const client = new ApolloClient({
   clientState: {
     defaults: {
-      persona: personaDefaults,
+      entity: entityDefaults,
     },
-    resolvers: merge(personaResolvers),
+    resolvers: merge(entityResolvers),
   },
   uri: process.env.REACT_APP_GRAPHQL_API_URL || '',
   onError: logoutLink,

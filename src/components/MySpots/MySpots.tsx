@@ -1,59 +1,63 @@
-import React from 'react';
+import React, { FC, useState, useRef } from 'react';
 import styled from 'styled-components';
-import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
-import { TopNav } from '../TopNav/TopNav';
-import BoxInSpots from 'assets/BoxInSpots.svg';
-import AddIcon from 'assets/AddIcon.svg';
-import { NavLink } from 'react-router-dom';
+import { Carousel as AntCarousel } from 'antd';
+import { TopNav } from 'components/TopNav/TopNav';
+import { PageWrapperSpaceBetween } from 'components/PageWrapper';
+import { useQuery } from '@apollo/react-hooks';
+import { PersonaCard } from 'components/PersonaCard/PersonaCard';
+import Carousel from 'components/Carousel/Carousel';
+import { gqlEntity } from 'global/graphqls/schema';
+import { Spinner } from 'components/Spinner/Spinner';
+import { Overlay } from 'components/Overlay/Overlay';
+
+import { MySpotsWithoutSpots } from './MySpotsWithoutSpots';
+import { Route } from 'react-router-dom';
+import { GET_SPOT, GetSpotType } from '../../global/graphqls/Spot';
+import isEmpty from 'lodash/isEmpty';
+
+const CaruouselItem = styled.div`
+  padding: 0 20px;
+`;
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
-  padding-top: 32px;
-  width: auto;
-  height: 100vh;
-`;
-
-const TextAndImg = styled.div`
-  display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 70vh;
 `;
 
-const TextUnderImg = styled.h5`
-  opacity: 0.5;
-`;
-const CreateSpot = styled.div`
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  position: fixed;
-  bottom: 66px;
-  right: 18px;
-  background-color: ${props => props.theme.colors.main.primary};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+export const MySpots: FC = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const { loading, data } = useQuery<GetSpotType>(GET_SPOT);
+  const carousel = useRef<AntCarousel>(null);
 
-const CreateIcon = styled.img``;
+  if (loading) {
+    return (
+      <Overlay>
+        <Spinner />
+      </Overlay>
+    );
+  }
+  if (isEmpty(data?.userSpots) || !data) {
+    return <Route path="/my-spots" exact component={MySpotsWithoutSpots} />;
+  }
 
-export const MySpots = () => {
   return (
-    <>
+    <div>
       <TopNav isWithBackArrow />
-      <HamburgerMenu isWithHamburger={false} />
-      <Wrapper>
-        <TextAndImg>
-          <img src={BoxInSpots} alt="Box In Spots" />
-          <TextUnderImg>no spots created</TextUnderImg>
-        </TextAndImg>
-        <NavLink to="/spot-creation/1">
-          <CreateSpot>
-            <CreateIcon src={AddIcon} alt="Create Icon" />
-          </CreateSpot>
-        </NavLink>
-      </Wrapper>
-    </>
+      <PageWrapperSpaceBetween>
+        <Carousel afterChange={setCurrentSlide} ref={carousel}>
+          {data.userSpots &&
+            data.userSpots.map((spots: gqlEntity) => (
+              <CaruouselItem key={spots.uuid}>
+                <Wrapper>
+                  <PersonaCard card={spots.card} />
+                </Wrapper>
+              </CaruouselItem>
+            ))}
+        </Carousel>
+        <img src={`${data.userSpots[currentSlide].qrCodeLink}`} />
+        {currentSlide}
+      </PageWrapperSpaceBetween>
+    </div>
   );
 };

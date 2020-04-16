@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
-import { PersonaCard as PersonaCardType } from 'global/graphqls/schema';
+import { EntityCard as EntityType } from 'global/graphqls/schema';
 
-import { CardBody } from 'pages/CreatePersona/CreateCard/CreateCard.styles';
+import { CardBody } from 'components/CreateSpotAndPersona/CreateCard/CreateCard.styles';
 import { BackgroundPlaceholder } from 'components/BackgroundPlaceholder/BackgroundPlaceholder';
 import { PersonaCircle, PersonaCircleWrapper } from 'components/PersonaCircle/PersonaCircle';
 import { Card } from 'components/Card/Card';
 
 type Props = {
-  card: PersonaCardType;
+  card: EntityType;
 };
 
 export const PersonaCard: FC<Props> = ({ card }) => (
