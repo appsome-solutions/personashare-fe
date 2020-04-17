@@ -6,7 +6,7 @@ import MyPersonas from 'assets/MyPersonas.svg';
 import RightProfileSvg from 'assets/RightProfileSvg.svg';
 import LogoutSvg from 'assets/Logout.svg';
 import { NavLink, useHistory } from 'react-router-dom';
-import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
+import { client, PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
 import { SIGN_OUT, SignOutResponse } from 'global/graphqls/SignOut';
 import { useMutation } from '@apollo/react-hooks';
 import { DrawerMenu } from 'components/Drawer/Drawer';
@@ -89,6 +89,7 @@ export const HamburgerMenu = ({ isWithHamburger, isWithSearch }: HamburgerMenuTy
                 await logout();
                 localStorage.removeItem(PS_TOKEN_NAME);
                 history.push('./login');
+                client.cache.reset();
               }}
             >
               <HamburgerIcon svgLink={LogoutSvg} />
