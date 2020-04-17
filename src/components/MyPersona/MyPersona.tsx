@@ -142,7 +142,7 @@ export const MyPersona: FC = () => {
           </TextInShare>
         </ShareQr>
       </PageWrapperSpaceBetween>
-      <NavLink to="./createpersona">
+      <NavLink to="./creation/step/1/entity/persona">
         <CreatePersona>
           <img src={AddIcon} alt="Create Icon" />
         </CreatePersona>

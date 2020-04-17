@@ -18,13 +18,15 @@ import { EditSpotCard } from 'components/EditPageAndCard/EditSpot/EditSpotCard';
 import { EditPersonaPage } from 'components/EditPageAndCard/EditPersona/EditPersonaPage';
 import { EditPersonaCard } from 'components/EditPageAndCard/EditPersona/EditPersonaCard';
 import { MyPersona } from 'components/MyPersona/MyPersona';
+import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
 
 export const AppRouter: FunctionComponent = () => {
   return (
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/scanner" exact component={() => <QrScanner onCode={res => alert(res.data)} />} />
-      <Route
+      <Route path="/my-spots" exact component={MySpots} />
+      <PrivateRoute
         path={`/choose-persona/(saved|recommend|participant-joined|manager-joined)/(spot|persona)/:actionId`}
         exact
         component={ChoosePersona}
@@ -40,9 +42,9 @@ export const AppRouter: FunctionComponent = () => {
       <Route path="/creation/step/2/entity/spot" exact component={CreateSpotsCard} />
       <Route path="/creation/step/3/entity/spot" exact component={CreateSpotsPage} />
       <Route path="/register" exact component={Register} />
-      <Route path="/createpersona" exact component={InitialStep} />
-      <Route path="/createpersona/card" exact component={CreatePersonaCard} />
-      <Route path="/createpersona/page" exact component={CreatePersonaPage} />
+      <PrivateRoute path="/creation/step/1/entity/persona" exact component={InitialStep} />
+      <Route path="/creation/step/2/entity/persona" exact component={CreatePersonaCard} />
+      <Route path="/creation/step/3/entity/persona" exact component={CreatePersonaPage} />
       <Route path="/persona-creation/page" exact component={Page} />
     </Switch>
   );

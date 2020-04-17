@@ -19,7 +19,7 @@ export const CreatePersonaCard: FC = () => {
   const [updateCard] = useMutation<GetCardType>(UPDATE_CARD);
   return (
     <EntityCard
-      nextPathName="/createpersona/page"
+      nextPathName="/creation/step/3/entity/persona"
       stepperNumbers={[1, 2, 3]}
       currentNumber={2}
       initialValues={initialValues}

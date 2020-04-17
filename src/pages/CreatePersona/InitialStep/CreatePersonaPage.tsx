@@ -36,7 +36,7 @@ export const CreatePersonaPage: FC = () => {
       initialValues={initialValues}
       nextStepPath="/my-personas"
       nameSpotOrPersona="Persona"
-      previousStepPath="/createpersona/card"
+      previousStepPath="/creation/step/2/entity/persona"
     />
   );
 };

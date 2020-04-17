@@ -5,7 +5,7 @@ import { TopNav } from 'components/TopNav/TopNav';
 import LogoSvg from 'assets/logo.svg';
 import { Formik, Form } from 'formik';
 import { object, string, InferType } from 'yup';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Firebase, useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 // TODO: Remove after real integration
 import { useUserContext } from 'global/UserContext/UserContext';
+import { GET_PERSONAS, GetPersonaType } from '../../global/graphqls/Persona';
 
 const Caption = styled.span(props => props.theme.typography.caption);
 
@@ -104,7 +105,7 @@ export const Login: FunctionComponent = () => {
   const firebase = useFirebase();
   const [signIn, { data }] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
-
+  const { data: userPersona } = useQuery<GetPersonaType>(GET_PERSONAS);
   if (!firebase) {
     return null;
   }
@@ -113,13 +114,19 @@ export const Login: FunctionComponent = () => {
     const data = await signIn({ variables: { idToken } });
     const token = data?.data?.loginUser.accessToken || '';
 
-    if (token) {
+    if (token && !userPersona) {
       localStorage.setItem(PS_TOKEN_NAME, token);
       setUser(data?.data?.loginUser?.user || null);
-      history.push('./createpersona');
+      history.push('./creation/step/1/entity/persona');
+    } else if (token) {
+      localStorage.setItem(PS_TOKEN_NAME, token);
+      setUser(data?.data?.loginUser?.user || null);
+      history.push('./scanner');
     }
   };
-
+  {
+    console.log(userPersona);
+  }
   const handleGoogleLogin = async (): Promise<void> => {
     const idToken = await signInWithGoogle(firebase);
 

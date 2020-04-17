@@ -22,7 +22,7 @@ export const InitialStep: FC = () => {
 
   const onNextClick = useCallback((): void => {
     history.push({
-      pathname: 'createpersona/card',
+      pathname: '/creation/step/2/entity/persona',
     });
   }, [history]);
 
