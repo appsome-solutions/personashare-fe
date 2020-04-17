@@ -14,5 +14,6 @@ module.exports = override(
     test: /\.worker\.js$/,
     use: { loader: 'worker-loader', options: { inline: true } },
   }),
-  addBabelPlugin('@babel/plugin-proposal-optional-chaining')
+  addBabelPlugin('@babel/plugin-proposal-optional-chaining'),
+  addBabelPlugin('@babel/plugin-proposal-nullish-coalescing-operator')
 );

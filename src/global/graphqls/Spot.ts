@@ -43,6 +43,20 @@ export const ADD_MENAGER = gql`
   }
 `;
 
+export interface SaveSpotResponse {
+  saveSpot: {
+    uuid: string;
+  };
+}
+
+export const SAVE_SPOT = gql`
+  mutation saveSpot($savedSpotUuid: String!, $spotUuid: String!) {
+    saveSpot(savedPersonaUuid: $savedSpotUuid, spotUuid: $spotUuid) {
+      uuid
+    }
+  }
+`;
+
 export const CREATE_SPOT = gql`
   mutation createSpot($payload: CreateShareableInput!) {
     createSpot(spot: $payload) {
