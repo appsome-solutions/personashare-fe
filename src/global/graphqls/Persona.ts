@@ -126,3 +126,17 @@ export const UPDATE_PERSONA_CARD = gql`
     updateCard(card: $card) @client
   }
 `;
+
+export interface SavePersonaResponse {
+  savePersona: {
+    uuid: string;
+  };
+}
+
+export const SAVE_PERSONA = gql`
+  mutation savePersona($savedPersonaUuid: String!, $personaUuid: String!) {
+    savePersona(savedPersonaUuid: $savedPersonaUuid, personaUuid: $personaUuid) {
+      uuid
+    }
+  }
+`;

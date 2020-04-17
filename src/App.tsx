@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ThemeProvider } from 'styled-components';
 
@@ -13,6 +13,7 @@ import { client } from 'global/ApolloClient/ApolloClient';
 import { FirebaseProvider, Firebase } from './global/Firebase';
 import { StorageProvider, Storage } from './global/Storage';
 import { UserProvider } from 'global/UserContext/UserContext';
+import history from 'global/AppRouter/history';
 
 const firebase = new Firebase();
 
@@ -23,7 +24,7 @@ const App: FunctionComponent = () => (
         <StorageProvider value={new Storage(firebase.getStorageRef())}>
           <UserProvider>
             <RWDProvider>
-              <Router>
+              <Router history={history}>
                 <GlobalStyles />
                 <ErrorHandler>
                   <AppRouter />
