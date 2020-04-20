@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { gqlEntity } from './schema';
+import { EntityCard, gqlEntity } from './schema';
 
 export interface RecommendSpotResponse {
   recommendSpot: {
@@ -38,6 +38,20 @@ export interface AddManagerResponse {
 export const ADD_MENAGER = gql`
   mutation addMenager($personaId: String!, $spotId: String!) {
     addMenager(personaId: $personaId, spotId: $spotId) {
+      uuid
+    }
+  }
+`;
+
+export interface SaveSpotResponse {
+  saveSpot: {
+    uuid: string;
+  };
+}
+
+export const SAVE_SPOT = gql`
+  mutation saveSpot($savedSpotUuid: String!, $spotUuid: String!) {
+    saveSpot(savedPersonaUuid: $savedSpotUuid, spotUuid: $spotUuid) {
       uuid
     }
   }
@@ -84,5 +98,59 @@ export const GET_SPOT = gql`
       personaUUIDs
       qrCodeLink
     }
+  }
+`;
+
+export const UPDATE_SPOT = gql`
+  mutation updateSpot($uuid: String!, $payload: UpdateSpotInput!) {
+    updateSpot(uuid: $uuid, spot: $payload) {
+      uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+      personaUUIDs
+      qrCodeLink
+    }
+  }
+`;
+
+export type GetCardType = {
+  spot: {
+    card: EntityCard;
+  };
+};
+
+export const GET_SPOT_CARD = gql`
+  query spot($uuid: String!) {
+    spot(uuid: $uuid) {
+      uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+      personaUUIDs
+      qrCodeLink
+    }
+  }
+`;
+
+export const UPDATE_SPOT_CARD = gql`
+  mutation updateCard($card: Card!) {
+    updateCard(card: $card) @client
   }
 `;

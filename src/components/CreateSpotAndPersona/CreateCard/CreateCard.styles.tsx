@@ -29,5 +29,5 @@ export const CardBody = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 0 16px;
+  align-items: center;
 `;

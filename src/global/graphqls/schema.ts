@@ -7,7 +7,7 @@ export const cardSchema = Yup.object({
   name: Yup.string().required(),
   description: Yup.string().notRequired(),
   avatar: Yup.string().notRequired(),
-  background: Yup.string().required(),
+  background: Yup.string().notRequired(),
   avatarUpload: Yup.mixed<ImageRef>()
     .nullable(true)
     .notRequired(),
@@ -55,4 +55,16 @@ export type gqlUser = {
   photo: string;
   personaUUIDs: string[];
   defaultPersona: string;
+};
+
+export type SpotType = {
+  uuid: string;
+  card: EntityCard;
+  page: EntityPage;
+};
+
+export type PersonaType = {
+  uuid: string;
+  card: EntityCard;
+  page: EntityPage;
 };
