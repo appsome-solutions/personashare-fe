@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { EntityCard } from 'components/CreateSpotAndPersona/CreateCard/EntityCard';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { GET_CARD, GetCardType, UPDATE_CARD } from '../../global/graphqls/SpotAndPersona';
-import { CardType } from '../../global/graphqls/schema';
+import { GET_CARD, GetCardType, UPDATE_CARD } from 'global/graphqls/SpotAndPersona';
+import { CardType } from 'global/graphqls/schema';
 
 const cardInitialValues: CardType = {
   name: '',
@@ -17,6 +17,7 @@ export const CreateSpotsCard: FC = () => {
   const { data } = useQuery<GetCardType>(GET_CARD);
   const initialValues = data ? data.entity.card : cardInitialValues;
   const [updateCard] = useMutation<GetCardType>(UPDATE_CARD);
+
   return (
     <EntityCard
       nextPathName="/creation/step/3/entity/spot"

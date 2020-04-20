@@ -14,7 +14,6 @@ import { CreateSpotsPage } from 'pages/CreateSpot/CreateSpotsPage';
 import { CreatePersonaCard } from 'pages/CreatePersona/InitialStep/CreatePersonaCard';
 import { CreatePersonaPage } from 'pages/CreatePersona/InitialStep/CreatePersonaPage';
 import { MySpots } from 'components/MySpots/MySpots';
-
 import { EditSpotPage } from 'components/EditPageAndCard/EditSpot/EditSpotPage';
 import { EditSpotCard } from 'components/EditPageAndCard/EditSpot/EditSpotCard';
 import { EditPersonaPage } from 'components/EditPageAndCard/EditPersona/EditPersonaPage';

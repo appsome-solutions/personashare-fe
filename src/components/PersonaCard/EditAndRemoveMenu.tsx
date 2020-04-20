@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Dropdown, Menu } from 'antd';
 import styled from 'styled-components';
 import EditIcon from 'assets/EditIcon.svg';
@@ -11,6 +11,7 @@ const EditMenuBox = styled.div`
   float: right;
   margin-top: 8px;
 `;
+
 const EditAndRemoveBox = styled.div`
   ${props => props.theme.typography.caption};
   display: flex;
@@ -38,11 +39,12 @@ const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
   color: rgba(0, 0, 0, 0.65);
 `;
+
 type EditAndRemoveMenuType = {
   uuid: string;
 };
 
-export const EditRemoveMenu = ({ uuid }: EditAndRemoveMenuType) => {
+export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
   const { pathname } = useLocation();
 
   const NavLinkFunctionality = () => {
@@ -74,6 +76,7 @@ export const EditRemoveMenu = ({ uuid }: EditAndRemoveMenuType) => {
       );
     }
   };
+
   const menuBuild = (
     <MenuStyled>
       <NavLinkFunctionality />
