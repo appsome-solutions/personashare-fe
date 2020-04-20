@@ -19,7 +19,6 @@ import { EditSpotCard } from 'components/EditPageAndCard/EditSpot/EditSpotCard';
 import { EditPersonaPage } from 'components/EditPageAndCard/EditPersona/EditPersonaPage';
 import { EditPersonaCard } from 'components/EditPageAndCard/EditPersona/EditPersonaCard';
 import { MyPersona } from 'components/MyPersona/MyPersona';
-import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
 
 export const AppRouter: FunctionComponent = () => {
   return (
