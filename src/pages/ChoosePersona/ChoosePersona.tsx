@@ -14,6 +14,8 @@ import {
   RECOMMEND_PERSONA,
   SetDefaultPersonaResponse,
   RecommendPersonaResponse,
+  SAVE_PERSONA,
+  SavePersonaResponse,
 } from 'global/graphqls/Persona';
 import { PersonaCard } from 'components/PersonaCard/PersonaCard';
 import { Button } from 'components/Button';
@@ -32,6 +34,8 @@ import {
   ParticipateResponse,
   ADD_MENAGER,
   AddManagerResponse,
+  SAVE_SPOT,
+  SaveSpotResponse,
 } from 'global/graphqls/Spot';
 
 const StyledButton = styled(Button)`
@@ -73,11 +77,17 @@ const callPersonaMutation = (
   action: string,
   personaId: string,
   selectedPersonaId: string
-): Promise<ExecutionResult<RecommendPersonaResponse>> | null => {
+): Promise<ExecutionResult<RecommendPersonaResponse | SavePersonaResponse>> | null => {
+  const savePersona = partial(client.mutate, { mutation: SAVE_PERSONA });
   const recommendPersona = partial(client.mutate, { mutation: RECOMMEND_PERSONA });
   switch (action) {
     case 'saved':
-      return null;
+      return savePersona({
+        variables: {
+          savedPersonaUuid: personaId,
+          personaId: selectedPersonaId,
+        },
+      });
     case 'recommend':
       return recommendPersona({
         variables: {
@@ -99,12 +109,10 @@ const callSpotMutation = (
   const participate = partial(client.mutate, { mutation: PARTICIPATE });
   const addMenager = partial(client.mutate, { mutation: ADD_MENAGER });
   switch (action) {
-    case 'saved':
-      return null;
     case 'recommended':
       return recommendSpot({
         variables: {
-          recommendedPersonaUuid: spotId,
+          recommendedSpotUuid: spotId,
           personaUuid: selectedPersonaId,
         },
       });
@@ -135,6 +143,10 @@ export const ChoosePersona: FC = () => {
   const [defaultPersonaUuid, setDefaultPersonaUuid] = useState(user?.defaultPersona);
   const { pathname } = useLocation();
   const carousel = useRef<AntCarousel>(null);
+
+  useEffect(() => {
+    setDefaultPersonaUuid(user?.defaultPersona);
+  }, [user]);
 
   useEffect(() => {
     if (data?.userPersonas) {
@@ -201,7 +213,6 @@ export const ChoosePersona: FC = () => {
             ))}
         </Carousel>
         <img src={`${data.userPersonas[currentSlide].qrCodeLink}`} />
-        {currentSlide}
       </PageWrapperSpaceBetween>
     </div>
   );
