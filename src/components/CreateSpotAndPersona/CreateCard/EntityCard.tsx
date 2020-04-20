@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { FC, ChangeEvent, useState } from 'react';
 import { useFormik } from 'formik';
 
 import { TopNav } from 'components/TopNav/TopNav';
@@ -16,12 +16,15 @@ import { Stepper } from 'components/Stepper';
 import { EditIndicator } from 'components/EditIndicator/EditIndicator';
 
 import { CardBody, CardDescription, CardName } from './CreateCard.styles';
-import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper } from '../../../pages/CreatePersona/helpers';
+import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper } from 'pages/CreatePersona/helpers';
 import { useHistory } from 'react-router-dom';
+
 type PropsCard = {
   initialValues: CardType;
   updateCard: Function;
   nextPathName: string;
+  stepperNumbers: number[];
+  currentNumber: number;
 };
 
 const initialState: ImageRef = {
@@ -30,11 +33,18 @@ const initialState: ImageRef = {
   blob: null,
 };
 
-export const CreateEntityCard: FC<PropsCard> = ({ initialValues, updateCard, nextPathName }) => {
+export const EntityCard: FC<PropsCard> = ({
+  nextPathName,
+  stepperNumbers,
+  currentNumber,
+  updateCard,
+  initialValues,
+}) => {
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
   const history = useHistory();
 
   const { values, setFieldValue, handleSubmit, errors, isValid } = useFormik<CardType>({
+    enableReinitialize: true,
     initialValues,
     onSubmit: (formValues: CardType) => {
       updateCard({
@@ -79,7 +89,7 @@ export const CreateEntityCard: FC<PropsCard> = ({ initialValues, updateCard, nex
       <TopNav isWithBackArrow />
       <PageWrapperSpaceBetween>
         <form onSubmit={handleSubmit}>
-          <Stepper items={[1, 2, 3]} current={2} mb={31} />
+          <Stepper items={stepperNumbers} current={currentNumber} mb={31} />
           <InfoCard title="Edit Your card">
             Cards are small preview of your agregated set of data. It consists from background image, avatar, name and
             short description.

@@ -1,17 +1,15 @@
 import React, { FC, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { useFormik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { Node } from 'slate/dist';
-
 import { useFirebase } from 'global/Firebase';
 import { useStorage } from 'global/Storage';
-
 import { TopNav } from 'components/TopNav/TopNav';
 import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { WideButton } from 'components/Button';
-import { EntityCard, pageSchema, PageType } from 'global/graphqls/schema';
+import { CardType, Entity, EntityCard, pageSchema, PageType } from 'global/graphqls/schema';
 import { Stepper } from 'components/Stepper';
 import { InfoCard } from 'components/InfoCard/InfoCard';
 import { FileInput } from 'components/FileInput/FileInput';
@@ -31,15 +29,27 @@ import {
   revokeObjectURLS,
 } from 'pages/CreatePersona/helpers';
 import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
+import { ExecutionResult } from 'graphql';
 
 export interface LinkProps {
   previousStepPath: string;
   nameSpotOrPersona: string;
   nextStepPath: string;
   initialValues: PageType;
-  createPersonaOrSpot: (variables: object) => void;
   card: EntityCard;
   cardDefault: object;
+  CreateOrSave: string;
+  stepperNumbers: number[];
+  currentNumber: number;
+  onPageSubmitCreateOrUpdate?: (arg: {
+    variables: {
+      payload: {
+        card: CardType;
+        page: PageType;
+      };
+      uuid: string | undefined;
+    };
+  }) => Promise<ExecutionResult<Entity>>;
 }
 
 const initialState: ImageRef = {
@@ -48,24 +58,28 @@ const initialState: ImageRef = {
   blob: null,
 };
 
-export const CreateEntityPage: FC<LinkProps> = ({
+export const EntityPage: FC<LinkProps> = ({
   previousStepPath,
   nameSpotOrPersona,
   nextStepPath,
   initialValues,
-  createPersonaOrSpot,
   card,
   cardDefault,
+  CreateOrSave,
+  onPageSubmitCreateOrUpdate,
+  stepperNumbers,
+  currentNumber,
 }) => {
   const { getCurrentUser } = useFirebase();
   const { storageRef } = useStorage();
+  const { uuid } = useParams();
   const history = useHistory();
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
   const { values, setFieldValue, handleSubmit, errors, isValid, setStatus, setSubmitting, isSubmitting } = useFormik<
     PageType
   >({
     initialValues,
-    onSubmit: async (formValues): Promise<void> => {
+    onSubmit: async (formValues): Promise<void | null> => {
       const user = getCurrentUser();
 
       if (!user) {
@@ -120,9 +134,13 @@ export const CreateEntityPage: FC<LinkProps> = ({
           content: JSON.stringify(formValues.content),
         },
       };
-      await createPersonaOrSpot({
+      if (!onPageSubmitCreateOrUpdate) {
+        return null;
+      }
+      await onPageSubmitCreateOrUpdate({
         variables: {
           payload,
+          uuid,
         },
       });
 
@@ -172,7 +190,7 @@ export const CreateEntityPage: FC<LinkProps> = ({
       )}
       <PageWrapperSpaceBetween>
         <div>
-          <Stepper items={[1, 2, 3]} current={3} mb={31} />
+          <Stepper items={stepperNumbers} current={currentNumber} mb={31} />
           <InfoCard title="Edit your page" mb={31}>
             Pages are fully predefined set of data you want to share with others. You can edit it however you want to.
           </InfoCard>
@@ -194,7 +212,7 @@ export const CreateEntityPage: FC<LinkProps> = ({
           </form>
         </div>
         <WideButton htmlType="submit" form="page-form" disabled={!isValid}>
-          Create {nameSpotOrPersona}
+          {CreateOrSave} {nameSpotOrPersona}
         </WideButton>
       </PageWrapperSpaceBetween>
       <CropperWidget imageRef={imageRef} onCrop={onCrop} />

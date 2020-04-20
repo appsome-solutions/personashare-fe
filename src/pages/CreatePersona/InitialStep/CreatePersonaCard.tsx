@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
+import { EntityCard } from 'components/CreateSpotAndPersona/CreateCard/EntityCard';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { GET_CARD, GetCardType, UPDATE_CARD } from 'global/graphqls/SpotAndPersona';
 import { CardType } from 'global/graphqls/schema';
-import { CreateEntityCard } from 'components/CreateSpotAndPersona/CreateCard/CreateEntityCard';
 
 const cardInitialValues: CardType = {
   name: '',
@@ -16,9 +16,14 @@ const cardInitialValues: CardType = {
 export const CreatePersonaCard: FC = () => {
   const { data } = useQuery<GetCardType>(GET_CARD);
   const initialValues = data ? data.entity.card : cardInitialValues;
-  const [updateCardPersona] = useMutation<GetCardType>(UPDATE_CARD);
-
+  const [updateCard] = useMutation<GetCardType>(UPDATE_CARD);
   return (
-    <CreateEntityCard updateCard={updateCardPersona} initialValues={initialValues} nextPathName="/createpersona/page" />
+    <EntityCard
+      nextPathName="/createpersona/page"
+      stepperNumbers={[1, 2, 3]}
+      currentNumber={2}
+      initialValues={initialValues}
+      updateCard={updateCard}
+    />
   );
 };

@@ -34,8 +34,6 @@ import {
   ParticipateResponse,
   ADD_MENAGER,
   AddManagerResponse,
-  SAVE_SPOT,
-  SaveSpotResponse,
 } from 'global/graphqls/Spot';
 
 const StyledButton = styled(Button)`
@@ -201,7 +199,7 @@ export const ChoosePersona: FC = () => {
             data.userPersonas.map((persona: gqlEntity) => (
               <CaruouselItem key={persona.uuid}>
                 <Wrapper>
-                  <PersonaCard card={persona.card} />
+                  <PersonaCard card={persona.card} uuid={persona.uuid} />
                   {persona.uuid === defaultPersonaUuid ? (
                     <DefaultBlock>DEFAULT</DefaultBlock>
                   ) : (
