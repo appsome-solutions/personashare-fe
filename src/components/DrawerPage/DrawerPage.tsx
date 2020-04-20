@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Drawer } from 'antd';
 import styled from 'styled-components';
 
@@ -46,7 +46,7 @@ const OnClickComponentWrapper = styled.div`
   align-items: center;
 `;
 
-export const DrawerPage = ({ title, children, onClose, OnClickComponent, isVisible = true }: DrawerPageProps) => {
+export const DrawerPage: FC<DrawerPageProps> = ({ title, children, onClose, OnClickComponent, isVisible = true }) => {
   const [isOpened, setIsOpened] = useState(false);
 
   return (

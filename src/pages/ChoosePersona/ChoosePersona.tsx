@@ -34,8 +34,6 @@ import {
   ParticipateResponse,
   ADD_MENAGER,
   AddManagerResponse,
-  SAVE_SPOT,
-  SaveSpotResponse,
 } from 'global/graphqls/Spot';
 
 const StyledButton = styled(Button)`

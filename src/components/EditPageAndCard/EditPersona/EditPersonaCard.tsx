@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { EntityCard } from 'components/CreateSpotAndPersona/CreateCard/EntityCard';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { CardType } from '../../../global/graphqls/schema';
-import { GET_PERSONA_CARD, GetCardType, UPDATE_PERSONA_CARD } from '../../../global/graphqls/Persona';
+import { CardType } from 'global/graphqls/schema';
+import { GET_PERSONA_CARD, GetCardType, UPDATE_PERSONA_CARD } from 'global/graphqls/Persona';
 
 const cardInitialValues: CardType = {
   name: '',

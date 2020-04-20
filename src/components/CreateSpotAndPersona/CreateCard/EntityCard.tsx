@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { FC, ChangeEvent, useState } from 'react';
 import { useFormik } from 'formik';
 
 import { TopNav } from 'components/TopNav/TopNav';
@@ -33,7 +33,13 @@ const initialState: ImageRef = {
   blob: null,
 };
 
-export const EntityCard = ({ nextPathName, stepperNumbers, currentNumber, updateCard, initialValues }: PropsCard) => {
+export const EntityCard: FC<PropsCard> = ({
+  nextPathName,
+  stepperNumbers,
+  currentNumber,
+  updateCard,
+  initialValues,
+}) => {
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
   const history = useHistory();
 
