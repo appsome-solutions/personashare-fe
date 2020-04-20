@@ -3,10 +3,10 @@ import { ReactEditor, Slate, withReact } from 'slate-react';
 import { createEditor, Editor as EditorType, Element as EditorElement, Node } from 'slate';
 
 // TODO: move editor to the component
-import { ActiveToolsType, StyledEditable } from '../../pages/PersonaCreation/Page/EditorStyles';
-import { BlockTools } from '../../pages/PersonaCreation/Page/BlockTools/BlockTools';
-import { Element } from '../../pages/PersonaCreation/Page/BlockTools/EditorFunctionalities/EditorFunctionalities';
-import { EditorContextProvider, EditorContextType } from '../../pages/PersonaCreation/Page/EditorContext';
+import { ActiveToolsType, StyledEditable } from 'pages/PersonaCreation/Page/EditorStyles';
+import { BlockTools } from 'pages/PersonaCreation/Page/BlockTools/BlockTools';
+import { Element } from 'pages/PersonaCreation/Page/BlockTools/EditorFunctionalities/EditorFunctionalities';
+import { EditorContextProvider, EditorContextType } from 'pages/PersonaCreation/Page/EditorContext';
 
 type EditorProps = {
   hasError: boolean;
