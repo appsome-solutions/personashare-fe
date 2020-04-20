@@ -7,6 +7,7 @@ import { Login } from 'pages/Login/Login';
 import { InitialStep } from 'pages/CreatePersona/InitialStep/InitialStep';
 import { ChoosePersona } from 'pages/ChoosePersona/ChoosePersona';
 import { Page } from 'pages/PersonaCreation/Page/Page';
+import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
 import { CreateSpotsStep1 } from 'pages/CreateSpot/CreateSpotsStep1';
 import { CreateSpotsCard } from 'pages/CreateSpot/CreateSpotsCard';
 import { CreateSpotsPage } from 'pages/CreateSpot/CreateSpotsPage';
