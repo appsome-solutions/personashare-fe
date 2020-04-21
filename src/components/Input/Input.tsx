@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Input as AntInput } from 'antd';
-import { InputProps } from 'antd/lib/input';
+import { InputProps, TextAreaProps } from 'antd/lib/input';
 
 const StyledInput = styled(AntInput)`
   && {
@@ -18,12 +18,32 @@ const PasswordInput = styled(AntInput.Password)`
   }
 `;
 
-export type Props = InputProps & {
+const StyledTextArea = styled(AntInput.TextArea)`
+  && {
+    background: ${props => props.theme.colors.utils.background.light};
+    border: 1px solid ${props => props.theme.colors.utils.border.mid};
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+`;
+
+type CommonProps = {
   hasError?: boolean;
   visibilityToggle?: boolean;
+  type?: string;
 };
 
-export const Input = (props: Props) => {
-  const InputComponent = props.type === 'password' ? PasswordInput : StyledInput;
-  return <InputComponent {...props} />;
+export type Props = InputProps & CommonProps;
+
+export type StyledTextAreaProps = TextAreaProps & CommonProps;
+
+export const Input = (props: Props | StyledTextAreaProps) => {
+  switch (props.type) {
+    case 'password':
+      return <PasswordInput {...(props as Props)} />;
+    case 'textarea':
+      return <StyledTextArea {...(props as StyledTextAreaProps)} />;
+    default:
+      return <StyledInput {...(props as Props)} />;
+  }
 };

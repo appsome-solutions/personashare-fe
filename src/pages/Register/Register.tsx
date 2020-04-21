@@ -7,7 +7,7 @@ import { TopNav } from 'components/TopNav/TopNav';
 import LogoSvg from 'assets/logo.svg';
 import styled from 'styled-components';
 import { Card } from 'components/Card/Card';
-import { EmailInput } from 'components/EmailInput/EmailInput';
+import { InputWithSuffixIcon } from 'components/InputWithSuffixIcon/InputWithSuffixIcon';
 import { Link } from 'react-router-dom';
 import { Button } from 'components/Button';
 import { PasswordInput } from 'components/PasswordInput';
@@ -19,6 +19,8 @@ import { useUserContext } from 'global/UserContext/UserContext';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import FormikCheckbox from 'components/FormikFields/FormikChecbox/FormikCheckbox';
 import { signInWithGoogle } from '../../helpers/signInWithGoogle';
+
+import EmailIconSvg from 'assets/email.svg';
 
 const StyledLogo = styled.img`
   margin-top: 46px;
@@ -146,7 +148,7 @@ export const Register: FC = () => {
               <StyledLogo src={LogoSvg} alt="logo" />
               <StyledCard>
                 <CreateAccountText> Create Account </CreateAccountText>
-                <EmailInput name="email" placeholder="Email" />
+                <InputWithSuffixIcon name="email" placeholder="Email" svgLink={EmailIconSvg} />
                 <StyledPasswordInput name="password" placeholder="Password" />
                 <StyledPasswordInput name="repeatPassword" placeholder="Repeat password" />
                 <StyledErrorMessage>{apiError}</StyledErrorMessage>

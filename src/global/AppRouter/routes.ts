@@ -12,4 +12,5 @@ export const APP_ROUTES = {
   PERSONA_CREATION_STEP_1: '/createpersona',
   PERSONA_CREATION_STEP_2: '/createpersona/card',
   PERSONA_CREATION_STEP_3: '/createpersona/page',
+  CONTACT_FORM: '/contact_form',
 };
