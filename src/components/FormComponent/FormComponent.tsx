@@ -22,16 +22,14 @@ const FormButton = styled(WideButton)`
   margin-top: 24px;
 `;
 
-export const FormComponent: FC<FormProps> = ({ title, buttonLabel, formId, children }) => {
-  return (
-    <Card>
-      <Flex justifyContent="center" flexDirection="column" px="12px" py="27px">
-        <Title>{title}</Title>
-        {children}
-        <FormButton htmlType="submit" form={formId}>
-          {buttonLabel}
-        </FormButton>
-      </Flex>
-    </Card>
-  );
-};
+export const FormComponent: FC<FormProps> = ({ title, buttonLabel, formId, children }) => (
+  <Card>
+    <Flex justifyContent="center" flexDirection="column" px="12px" py="27px">
+      <Title>{title}</Title>
+      {children}
+      <FormButton htmlType="submit" form={formId}>
+        {buttonLabel}
+      </FormButton>
+    </Flex>
+  </Card>
+);
