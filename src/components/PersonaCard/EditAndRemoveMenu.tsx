@@ -5,7 +5,6 @@ import EditIcon from 'assets/EditIcon.svg';
 import RemoveIcon from 'assets/RemoveIcon.svg';
 import EditMenu from 'assets/EditMenu.svg';
 import { NavLink, useLocation } from 'react-router-dom';
-import { getPathnameArray } from 'helpers/url';
 
 const EditMenuBox = styled.div`
   position: relative;
@@ -47,10 +46,9 @@ type EditAndRemoveMenuType = {
 
 export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
   const { pathname } = useLocation();
-  const pathnameArray = getPathnameArray(pathname);
 
   const NavLinkFunctionality = () => {
-    if (pathnameArray.includes('persona')) {
+    if (pathname.includes('personas')) {
       return (
         <div>
           <NavLinkStyled to={`/edit/persona/${uuid}/step/1`}>
