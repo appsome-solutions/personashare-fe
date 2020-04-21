@@ -19,6 +19,9 @@ import { EditSpotCard } from 'components/EditPageAndCard/EditSpot/EditSpotCard';
 import { EditPersonaPage } from 'components/EditPageAndCard/EditPersona/EditPersonaPage';
 import { EditPersonaCard } from 'components/EditPageAndCard/EditPersona/EditPersonaCard';
 import { MyPersona } from 'components/MyPersona/MyPersona';
+import { TermOfUse } from 'components/TermandPrivacy/TermOfUse';
+import { PrivacyAndCookies } from 'components/TermandPrivacy/PrivacyAndCookies';
+import { InformativeClause } from 'components/TermandPrivacy/InformativeClausule';
 
 import { APP_ROUTES } from './routes';
 
@@ -30,6 +33,10 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
       <Route path={APP_ROUTES.CHOOSE_PERSONA} exact component={ChoosePersona} />
       <Route path="/my-personas" exact component={MyPersona} />
+      <Route path="/my-spots" exact component={MySpots} />
+      <Route path="/informativeclause" exact component={InformativeClause} />
+      <Route path="/privacyandcookiespolicy" exact component={PrivacyAndCookies} />
+      <Route path="/termsofuse" exact component={TermOfUse} />
       <Route path="/edit/spot/:uuid/step/1" exact component={EditSpotCard} />
       <Route path="/edit/persona/:uuid/step/1" exact component={EditPersonaCard} />
       <Route path="/edit/spot/:uuid/step/2" exact component={EditSpotPage} />
