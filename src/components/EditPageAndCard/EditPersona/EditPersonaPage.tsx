@@ -28,19 +28,17 @@ export const EditPersonaPage: FC = () => {
   }
 
   return (
-    <div>
-      <EntityPage
-        currentNumber={2}
-        stepperNumbers={[1, 2]}
-        CreateOrSave="Save"
-        cardDefault={cardDefaultSpot}
-        card={spotData.entity.card}
-        onPageSubmitCreateOrUpdate={updatePersona}
-        initialValues={initialValues}
-        nextStepPath="/my-personas"
-        nameSpotOrPersona="Persona"
-        previousStepPath={`/edit/persona/${uuid}/step/2`}
-      />
-    </div>
+    <EntityPage
+      currentNumber={2}
+      stepperNumbers={[1, 2]}
+      CreateOrSave="Save"
+      cardDefault={cardDefaultSpot}
+      card={spotData.entity.card}
+      onPageSubmitCreateOrUpdate={updatePersona}
+      initialValues={initialValues}
+      nextStepPath="/my-personas"
+      nameSpotOrPersona="Persona"
+      previousStepPath={`/edit/persona/${uuid}/step/2`}
+    />
   );
 };

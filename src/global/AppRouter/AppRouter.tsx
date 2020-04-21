@@ -20,31 +20,28 @@ import { EditPersonaPage } from 'components/EditPageAndCard/EditPersona/EditPers
 import { EditPersonaCard } from 'components/EditPageAndCard/EditPersona/EditPersonaCard';
 import { MyPersona } from 'components/MyPersona/MyPersona';
 
+import { APP_ROUTES } from './routes';
+
 export const AppRouter: FunctionComponent = () => {
   return (
     <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/scanner" exact component={() => <QrScanner onCode={res => alert(res.data)} />} />
-      <Route path="/my-spots" exact component={MySpots} />
-      <PrivateRoute
-        path={`/choose-persona/(saved|recommend|participant-joined|manager-joined)/(spot|persona)/:actionId`}
-        exact
-        component={ChoosePersona}
-      />
+      <Route path={APP_ROUTES.ROOT} exact component={Home} />
+      <Route path={APP_ROUTES.SCANNER} exact component={() => <QrScanner onCode={res => alert(res.data)} />} />
+      <Route path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
+      <Route path={APP_ROUTES.CHOOSE_PERSONA} exact component={ChoosePersona} />
+      <Route path="/my-personas" exact component={MyPersona} />
       <Route path="/edit/spot/:uuid/step/1" exact component={EditSpotCard} />
       <Route path="/edit/persona/:uuid/step/1" exact component={EditPersonaCard} />
       <Route path="/edit/spot/:uuid/step/2" exact component={EditSpotPage} />
       <Route path="/edit/persona/:uuid/step/2" exact component={EditPersonaPage} />
-      <Route path="/my-personas" exact component={MyPersona} />
-      <Route path="/login" exact component={Login} />
-      <Route path="/my-spots" exact component={MySpots} />
-      <Route path="/creation/step/1/entity/spot" exact component={CreateSpotsStep1} />
-      <Route path="/creation/step/2/entity/spot" exact component={CreateSpotsCard} />
-      <Route path="/creation/step/3/entity/spot" exact component={CreateSpotsPage} />
-      <Route path="/register" exact component={Register} />
-      <PrivateRoute path="/creation/step/1/entity/persona" exact component={InitialStep} />
-      <Route path="/creation/step/2/entity/persona" exact component={CreatePersonaCard} />
-      <Route path="/creation/step/3/entity/persona" exact component={CreatePersonaPage} />
+      <Route path={APP_ROUTES.LOGIN} exact component={Login} />
+      <Route path={APP_ROUTES.SPOT_CREATION_STEP_1} exact component={CreateSpotsStep1} />
+      <Route path={APP_ROUTES.SPOT_CREATION_STEP_2} exact component={CreateSpotsCard} />
+      <Route path={APP_ROUTES.SPOT_CREATION_STEP_3} exact component={CreateSpotsPage} />
+      <Route path={APP_ROUTES.REGISTER} exact component={Register} />
+      <PrivateRoute path={APP_ROUTES.PERSONA_CREATION_STEP_1} exact component={InitialStep} />
+      <Route path={APP_ROUTES.PERSONA_CREATION_STEP_2} exact component={CreatePersonaCard} />
+      <Route path={APP_ROUTES.PERSONA_CREATION_STEP_3} exact component={CreatePersonaPage} />
       <Route path="/persona-creation/page" exact component={Page} />
     </Switch>
   );

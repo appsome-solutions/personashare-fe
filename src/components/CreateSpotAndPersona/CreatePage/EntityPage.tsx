@@ -4,14 +4,12 @@ import { isEqual } from 'lodash';
 import { useFormik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { Node } from 'slate/dist';
-
 import { useFirebase } from 'global/Firebase';
 import { useStorage } from 'global/Storage';
-
 import { TopNav } from 'components/TopNav/TopNav';
 import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { WideButton } from 'components/Button';
-import { EntityCard, pageSchema, PageType } from 'global/graphqls/schema';
+import { CardType, Entity, EntityCard, pageSchema, PageType } from 'global/graphqls/schema';
 import { Stepper } from 'components/Stepper';
 import { InfoCard } from 'components/InfoCard/InfoCard';
 import { FileInput } from 'components/FileInput/FileInput';
@@ -31,6 +29,7 @@ import {
   revokeObjectURLS,
 } from 'pages/CreatePersona/helpers';
 import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
+import { ExecutionResult } from 'graphql';
 
 export interface LinkProps {
   previousStepPath: string;
@@ -40,9 +39,17 @@ export interface LinkProps {
   card: EntityCard;
   cardDefault: object;
   CreateOrSave: string;
-  onPageSubmitCreateOrUpdate?: any;
   stepperNumbers: number[];
   currentNumber: number;
+  onPageSubmitCreateOrUpdate?: (arg: {
+    variables: {
+      payload: {
+        card: CardType;
+        page: PageType;
+      };
+      uuid: string | undefined;
+    };
+  }) => Promise<ExecutionResult<Entity>>;
 }
 
 const initialState: ImageRef = {
@@ -72,7 +79,7 @@ export const EntityPage: FC<LinkProps> = ({
     PageType
   >({
     initialValues,
-    onSubmit: async (formValues): Promise<void> => {
+    onSubmit: async (formValues): Promise<void | null> => {
       const user = getCurrentUser();
 
       if (!user) {
@@ -127,7 +134,9 @@ export const EntityPage: FC<LinkProps> = ({
           content: JSON.stringify(formValues.content),
         },
       };
-
+      if (!onPageSubmitCreateOrUpdate) {
+        return null;
+      }
       await onPageSubmitCreateOrUpdate({
         variables: {
           payload,

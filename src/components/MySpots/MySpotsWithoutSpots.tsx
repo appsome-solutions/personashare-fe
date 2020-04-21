@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 import { TopNav } from '../TopNav/TopNav';
 import BoxInSpots from 'assets/BoxInSpots.svg';
 import AddIcon from 'assets/AddIcon.svg';
-import { NavLink } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: flex;
@@ -36,7 +37,7 @@ const CreateSpot = styled.div`
   align-items: center;
 `;
 
-export const MySpotsWithoutSpots = () => {
+export const MySpotsWithoutSpots: FC = () => {
   return (
     <>
       <TopNav isWithBackArrow />
@@ -46,7 +47,7 @@ export const MySpotsWithoutSpots = () => {
           <img src={BoxInSpots} alt="Box In Spots" />
           <TextUnderImg>no spots created</TextUnderImg>
         </TextAndImg>
-        <NavLink to="./creation/step/1/entity/spot">
+        <NavLink to={`.${APP_ROUTES.SPOT_CREATION_STEP_1}`}>
           <CreateSpot>
             <img src={AddIcon} alt="Create Icon" />
           </CreateSpot>
