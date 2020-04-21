@@ -6,6 +6,7 @@ import QrCodeNavSvg from 'assets/qr-code-nav.svg';
 import MenuBookSvg from 'assets/menu_book.svg';
 import MyLocationSvg from 'assets/my_location.svg';
 import { NavigationElement } from './NavigationElement/NavigationElement';
+import { APP_ROUTES } from '../../AppRouter/routes';
 
 const StyledRow = styled(Row)`
   background-color: ${props => props.theme.colors.utils.background.light};
@@ -20,22 +21,22 @@ export const StickyNavigation = withRouter(({ location: { pathname } }) => {
   return (
     <StyledRow type="flex" justify="center">
       <NavigationElement
-        isActive={pathname === '/scanner'}
+        isActive={pathname === APP_ROUTES.SCANNER}
         svg={QrCodeNavSvg}
         text="Scanner"
-        redirectionLink={'/scanner'}
+        redirectionLink={APP_ROUTES.SCANNER}
       />
       <NavigationElement
-        isActive={pathname === '/my-spots'}
+        isActive={pathname === APP_ROUTES.MY_SPOTS}
         svg={MyLocationSvg}
         text="Spots"
-        redirectionLink={'/my-spots'}
+        redirectionLink={APP_ROUTES.MY_SPOTS}
       />
       <NavigationElement
-        isActive={pathname === '/my-personas'}
+        isActive={pathname === APP_ROUTES.MY_PERSONAS}
         svg={MenuBookSvg}
         text="Personas"
-        redirectionLink={'/my-personas'}
+        redirectionLink={APP_ROUTES.MY_PERSONAS}
       />
     </StyledRow>
   );

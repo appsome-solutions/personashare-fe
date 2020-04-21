@@ -6,9 +6,10 @@ import LogoSvg from 'assets/logo.svg';
 import { Formik, Form } from 'formik';
 import { object, string, InferType } from 'yup';
 import { useMutation } from '@apollo/react-hooks';
-import { Firebase, useFirebase } from 'global/Firebase';
+import { useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 import { Button } from 'components/Button';
 import { EmailInput } from 'components/EmailInput/EmailInput';
 import { PasswordInput } from 'components/PasswordInput';
@@ -17,6 +18,7 @@ import { Link } from 'react-router-dom';
 import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 // TODO: Remove after real integration
 import { useUserContext } from 'global/UserContext/UserContext';
+import { signInWithGoogle } from '../../helpers/signInWithGoogle';
 
 const Caption = styled.span(props => props.theme.typography.caption);
 
@@ -85,14 +87,6 @@ const validationSchema = object({
 
 type FormValues = InferType<typeof validationSchema>;
 
-const signInWithGoogle = async (firebase: Firebase): Promise<string | undefined> => {
-  const provider = firebase.googleProvider();
-  provider && (await firebase.signIn(provider));
-  const user = firebase?.getCurrentUser();
-
-  return user?.getIdToken(true);
-};
-
 const initialValues: FormValues = {
   email: '',
   password: '',
@@ -116,7 +110,7 @@ export const Login: FunctionComponent = () => {
     if (token) {
       localStorage.setItem(PS_TOKEN_NAME, token);
       setUser(data?.data?.loginUser?.user || null);
-      history.push('./createpersona');
+      history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);
     }
   };
 
@@ -173,7 +167,7 @@ export const Login: FunctionComponent = () => {
                 )}
               </StyledCard>
               <RegisterCaption>
-                Don’t have account? <Link to="/register">Register Now</Link>
+                Don’t have account? <Link to={APP_ROUTES.REGISTER}>Register Now</Link>
               </RegisterCaption>
             </PageWrapper>
           </div>

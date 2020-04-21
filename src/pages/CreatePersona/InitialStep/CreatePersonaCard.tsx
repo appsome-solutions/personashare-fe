@@ -3,6 +3,7 @@ import { EntityCard } from 'components/CreateSpotAndPersona/CreateCard/EntityCar
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { GET_CARD, GetCardType, UPDATE_CARD } from 'global/graphqls/SpotAndPersona';
 import { CardType } from 'global/graphqls/schema';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const cardInitialValues: CardType = {
   name: '',
@@ -19,7 +20,7 @@ export const CreatePersonaCard: FC = () => {
   const [updateCard] = useMutation<GetCardType>(UPDATE_CARD);
   return (
     <EntityCard
-      nextPathName="/createpersona/page"
+      nextPathName={APP_ROUTES.PERSONA_CREATION_STEP_3}
       stepperNumbers={[1, 2, 3]}
       currentNumber={2}
       initialValues={initialValues}

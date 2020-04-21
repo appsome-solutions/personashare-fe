@@ -5,6 +5,7 @@ import { PageType, Entity } from 'global/graphqls/schema';
 import { CREATE_PERSONA } from 'global/graphqls/Persona';
 import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
 import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -36,7 +37,7 @@ export const CreatePersonaPage: FC = () => {
       initialValues={initialValues}
       nextStepPath="/my-personas"
       nameSpotOrPersona="Persona"
-      previousStepPath="/createpersona/card"
+      previousStepPath={APP_ROUTES.PERSONA_CREATION_STEP_2}
     />
   );
 };
