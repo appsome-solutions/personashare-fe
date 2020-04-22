@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { APP_ROUTES } from 'global/AppRouter/routes';
 import { PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { InfoCard } from 'components/InfoCard/InfoCard';
 import { WideButton } from 'components/Button';
@@ -31,9 +32,9 @@ const ContactUs = styled(NavLink)`
 export const CreateSpotsStep1: FC = () => {
   const history = useHistory();
 
-  const onNextClick = () => {
+  const onNextClick = (): void => {
     history.push({
-      pathname: '/creation/step/2/entity/spot',
+      pathname: APP_ROUTES.SPOT_CREATION_STEP_2,
     });
   };
 

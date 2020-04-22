@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Icon } from 'components/Icon/Icon';
 import styled from 'styled-components';
+import { useMutation } from '@apollo/react-hooks';
 import MySpots from 'assets/MySpots.svg';
 import MyPersonas from 'assets/MyPersonas.svg';
 import RightProfileSvg from 'assets/RightProfileSvg.svg';
@@ -8,7 +9,7 @@ import LogoutSvg from 'assets/Logout.svg';
 import { NavLink, useHistory } from 'react-router-dom';
 import { client, PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
 import { SIGN_OUT, SignOutResponse } from 'global/graphqls/SignOut';
-import { useMutation } from '@apollo/react-hooks';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 import { DrawerMenu } from 'components/Drawer/Drawer';
 import { SearchPositionBox } from './SearchPositionBox';
 
@@ -45,7 +46,7 @@ const LinkRouterStyle = styled(NavLink)`
   height: 50px;
   width:100%;
   border-radius: 4px;
-  text-decoration: none
+  text-decoration: none;
   :hover {
     background-color: rgba(85, 133, 255, 0.2);
     }
@@ -62,12 +63,12 @@ const LogoutButton = styled.div`
   height: 50px;
   width:100%;
   border-radius: 4px;
-  text-decoration: none
+  text-decoration: none;
   :hover {
     background-color: rgba(85, 133, 255, 0.2);
     }`;
 
-export const HamburgerMenu = ({ isWithHamburger, isWithSearch }: HamburgerMenuType) => {
+export const HamburgerMenu: FC<HamburgerMenuType> = ({ isWithHamburger, isWithSearch }: HamburgerMenuType) => {
   const history = useHistory();
   const [logout] = useMutation<SignOutResponse>(SIGN_OUT);
 
@@ -88,8 +89,8 @@ export const HamburgerMenu = ({ isWithHamburger, isWithSearch }: HamburgerMenuTy
               onClick={async () => {
                 await logout();
                 localStorage.removeItem(PS_TOKEN_NAME);
-                history.push('./login');
                 client.cache.reset();
+                history.push(`.${APP_ROUTES.LOGIN}`);
               }}
             >
               <HamburgerIcon svgLink={LogoutSvg} />

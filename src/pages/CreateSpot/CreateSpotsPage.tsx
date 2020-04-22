@@ -5,6 +5,7 @@ import { CREATE_SPOT } from 'global/graphqls/Spot';
 import { PageType, Entity } from 'global/graphqls/schema';
 import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
 import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -35,9 +36,9 @@ export const CreateSpotsPage: FC = () => {
         card={spotData.entity.card}
         onPageSubmitCreateOrUpdate={createSpot}
         initialValues={initialValues}
-        nextStepPath="/my-spots"
+        nextStepPath={APP_ROUTES.MY_SPOTS}
         nameSpotOrPersona="Spot"
-        previousStepPath="/creation/step/2/entity/spot"
+        previousStepPath={APP_ROUTES.SPOT_CREATION_STEP_2}
       />
     </div>
   );
