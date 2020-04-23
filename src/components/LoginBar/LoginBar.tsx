@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -26,7 +26,7 @@ const StyledLink = styled(Link)`
   color: ${props => props.theme.colors.utils.background.light};
   text-decoration: none;
 `;
-export const LoginBar = ({ isLogged }: LoginBarProps) => {
+export const LoginBar: FC<LoginBarProps> = ({ isLogged }) => {
   return (
     <>
       {isLogged && (

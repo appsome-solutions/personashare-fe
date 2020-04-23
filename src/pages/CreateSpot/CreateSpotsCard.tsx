@@ -18,6 +18,7 @@ export const CreateSpotsCard: FC = () => {
   const { data } = useQuery<GetCardType>(GET_CARD);
   const initialValues = data ? data.entity.card : cardInitialValues;
   const [updateCard] = useMutation<GetCardType>(UPDATE_CARD);
+
   return (
     <EntityCard
       nextPathName={APP_ROUTES.SPOT_CREATION_STEP_3}

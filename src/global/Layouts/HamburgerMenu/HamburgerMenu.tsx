@@ -89,6 +89,7 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({ isWithHamburger, isWithSe
               onClick={async () => {
                 await logout();
                 localStorage.removeItem(PS_TOKEN_NAME);
+                client.cache.reset();
                 history.push(`.${APP_ROUTES.LOGIN}`);
                 client.cache.reset();
               }}

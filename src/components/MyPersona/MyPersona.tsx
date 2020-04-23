@@ -14,8 +14,8 @@ import { gqlEntity } from 'global/graphqls/schema';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { NavLink } from 'react-router-dom';
-import AddIcon from '../../assets/AddIcon.svg';
-import ShareQrCode from '../../assets/ShareQrCode.svg';
+import AddIcon from 'assets/AddIcon.svg';
+import ShareQrCode from 'assets/ShareQrCode.svg';
 
 const StyledButton = styled(Button)`
   width: 80%;
@@ -73,6 +73,7 @@ const TextInShare = styled.div`
   ${props => props.theme.typography.subtitle2};
   margin-bottom: 20px;
 `;
+
 const ShareQrIcon = styled.img`
   padding-right: 12px;
 `;
@@ -105,6 +106,7 @@ export const MyPersona: FC = () => {
   if (isEmpty(data?.userPersonas) || !data) {
     return <div>No personas...</div>;
   }
+
   const handleSetDefault = async (uuid: string): Promise<void> => {
     try {
       const { data } = await setDefaultPersona({ variables: { uuid: uuid } });
@@ -113,6 +115,7 @@ export const MyPersona: FC = () => {
       console.error(error);
     }
   };
+
   return (
     <div>
       <TopNav isWithBackArrow />
