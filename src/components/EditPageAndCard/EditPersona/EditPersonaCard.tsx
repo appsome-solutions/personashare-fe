@@ -25,6 +25,9 @@ export const EditPersonaCard: FC = () => {
     return null;
   }
 
+  if (!data) {
+    return null;
+  }
   return (
     <EntityCard
       nextPathName={`/edit/persona/${uuid}/step/2`}
