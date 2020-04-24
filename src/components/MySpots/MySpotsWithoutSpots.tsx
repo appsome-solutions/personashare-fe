@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { TopNav } from '../TopNav/TopNav';
 import BoxInSpots from 'assets/BoxInSpots.svg';
@@ -41,7 +40,6 @@ export const MySpotsWithoutSpots: FC = () => {
   return (
     <>
       <TopNav isWithBackArrow />
-      <HamburgerMenu isWithHamburger={false} />
       <Wrapper>
         <TextAndImg>
           <img src={BoxInSpots} alt="Box In Spots" />

@@ -116,6 +116,7 @@ export const UPDATE_PERSONA = gql`
 
 export type GetCardType = {
   persona: {
+    uuid: string;
     card: EntityCard;
   };
 };
@@ -144,5 +145,26 @@ export const GET_PERSONA_CARD = gql`
 export const UPDATE_PERSONA_CARD = gql`
   mutation updateCard($card: Card!) {
     updateCard(card: $card) @client
+  }
+`;
+
+export const GET_PERSONA = gql`
+  query persona($uuid: String!) {
+    persona(uuid: $uuid) {
+      uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+      personaUUIDs
+      qrCodeLink
+    }
   }
 `;

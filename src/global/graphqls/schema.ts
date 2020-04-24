@@ -56,15 +56,3 @@ export type gqlUser = {
   personaUUIDs: string[];
   defaultPersona: string;
 };
-
-export type SpotType = {
-  uuid: string;
-  card: EntityCard;
-  page: EntityPage;
-};
-
-export type PersonaType = {
-  uuid: string;
-  card: EntityCard;
-  page: EntityPage;
-};
