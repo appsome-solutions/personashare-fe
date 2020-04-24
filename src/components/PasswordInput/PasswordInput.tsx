@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { InputProps } from 'antd/lib/input';
 import LockIcon from 'assets/lock.svg';
 import { Icon as IconComponent } from 'components/Icon';
-import FormikInput from 'components/FormikFields/FormikInput/FormikInput';
+import { FormikInput } from 'components/FormikFields/FormikInput/FormikInput';
 
 export const Container = styled.span`
   margin: 0;
