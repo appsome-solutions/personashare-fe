@@ -23,7 +23,7 @@ const FormButton = styled(WideButton)`
 `;
 
 export const FormComponent: FC<FormProps> = ({ title, buttonLabel, formId, children }) => (
-  <Card>
+  <Card mb="45px">
     <Flex justifyContent="center" flexDirection="column" px="12px" py="27px">
       <Title>{title}</Title>
       {children}
