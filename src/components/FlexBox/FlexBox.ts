@@ -24,7 +24,3 @@ export const Box = styled.div<BoxProps>(compose(space, layout, flex, flexbox, bo
 export const Flex = styled(Box)<FlexboxProps>(flexbox, {
   display: 'flex',
 });
-
-export const InlineFlex = styled(Flex)({
-  display: 'inline-flex',
-});
