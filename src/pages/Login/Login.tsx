@@ -10,7 +10,7 @@ import { Firebase, useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
 import { Button } from 'components/Button';
-import { EmailInput } from 'components/EmailInput/EmailInput';
+import { InputWithSuffixIcon } from 'components/InputWithSuffixIcon/InputWithSuffixIcon';
 import { PasswordInput } from 'components/PasswordInput';
 import { Card } from 'components/Card/Card';
 import { Link } from 'react-router-dom';
@@ -18,6 +18,8 @@ import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 // TODO: Remove after real integration
 import { useUserContext } from 'global/UserContext/UserContext';
 import { APP_ROUTES } from '../../global/AppRouter/routes';
+
+import EmailIconSvg from 'assets/email.svg';
 
 const Caption = styled.span(props => props.theme.typography.caption);
 
@@ -157,7 +159,7 @@ export const Login: FunctionComponent = () => {
               <StyledCard>
                 <HeyText>Hey!</HeyText>
                 <LoginText>Sign into your Account</LoginText>
-                <EmailInput name="email" placeholder="Email" />
+                <InputWithSuffixIcon name="email" placeholder="Email" svgLink={EmailIconSvg} />
                 <StyledPasswordInput name="password" placeholder="Password" />
                 <StyledErrorMessage>{apiError}</StyledErrorMessage>
                 <ResetPassword>

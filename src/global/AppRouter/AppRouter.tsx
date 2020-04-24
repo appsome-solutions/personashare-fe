@@ -13,6 +13,9 @@ import { CreateSpotsCard } from 'pages/CreateSpot/CreateSpotsCard';
 import { CreateSpotsPage } from 'pages/CreateSpot/CreateSpotsPage';
 import { CreatePersonaCard } from 'pages/CreatePersona/InitialStep/CreatePersonaCard';
 import { CreatePersonaPage } from 'pages/CreatePersona/InitialStep/CreatePersonaPage';
+import { Contact } from 'pages/Contact/Contact';
+import { ResetPassword } from 'pages/ResetPassword/ResetPassword';
+import { ChangePassword } from 'pages/ChangePassword/ChangePassword';
 import { MySpots } from 'components/MySpots/MySpots';
 import { EditSpotPage } from 'components/EditPageAndCard/EditSpot/EditSpotPage';
 import { EditSpotCard } from 'components/EditPageAndCard/EditSpot/EditSpotCard';
@@ -50,6 +53,9 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.PERSONA_CREATION_STEP_2} exact component={CreatePersonaCard} />
       <Route path={APP_ROUTES.PERSONA_CREATION_STEP_3} exact component={CreatePersonaPage} />
       <Route path="/persona-creation/page" exact component={Page} />
+      <Route path={APP_ROUTES.CONTACT_FORM} exact component={Contact} />
+      <Route path={APP_ROUTES.RESET_PASSWORD} exact component={ResetPassword} />
+      <Route path={APP_ROUTES.CHANGE_PASSWORD} exact component={ChangePassword} />
     </Switch>
   );
 };
