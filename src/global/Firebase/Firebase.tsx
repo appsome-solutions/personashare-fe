@@ -1,7 +1,29 @@
-import { auth, apps, initializeApp, User, app, storage } from 'firebase/app';
+import { auth, apps, initializeApp, User, app, storage, firestore } from 'firebase/app';
 import 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
+import 'firebase/firestore';
+
+// based on: https://github.com/firebase/extensions/blob/master/firestore-send-email/functions/src/index.ts
+type FirebaseMessage = {
+  subject: string;
+  html: string;
+};
+
+type SendMailPayload = {
+  to?: string;
+  toUids?: string[];
+  ccUids?: string[];
+  bccUids?: string[];
+  from?: string;
+  replyTo?: string;
+  headers?: any;
+  cc?: string;
+  bcc?: string;
+  message: FirebaseMessage;
+};
+
+type SendMail = (payload: SendMailPayload) => Promise<firestore.DocumentReference>;
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -12,8 +34,11 @@ const config = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
+const contactMailCollection = process.env.REACT_APP_FIREBASE_MAIL_SENDING_COLLECTION || 'contact-email';
+
 class Firebase {
   auth: auth.Auth;
+  firestore?: firestore.Firestore;
   app?: app.App;
 
   constructor() {
@@ -24,6 +49,7 @@ class Firebase {
     }
 
     this.auth = auth();
+    this.firestore = this.app?.firestore();
     auth().useDeviceLanguage();
   }
 
@@ -50,6 +76,13 @@ class Firebase {
   signOut = async (): Promise<void> => await auth().signOut();
 
   getStorageRef = (): storage.Reference | undefined => this.app?.storage().ref();
+
+  sendMail: SendMail = payload =>
+    this.firestore
+      ? this.firestore
+          .collection(contactMailCollection)
+          .add({ ...payload, to: payload.to || process.env.REACT_APP_CONTACT_MAIL })
+      : Promise.reject('Firestore is unavailable');
 }
 
 export default Firebase;
