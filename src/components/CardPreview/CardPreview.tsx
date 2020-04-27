@@ -59,6 +59,7 @@ const DefaultBlock = styled.div`
 
 const ShareButton = styled(StyledButton)`
   margin-top: auto;
+  width: 100%;
 `;
 
 const CaruouselItem = styled.div`
@@ -133,7 +134,7 @@ const callSpotMutation = (
   }
 };
 
-export const ChoosePersona: FC = () => {
+export const CardPreview: FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { loading, data } = useQuery<GetPersonaType>(GET_PERSONAS);
   const [setDefaultPersona] = useMutation<SetDefaultPersonaResponse>(SET_DEFAULT_PERSONA);

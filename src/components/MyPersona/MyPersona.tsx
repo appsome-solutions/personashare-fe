@@ -13,9 +13,10 @@ import { useUserContext } from 'global/UserContext/UserContext';
 import { gqlEntity } from 'global/graphqls/schema';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 import AddIcon from 'assets/AddIcon.svg';
 import ShareQrCode from 'assets/ShareQrCode.svg';
+import { MyPersonaWithoutSpots } from './MyPersonaWithoutPersona';
 
 const StyledButton = styled(Button)`
   width: 80%;
@@ -45,6 +46,9 @@ const CaruouselItem = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  .slick-active {
+    margin-bottom: 10px;
+  }
 `;
 
 const CreatePersona = styled.div`
@@ -78,6 +82,12 @@ const ShareQrIcon = styled.img`
   padding-right: 12px;
 `;
 
+const LinkStyled = styled.a`
+  color: ${props => props.theme.colors.utils.text.dark};
+  ${props => props.theme.typography.subtitle2}
+  text-decoration:none;
+`;
+
 export const MyPersona: FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { loading, data } = useQuery<GetPersonaType>(GET_PERSONAS);
@@ -104,7 +114,7 @@ export const MyPersona: FC = () => {
   }
   // OR !data is used cause typescript doesn't know that data can no longer be undefined in return method
   if (isEmpty(data?.userPersonas) || !data) {
-    return <div>No personas...</div>;
+    return <Route path="/my-personas" exact component={MyPersonaWithoutSpots} />;
   }
 
   const handleSetDefault = async (uuid: string): Promise<void> => {
@@ -139,9 +149,9 @@ export const MyPersona: FC = () => {
           <img src={`${data.userPersonas[currentSlide].qrCodeLink}`} />
           <TextInShare>
             <ShareQrIcon src={ShareQrCode} alt="Share Qr Code" />
-            <a href={`${data.userPersonas[currentSlide].qrCodeLink}`} download="output.png">
+            <LinkStyled href={`${data.userPersonas[currentSlide].qrCodeLink}`} download="output.png">
               Share your QR
-            </a>
+            </LinkStyled>
           </TextInShare>
         </ShareQr>
       </PageWrapperSpaceBetween>

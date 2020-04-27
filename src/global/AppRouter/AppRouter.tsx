@@ -25,7 +25,6 @@ import { MyPersona } from 'components/MyPersona/MyPersona';
 import { TermOfUse } from 'components/TermandPrivacy/TermOfUse';
 import { PrivacyAndCookies } from 'components/TermandPrivacy/PrivacyAndCookies';
 import { InformativeClause } from 'components/TermandPrivacy/InformativeClausule';
-
 import { APP_ROUTES } from './routes';
 
 export const AppRouter: FunctionComponent = () => {
