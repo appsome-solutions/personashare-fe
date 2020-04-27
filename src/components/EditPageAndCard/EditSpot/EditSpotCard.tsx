@@ -4,7 +4,7 @@ import { EntityCard } from 'components/CreateSpotAndPersona/CreateCard/EntityCar
 import { CardType } from 'global/graphqls/schema';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { GET_SPOT_CARD, GetCardType, UPDATE_SPOT_CARD } from 'global/graphqls/Spot';
-import { APP_ROUTES } from '../../../global/AppRouter/routes';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const cardInitialValues: CardType = {
   name: '',
