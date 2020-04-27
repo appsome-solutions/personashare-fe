@@ -15,6 +15,7 @@ import { GET_SPOT, GetSpotType } from 'global/graphqls/Spot';
 import AddIcon from 'assets/AddIcon.svg';
 import ShareQrCode from 'assets/ShareQrCode.svg';
 import isEmpty from 'lodash/isEmpty';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const CaruouselItem = styled.div`
   padding: 0 20px;
@@ -68,7 +69,7 @@ export const MySpots: FC = () => {
     );
   }
   if (isEmpty(data?.userSpots) || !data) {
-    return <Route path="/my-spots" exact component={MySpotsWithoutSpots} />;
+    return <Route path={APP_ROUTES.MY_SPOTS} exact component={MySpotsWithoutSpots} />;
   }
 
   return (
@@ -93,7 +94,7 @@ export const MySpots: FC = () => {
           </TextInShare>
         </ShareQr>
       </PageWrapperSpaceBetween>
-      <NavLink to="./creation/step/1/entity/spot">
+      <NavLink to={APP_ROUTES.SPOT_CREATION_STEP_1}>
         <CreateSpot>
           <img src={AddIcon} alt="Create Icon" />
         </CreateSpot>

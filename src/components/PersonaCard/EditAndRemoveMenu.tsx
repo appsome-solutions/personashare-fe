@@ -5,6 +5,7 @@ import EditIcon from 'assets/EditIcon.svg';
 import RemoveIcon from 'assets/RemoveIcon.svg';
 import EditMenu from 'assets/EditMenu.svg';
 import { NavLink, useLocation } from 'react-router-dom';
+import { APP_ROUTES } from '../../global/AppRouter/routes';
 
 const EditMenuBox = styled.div`
   position: relative;
@@ -64,7 +65,7 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
     } else {
       return (
         <div>
-          <NavLinkStyled to={`/edit/spot/${uuid}/step/1`}>
+          <NavLinkStyled to={APP_ROUTES.EDIT_SPOT_UUID_STEP_1(uuid)}>
             <MenuEditStyled key="0">
               <EditAndRemoveBox>
                 Edit

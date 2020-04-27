@@ -42,17 +42,15 @@ export const RegulationsCards: FC<RegulationsProps> = ({
   articleText,
   textInRegulation,
   numberOfArticle,
-}) => {
-  return (
-    <MainComponent>
-      <img src={LogoInTerms} alt="Logo In Terms" />
-      <RegulationText>
-        <b>{contentName}</b>
-      </RegulationText>
-      <ArticleText>{articleText}</ArticleText>
-      <NumberArticle>{numberOfArticle}</NumberArticle>
-      <TextInRegulation>{textInRegulation}</TextInRegulation>
-      [...]
-    </MainComponent>
-  );
-};
+}) => (
+  <MainComponent>
+    <img src={LogoInTerms} alt="Logo In Terms" />
+    <RegulationText>
+      <b>{contentName}</b>
+    </RegulationText>
+    <ArticleText>{articleText}</ArticleText>
+    <NumberArticle>{numberOfArticle}</NumberArticle>
+    <TextInRegulation>{textInRegulation}</TextInRegulation>
+    [...]
+  </MainComponent>
+);
