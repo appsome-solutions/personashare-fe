@@ -5,6 +5,9 @@ import EditIcon from 'assets/EditIcon.svg';
 import RemoveIcon from 'assets/RemoveIcon.svg';
 import EditMenu from 'assets/EditMenu.svg';
 import { NavLink, useLocation } from 'react-router-dom';
+import { REMOVE_PERSONA, RemoveResponse } from 'global/graphqls/Persona';
+import { useMutation } from '@apollo/react-hooks';
+import { REMOVE_SPOT } from 'global/graphqls/Spot';
 
 const EditMenuBox = styled.div`
   position: relative;
@@ -46,6 +49,12 @@ type EditAndRemoveMenuType = {
 
 export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
   const { pathname } = useLocation();
+  const [personaRemove] = useMutation<RemoveResponse>(REMOVE_PERSONA, {
+    variables: { personaUuid: uuid },
+  });
+  const [spotRemove] = useMutation<RemoveResponse>(REMOVE_SPOT, {
+    variables: { spotUuid: uuid },
+  });
 
   const NavLinkFunctionality = () => {
     if (pathname.includes('personas')) {
@@ -77,15 +86,40 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
     }
   };
 
+  const RemoveFunctionality = () => {
+    if (pathname.includes('personas')) {
+      return (
+        <MenuRemoveStyled key="1">
+          <EditAndRemoveBox
+            onClick={async () => {
+              await personaRemove();
+            }}
+          >
+            Remove
+            <img src={RemoveIcon} alt="Remove Icon" />
+          </EditAndRemoveBox>
+        </MenuRemoveStyled>
+      );
+    } else {
+      return (
+        <MenuRemoveStyled key="1">
+          <EditAndRemoveBox
+            onClick={async () => {
+              await spotRemove();
+            }}
+          >
+            Remove
+            <img src={RemoveIcon} alt="Remove Icon" />
+          </EditAndRemoveBox>
+        </MenuRemoveStyled>
+      );
+    }
+  };
+
   const menuBuild = (
     <MenuStyled>
       <NavLinkFunctionality />
-      <MenuRemoveStyled key="1">
-        <EditAndRemoveBox onClick={() => console.log('siema')}>
-          Remove
-          <img src={RemoveIcon} alt="Remove Icon" />
-        </EditAndRemoveBox>
-      </MenuRemoveStyled>
+      <RemoveFunctionality />
     </MenuStyled>
   );
 

@@ -168,3 +168,13 @@ export const GET_PERSONA = gql`
     }
   }
 `;
+
+export interface RemoveResponse {
+  removePersona: boolean;
+}
+
+export const REMOVE_PERSONA = gql`
+  mutation removePersona($personaUuid: String!) {
+    removePersona(personaUuid: $personaUuid)
+  }
+`;
