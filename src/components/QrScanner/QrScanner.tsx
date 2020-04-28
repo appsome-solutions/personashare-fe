@@ -5,12 +5,7 @@ import { QRCode } from 'jsqr';
 import getPixels from 'get-pixels';
 import VideoOverlay from './VideoOverlay';
 import { useWorkerDecode } from './hooks/useWorkerDecode';
-import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
-import { LoginBar } from '../LoginBar/LoginBar';
-import { useQuery } from '@apollo/react-hooks';
-import { GET_USER } from '../../global/graphqls/User';
-import { GET_PERSONA, GetCardType } from '../../global/graphqls/Persona';
-import { gqlUser } from '../../global/graphqls/schema';
+import { LoginOrHamburger } from './LoginOrHamburger';
 
 const Wrapper = styled.div`
   display: flex;
@@ -72,7 +67,6 @@ export const QrScanner = ({
   buttonMode,
 }: Props) => {
   const webcamRef = React.useRef<Webcam>(null);
-  const { data } = useQuery<{ user: gqlUser }>(GET_USER);
   const capture = useCallback(() => {
     const imageSrc = webcamRef?.current?.getScreenshot();
 
@@ -89,22 +83,6 @@ export const QrScanner = ({
   }, [webcamRef, onError]);
 
   webWorker = useWorkerDecode({ capture, interval, onCode });
-
-  const LoginOrHamburger = () => {
-    const { data: personaData } = useQuery<GetCardType>(GET_PERSONA, {
-      variables: { uuid: data?.user.defaultPersona },
-    });
-
-    if (!data) {
-      return <LoginBar isLogged={true} />;
-    } else if (personaData && data) {
-      return (
-        <HamburgerMenu isWithHamburger={true} uuid={data?.user.defaultPersona} card={personaData?.persona?.card} />
-      );
-    } else if (!personaData && data) {
-      return <HamburgerMenu isWithHamburger={true} />;
-    } else return null;
-  };
 
   return (
     <>

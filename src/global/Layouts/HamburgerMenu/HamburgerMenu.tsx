@@ -17,7 +17,7 @@ import { EntityCard as EntityType } from '../../graphqls/schema';
 type HamburgerMenuType = {
   isWithHamburger?: boolean;
   isWithSearch?: boolean;
-  card?: EntityType | null | undefined;
+  card?: EntityType | null;
   uuid?: string;
 };
 
@@ -105,8 +105,8 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({ isWithHamburger, isWithSe
               onClick={async () => {
                 await logout();
                 localStorage.removeItem(PS_TOKEN_NAME);
-                history.push(`.${APP_ROUTES.LOGIN}`);
                 client.cache.reset();
+                history.push(`.${APP_ROUTES.LOGIN}`);
               }}
             >
               <HamburgerIcon svgLink={LogoutSvg} />
