@@ -15,4 +15,11 @@ export const APP_ROUTES = {
   CONTACT_FORM: '/contact_form',
   RESET_PASSWORD: '/resetpassword',
   CHANGE_PASSWORD: '/changepassword',
+  INFORMATIVE_CLAUSE: '/informativeclause',
+  PRIVACY_AND_COOKIES_POLICY: '/privacyandcookiespolicy',
+  TERM_OF_USE: '/termofuse',
+  EDIT_SPOT_UUID_STEP_1: (uuid: string) => `/edit/spot/${uuid}/step/1`,
+  EDIT_SPOT_UUID_STEP_2: (uuid: string) => `/edit/spot/${uuid}/step/2`,
+  EDIT_PERSONA_UUID_STEP_1: (uuid: string) => `/edit/persona/${uuid}/step/1`,
+  EDIT_PERSONA_UUID_STEP_2: (uuid: string) => `/edit/persona/${uuid}/step/2`,
 };

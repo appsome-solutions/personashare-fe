@@ -100,6 +100,14 @@ const initialValues: FormValues = {
   termsAccepted: false,
 };
 
+const LinkStyle = styled(Link)`
+  margin-right: 2px;
+`;
+
+const LinkStyleLeft = styled(Link)`
+  margin-left: 2px;
+`;
+
 export const Register: FC = () => {
   const [apiError, setApiError] = useState('');
   const { setUser } = useUserContext();
@@ -154,7 +162,11 @@ export const Register: FC = () => {
                 <StyledErrorMessage>{apiError}</StyledErrorMessage>
                 <StyledCheckbox name="termsAccepted">
                   <Caption>
-                    I read and agree to <Link to="/terms-and-conditions">Terms & Conditions</Link>
+                    I read and agree to
+                    <LinkStyle to={APP_ROUTES.TERM_OF_USE}>Terms of use,</LinkStyle>
+                    <LinkStyle to={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY}>privacy and cookies policy</LinkStyle>
+                    and
+                    <LinkStyleLeft to={APP_ROUTES.INFORMATIVE_CLAUSE}>informative clause</LinkStyleLeft>
                   </Caption>
                 </StyledCheckbox>
                 <RegisterButton htmlType="submit" block>

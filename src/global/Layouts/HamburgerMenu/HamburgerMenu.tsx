@@ -77,11 +77,11 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({ isWithHamburger, isWithSe
       {isWithHamburger && (
         <HamburgerMenuStyled>
           <DrawerMenu>
-            <LinkRouterStyle to="/my-personas">
+            <LinkRouterStyle to={APP_ROUTES.MY_PERSONAS}>
               <HamburgerIcon svgLink={MyPersonas} />
               <TextInHamburger>My personas</TextInHamburger>
             </LinkRouterStyle>
-            <LinkRouterStyle to="/my-spots">
+            <LinkRouterStyle to={APP_ROUTES.MY_SPOTS}>
               <HamburgerIcon svgLink={MySpots} />
               <TextInHamburger>My spots</TextInHamburger>
             </LinkRouterStyle>
@@ -89,8 +89,8 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({ isWithHamburger, isWithSe
               onClick={async () => {
                 await logout();
                 localStorage.removeItem(PS_TOKEN_NAME);
-                client.cache.reset();
                 history.push(`.${APP_ROUTES.LOGIN}`);
+                client.cache.reset();
               }}
             >
               <HamburgerIcon svgLink={LogoutSvg} />

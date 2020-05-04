@@ -16,14 +16,15 @@ import { CreatePersonaPage } from 'pages/CreatePersona/InitialStep/CreatePersona
 import { Contact } from 'pages/Contact/Contact';
 import { ResetPassword } from 'pages/ResetPassword/ResetPassword';
 import { ChangePassword } from 'pages/ChangePassword/ChangePassword';
-
 import { MySpots } from 'components/MySpots/MySpots';
-import { MyPersona } from 'components/MyPersona/MyPersona';
 import { EditSpotPage } from 'components/EditPageAndCard/EditSpot/EditSpotPage';
 import { EditSpotCard } from 'components/EditPageAndCard/EditSpot/EditSpotCard';
 import { EditPersonaPage } from 'components/EditPageAndCard/EditPersona/EditPersonaPage';
 import { EditPersonaCard } from 'components/EditPageAndCard/EditPersona/EditPersonaCard';
-
+import { MyPersona } from 'components/MyPersona/MyPersona';
+import { TermOfUse } from 'components/TermandPrivacy/TermOfUse';
+import { PrivacyAndCookies } from 'components/TermandPrivacy/PrivacyAndCookies';
+import { InformativeClause } from 'components/TermandPrivacy/InformativeClausule';
 import { APP_ROUTES } from './routes';
 
 export const AppRouter: FunctionComponent = () => {
@@ -33,11 +34,15 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.SCANNER} exact component={() => <QrScanner onCode={res => alert(res.data)} />} />
       <Route path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
       <Route path={APP_ROUTES.CHOOSE_PERSONA} exact component={ChoosePersona} />
-      <Route path="/my-personas" exact component={MyPersona} />
-      <Route path="/edit/spot/:uuid/step/1" exact component={EditSpotCard} />
-      <Route path="/edit/persona/:uuid/step/1" exact component={EditPersonaCard} />
-      <Route path="/edit/spot/:uuid/step/2" exact component={EditSpotPage} />
-      <Route path="/edit/persona/:uuid/step/2" exact component={EditPersonaPage} />
+      <Route path={APP_ROUTES.MY_PERSONAS} exact component={MyPersona} />
+      <Route path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
+      <Route path={APP_ROUTES.INFORMATIVE_CLAUSE} exact component={InformativeClause} />
+      <Route path={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY} exact component={PrivacyAndCookies} />
+      <Route path={APP_ROUTES.TERM_OF_USE} exact component={TermOfUse} />
+      <Route path={APP_ROUTES.EDIT_SPOT_UUID_STEP_1(':uuid')} exact component={EditSpotCard} />
+      <Route path={APP_ROUTES.EDIT_PERSONA_UUID_STEP_1(':uuid')} exact component={EditPersonaCard} />
+      <Route path={APP_ROUTES.EDIT_SPOT_UUID_STEP_2(':uuid')} exact component={EditSpotPage} />
+      <Route path={APP_ROUTES.EDIT_PERSONA_UUID_STEP_2(':uuid')} exact component={EditPersonaPage} />
       <Route path={APP_ROUTES.LOGIN} exact component={Login} />
       <Route path={APP_ROUTES.SPOT_CREATION_STEP_1} exact component={CreateSpotsStep1} />
       <Route path={APP_ROUTES.SPOT_CREATION_STEP_2} exact component={CreateSpotsCard} />

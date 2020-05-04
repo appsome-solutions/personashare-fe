@@ -73,6 +73,26 @@ export const RECOMMEND_PERSONA = gql`
   }
 `;
 
+export interface SavePersonaResponse {
+  savePersona: {
+    uuid: string;
+  };
+}
+
+export const SAVE_PERSONA = gql`
+  mutation savePersona($savedPersonaUuid: String!, $personaUuid: String!) {
+    savePersona(savedPersonaUuid: $savedPersonaUuid, personaUuid: $personaUuid) {
+      uuid
+    }
+  }
+`;
+
+export interface SavePersonaResponse {
+  savePersona: {
+    uuid: string;
+  };
+}
+
 export const UPDATE_PERSONA = gql`
   mutation updatePersona($uuid: String!, $payload: UpdatePersonaInput!) {
     updatePersona(uuid: $uuid, persona: $payload) {
@@ -100,12 +120,6 @@ export type GetCardType = {
   };
 };
 
-export const UPDATE_PERSONA_CARD = gql`
-  mutation updateCard($card: Card!) {
-    updateCard(card: $card) @client
-  }
-`;
-
 export const GET_PERSONA_CARD = gql`
   query persona($uuid: String!) {
     persona(uuid: $uuid) {
@@ -127,16 +141,8 @@ export const GET_PERSONA_CARD = gql`
   }
 `;
 
-export interface SavePersonaResponse {
-  savePersona: {
-    uuid: string;
-  };
-}
-
-export const SAVE_PERSONA = gql`
-  mutation savePersona($savedPersonaUuid: String!, $personaUuid: String!) {
-    savePersona(savedPersonaUuid: $savedPersonaUuid, personaUuid: $personaUuid) {
-      uuid
-    }
+export const UPDATE_PERSONA_CARD = gql`
+  mutation updateCard($card: Card!) {
+    updateCard(card: $card) @client
   }
 `;

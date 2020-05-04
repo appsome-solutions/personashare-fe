@@ -6,10 +6,9 @@ import LogoSvg from 'assets/logo.svg';
 import { Formik, Form } from 'formik';
 import { object, string, InferType } from 'yup';
 import { useMutation } from '@apollo/react-hooks';
-import { useFirebase } from 'global/Firebase';
+import { Firebase, useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
-import { APP_ROUTES } from 'global/AppRouter/routes';
 import { Button } from 'components/Button';
 import { InputWithSuffixIcon } from 'components/InputWithSuffixIcon/InputWithSuffixIcon';
 import { PasswordInput } from 'components/PasswordInput';
@@ -18,7 +17,7 @@ import { Link } from 'react-router-dom';
 import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 // TODO: Remove after real integration
 import { useUserContext } from 'global/UserContext/UserContext';
-import { signInWithGoogle } from '../../helpers/signInWithGoogle';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 import EmailIconSvg from 'assets/email.svg';
 
@@ -89,6 +88,14 @@ const validationSchema = object({
 
 type FormValues = InferType<typeof validationSchema>;
 
+const signInWithGoogle = async (firebase: Firebase): Promise<string | undefined> => {
+  const provider = firebase.googleProvider();
+  provider && (await firebase.signIn(provider));
+  const user = firebase?.getCurrentUser();
+
+  return user?.getIdToken(true);
+};
+
 const initialValues: FormValues = {
   email: '',
   password: '',
@@ -109,10 +116,14 @@ export const Login: FunctionComponent = () => {
     const data = await signIn({ variables: { idToken } });
     const token = data?.data?.loginUser.accessToken || '';
 
-    if (token) {
+    if (token && !data?.data?.loginUser.user.defaultPersona) {
       localStorage.setItem(PS_TOKEN_NAME, token);
       setUser(data?.data?.loginUser?.user || null);
       history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);
+    } else if (token && data?.data?.loginUser.user.defaultPersona) {
+      localStorage.setItem(PS_TOKEN_NAME, token);
+      setUser(data?.data?.loginUser?.user || null);
+      history.push(APP_ROUTES.SCANNER);
     }
   };
 
@@ -152,7 +163,7 @@ export const Login: FunctionComponent = () => {
                 <StyledPasswordInput name="password" placeholder="Password" />
                 <StyledErrorMessage>{apiError}</StyledErrorMessage>
                 <ResetPassword>
-                  Forgot your <Link to="/reset-password">Password?</Link>
+                  Forgot your <Link to={APP_ROUTES.RESET_PASSWORD}>Password?</Link>
                 </ResetPassword>
                 <LoginButton block htmlType="submit">
                   LOGIN
