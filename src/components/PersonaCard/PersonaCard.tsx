@@ -4,7 +4,7 @@ import { CardBody } from 'components/CreateSpotAndPersona/CreateCard/CreateCard.
 import { BackgroundPlaceholder } from 'components/BackgroundPlaceholder/BackgroundPlaceholder';
 import { Card } from 'components/Card/Card';
 import { EditRemoveMenu } from './EditAndRemoveMenu';
-import { PersonaCircle, PersonaCircleWrapper } from '../PersonaCircle/PersonaCircle';
+import { PersonaCircle, PersonaCircleWrapper } from 'components/PersonaCircle/PersonaCircle';
 import styled from 'styled-components';
 
 type Props = {

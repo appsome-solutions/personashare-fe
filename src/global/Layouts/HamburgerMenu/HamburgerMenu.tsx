@@ -11,8 +11,8 @@ import { SIGN_OUT, SignOutResponse } from 'global/graphqls/SignOut';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { DrawerMenu } from 'components/Drawer/Drawer';
 import { SearchPositionBox } from './SearchPositionBox';
-import { PersonaCircle } from '../../../components/PersonaCircle/PersonaCircle';
-import { EntityCard as EntityType } from '../../graphqls/schema';
+import { PersonaCircle } from 'components/PersonaCircle/PersonaCircle';
+import { EntityCard as EntityType } from 'global/graphqls/schema';
 
 type HamburgerMenuType = {
   isWithHamburger?: boolean;
