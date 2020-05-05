@@ -87,12 +87,6 @@ export const SAVE_PERSONA = gql`
   }
 `;
 
-export interface SavePersonaResponse {
-  savePersona: {
-    uuid: string;
-  };
-}
-
 export const UPDATE_PERSONA = gql`
   mutation updatePersona($uuid: String!, $payload: UpdatePersonaInput!) {
     updatePersona(uuid: $uuid, persona: $payload) {
