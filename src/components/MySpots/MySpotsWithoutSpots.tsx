@@ -45,7 +45,7 @@ export const MySpotsWithoutSpots: FC = () => {
           <img src={BoxInSpots} alt="Box In Spots" />
           <TextUnderImg>no spots created</TextUnderImg>
         </TextAndImg>
-        <NavLink to={`.${APP_ROUTES.SPOT_CREATION_STEP_1}`}>
+        <NavLink to={APP_ROUTES.SPOT_CREATION_STEP_1}>
           <CreateSpot>
             <img src={AddIcon} alt="Create Icon" />
           </CreateSpot>

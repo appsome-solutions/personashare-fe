@@ -51,7 +51,15 @@ To properly work with the project, You should create `.env` file with following 
 
 ```
 REACT_APP_GRAPHQL_API_URL = // url to Your GraphQL API
+REACT_APP_API_KEY= // firebase api key
+REACT_APP_AUTH_DOMAIN= // firebase auth domain
+REACT_APP_DATABASE_URL= // firebase db url
+REACT_APP_PROJECT_ID= // firebase project id
+REACT_APP_STORAGE_BUCKET= // firebase storage bucket name
+REACT_APP_MESSAGING_SENDER_ID= // firebase messaging sender id
 REACT_APP_COPYRIGHT_EMAIL = // fallback email using in Copyright component
+REACT_APP_FIREBASE_MAIL_SENDING_COLLECTION = // name of the collection using while email sending
+REACT_APP_CONTACT_MAIL = email address used as recipent in firebase mailing//
 ```
 
 ## Learn More

@@ -17,6 +17,7 @@ import { NavLink, Route } from 'react-router-dom';
 import AddIcon from 'assets/AddIcon.svg';
 import ShareQrCode from 'assets/ShareQrCode.svg';
 import { MyPersonaWithoutSpots } from './MyPersonaWithoutPersona';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const StyledButton = styled(Button)`
   width: 80%;
@@ -155,7 +156,7 @@ export const MyPersona: FC = () => {
           </TextInShare>
         </ShareQr>
       </PageWrapperSpaceBetween>
-      <NavLink to="./creation/step/1/entity/persona">
+      <NavLink to={APP_ROUTES.PERSONA_CREATION_STEP_1}>
         <CreatePersona>
           <img src={AddIcon} alt="Create Icon" />
         </CreatePersona>
