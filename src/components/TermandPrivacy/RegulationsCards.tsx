@@ -17,6 +17,7 @@ const MainComponent = styled.div`
   padding: 16px 26px;
   ${props => props.theme.typography.subtitle2};
   text-align: center;
+  height: 100vh;
 `;
 
 const RegulationText = styled.div`
@@ -41,17 +42,15 @@ export const RegulationsCards: FC<RegulationsProps> = ({
   articleText,
   textInRegulation,
   numberOfArticle,
-}) => {
-  return (
-    <MainComponent>
-      <img src={LogoInTerms} alt="Logo In Terms" />
-      <RegulationText>
-        <b>{contentName}</b>
-      </RegulationText>
-      <ArticleText>{articleText}</ArticleText>
-      <NumberArticle>{numberOfArticle}</NumberArticle>
-      <TextInRegulation>{textInRegulation}</TextInRegulation>
-      [...]
-    </MainComponent>
-  );
-};
+}) => (
+  <MainComponent>
+    <img src={LogoInTerms} alt="Logo In Terms" />
+    <RegulationText>
+      <b>{contentName}</b>
+    </RegulationText>
+    <ArticleText>{articleText}</ArticleText>
+    <NumberArticle>{numberOfArticle}</NumberArticle>
+    <TextInRegulation>{textInRegulation}</TextInRegulation>
+    [...]
+  </MainComponent>
+);

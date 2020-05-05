@@ -163,10 +163,10 @@ export const Register: FC = () => {
                 <StyledCheckbox name="termsAccepted">
                   <Caption>
                     I read and agree to
-                    <LinkStyle to="/termsofuse">Terms of use,</LinkStyle>
-                    <LinkStyle to="/privacyandcookiespolicy">privacy and cookies policy</LinkStyle>
+                    <LinkStyle to={APP_ROUTES.TERM_OF_USE}>Terms of use,</LinkStyle>
+                    <LinkStyle to={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY}>privacy and cookies policy</LinkStyle>
                     and
-                    <LinkStyleLeft to="/informativeclause">informative clause</LinkStyleLeft>
+                    <LinkStyleLeft to={APP_ROUTES.INFORMATIVE_CLAUSE}>informative clause</LinkStyleLeft>
                   </Caption>
                 </StyledCheckbox>
                 <RegisterButton htmlType="submit" block>

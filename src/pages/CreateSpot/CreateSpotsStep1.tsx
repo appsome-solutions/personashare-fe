@@ -84,7 +84,7 @@ export const CreateSpotsStep1: FC = () => {
             <br /> - editor limitations
             <br />
             If you would be interested in exceeding them
-            <ContactUs to="/contact">contact us</ContactUs>.
+            <ContactUs to={APP_ROUTES.CONTACT_FORM}>contact us</ContactUs>.
           </TextInInfo>
         </InformationUnderText>
         <WideButton onClick={onNextClick}>CREATE FREE SPOT</WideButton>

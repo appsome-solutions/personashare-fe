@@ -6,7 +6,7 @@ import QrCodeNavSvg from 'assets/qr-code-nav.svg';
 import MenuBookSvg from 'assets/menu_book.svg';
 import MyLocationSvg from 'assets/my_location.svg';
 import { NavigationElement } from './NavigationElement/NavigationElement';
-import { APP_ROUTES } from '../../AppRouter/routes';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const StyledRow = styled(Row)`
   background-color: ${props => props.theme.colors.utils.background.light};
