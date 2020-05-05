@@ -6,6 +6,7 @@ import { Entity, PageType } from 'global/graphqls/schema';
 import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
 import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
 import { useParams } from 'react-router-dom';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -27,6 +28,7 @@ export const EditSpotPage: FC = () => {
     return null;
   }
 
+  if (!uuid) return null;
   return (
     <EntityPage
       currentNumber={2}
@@ -36,9 +38,9 @@ export const EditSpotPage: FC = () => {
       card={spotData.entity.card}
       onPageSubmitCreateOrUpdate={updateSpot}
       initialValues={initialValues}
-      nextStepPath="/my-spots"
+      nextStepPath={APP_ROUTES.MY_SPOTS}
       nameSpotOrPersona="Spot"
-      previousStepPath={`/edit/spot/${uuid}/step/2`}
+      previousStepPath={APP_ROUTES.EDIT_SPOT_UUID_STEP_2(uuid)}
     />
   );
 };
