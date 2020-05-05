@@ -15,4 +15,6 @@ export const APP_ROUTES = {
   CONTACT_FORM: '/contact_form',
   RESET_PASSWORD: '/resetpassword',
   CHANGE_PASSWORD: '/changepassword',
+  SPOT_BOOK: '/spot-book',
+  CONTACT_BOOK: '/contact-book',
 };

@@ -5,7 +5,7 @@ import { ImageRef } from 'components/CropperWidget/CropperWidget';
 
 export const cardSchema = Yup.object({
   name: Yup.string().required(),
-  description: Yup.string().notRequired(),
+  description: Yup.string().required(),
   avatar: Yup.string().notRequired(),
   background: Yup.string().notRequired(),
   avatarUpload: Yup.mixed<ImageRef>()

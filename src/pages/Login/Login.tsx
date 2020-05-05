@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 // TODO: Remove after real integration
 import { useUserContext } from 'global/UserContext/UserContext';
-import { APP_ROUTES } from '../../global/AppRouter/routes';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 import EmailIconSvg from 'assets/email.svg';
 
@@ -164,7 +164,7 @@ export const Login: FunctionComponent = () => {
                 <StyledPasswordInput name="password" placeholder="Password" />
                 <StyledErrorMessage>{apiError}</StyledErrorMessage>
                 <ResetPassword>
-                  Forgot your <Link to="/reset-password">Password?</Link>
+                  Forgot your <Link to={APP_ROUTES.RESET_PASSWORD}>Password?</Link>
                 </ResetPassword>
                 <LoginButton block htmlType="submit">
                   LOGIN
