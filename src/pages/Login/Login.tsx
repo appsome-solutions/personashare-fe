@@ -6,7 +6,7 @@ import LogoSvg from 'assets/logo.svg';
 import { Formik, Form } from 'formik';
 import { object, string, InferType } from 'yup';
 import { useMutation } from '@apollo/react-hooks';
-import { Firebase, useFirebase } from 'global/Firebase';
+import { useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
 import { Button } from 'components/Button';
@@ -20,7 +20,7 @@ import { useUserContext } from 'global/UserContext/UserContext';
 import { signInWithGoogle } from '../../helpers/signInWithGoogle';
 
 import EmailIconSvg from 'assets/email.svg';
-import { signInWithGoogle } from '../../helpers/signInWithGoogle';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const Caption = styled.span(props => props.theme.typography.caption);
 

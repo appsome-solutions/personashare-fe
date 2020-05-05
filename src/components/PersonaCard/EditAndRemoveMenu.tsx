@@ -5,7 +5,7 @@ import EditIcon from 'assets/EditIcon.svg';
 import RemoveIcon from 'assets/RemoveIcon.svg';
 import EditMenu from 'assets/EditMenu.svg';
 import { NavLink, useLocation } from 'react-router-dom';
-import { APP_ROUTES } from '../../global/AppRouter/routes';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const EditMenuBox = styled.div`
   position: relative;
