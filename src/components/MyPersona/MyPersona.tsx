@@ -16,7 +16,7 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { NavLink } from 'react-router-dom';
 import AddIcon from 'assets/AddIcon.svg';
 import ShareQrCode from 'assets/ShareQrCode.svg';
-import { APP_ROUTES } from '../../global/AppRouter/routes';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const StyledButton = styled(Button)`
   width: 80%;

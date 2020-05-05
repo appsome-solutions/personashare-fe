@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 type LoginBarProps = {
   isLogged?: boolean;
@@ -26,13 +27,14 @@ const StyledLink = styled(Link)`
   color: ${props => props.theme.colors.utils.background.light};
   text-decoration: none;
 `;
+
 export const LoginBar: FC<LoginBarProps> = ({ isLogged }) => {
   return (
     <>
       {isLogged && (
         <LoginBarMenuStyled>
           <LoginButton>
-            <StyledLink to="/login">LOGIN</StyledLink>
+            <StyledLink to={APP_ROUTES.LOGIN}>LOGIN</StyledLink>
           </LoginButton>
         </LoginBarMenuStyled>
       )}

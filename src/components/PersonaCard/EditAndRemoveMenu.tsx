@@ -8,6 +8,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { REMOVE_PERSONA, RemoveResponse } from 'global/graphqls/Persona';
 import { useMutation } from '@apollo/react-hooks';
 import { REMOVE_SPOT } from 'global/graphqls/Spot';
+import { APP_ROUTES } from '../../global/AppRouter/routes';
 
 const EditMenuBox = styled.div`
   position: relative;
@@ -73,7 +74,7 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
     } else {
       return (
         <div>
-          <NavLinkStyled to={`/edit/spot/${uuid}/step/1`}>
+          <NavLinkStyled to={APP_ROUTES.EDIT_SPOT_UUID_STEP_1(uuid)}>
             <MenuEditStyled key="0">
               <EditAndRemoveBox>
                 Edit

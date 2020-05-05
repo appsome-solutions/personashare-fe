@@ -35,7 +35,7 @@ export const CreatePersonaPage: FC = () => {
       cardDefault={cardDefaultPersona}
       card={personaData.entity.card}
       initialValues={initialValues}
-      nextStepPath="/my-personas"
+      nextStepPath={APP_ROUTES.MY_PERSONAS}
       nameSpotOrPersona="Persona"
       previousStepPath={APP_ROUTES.PERSONA_CREATION_STEP_2}
     />

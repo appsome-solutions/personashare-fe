@@ -181,7 +181,7 @@ export const Login: FunctionComponent = () => {
                 )}
               </StyledCard>
               <RegisterCaption>
-                Don’t have account? <Link to="/register">Register Now</Link>
+                Don’t have account? <Link to={APP_ROUTES.REGISTER}>Register Now</Link>
               </RegisterCaption>
             </PageWrapper>
           </div>

@@ -57,9 +57,8 @@ export const Contact: FC = () => {
   const handleSubmit = useCallback(values => {
     setApiError('');
     sendMail({
-      from: values.email,
       message: {
-        subject: values.name,
+        subject: `Name: ${values.name} <br /> Email: ${values.email} <br /> Message: ${values.message} <br />`,
         html: values.message,
       },
     })
