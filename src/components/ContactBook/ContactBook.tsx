@@ -4,12 +4,13 @@ import { useQuery } from '@apollo/react-hooks';
 import { gqlEntity } from 'global/graphqls/schema';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
-import { HamburgerMenu } from '../../global/Layouts/HamburgerMenu/HamburgerMenu';
-import { PersonaCard } from '../PersonaCard/PersonaCard';
-import { GET_PERSONAS, GetPersonaType } from '../../global/graphqls/Persona';
+import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
+import { PersonaCard } from 'components/PersonaCard/PersonaCard';
+import { GET_PERSONAS, GetPersonaType } from 'global/graphqls/Persona';
 
 const ContactBookStyled = styled.div`
-  margin: 24px 16px 32px 16px;
+  margin: 30px 16px 40px 16px;
+  height: 100vh;
 `;
 
 const Wrapper = styled.div`

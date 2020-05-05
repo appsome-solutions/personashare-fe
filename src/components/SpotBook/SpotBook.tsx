@@ -10,6 +10,7 @@ import { SpotPage } from '../SpotPage/SpotPage';
 
 const SpotBookStyled = styled.div`
   margin: 24px 16px 32px 16px;
+  height: 100vh;
 `;
 
 const Wrapper = styled.div`
@@ -18,7 +19,7 @@ const Wrapper = styled.div`
 `;
 
 const DateOfSave = styled.div`
-  margin-top: 24px;
+  margin-bottom: 8px;
 `;
 
 export const SpotBook: FC = () => {

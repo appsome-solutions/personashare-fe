@@ -137,3 +137,38 @@ export const REMOVE_PERSONA = gql`
     removePersona(personaUuid: $personaUuid)
   }
 `;
+
+export const GET_PERSONA = gql`
+  query persona($uuid: String!) {
+    persona(uuid: $uuid) {
+      uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+      personaUUIDs
+      qrCodeLink
+    }
+  }
+`;
+
+export interface SavePersonaResponse {
+  savePersona: {
+    uuid: string;
+  };
+}
+
+export const SAVE_PERSONA = gql`
+  mutation savePersona($savedPersonaUuid: String!, $personaUuid: String!) {
+    savePersona(savedPersonaUuid: $savedPersonaUuid, personaUuid: $personaUuid) {
+      uuid
+    }
+  }
+`;
