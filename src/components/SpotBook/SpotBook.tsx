@@ -5,12 +5,13 @@ import { gqlEntity } from 'global/graphqls/schema';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { GET_SPOT, GetSpotType } from 'global/graphqls/Spot';
-import { HamburgerMenu } from '../../global/Layouts/HamburgerMenu/HamburgerMenu';
-import { SpotPage } from '../SpotPage/SpotPage';
+import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
+import { SpotPage } from 'components/SpotPage/SpotPage';
+import { APP_ROUTES } from 'global/AppRouter/routes';
+import { useHistory } from 'react-router-dom';
 
 const SpotBookStyled = styled.div`
   margin: 24px 16px 32px 16px;
-  height: 100vh;
 `;
 
 const Wrapper = styled.div`
@@ -25,6 +26,8 @@ const DateOfSave = styled.div`
 export const SpotBook: FC = () => {
   const { loading, data } = useQuery<GetSpotType>(GET_SPOT);
   const [searchValue, setSearchValue] = useState('');
+  const history = useHistory();
+
   if (loading) {
     return (
       <Overlay>
@@ -53,10 +56,17 @@ export const SpotBook: FC = () => {
         setSearchValue={setSearchValue}
       />
       <SpotBookStyled>
-        {results.map((spots: gqlEntity) => (
-          <Wrapper key={spots.uuid}>
+        {results.map((spot: gqlEntity) => (
+          <Wrapper
+            key={spot.uuid}
+            onClick={() =>
+              history.push({
+                pathname: `${APP_ROUTES.SPOT_PREVIEW(spot.uuid)}`,
+              })
+            }
+          >
             <DateOfSave>14.10.2019</DateOfSave>
-            <SpotPage card={spots.card} uuid={spots.uuid} isWithEdit={true} />
+            <SpotPage card={spot.card} uuid={spot.uuid} isWithEdit={true} />
           </Wrapper>
         ))}
       </SpotBookStyled>

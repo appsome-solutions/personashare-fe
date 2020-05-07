@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { EntityCard, gqlEntity } from './schema';
+import { EntityCard, EntityPage, gqlEntity } from './schema';
 
 export const CREATE_PERSONA = gql`
   mutation createPersona($payload: CreateShareableInput!) {
@@ -98,33 +98,13 @@ export type GetCardType = {
   persona: {
     uuid: string;
     card: EntityCard;
+    page: EntityPage;
   };
 };
 
 export const UPDATE_PERSONA_CARD = gql`
   mutation updateCard($card: Card!) {
     updateCard(card: $card) @client
-  }
-`;
-
-export const GET_PERSONA_CARD = gql`
-  query persona($uuid: String!) {
-    persona(uuid: $uuid) {
-      uuid
-      card {
-        name
-        description
-        avatar
-        background
-      }
-      page {
-        background
-        avatar
-        content
-      }
-      personaUUIDs
-      qrCodeLink
-    }
   }
 `;
 
@@ -155,6 +135,20 @@ export const GET_PERSONA = gql`
       }
       personaUUIDs
       qrCodeLink
+      recommendList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
     }
   }
 `;

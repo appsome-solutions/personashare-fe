@@ -24,4 +24,6 @@ export const APP_ROUTES = {
   EDIT_PERSONA_UUID_STEP_2: (uuid: string) => `/edit/persona/${uuid}/step/2`,
   SPOT_BOOK: '/spot-book',
   CONTACT_BOOK: '/contact-book',
+  PERSONA_PREVIEW: (uuid: string) => `/persona/${uuid}`,
+  SPOT_PREVIEW: (uuid: string) => `/spot/${uuid}`,
 };

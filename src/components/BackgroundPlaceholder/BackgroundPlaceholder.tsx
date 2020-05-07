@@ -12,7 +12,7 @@ const Placeholder = styled.div`
 
 const BgImage = styled.img`
   max-height: 154px;
-  max-width: 100%;
+  width: 100%;
 `;
 
 const BgWrapper = styled.div`
