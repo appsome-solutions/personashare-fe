@@ -23,6 +23,7 @@ const TextAndImg = styled.div`
 const TextUnderImg = styled.h5`
   opacity: 0.5;
 `;
+
 const CreateSpot = styled.div`
   width: 56px;
   height: 56px;
@@ -36,16 +37,16 @@ const CreateSpot = styled.div`
   align-items: center;
 `;
 
-export const MySpotsWithoutSpots: FC = () => {
+export const MyPersonaWithoutSpots: FC = () => {
   return (
     <>
       <TopNav isWithBackArrow />
       <Wrapper>
         <TextAndImg>
-          <img src={BoxInSpots} alt="Box In Spots" />
-          <TextUnderImg>no spots created</TextUnderImg>
+          <img src={BoxInSpots} alt="Box In Persona" />
+          <TextUnderImg>no persona created</TextUnderImg>
         </TextAndImg>
-        <NavLink to={APP_ROUTES.SPOT_CREATION_STEP_1}>
+        <NavLink to={`.${APP_ROUTES.PERSONA_CREATION_STEP_1}`}>
           <CreateSpot>
             <img src={AddIcon} alt="Create Icon" />
           </CreateSpot>
