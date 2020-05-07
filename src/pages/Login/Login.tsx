@@ -115,12 +115,13 @@ export const Login: FunctionComponent = () => {
   const handleBEConnection = async (idToken: string): Promise<void> => {
     const data = await signIn({ variables: { idToken } });
     const token = data?.data?.loginUser.accessToken || '';
+    const defaultPersonaConst = data?.data?.loginUser.user.defaultPersona;
 
-    if (token && !data?.data?.loginUser.user.defaultPersona) {
+    if (token && !defaultPersonaConst) {
       localStorage.setItem(PS_TOKEN_NAME, token);
       setUser(data?.data?.loginUser?.user || null);
       history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);
-    } else if (token && data?.data?.loginUser.user.defaultPersona) {
+    } else if (token && defaultPersonaConst) {
       localStorage.setItem(PS_TOKEN_NAME, token);
       setUser(data?.data?.loginUser?.user || null);
       history.push(APP_ROUTES.SCANNER);

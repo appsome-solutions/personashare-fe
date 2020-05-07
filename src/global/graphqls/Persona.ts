@@ -116,6 +116,7 @@ export const UPDATE_PERSONA = gql`
 
 export type GetCardType = {
   persona: {
+    uuid: string;
     card: EntityCard;
   };
 };
@@ -138,6 +139,37 @@ export const GET_PERSONA_CARD = gql`
       personaUUIDs
       qrCodeLink
     }
+  }
+`;
+
+export const GET_PERSONA = gql`
+  query persona($uuid: String!) {
+    persona(uuid: $uuid) {
+      uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+      personaUUIDs
+      qrCodeLink
+    }
+  }
+`;
+
+export interface RemoveResponse {
+  removePersona: boolean;
+}
+
+export const REMOVE_PERSONA = gql`
+  mutation removePersona($personaUuid: String!) {
+    removePersona(personaUuid: $personaUuid)
   }
 `;
 
