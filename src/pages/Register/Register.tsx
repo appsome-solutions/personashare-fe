@@ -18,7 +18,7 @@ import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import FormikCheckbox from 'components/FormikFields/FormikChecbox/FormikCheckbox';
-import { signInWithGoogle } from '../../helpers/signInWithGoogle';
+import { signInWithGoogle } from 'helpers/signInWithGoogle';
 
 import EmailIconSvg from 'assets/email.svg';
 
