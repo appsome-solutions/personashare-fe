@@ -5,6 +5,9 @@ import EditIcon from 'assets/EditIcon.svg';
 import RemoveIcon from 'assets/RemoveIcon.svg';
 import EditMenu from 'assets/EditMenu.svg';
 import { NavLink, useLocation } from 'react-router-dom';
+import { REMOVE_PERSONA, RemoveResponse } from 'global/graphqls/Persona';
+import { useMutation } from '@apollo/react-hooks';
+import { REMOVE_SPOT } from 'global/graphqls/Spot';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const EditMenuBox = styled.div`
@@ -47,13 +50,19 @@ type EditAndRemoveMenuType = {
 
 export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
   const { pathname } = useLocation();
+  const [personaRemove] = useMutation<RemoveResponse>(REMOVE_PERSONA, {
+    variables: { personaUuid: uuid },
+  });
+  const [spotRemove] = useMutation<RemoveResponse>(REMOVE_SPOT, {
+    variables: { spotUuid: uuid },
+  });
 
   const NavLinkFunctionality = () => {
     if (pathname.includes('personas')) {
       return (
         <div>
           <NavLinkStyled to={`/edit/persona/${uuid}/step/1`}>
-            <MenuEditStyled key="0">
+            <MenuEditStyled>
               <EditAndRemoveBox>
                 Edit
                 <img src={EditIcon} alt="Edit Icon" />
@@ -66,7 +75,7 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
       return (
         <div>
           <NavLinkStyled to={APP_ROUTES.EDIT_SPOT_UUID_STEP_1(uuid)}>
-            <MenuEditStyled key="0">
+            <MenuEditStyled>
               <EditAndRemoveBox>
                 Edit
                 <img src={EditIcon} alt="Edit Icon" />
@@ -78,15 +87,19 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
     }
   };
 
+  const RemoveFunctionality = () => (
+    <MenuRemoveStyled>
+      <EditAndRemoveBox onClick={() => (pathname.includes('personas') ? personaRemove() : spotRemove())}>
+        Remove
+        <img src={RemoveIcon} alt="Remove Icon" />
+      </EditAndRemoveBox>
+    </MenuRemoveStyled>
+  );
+
   const menuBuild = (
     <MenuStyled>
       <NavLinkFunctionality />
-      <MenuRemoveStyled key="1">
-        <EditAndRemoveBox onClick={() => console.log('siema')}>
-          Remove
-          <img src={RemoveIcon} alt="Remove Icon" />
-        </EditAndRemoveBox>
-      </MenuRemoveStyled>
+      <RemoveFunctionality />
     </MenuStyled>
   );
 

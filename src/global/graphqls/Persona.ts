@@ -115,12 +115,6 @@ export type GetCardType = {
   };
 };
 
-export const UPDATE_PERSONA_CARD = gql`
-  mutation updateCard($card: Card!) {
-    updateCard(card: $card) @client
-  }
-`;
-
 export const GET_PERSONA_CARD = gql`
   query persona($uuid: String!) {
     persona(uuid: $uuid) {
@@ -142,6 +136,13 @@ export const GET_PERSONA_CARD = gql`
   }
 `;
 
+export const UPDATE_PERSONA_CARD = gql`
+  mutation updateCard($card: Card!) {
+    updateCard(card: $card) @client
+<<<<<<<<< Temporary merge branch 1
+  }
+`;
+
 export const GET_PERSONA = gql`
   query persona($uuid: String!) {
     persona(uuid: $uuid) {
@@ -160,5 +161,15 @@ export const GET_PERSONA = gql`
       personaUUIDs
       qrCodeLink
     }
+  }
+`;
+
+export interface RemoveResponse {
+  removePersona: boolean;
+}
+
+export const REMOVE_PERSONA = gql`
+  mutation removePersona($personaUuid: String!) {
+    removePersona(personaUuid: $personaUuid)
   }
 `;

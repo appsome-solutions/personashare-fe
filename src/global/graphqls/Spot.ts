@@ -154,3 +154,9 @@ export const UPDATE_SPOT_CARD = gql`
     updateCard(card: $card) @client
   }
 `;
+
+export const REMOVE_SPOT = gql`
+  mutation removeSpot($spotUuid: String!) {
+    removeSpot(spotUuid: $spotUuid)
+  }
+`;

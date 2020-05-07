@@ -210,7 +210,6 @@ export const ChoosePersona: FC = () => {
               </CaruouselItem>
             ))}
         </Carousel>
-        <img src={`${data.userPersonas[currentSlide].qrCodeLink}`} />
       </PageWrapperSpaceBetween>
     </div>
   );
