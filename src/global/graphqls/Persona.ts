@@ -139,7 +139,6 @@ export const GET_PERSONA_CARD = gql`
 export const UPDATE_PERSONA_CARD = gql`
   mutation updateCard($card: Card!) {
     updateCard(card: $card) @client
-<<<<<<<<< Temporary merge branch 1
   }
 `;
 

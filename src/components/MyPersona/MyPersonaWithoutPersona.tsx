@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { APP_ROUTES } from 'global/AppRouter/routes';
-import { TopNav } from '../TopNav/TopNav';
+import { TopNav } from 'components/TopNav/TopNav';
 import BoxInSpots from 'assets/BoxInSpots.svg';
 import AddIcon from 'assets/AddIcon.svg';
 
