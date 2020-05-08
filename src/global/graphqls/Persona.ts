@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { EntityCard, EntityPage, gqlEntity } from './schema';
+import { AgregatedPersona, EntityCard, EntityPage, gqlEntity } from './schema';
 
 export const CREATE_PERSONA = gql`
   mutation createPersona($payload: CreateShareableInput!) {
@@ -99,6 +99,7 @@ export type GetCardType = {
     uuid: string;
     card: EntityCard;
     page: EntityPage;
+    recommendList: AgregatedPersona;
   };
 };
 

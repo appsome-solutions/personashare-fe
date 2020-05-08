@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { gqlEntity } from 'global/graphqls/schema';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
-import { GET_SPOT, GetSpotType } from 'global/graphqls/Spot';
+import { GET_SPOTS, GetSpotType } from 'global/graphqls/Spot';
 import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
 import { SpotPage } from 'components/SpotPage/SpotPage';
 import { APP_ROUTES } from 'global/AppRouter/routes';
@@ -24,7 +24,7 @@ const DateOfSave = styled.div`
 `;
 
 export const SpotBook: FC = () => {
-  const { loading, data } = useQuery<GetSpotType>(GET_SPOT);
+  const { loading, data } = useQuery<GetSpotType>(GET_SPOTS);
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
 

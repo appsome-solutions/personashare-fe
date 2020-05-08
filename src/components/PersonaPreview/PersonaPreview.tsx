@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import isEmpty from 'lodash/isEmpty';
-import { GetCardType } from 'global/graphqls/Persona';
+import { GetCardType, SAVE_PERSONA, SavePersonaResponse } from 'global/graphqls/Persona';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { EntityPageComp } from 'components/EntityPageComp/EntityPageComp';
 import { GET_PERSONA } from 'global/graphqls/Persona';
 import { useParams } from 'react-router-dom';
 import { WideButton } from '../Button';
-import { RecommendButtons } from 'components/RecommendButton/RecommendButton';
+import { RecommendButtons } from 'components/RecommendButton/RecommendButtonPersona';
 const MainComponent = styled.div``;
 
 const Wrapper = styled.div`
@@ -26,6 +26,12 @@ export const PersonaPreview: FC = () => {
   const { uuid } = useParams();
   const { loading, data } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid },
+  });
+  const [savePersona] = useMutation<SavePersonaResponse>(SAVE_PERSONA, {
+    variables: {
+      savedPersonaUuid: uuid,
+      personaUuid: uuid,
+    },
   });
   if (loading) {
     return (
@@ -46,7 +52,7 @@ export const PersonaPreview: FC = () => {
         <RecommendButtons />
       </Wrapper>
       <SecondPartPersona>
-        <WideButton>SAVE</WideButton>
+        <WideButton onClick={() => savePersona()}>SAVE</WideButton>
       </SecondPartPersona>
     </MainComponent>
   );

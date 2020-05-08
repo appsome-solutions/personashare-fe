@@ -80,7 +80,7 @@ export type GetSpotType = {
   userSpots: gqlEntity[];
 };
 
-export const GET_SPOT = gql`
+export const GET_SPOTS = gql`
   {
     userSpots {
       uuid
@@ -180,6 +180,41 @@ export const GET_SPOT_PAGE = gql`
       }
       personaUUIDs
       qrCodeLink
+    }
+  }
+`;
+
+export const GET_SPOT = gql`
+  query spot($uuid: String!) {
+    spot(uuid: $uuid) {
+      uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+      personaUUIDs
+      qrCodeLink
+      recommendList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
     }
   }
 `;
