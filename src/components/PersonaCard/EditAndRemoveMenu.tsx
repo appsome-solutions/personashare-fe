@@ -8,7 +8,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { REMOVE_PERSONA, RemoveResponse } from 'global/graphqls/Persona';
 import { useMutation } from '@apollo/react-hooks';
 import { REMOVE_SPOT } from 'global/graphqls/Spot';
-import { APP_ROUTES } from '../../global/AppRouter/routes';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const EditMenuBox = styled.div`
   position: relative;
@@ -62,7 +62,7 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
       return (
         <div>
           <NavLinkStyled to={`/edit/persona/${uuid}/step/1`}>
-            <MenuEditStyled key="0">
+            <MenuEditStyled>
               <EditAndRemoveBox>
                 Edit
                 <img src={EditIcon} alt="Edit Icon" />
@@ -75,7 +75,7 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
       return (
         <div>
           <NavLinkStyled to={APP_ROUTES.EDIT_SPOT_UUID_STEP_1(uuid)}>
-            <MenuEditStyled key="0">
+            <MenuEditStyled>
               <EditAndRemoveBox>
                 Edit
                 <img src={EditIcon} alt="Edit Icon" />
@@ -87,35 +87,14 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
     }
   };
 
-  const RemoveFunctionality = () => {
-    if (pathname.includes('personas')) {
-      return (
-        <MenuRemoveStyled key="1">
-          <EditAndRemoveBox
-            onClick={async () => {
-              await personaRemove();
-            }}
-          >
-            Remove
-            <img src={RemoveIcon} alt="Remove Icon" />
-          </EditAndRemoveBox>
-        </MenuRemoveStyled>
-      );
-    } else {
-      return (
-        <MenuRemoveStyled key="1">
-          <EditAndRemoveBox
-            onClick={async () => {
-              await spotRemove();
-            }}
-          >
-            Remove
-            <img src={RemoveIcon} alt="Remove Icon" />
-          </EditAndRemoveBox>
-        </MenuRemoveStyled>
-      );
-    }
-  };
+  const RemoveFunctionality = () => (
+    <MenuRemoveStyled>
+      <EditAndRemoveBox onClick={() => (pathname.includes('personas') ? personaRemove() : spotRemove())}>
+        Remove
+        <img src={RemoveIcon} alt="Remove Icon" />
+      </EditAndRemoveBox>
+    </MenuRemoveStyled>
+  );
 
   const menuBuild = (
     <MenuStyled>

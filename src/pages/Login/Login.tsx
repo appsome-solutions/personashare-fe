@@ -17,9 +17,8 @@ import { Link } from 'react-router-dom';
 import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 // TODO: Remove after real integration
 import { useUserContext } from 'global/UserContext/UserContext';
-import { APP_ROUTES } from 'global/AppRouter/routes';
-
 import EmailIconSvg from 'assets/email.svg';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const Caption = styled.span(props => props.theme.typography.caption);
 
