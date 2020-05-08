@@ -9,8 +9,7 @@ import { EntityPageComp } from 'components/EntityPageComp/EntityPageComp';
 import { GET_PERSONA } from 'global/graphqls/Persona';
 import { useParams } from 'react-router-dom';
 import { WideButton } from '../Button';
-import { RecommendButtons } from 'components/RecommendButton/RecommendButtonPersona';
-const MainComponent = styled.div``;
+import { RecommendButtonPersona } from 'components/RecommendButton/RecommendButtonPersona';
 
 const Wrapper = styled.div`
   display: flex;
@@ -46,14 +45,14 @@ export const PersonaPreview: FC = () => {
   }
 
   return (
-    <MainComponent>
+    <>
       <Wrapper key={data.persona.uuid}>
         <EntityPageComp page={data.persona.page} />
-        <RecommendButtons />
+        <RecommendButtonPersona />
       </Wrapper>
       <SecondPartPersona>
         <WideButton onClick={() => savePersona()}>SAVE</WideButton>
       </SecondPartPersona>
-    </MainComponent>
+    </>
   );
 };

@@ -8,11 +8,14 @@ import { EntityPageComp } from 'components/EntityPageComp/EntityPageComp';
 import { useParams } from 'react-router-dom';
 import { GET_SPOT_PAGE, GetCardType, SAVE_SPOT, SaveSpotResponse } from 'global/graphqls/Spot';
 import { WideButton } from '../Button';
+import { RecommendButtonSpot } from '../RecommendButton/RecommendButtonSpot';
 
+const MainComponent = styled.div`
+  height: 100 vh;
+`;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
 `;
 
 const SecondPartPersona = styled.div`
@@ -41,13 +44,14 @@ export const SpotPreview: FC = () => {
   }
 
   return (
-    <div>
+    <MainComponent>
       <Wrapper key={data.spot.uuid}>
         <EntityPageComp page={data.spot.page} />
+        <RecommendButtonSpot />
       </Wrapper>
       <SecondPartPersona>
-        <WideButton onClick={() => saveSpot}>SAVE</WideButton>
+        <WideButton onClick={() => saveSpot()}>SAVE</WideButton>
       </SecondPartPersona>
-    </div>
+    </MainComponent>
   );
 };

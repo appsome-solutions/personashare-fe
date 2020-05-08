@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { EntityCard, EntityPage, gqlEntity } from './schema';
+import { AgregatedSpot, EntityCard, EntityPage, gqlEntity } from './schema';
 
 export interface RecommendSpotResponse {
   recommendSpot: {
@@ -51,7 +51,7 @@ export interface SaveSpotResponse {
 
 export const SAVE_SPOT = gql`
   mutation saveSpot($savedSpotUuid: String!, $spotUuid: String!) {
-    saveSpot(savedPersonaUuid: $savedSpotUuid, spotUuid: $spotUuid) {
+    saveSpot(savedSpotUuid: $savedSpotUuid, spotUuid: $spotUuid) {
       uuid
     }
   }
@@ -127,6 +127,7 @@ export type GetCardType = {
     uuid: string;
     card: EntityCard;
     page: EntityPage;
+    recommendList: AgregatedSpot;
   };
 };
 

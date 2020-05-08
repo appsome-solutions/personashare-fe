@@ -69,3 +69,18 @@ export type AgregatedPersona = {
   visibilityList: AgregatedPersona[];
   spotBook: string[];
 };
+
+export type AgregatedSpot = {
+  uuid: string;
+  card: EntityCard;
+  page: EntityPage;
+  personaUUIDs: string[];
+  qrCodeLink: string;
+  networkList: AgregatedPersona[];
+  recommendList: AgregatedPersona[];
+  contactBook: AgregatedPersona[];
+  visibilityList: AgregatedPersona[];
+  owner: AgregatedPersona;
+  participants: AgregatedPersona[];
+  managers: AgregatedPersona[];
+};

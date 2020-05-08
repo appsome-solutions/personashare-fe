@@ -13,22 +13,21 @@ const RecommendEmpty = styled.img`
   left: 135px;
 `;
 
-export const RecommendButtons: FC = () => {
+export const RecommendButtonSpot: FC = () => {
   const { uuid } = useParams();
-  const [recommendPersona] = useMutation<RecommendSpotResponse>(RECOMMEND_SPOT, {
+  const [recommendSpot] = useMutation<RecommendSpotResponse>(RECOMMEND_SPOT, {
     variables: { recommendedSpotUuid: uuid, personaUuid: uuid },
   });
   const { data } = useQuery<GetCardType>(GET_SPOT, {
     variables: { uuid },
   });
 
-  if (!data) return null;
   const CheckFunction = () => {
-    if (data.spot.recommendList) {
+    if (!data?.spot.recommendList) {
       return (
         <Popconfirm
           title="Are you sure you want to recommend this persona? It will be shared with your persona at least for the next month."
-          onConfirm={() => recommendPersona()}
+          onConfirm={() => recommendSpot()}
           okText="Yes"
           cancelText="No"
         >

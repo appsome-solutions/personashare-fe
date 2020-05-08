@@ -11,7 +11,12 @@ import { APP_ROUTES } from 'global/AppRouter/routes';
 import { useHistory } from 'react-router-dom';
 
 const ContactBookStyled = styled.div`
-  margin: 30px 16px 40px 16px;
+  margin: 24px 16px 32px 16px;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ContactBook: FC = () => {
@@ -49,7 +54,7 @@ export const ContactBook: FC = () => {
       <ContactBookStyled>
         <h6>Your Saved Persona</h6>
         {results.map((persona: gqlEntity) => (
-          <div
+          <Wrapper
             key={persona.uuid}
             onClick={() =>
               history.push({
@@ -58,7 +63,7 @@ export const ContactBook: FC = () => {
             }
           >
             <PersonaCard card={persona.card} uuid={persona.uuid} />
-          </div>
+          </Wrapper>
         ))}
       </ContactBookStyled>
     </>

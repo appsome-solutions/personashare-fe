@@ -13,7 +13,7 @@ const RecommendEmpty = styled.img`
   left: 135px;
 `;
 
-export const RecommendButtons: FC = () => {
+export const RecommendButtonPersona: FC = () => {
   const { uuid } = useParams();
   const [recommendPersona] = useMutation<RecommendPersonaResponse>(RECOMMEND_PERSONA, {
     variables: { recommendedPersonaUuid: uuid, personaUuid: uuid },
@@ -24,7 +24,7 @@ export const RecommendButtons: FC = () => {
 
   if (!data) return null;
   const CheckFunction = () => {
-    if (data.persona.recommendList) {
+    if (!data.persona.recommendList) {
       return (
         <Popconfirm
           title="Are you sure you want to recommend this persona? It will be shared with your persona at least for the next month."
