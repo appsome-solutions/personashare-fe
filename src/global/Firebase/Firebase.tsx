@@ -1,4 +1,4 @@
-import { auth, apps, initializeApp, User, app, storage, firestore } from 'firebase/app';
+import { auth, apps, initializeApp, User, app, storage, firestore, Unsubscribe } from 'firebase/app';
 import 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
@@ -53,6 +53,9 @@ class Firebase {
     this.firestore = this.app?.firestore();
     auth().useDeviceLanguage();
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onAuthStateChanged = (observer: (user: User | null) => any): Unsubscribe => auth().onAuthStateChanged(observer);
 
   getCurrentUser = (): User | null => auth().currentUser;
 
