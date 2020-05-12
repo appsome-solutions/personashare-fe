@@ -36,8 +36,8 @@ export const ContactBook: FC = () => {
   }
 
   const results = !searchValue
-    ? data?.persona.recommendList
-    : data?.persona.recommendList.filter(
+    ? data?.persona.participate
+    : data?.persona.participate.filter(
         persona =>
           persona.card.name.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
           persona.card.description.toLowerCase().includes(searchValue.toLocaleLowerCase())

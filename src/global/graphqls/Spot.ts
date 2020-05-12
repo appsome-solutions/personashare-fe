@@ -127,6 +127,7 @@ export type GetCardType = {
     card: EntityCard;
     recommendList: AgregatedSpot[];
     page: EntityPage;
+    participate: AgregatedSpot[];
   };
 };
 
@@ -181,6 +182,20 @@ export const GET_SPOT = gql`
       personaUUIDs
       qrCodeLink
       recommendList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      participate {
         uuid
         card {
           name

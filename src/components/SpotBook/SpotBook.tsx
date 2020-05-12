@@ -34,8 +34,8 @@ export const SpotBook: FC = () => {
   }
 
   const results = !searchValue
-    ? data?.spot.recommendList
-    : data?.spot.recommendList.filter(
+    ? data?.spot.participate
+    : data?.spot.participate.filter(
         spot =>
           spot.card.name.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
           spot.card.description.toLowerCase().includes(searchValue.toLocaleLowerCase())
