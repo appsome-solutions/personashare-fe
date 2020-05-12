@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { AgregatedPersona, AgregatedSpot, EntityCard, gqlEntity } from './schema';
+import { AgregatedPersona, AgregatedSpot, EntityCard, gqlEntity } from 'global/graphqls/schema';
 
 export const CREATE_PERSONA = gql`
   mutation createPersona($payload: CreatePersonaInput!) {
