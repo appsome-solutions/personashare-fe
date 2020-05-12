@@ -8,7 +8,6 @@ import { object, string, InferType } from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 import { useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
-import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
 import { Button } from 'components/Button';
 import { InputWithSuffixIcon } from 'components/InputWithSuffixIcon/InputWithSuffixIcon';
 import { PasswordInput } from 'components/PasswordInput';
@@ -97,7 +96,7 @@ export const Login: FunctionComponent = () => {
   const [apiError, setApiError] = useState('');
   const { setUser } = useUserContext();
   const firebase = useFirebase();
-  const [signIn, { data }] = useMutation<SignInResponse>(SIGN_IN);
+  const [signIn] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
 
   if (!firebase) {
@@ -106,16 +105,13 @@ export const Login: FunctionComponent = () => {
 
   const handleBEConnection = async (idToken: string): Promise<void> => {
     const data = await signIn({ variables: { idToken } });
-    const token = data?.data?.loginUser.accessToken || '';
+    const loggedUSer = data?.data?.loginUser.user || null;
     const defaultPersonaConst = data?.data?.loginUser.user.defaultPersona;
+    setUser(loggedUSer);
 
-    if (token && !defaultPersonaConst) {
-      localStorage.setItem(PS_TOKEN_NAME, token);
-      setUser(data?.data?.loginUser?.user || null);
+    if (loggedUSer && !defaultPersonaConst) {
       history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);
-    } else if (token && defaultPersonaConst) {
-      localStorage.setItem(PS_TOKEN_NAME, token);
-      setUser(data?.data?.loginUser?.user || null);
+    } else if (loggedUSer && defaultPersonaConst) {
       history.push(APP_ROUTES.SCANNER);
     }
   };
@@ -165,12 +161,6 @@ export const Login: FunctionComponent = () => {
                 <GoogleButton block onClick={handleGoogleLogin}>
                   GOOGLE
                 </GoogleButton>
-                {data?.loginUser && (
-                  <div>
-                    <div>Access Token</div>
-                    <div>{data?.loginUser?.accessToken}</div>
-                  </div>
-                )}
               </StyledCard>
               <RegisterCaption>
                 Don’t have account? <Link to={APP_ROUTES.REGISTER}>Register Now</Link>

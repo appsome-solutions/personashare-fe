@@ -14,7 +14,6 @@ import { PasswordInput } from 'components/PasswordInput';
 import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 import { useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
-import { PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import FormikCheckbox from 'components/FormikFields/FormikChecbox/FormikCheckbox';
@@ -120,10 +119,10 @@ export const Register: FC = () => {
       await firebase.createUserWithEmailAndPassword(email, password);
       const idToken = await firebase?.getCurrentUser()?.getIdToken();
       const data = await signIn({ variables: { idToken } });
-      const token = data?.data?.loginUser.accessToken || '';
-      if (token) {
-        localStorage.setItem(PS_TOKEN_NAME, token);
-        setUser(data?.data?.loginUser?.user || null);
+      const loggedUser = data?.data?.loginUser.user || null;
+      setUser(loggedUser);
+
+      if (loggedUser) {
         history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);
       }
     } catch (error) {
@@ -136,11 +135,10 @@ export const Register: FC = () => {
 
     if (idToken) {
       const data = await signIn({ variables: { idToken } });
-      const token = data?.data?.loginUser.accessToken || '';
+      const loggedUser = data?.data?.loginUser.user || null;
+      setUser(loggedUser);
 
-      if (token) {
-        localStorage.setItem(PS_TOKEN_NAME, token);
-        setUser(data?.data?.loginUser?.user || null);
+      if (loggedUser) {
         history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);
       }
     }
