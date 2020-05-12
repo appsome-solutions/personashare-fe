@@ -3,7 +3,6 @@ import { gqlUser } from './schema';
 
 export interface SignInResponse {
   loginUser: {
-    accessToken: string;
     user: gqlUser;
   };
 }
@@ -11,7 +10,6 @@ export interface SignInResponse {
 export const SIGN_IN = gql`
   mutation loginUser($idToken: String!) {
     loginUser(idToken: $idToken) {
-      accessToken
       user {
         uuid
         email
