@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Drawer } from 'antd';
 import styled from 'styled-components';
+import { DrawerProps } from 'antd/lib/drawer';
 
 const StyledDrawer = styled(Drawer)`
   .ant-drawer-content {
@@ -18,7 +19,7 @@ type DrawerPageProps = {
   onClose: () => void;
   OnClickComponent: React.ElementType;
   isVisible: boolean;
-};
+} & DrawerProps;
 
 const TitleMenu = styled.div`
   ${props => props.theme.typography.body2}
@@ -46,7 +47,14 @@ const OnClickComponentWrapper = styled.div`
   align-items: center;
 `;
 
-export const DrawerPage: FC<DrawerPageProps> = ({ title, children, onClose, OnClickComponent, isVisible = true }) => {
+export const DrawerPage: FC<DrawerPageProps> = ({
+  title,
+  children,
+  onClose,
+  OnClickComponent,
+  isVisible = true,
+  ...rest
+}) => {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
@@ -59,9 +67,11 @@ export const DrawerPage: FC<DrawerPageProps> = ({ title, children, onClose, OnCl
         onClose={() => {
           setIsOpened(false);
         }}
+        forceRender={true}
         visible={isVisible && isOpened}
         height="100vh"
         closable={false}
+        {...rest}
       >
         <TitleMenu>
           {title}

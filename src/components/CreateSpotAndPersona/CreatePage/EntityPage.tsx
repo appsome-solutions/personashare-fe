@@ -30,6 +30,7 @@ import {
 } from 'pages/CreatePersona/helpers';
 import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
 import { ExecutionResult } from 'graphql';
+import { Page } from 'pages/PersonaCreation/Page/Page';
 
 export interface LinkProps {
   previousStepPath: string;
@@ -207,7 +208,8 @@ export const EntityPage: FC<LinkProps> = ({
               <EditIndicator alt="Edit card" />
             </Flex>
             <Flex mt={10}>
-              <Editor hasError={!!errors.content} onChange={onEditorValueChange} />
+              {/* <Editor hasError={!!errors.content} onChange={onEditorValueChange} /> */}
+              <Page />
             </Flex>
           </form>
         </div>

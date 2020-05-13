@@ -19,7 +19,7 @@ const StyledRow = styled(Row)`
 
 export const StickyNavigation = withRouter(({ location: { pathname } }) => {
   return (
-    <StyledRow type="flex" justify="center">
+    <StyledRow justify="center">
       <NavigationElement
         isActive={pathname === APP_ROUTES.SCANNER}
         svg={QrCodeNavSvg}

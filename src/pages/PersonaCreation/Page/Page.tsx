@@ -9,7 +9,7 @@ import { createEditor } from 'slate';
 import { Slate, withReact, ReactEditor } from 'slate-react';
 import { PageWrapper } from 'components/PageWrapper';
 import styled from 'styled-components';
-import { TopNav } from 'components/TopNav/TopNav';
+// import { TopNav } from 'components/TopNav/TopNav';
 import { BlockTools } from './BlockTools/BlockTools';
 import { Element } from './BlockTools/EditorFunctionalities/EditorFunctionalities';
 import { EditorContextProvider, EditorContextType } from './EditorContext';
@@ -18,13 +18,13 @@ import { InlineTools } from './InlineTools/InlineTools';
 import { Range } from 'slate/dist/interfaces/range';
 import { Leaf } from './InlineTools/EditorFunctionalities/EditorFunctionalities';
 
-const StyledPageWrapper = styled(PageWrapper)`
+/* const StyledPageWrapper = styled(PageWrapper)`
   position: relative;
   padding: 0;
   min-height: calc(100vh - 108px);
-`;
+`; */
 
-const isSelected = (selection: Range | null) => {
+const isSelected = (selection: Range | null): boolean => {
   if (!selection) {
     return false;
   }
@@ -71,15 +71,15 @@ export const Page: FC = () => {
 
   return (
     <EditorContextProvider value={editorContextValue}>
-      <TopNav isWithBackArrow />
-      <StyledPageWrapper>
+      <div>
         <Slate
           editor={editor as ReactEditor}
           value={value}
           onChange={(value: Node[]) => {
+            console.warn(value, getActiveTool(editor));
             setValue(value as EditorElement[]);
             if (!areEditorButtonsVisible || (isSelected(selection) && !isSelected(editor.selection))) {
-              setSelection(_.cloneDeep(editor.selection));
+              // setSelection(_.cloneDeep(editor.selection));
               setActiveToolbar(getActiveTool(editor));
             }
           }}
@@ -92,7 +92,7 @@ export const Page: FC = () => {
           {activeToolbar === 'inline' && <InlineTools />}
           {activeToolbar === 'bloc' && <BlockTools />}
         </Slate>
-      </StyledPageWrapper>
+      </div>
     </EditorContextProvider>
   );
 };

@@ -60,7 +60,7 @@ export const EditorBarWrapper = styled.div`
   position: fixed;
   bottom: 50px;
   width: 100%;
-
+  z-index: 9999;
   display: flex;
   align-items: center;
 

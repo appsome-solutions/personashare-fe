@@ -26,10 +26,12 @@ import { TermOfUse } from 'components/TermandPrivacy/TermOfUse';
 import { PrivacyAndCookies } from 'components/TermandPrivacy/PrivacyAndCookies';
 import { InformativeClause } from 'components/TermandPrivacy/InformativeClausule';
 import { APP_ROUTES } from './routes';
+import QuillEditor from 'components/QuillEditor/QuillEditor';
 
 export const AppRouter: FunctionComponent = () => {
   return (
     <Switch>
+      <Route path="/editor" exact component={QuillEditor} />
       <Route path={APP_ROUTES.ROOT} exact component={Home} />
       <Route path={APP_ROUTES.SCANNER} exact component={() => <QrScanner onCode={res => alert(res.data)} />} />
       <Route path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
@@ -48,7 +50,7 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.SPOT_CREATION_STEP_2} exact component={CreateSpotsCard} />
       <Route path={APP_ROUTES.SPOT_CREATION_STEP_3} exact component={CreateSpotsPage} />
       <Route path={APP_ROUTES.REGISTER} exact component={Register} />
-      <PrivateRoute path={APP_ROUTES.PERSONA_CREATION_STEP_1} exact component={InitialStep} />
+      <Route path={APP_ROUTES.PERSONA_CREATION_STEP_1} exact component={InitialStep} />
       <Route path={APP_ROUTES.PERSONA_CREATION_STEP_2} exact component={CreatePersonaCard} />
       <Route path={APP_ROUTES.PERSONA_CREATION_STEP_3} exact component={CreatePersonaPage} />
       <Route path="/persona-creation/page" exact component={Page} />
