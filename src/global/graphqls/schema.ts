@@ -5,7 +5,7 @@ import { ImageRef } from 'components/CropperWidget/CropperWidget';
 
 export const cardSchema = Yup.object({
   name: Yup.string().required(),
-  description: Yup.string().notRequired(),
+  description: Yup.string().required(),
   avatar: Yup.string().notRequired(),
   background: Yup.string().notRequired(),
   avatarUpload: Yup.mixed<ImageRef>()
@@ -55,4 +55,29 @@ export type gqlUser = {
   photo: string;
   personaUUIDs: string[];
   defaultPersona: string;
+};
+
+export type AgregatedPersona = {
+  uuid: string;
+  card: EntityCard;
+  page: EntityPage;
+  personaUUIDs: string[];
+  qrCodeLink: string;
+  networkList: string[];
+  recommendList: AgregatedPersona[];
+  contactBook: AgregatedPersona[];
+  visibilityList: AgregatedPersona[];
+  spotBook: string[];
+};
+export type AgregatedSpot = {
+  uuid: string;
+  card: EntityCard;
+  page: EntityPage;
+  personaUUIDs: string[];
+  qrCodeLink: string;
+  networkList: string[];
+  recommendList: AgregatedPersona[];
+  contactBook: AgregatedPersona[];
+  visibilityList: AgregatedPersona[];
+  spotBook: string[];
 };

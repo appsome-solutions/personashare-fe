@@ -19,6 +19,8 @@ type HamburgerMenuType = {
   isWithSearch?: boolean;
   card?: EntityType | null;
   uuid?: string;
+  searchValue?: string;
+  setSearchValue?: any;
 };
 
 const HamburgerMenuStyled = styled.div`
@@ -84,7 +86,13 @@ const PersonaCircleStyle = styled(PersonaCircle)`
   border: none;
 `;
 
-export const HamburgerMenu: FC<HamburgerMenuType> = ({ isWithHamburger, isWithSearch, card }) => {
+export const HamburgerMenu: FC<HamburgerMenuType> = ({
+  isWithHamburger,
+  isWithSearch,
+  card,
+  searchValue,
+  setSearchValue,
+}) => {
   const history = useHistory();
   const [logout] = useMutation<SignOutResponse>(SIGN_OUT);
 
@@ -113,7 +121,7 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({ isWithHamburger, isWithSe
               <TextInHamburger>Logout</TextInHamburger>
             </LogoutButton>
           </DrawerMenu>
-          {isWithSearch && <SearchPositionBox />}
+          {isWithSearch && <SearchPositionBox searchValue={searchValue} setSearchValue={setSearchValue} />}
           <Link to={`.${APP_ROUTES.MY_PERSONAS}`}>
             <RightProfile>
               <CircleStyled>

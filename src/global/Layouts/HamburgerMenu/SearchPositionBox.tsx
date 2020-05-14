@@ -1,7 +1,11 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { FC } from 'react';
 import SearchIcon from 'assets/SearchIcon.svg';
 
+export interface SearchProps {
+  searchValue?: string;
+  setSearchValue?: any;
+}
 const SearchPositionBoxStyled = styled.div`
   position: relative;
   display: flex;
@@ -35,9 +39,15 @@ const SearchImg = styled.img`
   margin-left: 8px;
 `;
 
-export const SearchPositionBox = () => (
-  <SearchPositionBoxStyled>
-    <SearchInputStyled placeholder="Search..." />
-    <SearchImg src={SearchIcon} alt="something " />
-  </SearchPositionBoxStyled>
-);
+export const SearchPositionBox: FC<SearchProps> = ({ searchValue, setSearchValue }) => {
+  const handleChangeInput = (event: any) => {
+    setSearchValue(event.target.value);
+  };
+
+  return (
+    <SearchPositionBoxStyled>
+      <SearchInputStyled placeholder="Search..." value={searchValue} onChange={handleChangeInput} />
+      <SearchImg src={SearchIcon} alt="something " />
+    </SearchPositionBoxStyled>
+  );
+};
