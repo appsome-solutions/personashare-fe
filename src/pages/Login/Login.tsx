@@ -6,7 +6,7 @@ import LogoSvg from 'assets/logo.svg';
 import { Formik, Form } from 'formik';
 import { object, string, InferType } from 'yup';
 import { useMutation } from '@apollo/react-hooks';
-import { Firebase, useFirebase } from 'global/Firebase';
+import { useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { Button } from 'components/Button';
 import { InputWithSuffixIcon } from 'components/InputWithSuffixIcon/InputWithSuffixIcon';
@@ -18,6 +18,7 @@ import { PageWrapper } from 'components/PageWrapper/PageWrapper';
 import { useUserContext } from 'global/UserContext/UserContext';
 import EmailIconSvg from 'assets/email.svg';
 import { APP_ROUTES } from 'global/AppRouter/routes';
+import { signInWithGoogle } from 'helpers/signInWithGoogle';
 
 const Caption = styled.span(props => props.theme.typography.caption);
 
@@ -85,14 +86,6 @@ const validationSchema = object({
 });
 
 type FormValues = InferType<typeof validationSchema>;
-
-const signInWithGoogle = async (firebase: Firebase): Promise<string | undefined> => {
-  const provider = firebase.googleProvider();
-  provider && (await firebase.signIn(provider));
-  const user = firebase?.getCurrentUser();
-
-  return user?.getIdToken(true);
-};
 
 const initialValues: FormValues = {
   email: '',

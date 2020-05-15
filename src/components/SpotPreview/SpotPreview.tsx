@@ -1,24 +1,26 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import isEmpty from 'lodash/isEmpty';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { EntityPageComp } from 'components/EntityPageComp/EntityPageComp';
 import { useParams } from 'react-router-dom';
-import { GET_SPOT_PAGE, GetCardType, SAVE_SPOT, SaveSpotResponse } from 'global/graphqls/Spot';
-import { WideButton } from '../Button';
+import { GET_SPOT_PAGE, GetCardType } from 'global/graphqls/Spot';
 import { RecommendButtonSpot } from '../RecommendButton/RecommendButtonSpot';
-
-const MainComponent = styled.div`
-  height: 100 vh;
+import { SaveSpotButton } from 'components/SaveEntity/SaveSpot';
+const Cos = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 `;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100vh;
 `;
 
-const SecondPartPersona = styled.div`
+const SecondPartSpot = styled.div`
   margin: 0 16px 28px 16px;
 `;
 
@@ -26,9 +28,6 @@ export const SpotPreview: FC = () => {
   const { uuid } = useParams();
   const { loading, data } = useQuery<GetCardType>(GET_SPOT_PAGE, {
     variables: { uuid },
-  });
-  const [saveSpot] = useMutation<SaveSpotResponse>(SAVE_SPOT, {
-    variables: { savedSpotUuid: uuid, spotUuid: uuid },
   });
 
   if (loading) {
@@ -44,14 +43,14 @@ export const SpotPreview: FC = () => {
   }
 
   return (
-    <MainComponent>
+    <Cos>
       <Wrapper key={data.spot.uuid}>
         <EntityPageComp page={data.spot.page} />
         <RecommendButtonSpot />
       </Wrapper>
-      <SecondPartPersona>
-        <WideButton onClick={() => saveSpot()}>SAVE</WideButton>
-      </SecondPartPersona>
-    </MainComponent>
+      <SecondPartSpot>
+        <SaveSpotButton />
+      </SecondPartSpot>
+    </Cos>
   );
 };

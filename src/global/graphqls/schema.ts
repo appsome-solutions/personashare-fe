@@ -67,7 +67,9 @@ export type AgregatedPersona = {
   recommendList: AgregatedPersona[];
   contactBook: AgregatedPersona[];
   visibilityList: AgregatedPersona[];
-  spotBook: string[];
+  spotBook: AgregatedSpot[];
+  spotNetworkList: AgregatedSpot[];
+  spotRecommendList: AgregatedPersona[];
 };
 
 export type AgregatedSpot = {

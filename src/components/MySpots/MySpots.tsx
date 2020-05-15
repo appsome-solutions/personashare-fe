@@ -10,7 +10,7 @@ import { gqlEntity } from 'global/graphqls/schema';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { MySpotsWithoutSpots } from './MySpotsWithoutSpots';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink, Route, useHistory } from 'react-router-dom';
 import { GET_SPOTS, GetSpotType } from 'global/graphqls/Spot';
 import AddIcon from 'assets/AddIcon.svg';
 import ShareQrCode from 'assets/ShareQrCode.svg';
@@ -60,6 +60,7 @@ export const MySpots: FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { loading, data } = useQuery<GetSpotType>(GET_SPOTS);
   const carousel = useRef<AntCarousel>(null);
+  const history = useHistory();
 
   if (loading) {
     return (
@@ -80,7 +81,13 @@ export const MySpots: FC = () => {
           {data.userSpots &&
             data.userSpots.map((spots: gqlEntity) => (
               <CaruouselItem key={spots.uuid}>
-                <Wrapper>
+                <Wrapper
+                  onClick={() =>
+                    history.push({
+                      pathname: `${APP_ROUTES.SPOT_PREVIEW(spots.uuid)}`,
+                    })
+                  }
+                >
                   <PersonaCard card={spots.card} uuid={spots.uuid} isWithEdit={true} />
                 </Wrapper>
               </CaruouselItem>

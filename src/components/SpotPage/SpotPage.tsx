@@ -22,16 +22,13 @@ const NameStyled = styled.div`
 const DescriptionStyled = styled.div`
   margin-bottom: 16px;
 `;
-const BackgroundPlaceholderStyle = styled(BackgroundPlaceholder)`
-  width: 100%;
-`;
 
 export const SpotPage: FC<Props> = ({ card, uuid, isWithEdit }) => {
   return (
     <CardStyled mt={31} mb={40} position="relative">
-      <BackgroundPlaceholderStyle background={card.background} alt="Card background">
+      <BackgroundPlaceholder background={card.background} alt="Card background">
         {isWithEdit && <EditRemoveMenu uuid={uuid} />}
-      </BackgroundPlaceholderStyle>
+      </BackgroundPlaceholder>
       <CardBody>
         <NameStyled>{card.name}</NameStyled>
         <DescriptionStyled>{card.description}</DescriptionStyled>

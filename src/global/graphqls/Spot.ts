@@ -126,8 +126,9 @@ export type GetCardType = {
   spot: {
     uuid: string;
     card: EntityCard;
+    recommendList: AgregatedSpot[];
     page: EntityPage;
-    recommendList: AgregatedSpot;
+    spotRecommendList: AgregatedSpot[];
   };
 };
 
@@ -181,41 +182,6 @@ export const GET_SPOT_PAGE = gql`
       }
       personaUUIDs
       qrCodeLink
-    }
-  }
-`;
-
-export const GET_SPOT = gql`
-  query spot($uuid: String!) {
-    spot(uuid: $uuid) {
-      uuid
-      card {
-        name
-        description
-        avatar
-        background
-      }
-      page {
-        background
-        avatar
-        content
-      }
-      personaUUIDs
-      qrCodeLink
-      recommendList {
-        uuid
-        card {
-          name
-          description
-          avatar
-          background
-        }
-        page {
-          background
-          avatar
-          content
-        }
-      }
     }
   }
 `;

@@ -5,13 +5,12 @@ import { gqlEntity } from 'global/graphqls/schema';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { GET_SPOTS, GetSpotType } from 'global/graphqls/Spot';
-import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
-import { SpotPage } from 'components/SpotPage/SpotPage';
-import { APP_ROUTES } from 'global/AppRouter/routes';
-import { useHistory } from 'react-router-dom';
+import { HamburgerMenu } from '../../global/Layouts/HamburgerMenu/HamburgerMenu';
+import { SpotPage } from '../SpotPage/SpotPage';
 
 const SpotBookStyled = styled.div`
   margin: 24px 16px 32px 16px;
+  height: 100vh;
 `;
 
 const Wrapper = styled.div`
@@ -26,8 +25,6 @@ const DateOfSave = styled.div`
 export const SpotBook: FC = () => {
   const { loading, data } = useQuery<GetSpotType>(GET_SPOTS);
   const [searchValue, setSearchValue] = useState('');
-  const history = useHistory();
-
   if (loading) {
     return (
       <Overlay>
@@ -35,13 +32,14 @@ export const SpotBook: FC = () => {
       </Overlay>
     );
   }
+
   if (!data) {
     return null;
   }
 
   const results = !searchValue
-    ? data.userSpots
-    : data.userSpots.filter(
+    ? data?.userSpots
+    : data?.userSpots.filter(
         userSpots =>
           userSpots.card.name.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
           userSpots.card.description.toLowerCase().includes(searchValue.toLocaleLowerCase())
@@ -56,15 +54,8 @@ export const SpotBook: FC = () => {
         setSearchValue={setSearchValue}
       />
       <SpotBookStyled>
-        {results.map((spot: gqlEntity) => (
-          <Wrapper
-            key={spot.uuid}
-            onClick={() =>
-              history.push({
-                pathname: `${APP_ROUTES.SPOT_PREVIEW(spot.uuid)}`,
-              })
-            }
-          >
+        {results?.map((spot: gqlEntity) => (
+          <Wrapper key={spot.uuid}>
             <DateOfSave>14.10.2019</DateOfSave>
             <SpotPage card={spot.card} uuid={spot.uuid} isWithEdit={true} />
           </Wrapper>
