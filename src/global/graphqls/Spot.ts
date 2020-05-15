@@ -185,3 +185,27 @@ export const GET_SPOT_PAGE = gql`
     }
   }
 `;
+
+export const GET_SPOT = gql`
+  query spot($uuid: String!) {
+    spot(uuid: $uuid) {
+      uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
+      personaUUIDs
+      qrCodeLink
+    }
+    spotRecommendList {
+      uuid
+    }
+  }
+`;
