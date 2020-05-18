@@ -11,7 +11,7 @@ import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { MySpotsWithoutSpots } from './MySpotsWithoutSpots';
 import { NavLink, Route } from 'react-router-dom';
-import { GET_SPOT, GetSpotType } from 'global/graphqls/Spot';
+import { GET_SPOTS, GetSpotType } from 'global/graphqls/Spot';
 import AddIcon from 'assets/AddIcon.svg';
 import ShareQrCode from 'assets/ShareQrCode.svg';
 import isEmpty from 'lodash/isEmpty';
@@ -58,7 +58,7 @@ const ShareQrIcon = styled.img`
 
 export const MySpots: FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { loading, data } = useQuery<GetSpotType>(GET_SPOT);
+  const { loading, data } = useQuery<GetSpotType>(GET_SPOTS);
   const carousel = useRef<AntCarousel>(null);
 
   if (loading) {

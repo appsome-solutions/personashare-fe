@@ -5,11 +5,7 @@ import { QRCode } from 'jsqr';
 import getPixels from 'get-pixels';
 import VideoOverlay from './VideoOverlay';
 import { useWorkerDecode } from './hooks/useWorkerDecode';
-import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
-import { LoginBar } from '../LoginBar/LoginBar';
-import { useQuery } from '@apollo/react-hooks';
-import { gqlUser } from 'global/graphqls/schema';
-import { GET_USER } from 'global/graphqls/User';
+import { LoginOrHamburger } from './LoginOrHamburger';
 
 const Wrapper = styled.div`
   display: flex;
@@ -71,7 +67,6 @@ export const QrScanner = ({
   buttonMode,
 }: Props) => {
   const webcamRef = React.useRef<Webcam>(null);
-  const { data } = useQuery<{ user: gqlUser }>(GET_USER);
   const capture = useCallback(() => {
     const imageSrc = webcamRef?.current?.getScreenshot();
 
@@ -89,11 +84,6 @@ export const QrScanner = ({
 
   webWorker = useWorkerDecode({ capture, interval, onCode });
 
-  const LoginOrHamburger = () => {
-    if (!data) {
-      return <LoginBar isLogged={true} />;
-    } else return <HamburgerMenu isWithHamburger={true} />;
-  };
   return (
     <>
       <LoginOrHamburger />

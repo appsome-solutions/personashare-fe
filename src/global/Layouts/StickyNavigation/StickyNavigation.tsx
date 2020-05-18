@@ -27,16 +27,16 @@ export const StickyNavigation = withRouter(({ location: { pathname } }) => {
         redirectionLink={APP_ROUTES.SCANNER}
       />
       <NavigationElement
-        isActive={pathname === APP_ROUTES.MY_SPOTS}
+        isActive={pathname === APP_ROUTES.SPOT_BOOK}
         svg={MyLocationSvg}
-        text="Spots"
-        redirectionLink={APP_ROUTES.MY_SPOTS}
+        text="Spot Book"
+        redirectionLink={APP_ROUTES.SPOT_BOOK}
       />
       <NavigationElement
-        isActive={pathname === APP_ROUTES.MY_PERSONAS}
+        isActive={pathname === APP_ROUTES.CONTACT_BOOK}
         svg={MenuBookSvg}
-        text="Personas"
-        redirectionLink={APP_ROUTES.MY_PERSONAS}
+        text="Contact Book"
+        redirectionLink={APP_ROUTES.CONTACT_BOOK}
       />
     </StyledRow>
   );

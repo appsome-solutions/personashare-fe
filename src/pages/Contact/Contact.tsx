@@ -2,6 +2,7 @@ import React, { FC, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { Formik, Form } from 'formik';
 import { InferType, object, string } from 'yup';
+import { useHistory } from 'react-router-dom';
 
 import { useFirebase } from 'global/Firebase';
 import { APP_ROUTES } from 'global/AppRouter/routes';
@@ -10,11 +11,11 @@ import { PageWrapper } from 'components/PageWrapper';
 import { FormComponent } from 'components/FormComponent/FormComponent';
 import { InputWithSuffixIcon } from 'components/InputWithSuffixIcon/InputWithSuffixIcon';
 import { FormikTextArea } from 'components/FormikFields/FormikInput/FormikInput';
+import { StyledErrorMessage } from 'components/StyledErrorMessage/StyledErrorMessage';
 
 import LogoWithoutBG from 'assets/logo_nobg.svg';
 import EmailIconSvg from 'assets/email.svg';
 import PersonSvg from 'assets/person-24px.svg';
-import { useHistory } from 'react-router-dom';
 
 const StyledLogo = styled.img`
   margin-top: 18px;
@@ -28,10 +29,6 @@ const InputField = styled(InputWithSuffixIcon)`
 
 const Message = styled(FormikTextArea)`
   margin-top: 24px;
-`;
-
-const StyledErrorMessage = styled.div`
-  color: ${props => props.theme.colors.functional.error};
 `;
 
 const validationSchema = object({

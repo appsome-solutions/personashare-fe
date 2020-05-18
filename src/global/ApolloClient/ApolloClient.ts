@@ -18,7 +18,7 @@ type CustomGraphQLError = Exclude<GraphQLError, 'message'> & {
 
 const logoutLink: ErrorHandler = error => {
   if ((error?.graphQLErrors as CustomGraphQLError[])?.some(error => error.message.statusCode === 403)) {
-    localStorage.setItem(PS_TOKEN_NAME, '');
+    localStorage.removeItem(PS_TOKEN_NAME);
     history.push('/login');
   }
 };

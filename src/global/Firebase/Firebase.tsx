@@ -1,8 +1,9 @@
-import { auth, apps, initializeApp, User, app, storage, firestore } from 'firebase/app';
+import { auth, apps, initializeApp, User, app, storage, firestore, Unsubscribe } from 'firebase/app';
 import 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/firestore';
+import { APP_ROUTES } from '../AppRouter/routes';
 
 // based on: https://github.com/firebase/extensions/blob/master/firestore-send-email/functions/src/index.ts
 type FirebaseMessage = {
@@ -53,6 +54,9 @@ class Firebase {
     auth().useDeviceLanguage();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onAuthStateChanged = (observer: (user: User | null) => any): Unsubscribe => auth().onAuthStateChanged(observer);
+
   getCurrentUser = (): User | null => auth().currentUser;
 
   googleProvider = (scope?: string): auth.GoogleAuthProvider => {
@@ -83,6 +87,27 @@ class Firebase {
           .collection(contactMailCollection)
           .add({ ...payload, to: payload.to || process.env.REACT_APP_CONTACT_MAIL })
       : Promise.reject('Firestore is unavailable');
+
+  sendPasswordResetEmail = async (email: string): Promise<void> => {
+    await this.auth.sendPasswordResetEmail(email);
+  };
+
+  handleResetPassword = async (newPassword: string, actionCode: string, continueUrl?: string): Promise<string> => {
+    const accountEmail = await auth().verifyPasswordResetCode(actionCode);
+    await auth().confirmPasswordReset(actionCode, newPassword);
+
+    if (continueUrl) {
+      return continueUrl;
+    }
+
+    const { user } = await this.signInWithEmailAndPassword(accountEmail, newPassword);
+
+    if (user && user.uid) {
+      return APP_ROUTES.ROOT;
+    }
+
+    return APP_ROUTES.LOGIN;
+  };
 }
 
 export default Firebase;

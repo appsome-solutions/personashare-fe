@@ -18,8 +18,11 @@ export const APP_ROUTES = {
   INFORMATIVE_CLAUSE: '/informativeclause',
   PRIVACY_AND_COOKIES_POLICY: '/privacyandcookiespolicy',
   TERM_OF_USE: '/termofuse',
+  PERSONA_CREATION_PAGE: '/persona-creation/page',
   EDIT_SPOT_UUID_STEP_1: (uuid: string) => `/edit/spot/${uuid}/step/1`,
   EDIT_SPOT_UUID_STEP_2: (uuid: string) => `/edit/spot/${uuid}/step/2`,
   EDIT_PERSONA_UUID_STEP_1: (uuid: string) => `/edit/persona/${uuid}/step/1`,
   EDIT_PERSONA_UUID_STEP_2: (uuid: string) => `/edit/persona/${uuid}/step/2`,
+  SPOT_BOOK: '/spot-book',
+  CONTACT_BOOK: '/contact-book',
 };

@@ -25,8 +25,10 @@ import { MyPersona } from 'components/MyPersona/MyPersona';
 import { TermOfUse } from 'components/TermandPrivacy/TermOfUse';
 import { PrivacyAndCookies } from 'components/TermandPrivacy/PrivacyAndCookies';
 import { InformativeClause } from 'components/TermandPrivacy/InformativeClausule';
+import { ContactBook } from 'components/ContactBook/ContactBook';
 import { APP_ROUTES } from './routes';
 import QuillEditor from 'components/QuillEditor/QuillEditor';
+import { SpotBook } from 'components/SpotBook/SpotBook';
 
 export const AppRouter: FunctionComponent = () => {
   return (
@@ -57,6 +59,8 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.CONTACT_FORM} exact component={Contact} />
       <Route path={APP_ROUTES.RESET_PASSWORD} exact component={ResetPassword} />
       <Route path={APP_ROUTES.CHANGE_PASSWORD} exact component={ChangePassword} />
+      <Route path={APP_ROUTES.SPOT_BOOK} exact component={SpotBook} />
+      <Route path={APP_ROUTES.CONTACT_BOOK} exact component={ContactBook} />
     </Switch>
   );
 };

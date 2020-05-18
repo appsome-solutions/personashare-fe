@@ -4,18 +4,23 @@ import styled from 'styled-components';
 import { useMutation } from '@apollo/react-hooks';
 import MySpots from 'assets/MySpots.svg';
 import MyPersonas from 'assets/MyPersonas.svg';
-import RightProfileSvg from 'assets/RightProfileSvg.svg';
 import LogoutSvg from 'assets/Logout.svg';
-import { NavLink, useHistory } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import { client, PS_TOKEN_NAME } from 'global/ApolloClient/ApolloClient';
 import { SIGN_OUT, SignOutResponse } from 'global/graphqls/SignOut';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { DrawerMenu } from 'components/Drawer/Drawer';
 import { SearchPositionBox } from './SearchPositionBox';
+import { PersonaCircle } from 'components/PersonaCircle/PersonaCircle';
+import { EntityCard as EntityType } from 'global/graphqls/schema';
 
 type HamburgerMenuType = {
   isWithHamburger?: boolean;
   isWithSearch?: boolean;
+  card?: EntityType | null;
+  uuid?: string;
+  searchValue?: string;
+  setSearchValue?: any;
 };
 
 const HamburgerMenuStyled = styled.div`
@@ -26,6 +31,7 @@ const HamburgerMenuStyled = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+
 const HamburgerIcon = styled(Icon)`
   margin-left: 28px;
 `;
@@ -52,8 +58,10 @@ const LinkRouterStyle = styled(NavLink)`
     }
 `;
 
-const RightProfile = styled.img`
-  width: auto;
+const RightProfile = styled.div`
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
 `;
 
 const LogoutButton = styled.div`
@@ -68,7 +76,23 @@ const LogoutButton = styled.div`
     background-color: rgba(85, 133, 255, 0.2);
     }`;
 
-export const HamburgerMenu: FC<HamburgerMenuType> = ({ isWithHamburger, isWithSearch }: HamburgerMenuType) => {
+const CircleStyled = styled.div`
+  position: absolute;
+`;
+
+const PersonaCircleStyle = styled(PersonaCircle)`
+  width: 36px;
+  height: 36px;
+  border: none;
+`;
+
+export const HamburgerMenu: FC<HamburgerMenuType> = ({
+  isWithHamburger,
+  isWithSearch,
+  card,
+  searchValue,
+  setSearchValue,
+}) => {
   const history = useHistory();
   const [logout] = useMutation<SignOutResponse>(SIGN_OUT);
 
@@ -97,8 +121,14 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({ isWithHamburger, isWithSe
               <TextInHamburger>Logout</TextInHamburger>
             </LogoutButton>
           </DrawerMenu>
-          {isWithSearch && <SearchPositionBox />}
-          <RightProfile src={RightProfileSvg} alt="Profile Svg" />
+          {isWithSearch && <SearchPositionBox searchValue={searchValue} setSearchValue={setSearchValue} />}
+          <Link to={`.${APP_ROUTES.MY_PERSONAS}`}>
+            <RightProfile>
+              <CircleStyled>
+                <PersonaCircleStyle avatar={card?.avatar} alt="Avatar card" />
+              </CircleStyled>
+            </RightProfile>
+          </Link>
         </HamburgerMenuStyled>
       )}
     </>
