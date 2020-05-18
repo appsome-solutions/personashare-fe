@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo, FC } from 'react';
 import styled from 'styled-components';
 import ReactQuill from 'react-quill';
-import { Page } from 'pages/PersonaCreation/Page/Page';
 import { DrawerPage } from 'components/DrawerPage/DrawerPage';
 import 'react-quill/dist/quill.snow.css';
 import { Icon } from 'components/Icon';
@@ -14,23 +13,19 @@ import CodeSvg from 'assets/code.svg';
 import Quill from 'quill';
 import { InlineButton } from './Buttons/InlineButton';
 
-const Container = styled.div`
-  width: 100%;
-  height: 500px;
-  & > div {
-    margin-top: 100px;
-    margin-bottom: 100px;
-  }
-`;
-
 const StyledQuillContainer = styled.div`
   width: 100%;
+
+  &&& > div > div {
+    border: none;
+  }
 `;
 
 export const EditorBarWrapper = styled.div`
   height: 36px;
   position: fixed;
   bottom: 50px;
+  left: 0;
   width: 100%;
   z-index: 9999;
   display: none;
@@ -113,8 +108,13 @@ type Range = {
   length: number;
 };
 
-const QuillEditor: FC = () => {
-  const [value, setValue] = useState('');
+type Props = {
+  onChange?: (value: string) => void;
+  initialValue?: string;
+};
+
+const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
+  const [value, setValue] = useState(initialValue);
   const [isRendered, setIsRendered] = useState(false);
   const [isTurnIntoVisible, setIsTurnIntoVisible] = useState(false);
   const [isAddVisible, setIsAddVisible] = useState(false);
@@ -155,73 +155,72 @@ const QuillEditor: FC = () => {
   }, []);
 
   return (
-    <Container>
-      <StyledQuillContainer>
-        {isRendered && (
-          <ReactQuill
-            theme={undefined}
-            value={value}
-            onChange={value => {
-              setValue(value);
-              setIsTurnIntoVisible(false);
-              setIsAddVisible(false);
-            }}
-            onChangeSelection={handleSelectionChange}
-            modules={Editor.modules}
-            ref={ref}
-          />
-        )}
-        <EditorBarWrapper id="toolbar">
-          <ToggleabbleContainer isVisible={!isInlineVisible}>
-            <DrawerPage
-              title="Add in a new line"
-              OnClickComponent={() => (
-                <BarIcon
-                  svgLink={AddSvg}
-                  onClick={() => {
-                    editor?.focus();
-                    setIsTurnIntoVisible(true);
-                    turnIntoRef.current = false;
-                  }}
-                />
-              )}
-              onClose={() => setIsTurnIntoVisible(false)}
-              isVisible={isTurnIntoVisible}
-              getContainer="#toolbar"
-            >
-              <EditorButtons addInNewLine={true} />
-            </DrawerPage>
-            <Separator />
-            <DrawerPage
-              isVisible={isAddVisible}
-              OnClickComponent={() => (
-                <TurnInto
-                  onClick={() => {
-                    editor?.focus();
-                    setIsAddVisible(true);
-                    turnIntoRef.current = true;
-                  }}
-                >
-                  Turn into
-                </TurnInto>
-              )}
-              onClose={() => setIsAddVisible(false)}
-              title="Turn Into"
-              getContainer="#toolbar"
-            >
-              <EditorButtons />
-            </DrawerPage>
-          </ToggleabbleContainer>
-          <ToggleabbleContainer isVisible={isInlineVisible}>
-            <InlineButton className={`ql-bold`} svgLink={BoldSvg} />
-            <InlineButton className={`ql-code-block`} svgLink={CodeSvg} />
-            <InlineButton className={`ql-italic`} svgLink={ItalicSvg} />
-            <InlineButton className={`ql-underline`} svgLink={UnderlineSvg} />
-          </ToggleabbleContainer>
-        </EditorBarWrapper>
-      </StyledQuillContainer>
-      <Page />
-    </Container>
+    <StyledQuillContainer>
+      {isRendered && (
+        <ReactQuill
+          theme={undefined}
+          value={value}
+          onChange={value => {
+            setValue(value);
+            onChange && onChange(value);
+            setIsTurnIntoVisible(false);
+            setIsAddVisible(false);
+          }}
+          onChangeSelection={handleSelectionChange}
+          modules={Editor.modules}
+          placeholder="Edit card..."
+          ref={ref}
+        />
+      )}
+      <EditorBarWrapper id="toolbar">
+        <ToggleabbleContainer isVisible={!isInlineVisible}>
+          <DrawerPage
+            title="Add in a new line"
+            OnClickComponent={() => (
+              <BarIcon
+                svgLink={AddSvg}
+                onClick={() => {
+                  editor?.focus();
+                  setIsTurnIntoVisible(true);
+                  turnIntoRef.current = false;
+                }}
+              />
+            )}
+            onClose={() => setIsTurnIntoVisible(false)}
+            isVisible={isTurnIntoVisible}
+            getContainer="#toolbar"
+          >
+            <EditorButtons addInNewLine={true} />
+          </DrawerPage>
+          <Separator />
+          <DrawerPage
+            isVisible={isAddVisible}
+            OnClickComponent={() => (
+              <TurnInto
+                onClick={() => {
+                  editor?.focus();
+                  setIsAddVisible(true);
+                  turnIntoRef.current = true;
+                }}
+              >
+                Turn into
+              </TurnInto>
+            )}
+            onClose={() => setIsAddVisible(false)}
+            title="Turn Into"
+            getContainer="#toolbar"
+          >
+            <EditorButtons />
+          </DrawerPage>
+        </ToggleabbleContainer>
+        <ToggleabbleContainer isVisible={isInlineVisible}>
+          <InlineButton className={`ql-bold`} svgLink={BoldSvg} />
+          <InlineButton className={`ql-code-block`} svgLink={CodeSvg} />
+          <InlineButton className={`ql-italic`} svgLink={ItalicSvg} />
+          <InlineButton className={`ql-underline`} svgLink={UnderlineSvg} />
+        </ToggleabbleContainer>
+      </EditorBarWrapper>
+    </StyledQuillContainer>
   );
 };
 

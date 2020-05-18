@@ -27,13 +27,11 @@ import { PrivacyAndCookies } from 'components/TermandPrivacy/PrivacyAndCookies';
 import { InformativeClause } from 'components/TermandPrivacy/InformativeClausule';
 import { ContactBook } from 'components/ContactBook/ContactBook';
 import { APP_ROUTES } from './routes';
-import QuillEditor from 'components/QuillEditor/QuillEditor';
 import { SpotBook } from 'components/SpotBook/SpotBook';
 
 export const AppRouter: FunctionComponent = () => {
   return (
     <Switch>
-      <Route path="/editor" exact component={QuillEditor} />
       <Route path={APP_ROUTES.ROOT} exact component={Home} />
       <Route path={APP_ROUTES.SCANNER} exact component={() => <QrScanner onCode={res => alert(res.data)} />} />
       <Route path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />

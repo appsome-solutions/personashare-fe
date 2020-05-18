@@ -20,7 +20,7 @@ import { Flex } from 'components/FlexBox/FlexBox';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { EditIndicator } from 'components/EditIndicator/EditIndicator';
-import { Editor } from 'components/Editor/Editor';
+import QuillEditor from 'components/QuillEditor/QuillEditor';
 
 import {
   onAvatarChangeHelper,
@@ -175,11 +175,11 @@ export const EntityPage: FC<LinkProps> = ({
     onBgChangeHelper(bgFile, setImageRef);
   };
 
-  const onEditorValueChange = (value: Node[]): void => {
+  const onEditorValueChange = (value: string): void => {
     setFieldValue('content', value, true);
   };
 
-  const { avatarUpload, backgroundUpload } = values;
+  const { avatarUpload, backgroundUpload, content } = values;
 
   return (
     <div>
@@ -208,8 +208,7 @@ export const EntityPage: FC<LinkProps> = ({
               <EditIndicator alt="Edit card" />
             </Flex>
             <Flex mt={10}>
-              {/* <Editor hasError={!!errors.content} onChange={onEditorValueChange} /> */}
-              <Page />
+              <QuillEditor onChange={onEditorValueChange} initialValue={content} />
             </Flex>
           </form>
         </div>
