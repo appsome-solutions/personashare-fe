@@ -41,7 +41,6 @@ const CancelLink = styled.a`
 `;
 
 const OnClickComponentWrapper = styled.div`
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,10 +1,10 @@
+/* eslint-disable react/display-name */
 import React from 'react';
 
-import { BlockButton as PureBlockButton, BlockButtonType } from './BlockButton';
+import { BlockButton } from './BlockButton';
 import TextSvg from 'assets/editor_text.svg';
 import Heading1 from 'assets/editor_heading1.svg';
 import Heading2 from 'assets/editor_heading2.svg';
-import Heading3 from 'assets/editor_heading3.svg';
 import QuoteSvg from 'assets/editor_quote.svg';
 import NumberedListSvg from 'assets/editor_numbered_list.svg';
 import BulletedListSvg from 'assets/editor_bulleted_list.svg';
@@ -18,29 +18,16 @@ type EditorButtonTypes = {
   addInNewLine?: boolean;
 };
 
-export const EditorButtons = ({ addInNewLine = false }: EditorButtonTypes) => {
-  let BlockButton;
-
-  if (addInNewLine) {
-    // eslint-disable-next-line react/display-name
-    BlockButton = ({ ...props }: BlockButtonType) => {
-      return <PureBlockButton addInNewLine={addInNewLine} {...props} />;
-    };
-  } else {
-    BlockButton = PureBlockButton;
-  }
-
+export const EditorButtons = React.memo(({ addInNewLine = false }: EditorButtonTypes) => {
+  const suffix = addInNewLine ? '-newLine' : '';
   return (
     <DrawerContent>
-      <BlockButton className="ql-bold" title="Bold" />
-      <BlockButton className="ql-insertWhatever" title="insertWhatever" svgLink={TextSvg} />
-      <BlockButton title="Text" svgLink={TextSvg} format="paragraph" />
-      <BlockButton title="Heading 1" svgLink={Heading1} format="heading-one" />
-      <BlockButton title="Heading 2" svgLink={Heading2} format="heading-two" />
-      <BlockButton title="Heading 3" svgLink={Heading3} format="heading-three" />
-      <BlockButton title="Quote" svgLink={QuoteSvg} format="block-quote" />
-      <BlockButton title="Numbered list" svgLink={NumberedListSvg} format="numbered-list" />
-      <BlockButton title="Bulleted list" svgLink={BulletedListSvg} format="bulleted-list" />
+      <BlockButton className={`ql-header${suffix}`} title="Text" svgLink={TextSvg} value={3} />
+      <BlockButton className={`ql-header${suffix}`} title="Heading 1" svgLink={Heading1} value={1} />
+      <BlockButton className={`ql-header${suffix}`} title="Heading 2" svgLink={Heading2} value={2} />
+      <BlockButton className={`ql-blockquote${suffix}`} title="Quote" svgLink={QuoteSvg} />
+      <BlockButton className={`ql-list${suffix}`} title="Numbered list" svgLink={NumberedListSvg} value="ordered" />
+      <BlockButton className={`ql-list${suffix}`} title="Bulleted list" svgLink={BulletedListSvg} value="bullet" />
     </DrawerContent>
   );
-};
+});

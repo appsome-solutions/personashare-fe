@@ -1,13 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo, FC } from 'react';
 import styled from 'styled-components';
 import ReactQuill from 'react-quill';
 import { Page } from 'pages/PersonaCreation/Page/Page';
 import { DrawerPage } from 'components/DrawerPage/DrawerPage';
 import 'react-quill/dist/quill.snow.css';
-// import 'react-quill/dist/quill.bubble.css';
 import { Icon } from 'components/Icon';
 import { EditorButtons } from './Buttons/EditorButtons';
 import AddSvg from 'assets/AddIcon.svg';
+import BoldSvg from 'assets/format_bold.svg';
+import ItalicSvg from 'assets/format_italic.svg';
+import UnderlineSvg from 'assets/format_underlined.svg';
+import CodeSvg from 'assets/code.svg';
+import Quill from 'quill';
+import { InlineButton } from './Buttons/InlineButton';
 
 const Container = styled.div`
   width: 100%;
@@ -28,17 +33,19 @@ export const EditorBarWrapper = styled.div`
   bottom: 50px;
   width: 100%;
   z-index: 9999;
-  display: flex;
+  display: none;
   align-items: center;
-
   background-color: ${props => props.theme.colors.utils.background.light};
   border-top: 1px solid ${props => props.theme.colors.functional.disabled};
-
   ${StyledQuillContainer}:hover & {
     display: flex;
   }
 
   ${StyledQuillContainer}:focus & {
+    display: flex;
+  }
+
+  &:focus-within {
     display: flex;
   }
 `;
@@ -69,6 +76,10 @@ export const EditorButtonIconWrapper = styled.span`
   border-radius: 4px;
 `;
 
+const ToggleabbleContainer = styled.div<{ isVisible: boolean }>`
+  display: ${props => (props.isVisible ? 'flex' : 'none')};
+`;
+
 const Separator = styled.div`
   width: 1px;
   height: 36px;
@@ -79,83 +90,134 @@ const TurnInto = styled.span`
   margin-left: 8px;
 `;
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-//@ts-ignore
-const test = (...args) => {
-  console.warn(args);
+const insertIntoEditor = (editor: Quill, value: string | boolean | number, type: string): void => {
+  const cursor = editor.getSelection()?.index || 0;
+  editor.insertText(cursor + 1, '\n', type, value);
+  editor.setSelection(cursor + 1, 0);
 };
 
-const Editor = {
-  modules: {
-    toolbar: {
-      container: '#toolbar',
-      handlers: {
-        insertWhatever: test,
-      },
-    },
-  },
+const customHeaderHandler = (editor: Quill, value: number): void => {
+  insertIntoEditor(editor, value, 'header');
 };
 
-const QuillEditor = () => {
+const customListHandler = (editor: Quill, value: string): void => {
+  insertIntoEditor(editor, value, 'list');
+};
+
+const customBlockQuoteHandler = (editor: Quill, value: boolean): void => {
+  insertIntoEditor(editor, value, 'blockquote');
+};
+
+type Range = {
+  index: number;
+  length: number;
+};
+
+const QuillEditor: FC = () => {
   const [value, setValue] = useState('');
-  const [test, setTest] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isRendered, setIsRendered] = useState(false);
+  const [isTurnIntoVisible, setIsTurnIntoVisible] = useState(false);
+  const [isAddVisible, setIsAddVisible] = useState(false);
+  const [isInlineVisible, setIsInlineVisible] = useState(false);
   const ref = useRef<ReactQuill | null>(null);
+  const turnIntoRef = useRef<boolean>(false);
 
   const editor = ref.current?.getEditor();
 
-  console.warn(editor);
+  const handleSelectionChange = (range: Range): void => {
+    if (!range?.length) {
+      setIsInlineVisible(false);
+      return;
+    }
+    setIsInlineVisible(true);
+  };
+
+  const Editor = useMemo(
+    () => ({
+      modules: {
+        toolbar: {
+          container: '#toolbar',
+          handlers: {
+            'header-newLine': (value: number) =>
+              customHeaderHandler((ref.current?.getEditor() as unknown) as Quill, value),
+            'list-newLine': (value: string) => customListHandler((ref.current?.getEditor() as unknown) as Quill, value),
+            'blockquote-newLine': (value: boolean) =>
+              customBlockQuoteHandler((ref.current?.getEditor() as unknown) as Quill, value),
+          },
+        },
+      },
+    }),
+    []
+  );
 
   useEffect(() => {
-    setTest(true);
+    setIsRendered(true);
   }, []);
 
   return (
     <Container>
       <StyledQuillContainer>
-        {test && <ReactQuill theme={undefined} value={value} onChange={setValue} modules={Editor.modules} ref={ref} />}
-        {/*  <ReactQuill
-          ref={ref}
-          theme="bubble"
-          value={bubbleValue}
-          onChange={setBubbleValue}
-          style={{ border: '1px solid #5585ff' }}
-          modules={Editor.modules}
-        /> */}
-        {/*   <button onClick={() => setIsOpen(true)}>OPEN</button>
-        <div id="toolbar">
-          <Drawer visible={isOpen} forceRender={true} getContainer="#toolbar" onClose={() => setIsOpen(false)}>
-            <button className="ql-bold">B</button>
-            <button className="ql-color">C</button>
-            <button className="ql-insertHeart">H</button>
-          </Drawer>
-        </div> */}
-        {/*   <CustomDrawer id="toolbarrr">
-          <button className="ql-bold"></button>
-          <button className="ql-color"></button>
-          <button className="ql-insertHeart"></button>
-        </CustomDrawer> */}
-
+        {isRendered && (
+          <ReactQuill
+            theme={undefined}
+            value={value}
+            onChange={value => {
+              setValue(value);
+              setIsTurnIntoVisible(false);
+              setIsAddVisible(false);
+            }}
+            onChangeSelection={handleSelectionChange}
+            modules={Editor.modules}
+            ref={ref}
+          />
+        )}
         <EditorBarWrapper id="toolbar">
-          <DrawerPage
-            title="test"
-            OnClickComponent={() => <BarIcon svgLink={AddSvg} onClick={() => setIsVisible(true)} />}
-            onClose={() => setIsVisible(false)}
-            isVisible={isVisible}
-            getContainer="#toolbar"
-          >
-            <EditorButtons />
-          </DrawerPage>
-          <Separator />
-          <DrawerPage
-            isVisible={isVisible}
-            OnClickComponent={() => <TurnInto onClick={() => setIsVisible(true)}>Turn into</TurnInto>}
-            onClose={() => setIsVisible(false)}
-            title="Turn Into"
-            getContainer="#toolbar"
-          >
-            <EditorButtons />
-          </DrawerPage>
+          <ToggleabbleContainer isVisible={!isInlineVisible}>
+            <DrawerPage
+              title="Add in a new line"
+              OnClickComponent={() => (
+                <BarIcon
+                  svgLink={AddSvg}
+                  onClick={() => {
+                    editor?.focus();
+                    setIsTurnIntoVisible(true);
+                    turnIntoRef.current = false;
+                  }}
+                />
+              )}
+              onClose={() => setIsTurnIntoVisible(false)}
+              isVisible={isTurnIntoVisible}
+              getContainer="#toolbar"
+            >
+              <EditorButtons addInNewLine={true} />
+            </DrawerPage>
+            <Separator />
+            <DrawerPage
+              isVisible={isAddVisible}
+              OnClickComponent={() => (
+                <TurnInto
+                  onClick={() => {
+                    editor?.focus();
+                    setIsAddVisible(true);
+                    turnIntoRef.current = true;
+                  }}
+                >
+                  Turn into
+                </TurnInto>
+              )}
+              onClose={() => setIsAddVisible(false)}
+              title="Turn Into"
+              getContainer="#toolbar"
+            >
+              <EditorButtons />
+            </DrawerPage>
+          </ToggleabbleContainer>
+          <ToggleabbleContainer isVisible={isInlineVisible}>
+            <InlineButton className={`ql-bold`} svgLink={BoldSvg} />
+            <InlineButton className={`ql-code-block`} svgLink={CodeSvg} />
+            <InlineButton className={`ql-italic`} svgLink={ItalicSvg} />
+            <InlineButton className={`ql-underline`} svgLink={UnderlineSvg} />
+          </ToggleabbleContainer>
         </EditorBarWrapper>
       </StyledQuillContainer>
       <Page />
