@@ -10,6 +10,7 @@ import { GET_PERSONA } from 'global/graphqls/Persona';
 import { useParams } from 'react-router-dom';
 import { RecommendButtonPersona } from 'components/RecommendButton/RecommendButtonPersona';
 import { SavePersona } from '../SaveEntity/SavePersona';
+import { RecommendContactBook } from '../ContactBook/RecommendListContact';
 
 const Wrapper = styled.div`
   display: flex;
@@ -46,6 +47,7 @@ export const PersonaPreview: FC = () => {
         <RecommendButtonPersona />
       </Wrapper>
       <SecondPartPersona>
+        <RecommendContactBook />
         <SavePersona />
       </SecondPartPersona>
     </>

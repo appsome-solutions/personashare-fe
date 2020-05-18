@@ -59,17 +59,18 @@ export type gqlUser = {
 
 export type AgregatedPersona = {
   uuid: string;
+  personaUUIDs: string[];
   card: EntityCard;
   page: EntityPage;
-  personaUUIDs: string[];
   qrCodeLink: string;
-  networkList: string[];
+  networkList: AgregatedPersona[];
   recommendList: AgregatedPersona[];
   contactBook: AgregatedPersona[];
   visibilityList: AgregatedPersona[];
+  spotVisibilityList: AgregatedSpot[];
   spotBook: AgregatedSpot[];
   spotNetworkList: AgregatedSpot[];
-  spotRecommendList: AgregatedPersona[];
+  spotRecommendList: AgregatedSpot[];
 };
 
 export type AgregatedSpot = {

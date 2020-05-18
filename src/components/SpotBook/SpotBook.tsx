@@ -1,12 +1,14 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
-import { gqlEntity } from 'global/graphqls/schema';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
-import { GET_SPOTS, GetSpotType } from 'global/graphqls/Spot';
 import { HamburgerMenu } from '../../global/Layouts/HamburgerMenu/HamburgerMenu';
 import { SpotPage } from '../SpotPage/SpotPage';
+import { useHistory } from 'react-router-dom';
+import { APP_ROUTES } from '../../global/AppRouter/routes';
+import { GET_PERSONA, GetCardType } from '../../global/graphqls/Persona';
+import { AgregatedSpot } from 'global/graphqls/schema';
 
 const SpotBookStyled = styled.div`
   margin: 24px 16px 32px 16px;
@@ -23,8 +25,10 @@ const DateOfSave = styled.div`
 `;
 
 export const SpotBook: FC = () => {
-  const { loading, data } = useQuery<GetSpotType>(GET_SPOTS);
+  const { loading, data } = useQuery<GetCardType>(GET_PERSONA);
   const [searchValue, setSearchValue] = useState('');
+  const history = useHistory();
+
   if (loading) {
     return (
       <Overlay>
@@ -38,11 +42,11 @@ export const SpotBook: FC = () => {
   }
 
   const results = !searchValue
-    ? data?.userSpots
-    : data?.userSpots.filter(
-        userSpots =>
-          userSpots.card.name.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
-          userSpots.card.description.toLowerCase().includes(searchValue.toLocaleLowerCase())
+    ? data?.persona.spotBook
+    : data?.persona.spotBook.filter(
+        spotBook =>
+          spotBook.card.name.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+          spotBook.card.description.toLowerCase().includes(searchValue.toLocaleLowerCase())
       );
 
   return (
@@ -54,8 +58,15 @@ export const SpotBook: FC = () => {
         setSearchValue={setSearchValue}
       />
       <SpotBookStyled>
-        {results?.map((spot: gqlEntity) => (
-          <Wrapper key={spot.uuid}>
+        {results?.map((spot: AgregatedSpot) => (
+          <Wrapper
+            key={spot.uuid}
+            onClick={() =>
+              history.push({
+                pathname: `${APP_ROUTES.SPOT_PREVIEW(spot.uuid)}`,
+              })
+            }
+          >
             <DateOfSave>14.10.2019</DateOfSave>
             <SpotPage card={spot.card} uuid={spot.uuid} isWithEdit={true} />
           </Wrapper>
