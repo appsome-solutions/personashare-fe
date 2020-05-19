@@ -72,10 +72,10 @@ export const Contact: FC = () => {
       <TopNav isWithBackArrow />
       <PageWrapper justifyContent="flex-start">
         <StyledLogo src={LogoWithoutBG} />
-        <FormComponent title="Contact form" buttonLabel="Send" formId="contact_form">
+        <FormComponent title="Contact" buttonLabel="Send" formId="contact">
           <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
             {() => (
-              <Form id="contact_form">
+              <Form id="contact">
                 <InputField name="name" placeholder="Name" svgLink={PersonSvg} />
                 <InputField name="email" placeholder="Email" svgLink={EmailIconSvg} />
                 <Message name="message" placeholder="Message" type="textarea" rows={4} />

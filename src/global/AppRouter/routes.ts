@@ -12,7 +12,7 @@ export const APP_ROUTES = {
   PERSONA_CREATION_STEP_1: '/creation/step/1/entity/persona',
   PERSONA_CREATION_STEP_2: '/creation/step/2/entity/persona',
   PERSONA_CREATION_STEP_3: '/creation/step/3/entity/persona',
-  CONTACT_FORM: '/contact_form',
+  CONTACT: '/contact',
   RESET_PASSWORD: '/resetpassword',
   CHANGE_PASSWORD: '/changepassword',
   INFORMATIVE_CLAUSE: '/informativeclause',

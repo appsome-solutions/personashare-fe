@@ -6,7 +6,7 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
 import { PersonaCard } from 'components/PersonaCard/PersonaCard';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
-import { APP_ROUTES } from '../../global/AppRouter/routes';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 import { useHistory } from 'react-router-dom';
 import { AgregatedPersona } from 'global/graphqls/schema';
 
@@ -44,6 +44,7 @@ export const ContactBook: FC = () => {
           contactBook.card.name.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
           contactBook.card.description.toLowerCase().includes(searchValue.toLocaleLowerCase())
       );
+
   return (
     <>
       <HamburgerMenu

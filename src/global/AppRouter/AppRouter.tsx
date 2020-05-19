@@ -56,7 +56,7 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.PERSONA_CREATION_STEP_2} exact component={CreatePersonaCard} />
       <Route path={APP_ROUTES.PERSONA_CREATION_STEP_3} exact component={CreatePersonaPage} />
       <Route path="/persona-creation/page" exact component={Page} />
-      <Route path={APP_ROUTES.CONTACT_FORM} exact component={Contact} />
+      <Route path={APP_ROUTES.CONTACT} exact component={Contact} />
       <Route path={APP_ROUTES.RESET_PASSWORD} exact component={ResetPassword} />
       <Route path={APP_ROUTES.CHANGE_PASSWORD} exact component={ChangePassword} />
       <Route path={APP_ROUTES.SPOT_BOOK} exact component={SpotBook} />

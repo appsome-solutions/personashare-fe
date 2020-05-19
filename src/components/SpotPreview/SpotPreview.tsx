@@ -7,13 +7,15 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { EntityPageComp } from 'components/EntityPageComp/EntityPageComp';
 import { useParams } from 'react-router-dom';
 import { GET_SPOT_PAGE, GetCardType } from 'global/graphqls/Spot';
-import { RecommendButtonSpot } from '../RecommendButton/RecommendButtonSpot';
+import { RecommendButtonSpot } from 'components/RecommendButton/RecommendButtonSpot';
 import { SaveSpotButton } from 'components/SaveEntity/SaveSpot';
+
 const Cos = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
 `;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
