@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Router } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ThemeProvider } from 'styled-components';
-
+import { TermAndCookies } from 'pages/TermAndCookies/TermAndCookies';
 import { CoreTheme } from './global/Themes/CoreTheme';
 import { RWDProvider } from './global/RWD';
 import { StickyNavigation } from './global/Layouts/StickyNavigation/StickyNavigation';
@@ -29,6 +29,7 @@ const App: FunctionComponent = () => (
                 <ErrorHandler>
                   <AppRouter />
                 </ErrorHandler>
+                <TermAndCookies />
                 <StickyNavigation />
               </Router>
             </RWDProvider>
