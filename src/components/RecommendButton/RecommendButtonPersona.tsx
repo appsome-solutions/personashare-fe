@@ -46,6 +46,7 @@ export const RecommendButtonPersona: FC = () => {
           onConfirm={() => onConfirmFunctions()}
           okText="Yes"
           cancelText="No"
+          placement="bottomRight"
         >
           <RecommendEmpty src={recommendOff} alt="Recommend Off" />
         </Popconfirm>
