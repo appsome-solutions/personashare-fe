@@ -27,7 +27,6 @@ export const SavePersona: FC = () => {
   const [savePersona] = useMutation<SavePersonaResponse>(SAVE_PERSONA, {
     variables: {
       savedPersonaUuid: uuid,
-      personaUuid: userPersona?.user?.defaultPersona,
     },
   });
 
@@ -41,7 +40,7 @@ export const SavePersona: FC = () => {
   };
 
   const IsSaveFunction = () => {
-    if (!_.find(data?.persona.visibilityList, { uuid })) {
+    if (!_.find(data?.persona.contactBook, { uuid })) {
       return <WideButton onClick={() => onClickFunctions()}>SAVE</WideButton>;
     } else return <ButtonSavedStyled>SAVED</ButtonSavedStyled>;
   };

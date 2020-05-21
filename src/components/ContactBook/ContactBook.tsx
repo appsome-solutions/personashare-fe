@@ -8,7 +8,8 @@ import { PersonaCard } from 'components/PersonaCard/PersonaCard';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { useHistory } from 'react-router-dom';
-import { AgregatedPersona } from 'global/graphqls/schema';
+import { AgregatedPersona, gqlUser } from 'global/graphqls/schema';
+import { GET_USER } from 'global/graphqls/User';
 
 const ContactBookStyled = styled.div`
   margin: 30px 16px 40px 16px;
@@ -21,7 +22,10 @@ const Wrapper = styled.div`
 `;
 
 export const ContactBook: FC = () => {
-  const { loading, data } = useQuery<GetCardType>(GET_PERSONA);
+  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
+  const { data, loading } = useQuery<GetCardType>(GET_PERSONA, {
+    variables: { uuid: userPersona?.user?.defaultPersona },
+  });
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
 
@@ -33,10 +37,6 @@ export const ContactBook: FC = () => {
     );
   }
 
-  if (!data) {
-    return null;
-  }
-
   const results = !searchValue
     ? data?.persona.contactBook
     : data?.persona.contactBook.filter(
@@ -44,7 +44,6 @@ export const ContactBook: FC = () => {
           contactBook.card.name.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
           contactBook.card.description.toLowerCase().includes(searchValue.toLocaleLowerCase())
       );
-
   return (
     <>
       <HamburgerMenu

@@ -1,6 +1,6 @@
 import Carousel from '../Carousel/Carousel';
 import { gqlUser, AgregatedPersona } from 'global/graphqls/schema';
-import { PersonaCard } from 'components/PersonaCard/PersonaCard';
+import { PersonaCard } from '../PersonaCard/PersonaCard';
 import React, { FC, useRef } from 'react';
 import { Carousel as AntCarousel } from 'antd';
 import { useQuery } from '@apollo/react-hooks';

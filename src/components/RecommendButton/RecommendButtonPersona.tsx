@@ -4,12 +4,11 @@ import styled from 'styled-components';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { GET_PERSONA, GetCardType, RECOMMEND_PERSONA, RecommendPersonaResponse } from 'global/graphqls/Persona';
 import recommendOn from 'assets/recommendOn.svg';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Popconfirm } from 'antd';
 import { gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
 import _ from 'lodash';
-import { APP_ROUTES } from '../../global/AppRouter/routes';
 
 const RecommendEmpty = styled.img`
   position: absolute;
@@ -20,12 +19,11 @@ const RecommendEmpty = styled.img`
 export const RecommendButtonPersona: FC = () => {
   const { uuid } = useParams();
   const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
-  const history = useHistory();
 
   const [recommendPersona] = useMutation<RecommendPersonaResponse>(RECOMMEND_PERSONA, {
     variables: { recommendedPersonaUuid: uuid, personaUuid: userPersona?.user?.defaultPersona },
   });
-  const { data } = useQuery<GetCardType>(GET_PERSONA, {
+  const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: userPersona?.user?.defaultPersona },
   });
 
@@ -35,9 +33,7 @@ export const RecommendButtonPersona: FC = () => {
 
   const onConfirmFunctions = async () => {
     await recommendPersona();
-    await history.push({
-      pathname: APP_ROUTES.CHOOSE_PERSONA,
-    });
+    await refetch();
   };
 
   const IsRecommendedFunction = () => {
@@ -50,6 +46,7 @@ export const RecommendButtonPersona: FC = () => {
           onConfirm={() => onConfirmFunctions()}
           okText="Yes"
           cancelText="No"
+          placement="bottomRight"
         >
           <RecommendEmpty src={recommendOff} alt="Recommend Off" />
         </Popconfirm>

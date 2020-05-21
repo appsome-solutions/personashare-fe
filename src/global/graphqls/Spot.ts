@@ -50,8 +50,8 @@ export interface SaveSpotResponse {
 }
 
 export const SAVE_SPOT = gql`
-  mutation saveSpot($savedSpotUuid: String!, $personaUuid: String!) {
-    saveSpot(savedSpotUuid: $savedSpotUuid, personaUuid: $personaUuid) {
+  mutation saveSpot($savedSpotUuid: String!) {
+    saveSpot(savedSpotUuid: $savedSpotUuid) {
       uuid
     }
   }

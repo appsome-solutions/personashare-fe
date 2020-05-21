@@ -7,7 +7,7 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { EntityPageComp } from 'components/EntityPageComp/EntityPageComp';
 import { useParams } from 'react-router-dom';
 import { GET_SPOT_PAGE, GetCardType } from 'global/graphqls/Spot';
-import { RecommendButtonSpot } from 'components/RecommendButton/RecommendButtonSpot';
+import { RecommendButtonSpot } from '../RecommendButton/RecommendButtonSpot';
 import { SaveSpotButton } from 'components/SaveEntity/SaveSpot';
 
 const MainComponent = styled.div`
@@ -15,7 +15,6 @@ const MainComponent = styled.div`
   flex-direction: column;
   height: 100vh;
 `;
-
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;

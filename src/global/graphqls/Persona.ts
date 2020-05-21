@@ -80,8 +80,8 @@ export interface SavePersonaResponse {
 }
 
 export const SAVE_PERSONA = gql`
-  mutation savePersona($savedPersonaUuid: String!, $personaUuid: String!) {
-    savePersona(savedPersonaUuid: $savedPersonaUuid, personaUuid: $personaUuid) {
+  mutation savePersona($savedPersonaUuid: String!) {
+    savePersona(savedPersonaUuid: $savedPersonaUuid) {
       uuid
     }
   }
@@ -179,6 +179,34 @@ export const GET_PERSONA = gql`
       }
       spotVisibilityList {
         uuid
+      }
+      contactBook {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      spotBook {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
       }
     }
   }

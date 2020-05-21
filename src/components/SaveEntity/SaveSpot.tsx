@@ -28,7 +28,6 @@ export const SaveSpotButton: FC = () => {
   const [saveSpot] = useMutation<SaveSpotResponse>(SAVE_SPOT, {
     variables: {
       savedSpotUuid: uuid,
-      personaUuid: userPersona?.user?.defaultPersona,
     },
   });
 
@@ -42,7 +41,7 @@ export const SaveSpotButton: FC = () => {
   };
 
   const IsSaveFunction = () => {
-    if (!_.find(data?.persona.spotVisibilityList, { uuid })) {
+    if (!_.find(data?.persona.spotBook, { uuid })) {
       return <WideButton onClick={() => onClickFunctions()}>SAVE</WideButton>;
     } else return <ButtonSavedStyled>SAVED</ButtonSavedStyled>;
   };

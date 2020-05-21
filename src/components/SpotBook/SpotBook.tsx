@@ -8,7 +8,8 @@ import { SpotPage } from 'components/SpotPage/SpotPage';
 import { useHistory } from 'react-router-dom';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
-import { AgregatedSpot } from 'global/graphqls/schema';
+import { AgregatedSpot, gqlUser } from 'global/graphqls/schema';
+import { GET_USER } from 'global/graphqls/User';
 
 const SpotBookStyled = styled.div`
   margin: 24px 16px 32px 16px;
@@ -25,7 +26,10 @@ const DateOfSave = styled.div`
 `;
 
 export const SpotBook: FC = () => {
-  const { loading, data } = useQuery<GetCardType>(GET_PERSONA);
+  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
+  const { data, loading } = useQuery<GetCardType>(GET_PERSONA, {
+    variables: { uuid: userPersona?.user?.defaultPersona },
+  });
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
 
@@ -35,10 +39,6 @@ export const SpotBook: FC = () => {
         <Spinner />
       </Overlay>
     );
-  }
-
-  if (!data) {
-    return null;
   }
 
   const results = !searchValue
