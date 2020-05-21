@@ -4,7 +4,7 @@ import { Button } from 'components/Button/Button';
 import Rocket from 'assets/rocket.svg';
 import useLocalStorage from 'react-use-localstorage';
 
-const CookiesBarStyled = styled.div`
+const SaveOnDesktopStyled = styled.div`
   display: flex;
   padding: 12px 20px;
   flex-direction: column;
@@ -47,7 +47,7 @@ export const SaveOnDesktop: FunctionComponent = () => {
   }
 
   return (
-    <CookiesBarStyled>
+    <SaveOnDesktopStyled>
       <CloseSign onClick={() => setIsSave('false')}>x</CloseSign>
       <ImgWithText>
         <ImgStyled>
@@ -60,6 +60,6 @@ export const SaveOnDesktop: FunctionComponent = () => {
         </CookieText>
       </ImgWithText>
       <ButtonAccept>SAVE!</ButtonAccept>
-    </CookiesBarStyled>
+    </SaveOnDesktopStyled>
   );
 };

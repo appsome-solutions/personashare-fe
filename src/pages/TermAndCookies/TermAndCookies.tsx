@@ -5,6 +5,8 @@ import LogoWithoutBG from 'assets/logo_nobg.svg';
 import useLocalStorage from 'react-use-localstorage';
 import { NavLink } from 'react-router-dom';
 import { APP_ROUTES } from 'global/AppRouter/routes';
+import LinkIn from 'assets/LinkIn.svg';
+import FbIcon from 'assets/FbIcon.svg';
 
 const CookiesBarStyled = styled.div`
   display: flex;
@@ -31,10 +33,24 @@ const TextHere = styled.span`
   text-decoration-skip: spaces;
 `;
 
-const PersonaIcon = styled.img``;
-
 const ButtonAccept = styled(Button)`
-  width: auto;
+  width: 160px;
+`;
+
+const LinkedInBox = styled.div`
+  margin-right: 8px;
+  margin-left: 8px;
+`;
+
+const ImgAndButtonBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ImgHeight = styled.img`
+  height: 36px;
 `;
 
 export const TermAndCookies: FunctionComponent = () => {
@@ -46,7 +62,7 @@ export const TermAndCookies: FunctionComponent = () => {
 
   return (
     <CookiesBarStyled>
-      <PersonaIcon alt="cookie icon" src={LogoWithoutBG} />
+      <img alt="cookie icon" src={LogoWithoutBG} />
       <CookieText>
         Welcome to PersonaShare!
         <br />
@@ -57,10 +73,20 @@ export const TermAndCookies: FunctionComponent = () => {
         We are all #PersonashareFamily so we care about your privacy. This website uses cookies. By using this website
         you agree with our <br />
         <NavLink to={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY}>
-          <TextHere>privacy and cookies policy</TextHere>.
+          <TextHere>privacy and cokies policy</TextHere>.
         </NavLink>
       </CookieText>
-      <ButtonAccept onClick={() => setIsVisible('false')}>I UNDERSTAND</ButtonAccept>
+      <ImgAndButtonBox>
+        <a href="https://www.facebook.com/PersonaShare-110785183877737">
+          <ImgHeight alt="Facebook icon" src={FbIcon} />
+        </a>
+        <LinkedInBox>
+          <a href="https://www.linkedin.com/groups/8868704/?fbclid=IwAR1ET4HY6Tx14BCHpwz0Con4mopJV5UScAK9Gt26eZ8SKkQu3XSGvDdDh28">
+            <ImgHeight alt="LinkedIn icon" src={LinkIn} />
+          </a>
+        </LinkedInBox>
+        <ButtonAccept onClick={() => setIsVisible('false')}>I UNDERSTAND</ButtonAccept>
+      </ImgAndButtonBox>
     </CookiesBarStyled>
   );
 };
