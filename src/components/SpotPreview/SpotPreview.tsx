@@ -15,6 +15,7 @@ const MainComponent = styled.div`
   flex-direction: column;
   height: 100vh;
 `;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
