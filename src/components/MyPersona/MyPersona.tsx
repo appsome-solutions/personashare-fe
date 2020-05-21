@@ -154,7 +154,7 @@ export const MyPersona: FC = () => {
             ))}
         </Carousel>
         <ShareQr>
-          <img src={`${data.userPersonas[currentSlide].qrCodeLink}`} />
+          <img src={`${data.userPersonas[currentSlide].qrCodeLink}`} alt="QrCode Icon" />
           <TextInShare>
             <ShareQrIcon src={ShareQrCode} alt="Share Qr Code" />
             <LinkStyled href={`${data.userPersonas[currentSlide].qrCodeLink}`} download="output.png">
