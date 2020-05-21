@@ -18,12 +18,10 @@ const PersonaCircleWrapperStyle = styled(PersonaCircleWrapper)`
 
 export const EntityPageComp: FC<PageProps> = ({ page }) => {
   return (
-    <>
-      <BackgroundPlaceholderStyle background={page.background} alt="Card background">
-        <PersonaCircleWrapperStyle>
-          <PersonaCircle avatar={page.avatar} alt="Avatar card" />
-        </PersonaCircleWrapperStyle>
-      </BackgroundPlaceholderStyle>
-    </>
+    <BackgroundPlaceholderStyle background={page.background} alt="Card background">
+      <PersonaCircleWrapperStyle>
+        <PersonaCircle avatar={page.avatar} alt="Avatar card" />
+      </PersonaCircleWrapperStyle>
+    </BackgroundPlaceholderStyle>
   );
 };
