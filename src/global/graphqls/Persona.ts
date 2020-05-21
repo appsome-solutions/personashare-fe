@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { AgregatedPersona, AgregatedSpot, EntityCard, gqlEntity } from 'global/graphqls/schema';
+import { AgregatedPersona, gqlEntity } from './schema';
 
 export const CREATE_PERSONA = gql`
   mutation createPersona($payload: CreatePersonaInput!) {
@@ -80,8 +80,8 @@ export interface SavePersonaResponse {
 }
 
 export const SAVE_PERSONA = gql`
-  mutation savePersona($savedPersonaUuid: String!, $personaUuid: String!) {
-    savePersona(savedPersonaUuid: $savedPersonaUuid, personaUuid: $personaUuid) {
+  mutation savePersona($savedPersonaUuid: String!) {
+    savePersona(savedPersonaUuid: $savedPersonaUuid) {
       uuid
     }
   }
@@ -109,12 +109,8 @@ export const UPDATE_PERSONA = gql`
 `;
 
 export type GetCardType = {
-  persona: {
-    uuid: string;
-    card: EntityCard;
-    recommendList: AgregatedPersona[];
-    participate: AgregatedSpot[];
-  };
+  persona: AgregatedPersona;
+  recommendList: AgregatedPersona[];
 };
 
 export const GET_PERSONA_CARD = gql`
@@ -175,7 +171,30 @@ export const GET_PERSONA = gql`
           content
         }
       }
-      participate {
+      visibilityList {
+        uuid
+      }
+      spotRecommendList {
+        uuid
+      }
+      spotVisibilityList {
+        uuid
+      }
+      contactBook {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      spotBook {
         uuid
         card {
           name
