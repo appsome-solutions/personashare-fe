@@ -6,10 +6,10 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
 import { PersonaCard } from 'components/PersonaCard/PersonaCard';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
-import { APP_ROUTES } from '../../global/AppRouter/routes';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 import { useHistory } from 'react-router-dom';
 import { AgregatedPersona, gqlUser } from 'global/graphqls/schema';
-import { GET_USER } from '../../global/graphqls/User';
+import { GET_USER } from 'global/graphqls/User';
 
 const ContactBookStyled = styled.div`
   margin: 30px 16px 40px 16px;

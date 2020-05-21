@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
-import { HamburgerMenu } from '../../global/Layouts/HamburgerMenu/HamburgerMenu';
-import { SpotPage } from '../SpotPage/SpotPage';
+import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
+import { SpotPage } from 'components/SpotPage/SpotPage';
 import { useHistory } from 'react-router-dom';
-import { APP_ROUTES } from '../../global/AppRouter/routes';
-import { GET_PERSONA, GetCardType } from '../../global/graphqls/Persona';
+import { APP_ROUTES } from 'global/AppRouter/routes';
+import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { AgregatedSpot, gqlUser } from 'global/graphqls/schema';
-import { GET_USER } from '../../global/graphqls/User';
+import { GET_USER } from 'global/graphqls/User';
 
 const SpotBookStyled = styled.div`
   margin: 24px 16px 32px 16px;

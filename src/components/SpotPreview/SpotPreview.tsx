@@ -9,7 +9,8 @@ import { useParams } from 'react-router-dom';
 import { GET_SPOT_PAGE, GetCardType } from 'global/graphqls/Spot';
 import { RecommendButtonSpot } from '../RecommendButton/RecommendButtonSpot';
 import { SaveSpotButton } from 'components/SaveEntity/SaveSpot';
-const Cos = styled.div`
+
+const MainComponent = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -43,7 +44,7 @@ export const SpotPreview: FC = () => {
   }
 
   return (
-    <Cos>
+    <MainComponent>
       <Wrapper key={data.spot.uuid}>
         <EntityPageComp page={data.spot.page} />
         <RecommendButtonSpot />
@@ -51,6 +52,6 @@ export const SpotPreview: FC = () => {
       <SecondPartSpot>
         <SaveSpotButton />
       </SecondPartSpot>
-    </Cos>
+    </MainComponent>
   );
 };

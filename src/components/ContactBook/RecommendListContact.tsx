@@ -1,11 +1,11 @@
 import Carousel from '../Carousel/Carousel';
-import { gqlUser, AgregatedPersona } from '../../global/graphqls/schema';
+import { gqlUser, AgregatedPersona } from 'global/graphqls/schema';
 import { PersonaCard } from '../PersonaCard/PersonaCard';
 import React, { FC, useRef } from 'react';
 import { Carousel as AntCarousel } from 'antd';
 import { useQuery } from '@apollo/react-hooks';
-import { GET_PERSONA, GetCardType } from '../../global/graphqls/Persona';
-import { GET_USER } from '../../global/graphqls/User';
+import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
+import { GET_USER } from 'global/graphqls/User';
 import styled from 'styled-components';
 
 const RecommendText = styled.div`

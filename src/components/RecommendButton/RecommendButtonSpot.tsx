@@ -9,7 +9,7 @@ import { gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
 import _ from 'lodash';
 import { RECOMMEND_SPOT, RecommendSpotResponse } from 'global/graphqls/Spot';
-import { GET_PERSONA, GetCardType } from '../../global/graphqls/Persona';
+import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 
 const RecommendEmpty = styled.img`
   position: absolute;
