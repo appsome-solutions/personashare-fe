@@ -15,7 +15,7 @@ export const useWorkerDecode = ({ capture, interval, onCode }: UseWorkerDecode):
     const onMessage = (message: MessageEvent): void => {
       onCode(message.data);
     };
-    setWorker(prevState => {
+    setWorker((prevState) => {
       prevState = new Worker();
       prevState.addEventListener('message', onMessage);
       return prevState;
@@ -27,7 +27,7 @@ export const useWorkerDecode = ({ capture, interval, onCode }: UseWorkerDecode):
         setWorker(null);
       }
       clearInterval(timer);
-    }; // eslint-disable-next-line
+    };
   }, [capture, interval, onCode]);
   return worker;
 };
