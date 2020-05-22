@@ -4,7 +4,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const bundleAnalyzerPlugin = config => {
-  config.plugins.push(new BundleAnalyzerPlugin());
+  // config.plugins.push(new BundleAnalyzerPlugin());
   return config;
 };
 
