@@ -64,7 +64,7 @@ export const Contact: FC = () => {
       })
       .catch(e => {
         setApiError(e.message ? e.message : 'Error while sending an email');
-      });
+      }); // eslint-disable-next-line
   }, []);
 
   return (

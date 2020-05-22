@@ -50,7 +50,7 @@ export const ChangePassword: FC = () => {
       history.push(redirectUrl);
     } catch (e) {
       setApiError(e.message ? e.message : 'Error while resetting password');
-    }
+    } // eslint-disable-next-line
   }, []);
 
   return (
