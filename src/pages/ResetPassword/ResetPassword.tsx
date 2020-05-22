@@ -48,7 +48,7 @@ export const ResetPassword: FC = () => {
       history.push(APP_ROUTES.LOGIN);
     } catch (e) {
       setApiError(e.message ? e.message : 'Error while sending an reset email');
-    }
+    } // eslint-disable-next-line
   }, []);
 
   return (

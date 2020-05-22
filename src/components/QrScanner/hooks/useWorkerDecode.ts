@@ -27,7 +27,7 @@ export const useWorkerDecode = ({ capture, interval, onCode }: UseWorkerDecode):
         setWorker(null);
       }
       clearInterval(timer);
-    };
+    }; // eslint-disable-next-line
   }, [capture, interval, onCode]);
   return worker;
 };
