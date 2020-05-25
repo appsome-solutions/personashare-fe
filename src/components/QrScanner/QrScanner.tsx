@@ -29,7 +29,7 @@ type ExtendedWebcam = {
   ref: RefObject<Webcam>;
 };
 
-const StyledWebcam = styled(Webcam)<ExtendedWebcam>`
+const StyledWebcam = styled(Webcam)<ExtendedWebcam | any>`
   width: 100%;
   height: 100vh;
   object-fit: fill;

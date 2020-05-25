@@ -13,7 +13,7 @@ import { useUserContext } from 'global/UserContext/UserContext';
 import { gqlEntity } from 'global/graphqls/schema';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink, Route, useHistory } from 'react-router-dom';
 import AddIcon from 'assets/AddIcon.svg';
 import ShareQrCode from 'assets/ShareQrCode.svg';
 import { MyPersonaWithoutSpots } from './MyPersonaWithoutPersona';
@@ -96,6 +96,7 @@ export const MyPersona: FC = () => {
   const { user } = useUserContext();
   const [defaultPersonaUuid, setDefaultPersonaUuid] = useState(user?.defaultPersona);
   const carousel = useRef<AntCarousel>(null);
+  const history = useHistory();
 
   useEffect(() => {
     if (data?.userPersonas) {
@@ -135,7 +136,13 @@ export const MyPersona: FC = () => {
           {data.userPersonas &&
             data.userPersonas.map((persona: gqlEntity) => (
               <CaruouselItem key={persona.uuid}>
-                <Wrapper>
+                <Wrapper
+                  onClick={() =>
+                    history.push({
+                      pathname: `${APP_ROUTES.PERSONA_PREVIEW(persona.uuid)}`,
+                    })
+                  }
+                >
                   <PersonaCard card={persona.card} uuid={persona.uuid} isWithEdit={true} />
                   {persona.uuid === defaultPersonaUuid ? (
                     <DefaultBlock>DEFAULT</DefaultBlock>
@@ -147,7 +154,7 @@ export const MyPersona: FC = () => {
             ))}
         </Carousel>
         <ShareQr>
-          <img src={`${data.userPersonas[currentSlide].qrCodeLink}`} />
+          <img src={`${data.userPersonas[currentSlide].qrCodeLink}`} alt="QrCode Icon" />
           <TextInShare>
             <ShareQrIcon src={ShareQrCode} alt="Share Qr Code" />
             <LinkStyled href={`${data.userPersonas[currentSlide].qrCodeLink}`} download="output.png">

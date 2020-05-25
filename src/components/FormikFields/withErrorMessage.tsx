@@ -16,7 +16,7 @@ const ErrorText = styled.div`
   color: ${props => props.theme.colors.functional.error};
 `;
 
-export function withErrorMessage<P extends FieldProps>(FieldComponent: fieldComponent<P>) {
+export function withErrorMessage<P extends FieldProps>(FieldComponent: fieldComponent<P> | any) {
   // eslint-disable-next-line react/display-name
   return (props: P) => (
     <WithErrorMessageContainer>

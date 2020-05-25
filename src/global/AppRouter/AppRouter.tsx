@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { QrScanner } from 'components/QrScanner/QrScanner';
+// import { QrScanner } from 'components/QrScanner/QrScanner';
 import { Home } from 'pages/Home/Home';
 import { Register } from 'pages/Register/Register';
 import { Login } from 'pages/Login/Login';
@@ -28,12 +28,14 @@ import { InformativeClause } from 'components/TermandPrivacy/InformativeClausule
 import { ContactBook } from 'components/ContactBook/ContactBook';
 import { APP_ROUTES } from './routes';
 import { SpotBook } from 'components/SpotBook/SpotBook';
+import { PersonaPreview } from 'components/PersonaPreview/PersonaPreview';
+import { SpotPreview } from 'components/SpotPreview/SpotPreview';
 
 export const AppRouter: FunctionComponent = () => {
   return (
     <Switch>
       <Route path={APP_ROUTES.ROOT} exact component={Home} />
-      <Route path={APP_ROUTES.SCANNER} exact component={() => <QrScanner onCode={res => alert(res.data)} />} />
+      {/*<Route path={APP_ROUTES.SCANNER} exact component={() => <QrScanner onCode={res => alert(res.data)} />} />*/}
       <Route path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
       <Route path={APP_ROUTES.CHOOSE_PERSONA} exact component={ChoosePersona} />
       <Route path={APP_ROUTES.MY_PERSONAS} exact component={MyPersona} />
@@ -54,11 +56,13 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.PERSONA_CREATION_STEP_2} exact component={CreatePersonaCard} />
       <Route path={APP_ROUTES.PERSONA_CREATION_STEP_3} exact component={CreatePersonaPage} />
       <Route path="/persona-creation/page" exact component={Page} />
-      <Route path={APP_ROUTES.CONTACT_FORM} exact component={Contact} />
+      <Route path={APP_ROUTES.CONTACT} exact component={Contact} />
       <Route path={APP_ROUTES.RESET_PASSWORD} exact component={ResetPassword} />
       <Route path={APP_ROUTES.CHANGE_PASSWORD} exact component={ChangePassword} />
       <Route path={APP_ROUTES.SPOT_BOOK} exact component={SpotBook} />
       <Route path={APP_ROUTES.CONTACT_BOOK} exact component={ContactBook} />
+      <Route path={APP_ROUTES.PERSONA_PREVIEW(':uuid')} exact component={PersonaPreview} />
+      <Route path={APP_ROUTES.SPOT_PREVIEW(':uuid')} exact component={SpotPreview} />
     </Switch>
   );
 };

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { EntityCard } from 'components/CreateSpotAndPersona/CreateCard/EntityCard';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { CardType } from 'global/graphqls/schema';
-import { GET_PERSONA_CARD, GetCardType, UPDATE_PERSONA_CARD } from 'global/graphqls/Persona';
+import { GET_PERSONA, GetCardType, UPDATE_PERSONA_CARD } from 'global/graphqls/Persona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const cardInitialValues: CardType = {
@@ -17,7 +17,7 @@ const cardInitialValues: CardType = {
 
 export const EditPersonaCard: FC = () => {
   const { uuid } = useParams();
-  const { data } = useQuery<GetCardType>(GET_PERSONA_CARD, {
+  const { data } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid },
   });
   const initialValues = data ? data.persona.card : cardInitialValues;
