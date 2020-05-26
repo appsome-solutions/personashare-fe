@@ -8,8 +8,8 @@ export interface RecommendSpotResponse {
 }
 
 export const RECOMMEND_SPOT = gql`
-  mutation recommendSpot($recommendedSpotUuid: String!, $personaUuid: String!) {
-    recommendSpot(recommendedSpotUuid: $recommendedSpotUuid, personaUuid: $personaUuid) {
+  mutation recommendSpot($recommendedSpotUuid: String!) {
+    recommendSpot(recommendedSpotUuid: $recommendedSpotUuid) {
       uuid
     }
   }
