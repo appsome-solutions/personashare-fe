@@ -9,8 +9,8 @@ import { NavigationElement } from './NavigationElement/NavigationElement';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const StyledRow = styled(Row)`
-  background-color: ${props => props.theme.colors.utils.background.light};
-  border-top: 2px solid ${props => props.theme.colors.functional.disabled};
+  background-color: ${(props) => props.theme.colors.utils.background.light};
+  border-top: 2px solid ${(props) => props.theme.colors.functional.disabled};
   height: 52px;
   width: 100%;
   position: sticky;
@@ -19,7 +19,7 @@ const StyledRow = styled(Row)`
 
 export const StickyNavigation = withRouter(({ location: { pathname } }) => {
   return (
-    <StyledRow type="flex" justify="center">
+    <StyledRow justify="center">
       <NavigationElement
         isActive={pathname === APP_ROUTES.SCANNER}
         svg={QrCodeNavSvg}
