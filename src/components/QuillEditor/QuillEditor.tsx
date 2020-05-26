@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo, FC } from 'react';
 import styled from 'styled-components';
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill as QuillClass } from 'react-quill';
 import { DrawerPage } from 'components/DrawerPage/DrawerPage';
 import 'react-quill/dist/quill.snow.css';
 import { Icon } from 'components/Icon';
@@ -12,6 +12,7 @@ import UnderlineSvg from 'assets/format_underlined.svg';
 import CodeSvg from 'assets/code.svg';
 import Quill from 'quill';
 import { InlineButton } from './Buttons/InlineButton';
+import CustomEmbed from './EmbedComponents/CustomEmbedComponent';
 
 const StyledQuillContainer = styled.div`
   width: 100%;
@@ -30,8 +31,8 @@ export const EditorBarWrapper = styled.div`
   z-index: 9999;
   display: none;
   align-items: center;
-  background-color: ${props => props.theme.colors.utils.background.light};
-  border-top: 1px solid ${props => props.theme.colors.functional.disabled};
+  background-color: ${(props) => props.theme.colors.utils.background.light};
+  border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
   ${StyledQuillContainer}:hover & {
     display: flex;
   }
@@ -51,9 +52,9 @@ export const BarIcon = styled(Icon)`
 `;
 
 export const EditorButtonWrapper = styled.div`
-  border-top: 1px solid ${props => props.theme.colors.functional.disabled};
+  border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
   &:last-child {
-    border-bottom: 1px solid ${props => props.theme.colors.functional.disabled};
+    border-bottom: 1px solid ${(props) => props.theme.colors.functional.disabled};
   }
   display: flex;
   align-items: center;
@@ -61,7 +62,7 @@ export const EditorButtonWrapper = styled.div`
 
 export const EditorButtonIconWrapper = styled.span`
   margin: 12px;
-  border: 1px solid ${props => props.theme.colors.functional.disabled};
+  border: 1px solid ${(props) => props.theme.colors.functional.disabled};
 
   height: 32px;
   width: 32px;
@@ -72,13 +73,13 @@ export const EditorButtonIconWrapper = styled.span`
 `;
 
 const ToggleabbleContainer = styled.div<{ isVisible: boolean }>`
-  display: ${props => (props.isVisible ? 'flex' : 'none')};
+  display: ${(props) => (props.isVisible ? 'flex' : 'none')};
 `;
 
 const Separator = styled.div`
   width: 1px;
   height: 36px;
-  background-color: ${props => props.theme.colors.functional.disabled};
+  background-color: ${(props) => props.theme.colors.functional.disabled};
 `;
 
 const TurnInto = styled.span`
@@ -103,18 +104,31 @@ const customBlockQuoteHandler = (editor: Quill, value: boolean): void => {
   insertIntoEditor(editor, value, 'blockquote');
 };
 
+const customHandler = (editor: Quill): void => {
+  const cursor = editor.getSelection()?.index || 0;
+  editor.insertEmbed(cursor, 'custom', {});
+  console.warn('custom handler called', editor);
+};
+
 type Range = {
   index: number;
   length: number;
 };
 
 type Props = {
-  onChange?: (value: string) => void;
+  onChange?: (value: any) => void;
   initialValue?: string;
 };
 
+QuillClass.register(
+  {
+    'formats/custom': CustomEmbed,
+  },
+  true
+);
+
 const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState<any>(initialValue);
   const [isRendered, setIsRendered] = useState(false);
   const [isTurnIntoVisible, setIsTurnIntoVisible] = useState(false);
   const [isAddVisible, setIsAddVisible] = useState(false);
@@ -143,6 +157,7 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
             'list-newLine': (value: string) => customListHandler((ref.current?.getEditor() as unknown) as Quill, value),
             'blockquote-newLine': (value: boolean) =>
               customBlockQuoteHandler((ref.current?.getEditor() as unknown) as Quill, value),
+            custom: () => customHandler((ref.current?.getEditor() as unknown) as Quill),
           },
         },
       },
@@ -160,14 +175,18 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
         <ReactQuill
           theme={undefined}
           value={value}
-          onChange={value => {
-            setValue(value);
-            onChange && onChange(value);
-            setIsTurnIntoVisible(false);
-            setIsAddVisible(false);
+          onChange={(value, delta, source, editor) => {
+            if (value && delta && source && editor) {
+              const currentDelta = editor.getContents();
+              setValue(currentDelta);
+              onChange && onChange(currentDelta);
+              setIsTurnIntoVisible(false);
+              setIsAddVisible(false);
+            }
           }}
           onChangeSelection={handleSelectionChange}
           modules={Editor.modules}
+          // formats={['custom', 'bold', 'header1']}
           placeholder="Edit card..."
           ref={ref}
         />
@@ -218,6 +237,7 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
           <InlineButton className={`ql-code-block`} svgLink={CodeSvg} />
           <InlineButton className={`ql-italic`} svgLink={ItalicSvg} />
           <InlineButton className={`ql-underline`} svgLink={UnderlineSvg} />
+          <InlineButton className={`ql-custom`} svgLink={UnderlineSvg} />
         </ToggleabbleContainer>
       </EditorBarWrapper>
     </StyledQuillContainer>

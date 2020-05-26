@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Route, Switch } from 'react-router-dom';
-// import { QrScanner } from 'components/QrScanner/QrScanner';
+import { QrScanner } from 'components/QrScanner/QrScanner';
 import { Home } from 'pages/Home/Home';
 import { Register } from 'pages/Register/Register';
 import { Login } from 'pages/Login/Login';
@@ -30,12 +30,14 @@ import { APP_ROUTES } from './routes';
 import { SpotBook } from 'components/SpotBook/SpotBook';
 import { PersonaPreview } from 'components/PersonaPreview/PersonaPreview';
 import { SpotPreview } from 'components/SpotPreview/SpotPreview';
+import QuillEditor from 'components/QuillEditor/QuillEditor';
 
 export const AppRouter: FunctionComponent = () => {
   return (
     <Switch>
+      <Route path="/editor" exact component={QuillEditor} />
       <Route path={APP_ROUTES.ROOT} exact component={Home} />
-      {/*<Route path={APP_ROUTES.SCANNER} exact component={() => <QrScanner onCode={res => alert(res.data)} />} />*/}
+      <Route path={APP_ROUTES.SCANNER} exact component={() => <QrScanner onCode={(res) => alert(res.data)} />} />
       <Route path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
       <Route path={APP_ROUTES.CHOOSE_PERSONA} exact component={ChoosePersona} />
       <Route path={APP_ROUTES.MY_PERSONAS} exact component={MyPersona} />
