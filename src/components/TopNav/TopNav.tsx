@@ -9,13 +9,13 @@ type TopNavType = {
 };
 
 const StyledIcon = styled(Icon)`
-  background-color: ${props => props.theme.colors.utils.background.light};
+  background-color: ${(props) => props.theme.colors.utils.background.light};
   margin-right: 6px;
 `;
 
 const NavWrapper = styled.div`
   height: 56px;
-  background-color: ${props => props.theme.colors.main.primary};
+  background-color: ${(props) => props.theme.colors.main.primary};
   display: flex;
 `;
 
@@ -27,10 +27,10 @@ const BackWrapper = styled.span`
 `;
 
 const BackText = styled.span`
-  font-size: ${props => props.theme.typography.subtitle1.fontSize};
+  font-size: ${(props) => props.theme.typography.subtitle1.fontSize};
   font-weight: 600;
-  letter-spacing: ${props => props.theme.typography.subtitle1.letterSpacing};
-  color: ${props => props.theme.colors.utils.text.light};
+  letter-spacing: ${(props) => props.theme.typography.subtitle1.letterSpacing};
+  color: ${(props) => props.theme.colors.utils.text.light};
 `;
 
 export const TopNav = ({ isWithBackArrow }: TopNavType) => {
