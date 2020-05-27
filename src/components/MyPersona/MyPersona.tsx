@@ -19,7 +19,7 @@ import ShareQrCode from 'assets/ShareQrCode.svg';
 import { MyPersonaWithoutSpots } from './MyPersonaWithoutPersona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(Button as any)`
   width: 80%;
   margin-left: auto;
   margin-right: auto;
@@ -34,7 +34,7 @@ const DefaultBlock = styled.div`
   margin-left: auto;
   margin-right: auto;
   font-weight: 600;
-  color: ${props => props.theme.colors.utils.text.dark};
+  color: ${(props) => props.theme.colors.utils.text.dark};
   background-color: rgba(85, 133, 255, 0.4);
   border: 1px solid rgba(85, 133, 255, 0.2);
   border-radius: 5px;
@@ -59,7 +59,7 @@ const CreatePersona = styled.div`
   position: fixed;
   bottom: 66px;
   right: 18px;
-  background-color: ${props => props.theme.colors.main.primary};
+  background-color: ${(props) => props.theme.colors.main.primary};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,7 +75,7 @@ const ShareQr = styled.div`
 `;
 
 const TextInShare = styled.div`
-  ${props => props.theme.typography.subtitle2};
+  ${(props) => props.theme.typography.subtitle2};
   margin-bottom: 20px;
 `;
 
@@ -84,8 +84,8 @@ const ShareQrIcon = styled.img`
 `;
 
 const LinkStyled = styled.a`
-  color: ${props => props.theme.colors.utils.text.dark};
-  ${props => props.theme.typography.subtitle2}
+  color: ${(props) => props.theme.colors.utils.text.dark};
+  ${(props) => props.theme.typography.subtitle2}
   text-decoration:none;
 `;
 
@@ -100,7 +100,7 @@ export const MyPersona: FC = () => {
 
   useEffect(() => {
     if (data?.userPersonas) {
-      const defaultPersonaIndex = data.userPersonas.findIndex(persona => persona.uuid === defaultPersonaUuid);
+      const defaultPersonaIndex = data.userPersonas.findIndex((persona) => persona.uuid === defaultPersonaUuid);
       const goToIndex = defaultPersonaIndex === -1 ? 0 : defaultPersonaIndex;
       setCurrentSlide(goToIndex);
       carousel.current?.goTo(goToIndex);

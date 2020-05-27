@@ -1,25 +1,27 @@
-import { WideButton } from '../Button';
 import React, { FC } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { GET_PERSONA, GetCardType, SAVE_PERSONA, SavePersonaResponse } from 'global/graphqls/Persona';
-import { gqlUser } from 'global/graphqls/schema';
-import { GET_USER } from 'global/graphqls/User';
-import { useParams } from 'react-router-dom';
 import _ from 'lodash';
 import styled from 'styled-components';
+import { gqlUser } from 'global/graphqls/schema';
+import { GET_USER } from 'global/graphqls/User';
+import { WideButton } from 'components/Button';
 
-const ButtonSavedStyled = styled(WideButton)`
+type SavePersonaUuid = {
+  uuid: string;
+};
+
+const ButtonSavedStyled = styled(WideButton as any)`
   && {
-    background-color: ${props => props.theme.colors.functional.disabled};
+    background-color: ${(props) => props.theme.colors.functional.disabled};
     &&:active,
     &&:hover {
-      background-color: ${props => props.theme.colors.functional.disabled};
+      background-color: ${(props) => props.theme.colors.functional.disabled};
     }
   }
 `;
 
-export const SavePersona: FC = () => {
-  const { uuid } = useParams();
+export const SavePersona: FC<SavePersonaUuid> = ({ uuid }) => {
   const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
   const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: userPersona?.user?.defaultPersona },
@@ -40,7 +42,7 @@ export const SavePersona: FC = () => {
   };
 
   const IsSaveFunction = () => {
-    if (!_.find(data?.persona.contactBook, { uuid })) {
+    if (!_.find(data?.persona?.contactBook, { uuid })) {
       return <WideButton onClick={() => onClickFunctions()}>SAVE</WideButton>;
     } else return <ButtonSavedStyled>SAVED</ButtonSavedStyled>;
   };

@@ -21,6 +21,6 @@ export const Box = styled.div<BoxProps>(compose(space, layout, flex, flexbox, bo
   boxSizing: 'border-box',
 });
 
-export const Flex = styled(Box)<FlexboxProps>(flexbox, {
+export const Flex = styled(Box as any)<FlexboxProps>(flexbox, {
   display: 'flex',
 });

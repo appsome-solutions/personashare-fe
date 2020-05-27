@@ -9,12 +9,12 @@ import { SAVE_SPOT, SaveSpotResponse } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import styled from 'styled-components';
 
-const ButtonSavedStyled = styled(WideButton)`
+const ButtonSavedStyled = styled(WideButton as any)`
   && {
-    background-color: ${props => props.theme.colors.functional.disabled};
+    background-color: ${(props) => props.theme.colors.functional.disabled};
     &&:active,
     &&:hover {
-      color: ${props => props.theme.colors.functional.disabled};
+      color: ${(props) => props.theme.colors.functional.disabled};
     }
   }
 `;

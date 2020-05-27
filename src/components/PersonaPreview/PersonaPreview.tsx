@@ -44,11 +44,11 @@ export const PersonaPreview: FC = () => {
     <>
       <Wrapper key={data.persona.uuid}>
         <EntityPageComp page={data.persona.page} />
-        <RecommendButtonPersona />
+        <RecommendButtonPersona uuid={uuid} />
       </Wrapper>
       <SecondPartPersona>
         <RecommendContactBook />
-        <SavePersona />
+        <SavePersona uuid={uuid} />
       </SecondPartPersona>
     </>
   );

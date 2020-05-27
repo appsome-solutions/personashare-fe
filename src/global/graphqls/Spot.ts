@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { EntityCard, EntityPage, gqlEntity } from './schema';
+import { AgregatedSpot, gqlEntity } from './schema';
 
 export interface RecommendSpotResponse {
   recommendSpot: {
@@ -123,11 +123,10 @@ export const UPDATE_SPOT = gql`
 `;
 
 export type GetCardType = {
-  spot: {
-    uuid: string;
-    card: EntityCard;
-    page: EntityPage;
-  };
+  spot: AgregatedSpot;
+  managers: AgregatedSpot[];
+  visibilityList: AgregatedSpot[];
+  networkList: AgregatedSpot[];
 };
 
 export const GET_SPOT_CARD = gql`
@@ -201,9 +200,43 @@ export const GET_SPOT = gql`
       }
       personaUUIDs
       qrCodeLink
-    }
-    spotRecommendList {
-      uuid
+      managers {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      visibilityList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      networkList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+      }
     }
   }
 `;
