@@ -15,10 +15,10 @@ const Title = styled.h5`
   line-height: 28px;
   margin-bottom: 24px;
   text-align: center;
-  color: ${props => props.theme.colors.utils.text.dark};
+  color: ${(props) => props.theme.colors.utils.text.dark};
 `;
 
-const FormButton = styled(WideButton)`
+const FormButton = styled(WideButton as any)`
   margin-top: 24px;
 `;
 

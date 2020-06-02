@@ -10,9 +10,10 @@ type Props = {
   card: EntityType;
   uuid: string;
   isWithEdit?: boolean;
+  onClick?: any;
 };
 
-const CardStyled = styled(Card)`
+const CardStyled = styled(Card as any)`
   margin-top: 0px;
 `;
 const NameStyled = styled.div`
@@ -23,9 +24,9 @@ const DescriptionStyled = styled.div`
   margin-bottom: 16px;
 `;
 
-export const SpotPage: FC<Props> = ({ card, uuid, isWithEdit }) => {
+export const SpotPage: FC<Props> = ({ card, uuid, isWithEdit, onClick }) => {
   return (
-    <CardStyled mt={31} mb={40} position="relative">
+    <CardStyled mt={31} mb={40} position="relative" onClick={onClick}>
       <BackgroundPlaceholder background={card.background} alt="Card background">
         {isWithEdit && <EditRemoveMenu uuid={uuid} />}
       </BackgroundPlaceholder>

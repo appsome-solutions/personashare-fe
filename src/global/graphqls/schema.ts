@@ -8,26 +8,16 @@ export const cardSchema = Yup.object({
   description: Yup.string().required(),
   avatar: Yup.string().notRequired(),
   background: Yup.string().notRequired(),
-  avatarUpload: Yup.mixed<ImageRef>()
-    .nullable(true)
-    .notRequired(),
-  backgroundUpload: Yup.mixed<ImageRef>()
-    .nullable(true)
-    .notRequired(),
+  avatarUpload: Yup.mixed<ImageRef>().nullable(true).notRequired(),
+  backgroundUpload: Yup.mixed<ImageRef>().nullable(true).notRequired(),
 });
 
 export const pageSchema = Yup.object({
-  content: Yup.mixed()
-    .required()
-    .nullable(true),
+  content: Yup.mixed().required().nullable(true),
   avatar: Yup.string().notRequired(),
   background: Yup.string().notRequired(),
-  avatarUpload: Yup.mixed<ImageRef>()
-    .nullable(true)
-    .notRequired(),
-  backgroundUpload: Yup.mixed<ImageRef>()
-    .nullable(true)
-    .notRequired(),
+  avatarUpload: Yup.mixed<ImageRef>().nullable(true).notRequired(),
+  backgroundUpload: Yup.mixed<ImageRef>().nullable(true).notRequired(),
 });
 
 export type CardType = Yup.InferType<typeof cardSchema>;
@@ -57,6 +47,11 @@ export type gqlUser = {
   defaultPersona: string;
 };
 
+export type EmailInvitation = {
+  email: string;
+  status: string;
+};
+
 export type AgregatedPersona = {
   uuid: string;
   personaUUIDs: string[];
@@ -79,11 +74,18 @@ export type AgregatedSpot = {
   page: EntityPage;
   personaUUIDs: string[];
   qrCodeLink: string;
+  managers: AgregatedPersona[];
   networkList: AgregatedPersona[];
   recommendList: AgregatedPersona[];
   contactBook: AgregatedPersona[];
   visibilityList: AgregatedPersona[];
   owner: AgregatedPersona;
   participants: AgregatedPersona[];
-  managers: AgregatedPersona[];
+  invitedManagerEmails: EmailInvitation[];
+};
+
+export type UpdateSpotInput = {
+  card: EntityCard;
+  page: EntityPage;
+  invitedManagerEmails: string[];
 };

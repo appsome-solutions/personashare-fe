@@ -13,8 +13,8 @@ type InlineButtonWrapperType = {
   active: boolean;
 };
 
-const StyledEditorButtonWrapper = styled(EditorButtonWrapper)<InlineButtonWrapperType>`
-  background-color: ${props => props.active && 'rgba(0,0,0,0.2)'};
+const StyledEditorButtonWrapper = styled(EditorButtonWrapper as any)<InlineButtonWrapperType>`
+  background-color: ${(props) => props.active && 'rgba(0,0,0,0.2)'};
 `;
 
 export const InlineButton = ({ format, svgLink }: InlineButtonType) => {
@@ -22,7 +22,7 @@ export const InlineButton = ({ format, svgLink }: InlineButtonType) => {
   return (
     <StyledEditorButtonWrapper
       active={isMarkActive(editor, format)}
-      onMouseDown={event => {
+      onMouseDown={(event: any) => {
         event.preventDefault();
         toggleMark(editor, format);
       }}

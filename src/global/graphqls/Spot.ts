@@ -1,5 +1,13 @@
 import { gql } from 'apollo-boost';
-import { EntityCard, EntityPage, gqlEntity } from './schema';
+import {
+  AgregatedPersona,
+  AgregatedSpot,
+  EmailInvitation,
+  EntityCard,
+  EntityPage,
+  gqlEntity,
+  UpdateSpotInput,
+} from './schema';
 
 export interface RecommendSpotResponse {
   recommendSpot: {
@@ -8,8 +16,8 @@ export interface RecommendSpotResponse {
 }
 
 export const RECOMMEND_SPOT = gql`
-  mutation recommendSpot($recommendedSpotUuid: String!, $personaUuid: String!) {
-    recommendSpot(recommendedSpotUuid: $recommendedSpotUuid, personaUuid: $personaUuid) {
+  mutation recommendSpot($recommendedSpotUuid: String!) {
+    recommendSpot(recommendedSpotUuid: $recommendedSpotUuid) {
       uuid
     }
   }
@@ -102,8 +110,8 @@ export const GET_SPOTS = gql`
 `;
 
 export const UPDATE_SPOT = gql`
-  mutation updateSpot($uuid: String!, $payload: UpdateSpotInput!) {
-    updateSpot(uuid: $uuid, spot: $payload) {
+  mutation updateSpot($uuid: String!, $spot: UpdateSpotInput!) {
+    updateSpot(uuid: $uuid, spot: $spot) {
       uuid
       card {
         name
@@ -118,38 +126,38 @@ export const UPDATE_SPOT = gql`
       }
       personaUUIDs
       qrCodeLink
+      invitedManagerEmails {
+        email
+      }
     }
   }
 `;
 
-export type GetCardType = {
+export type SpotType = {
   spot: {
     uuid: string;
     card: EntityCard;
     page: EntityPage;
+    personaUUIDs: string[];
+    qrCodeLink: string;
+    managers: AgregatedPersona[];
+    networkList: AgregatedPersona[];
+    recommendList: AgregatedPersona[];
+    contactBook: AgregatedPersona[];
+    visibilityList: AgregatedPersona[];
+    owner: AgregatedPersona;
+    participants: AgregatedPersona[];
+    invitedManagerEmails: EmailInvitation[];
   };
 };
 
-export const GET_SPOT_CARD = gql`
-  query spot($uuid: String!) {
-    spot(uuid: $uuid) {
-      uuid
-      card {
-        name
-        description
-        avatar
-        background
-      }
-      page {
-        background
-        avatar
-        content
-      }
-      personaUUIDs
-      qrCodeLink
-    }
-  }
-`;
+export type GetCardType = {
+  spot: AgregatedSpot;
+  managers: AgregatedSpot[];
+  visibilityList: AgregatedSpot[];
+  networkList: AgregatedSpot[];
+  payload: UpdateSpotInput;
+};
 
 export const UPDATE_SPOT_CARD = gql`
   mutation updateCard($card: Card!) {
@@ -160,27 +168,6 @@ export const UPDATE_SPOT_CARD = gql`
 export const REMOVE_SPOT = gql`
   mutation removeSpot($spotUuid: String!) {
     removeSpot(spotUuid: $spotUuid)
-  }
-`;
-
-export const GET_SPOT_PAGE = gql`
-  query spot($uuid: String!) {
-    spot(uuid: $uuid) {
-      uuid
-      card {
-        name
-        description
-        avatar
-        background
-      }
-      page {
-        background
-        avatar
-        content
-      }
-      personaUUIDs
-      qrCodeLink
-    }
   }
 `;
 
@@ -199,11 +186,49 @@ export const GET_SPOT = gql`
         avatar
         content
       }
+      invitedManagerEmails {
+        email
+        status
+      }
       personaUUIDs
       qrCodeLink
-    }
-    spotRecommendList {
-      uuid
+      managers {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      visibilityList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      networkList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+      }
     }
   }
 `;

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { EntityCard } from 'components/CreateSpotAndPersona/CreateCard/EntityCard';
 import { CardType } from 'global/graphqls/schema';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { GET_SPOT_CARD, GetCardType, UPDATE_SPOT_CARD } from 'global/graphqls/Spot';
+import { GET_SPOT, GetCardType, UPDATE_SPOT_CARD } from 'global/graphqls/Spot';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const cardInitialValues: CardType = {
@@ -17,7 +17,7 @@ const cardInitialValues: CardType = {
 
 export const EditSpotCard: FC = () => {
   const { uuid } = useParams();
-  const { data } = useQuery<GetCardType>(GET_SPOT_CARD, {
+  const { data } = useQuery<GetCardType>(GET_SPOT, {
     variables: { uuid },
   });
   const initialValues = data ? data.spot.card : cardInitialValues;

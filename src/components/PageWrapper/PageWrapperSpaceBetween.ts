@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { PageWrapper } from './PageWrapper';
 
-export const PageWrapperSpaceBetween = styled(PageWrapper)`
+export const PageWrapperSpaceBetween = styled(PageWrapper as any)`
   width: 100%;
   position: relative;
   justify-content: space-between;
