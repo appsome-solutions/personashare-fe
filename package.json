@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "latest",
     "@apollo/react-hooks": "^3.1.3",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
     "@types/jest": "^24.0.20",
@@ -18,9 +19,11 @@
     "cropperjs": "^1.5.6",
     "firebase": "^7.6.1",
     "formik": "^2.1.2",
+    "get-pixels": "^3.3.2",
     "graphql": "^14.5.8",
     "i18next": "^19.0.0",
     "i18next-browser-languagedetector": "^4.0.1",
+    "jsqr": "^1.2.0",
     "lodash": "^4.17.15",
     "rc-tween-one": "^2.6.8",
     "react": "^16.11.0",
@@ -41,8 +44,7 @@
     "styled-system": "^5.1.4",
     "typescript": "^3.9.3",
     "uuid": "^8.1.0",
-    "yup": "^0.28.1",
-    "@ant-design/icons": "latest"
+    "yup": "^0.28.1"
   },
   "scripts": {
     "start": "react-app-rewired start",

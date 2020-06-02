@@ -16,7 +16,6 @@ import { InputWithSuffixIcon } from '../../InputWithSuffixIcon/InputWithSuffixIc
 import AddSvg from 'assets/add-24px.svg';
 import EmailIconSvg from '../../../assets/email.svg';
 import { WideButton } from '../../Button';
-import _ from 'lodash';
 
 const InputField = styled(InputWithSuffixIcon)`
   && {
@@ -194,7 +193,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot
                     <Tag
                       key={email}
                       closable={index !== -1}
-                      afterClose={() => removeEmail(email, values, setFieldValue)}
+                      // afterClose={() => removeEmail(email, values, setFieldValue)}
                     >
                       {isLongTag ? `${email.slice(0, 20)}...` : email}
                     </Tag>

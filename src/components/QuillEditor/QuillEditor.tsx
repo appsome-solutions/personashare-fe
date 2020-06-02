@@ -7,7 +7,7 @@ import ReactQuill, { Quill as QuillClass } from 'react-quill';
 import { DrawerPage } from 'components/DrawerPage/DrawerPage';
 import 'react-quill/dist/quill.snow.css';
 import { Icon } from 'components/Icon';
-import { EditorButtons } from './Buttons/EditorButtons';
+import EditorButtons from './Buttons/EditorButtons';
 import AddSvg from 'assets/AddIcon.svg';
 import BoldSvg from 'assets/format_bold.svg';
 import ItalicSvg from 'assets/format_italic.svg';
@@ -148,11 +148,11 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
     []
   );
 
-  const onMount = (blots: any) => {
+  const onMount = (blots: any): void => {
     setEmbedBlots((embedBlots) => [...embedBlots, ...blots]);
   };
 
-  const onUnmount = (unmountedBlot: any) => {
+  const onUnmount = (unmountedBlot: any): void => {
     setEmbedBlots((embedBlots) => embedBlots.filter((blot) => blot.id !== unmountedBlot.id));
   };
 
@@ -252,7 +252,7 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
         </ToggleabbleContainer>
         <ToggleabbleContainer isVisible={isInlineVisible}>
           <InlineButton className={`ql-bold`} svgLink={BoldSvg} />
-          <InlineButton className={`ql-code-block`} svgLink={CodeSvg} />
+          <InlineButton className={`ql-code`} svgLink={CodeSvg} />
           <InlineButton className={`ql-italic`} svgLink={ItalicSvg} />
           <InlineButton className={`ql-underline`} svgLink={UnderlineSvg} />
           <InlineButton className={`ql-custom`} svgLink={UnderlineSvg} />

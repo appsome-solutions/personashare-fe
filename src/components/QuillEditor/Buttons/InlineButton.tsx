@@ -4,13 +4,13 @@ import { Icon } from 'components/Icon';
 import { Button } from 'components/Button';
 
 type Props = {
-  svgLink?: any;
+  svgLink?: string;
   className?: string;
   value?: number | string;
 };
 
 export const EditorButtonWrapper = styled.div`
-  border-right: 1px solid ${props => props.theme.colors.functional.disabled};
+  border-right: 1px solid ${(props) => props.theme.colors.functional.disabled};
   display: flex;
   align-items: center;
 `;
@@ -31,14 +31,12 @@ const StyledButton = styled(Button)`
   }
 `;
 
-export const InlineButton: FC<Props> = ({ svgLink, className, value }) => {
-  return (
-    <EditorButtonWrapper>
-      <EditorButtonIconWrapper>
-        <StyledButton className={className} value={value}>
-          <Icon svgLink={svgLink ?? ''} />
-        </StyledButton>
-      </EditorButtonIconWrapper>
-    </EditorButtonWrapper>
-  );
-};
+export const InlineButton: FC<Props> = ({ svgLink, className, value }) => (
+  <EditorButtonWrapper>
+    <EditorButtonIconWrapper>
+      <StyledButton className={className} value={value}>
+        <Icon svgLink={svgLink ?? ''} />
+      </StyledButton>
+    </EditorButtonIconWrapper>
+  </EditorButtonWrapper>
+);

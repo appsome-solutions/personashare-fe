@@ -4,16 +4,16 @@ import { Icon } from 'components/Icon';
 import { Button } from 'components/Button';
 
 export type BlockButtonType = {
-  svgLink?: any;
+  svgLink?: string;
   title?: string;
   className?: string;
   value?: number | string;
 };
 
 export const EditorButtonWrapper = styled.div`
-  border-top: 1px solid ${props => props.theme.colors.functional.disabled};
+  border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
   &:last-child {
-    border-bottom: 1px solid ${props => props.theme.colors.functional.disabled};
+    border-bottom: 1px solid ${(props) => props.theme.colors.functional.disabled};
   }
   display: flex;
   align-items: center;
@@ -21,7 +21,7 @@ export const EditorButtonWrapper = styled.div`
 
 export const EditorButtonIconWrapper = styled.span`
   margin: 12px;
-  border: 1px solid ${props => props.theme.colors.functional.disabled};
+  border: 1px solid ${(props) => props.theme.colors.functional.disabled};
 
   height: 32px;
   width: 32px;

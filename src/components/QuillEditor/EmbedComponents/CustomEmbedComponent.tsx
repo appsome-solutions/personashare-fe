@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
+import React, { ReactPortal } from 'react';
 import { createPortal } from 'react-dom';
 import { Quill } from 'react-quill';
 import { v4 } from 'uuid';
@@ -9,19 +7,18 @@ import ExampleComponent from './ExampleComponent';
 const BlockEmbed = Quill.import('blots/block/embed');
 
 class CustomEmbed extends BlockEmbed {
-  //@ts-ignore
-  constructor(domNode) {
+  constructor(domNode: HTMLElement) {
     super(domNode);
     this.id = domNode.getAttribute('data-id');
-    domNode.setAttribute('contenteditable', false);
     this.data = CustomEmbed.data;
+    domNode.setAttribute('contenteditable', String(false));
   }
 
   static tagName = 'div';
   static blotName = 'custom';
   static className = 'custom';
 
-  static create(value: any) {
+  static create(value: any): HTMLElement {
     const id = v4();
     const node = super.create(value);
     const refs = CustomEmbed.refs;
@@ -34,18 +31,8 @@ class CustomEmbed extends BlockEmbed {
     return node;
   }
 
-  /*  static value(domNode: any) {
-    const id = domNode.getAttribute('data-id');
-    const ref = CustomEmbed.refs[id];
-    return ref && ref.current && ref.current.getData();
-  }
-
-  static staticPortal(domNode: any) {
-    return createPortal(<SpotBook />, domNode);
-  }*/
-
-  renderPortal(id: string | number) {
-    console.warn(id);
+  renderPortal(id: string | number): ReactPortal {
+    this.domNode.setAttribute('data-id', String(id));
     return createPortal(<ExampleComponent />, this.domNode);
   }
   attach() {

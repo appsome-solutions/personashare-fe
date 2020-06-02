@@ -3,7 +3,6 @@ import { Redirect, useParams } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { useFormik } from 'formik';
 import { useHistory } from 'react-router-dom';
-import { Node } from 'slate/dist';
 import { useFirebase } from 'global/Firebase';
 import { useStorage } from 'global/Storage';
 import { TopNav } from 'components/TopNav/TopNav';
@@ -21,7 +20,6 @@ import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { EditIndicator } from 'components/EditIndicator/EditIndicator';
 import QuillEditor from 'components/QuillEditor/QuillEditor';
-
 import {
   onAvatarChangeHelper,
   onBgChangeHelper,
@@ -30,7 +28,6 @@ import {
 } from 'pages/CreatePersona/helpers';
 import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
 import { ExecutionResult } from 'graphql';
-import { Page } from 'pages/PersonaCreation/Page/Page';
 
 export interface LinkProps {
   previousStepPath: string;
