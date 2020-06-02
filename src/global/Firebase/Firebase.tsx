@@ -6,9 +6,15 @@ import 'firebase/firestore';
 import { APP_ROUTES } from '../AppRouter/routes';
 
 // based on: https://github.com/firebase/extensions/blob/master/firestore-send-email/functions/src/index.ts
+
 type FirebaseMessage = {
   subject: string;
   html: string;
+};
+
+type FirebaseMessageTemplate = {
+  name: string;
+  data: Record<string, string | number>;
 };
 
 type SendMailPayload = {
@@ -21,7 +27,8 @@ type SendMailPayload = {
   headers?: any;
   cc?: string;
   bcc?: string;
-  message: FirebaseMessage;
+  message?: FirebaseMessage;
+  template?: FirebaseMessageTemplate;
 };
 
 type SendMail = (payload: SendMailPayload) => Promise<firestore.DocumentReference>;
@@ -81,11 +88,12 @@ class Firebase {
 
   getStorageRef = (): storage.Reference | undefined => this.app?.storage().ref();
 
-  sendMail: SendMail = payload =>
+  sendMail: SendMail = (payload) =>
     this.firestore
-      ? this.firestore
-          .collection(contactMailCollection)
-          .add({ ...payload, to: payload.to || process.env.REACT_APP_CONTACT_MAIL })
+      ? this.firestore.collection(contactMailCollection).add({
+          ...payload,
+          to: payload.to || process.env.REACT_APP_CONTACT_MAIL,
+        })
       : Promise.reject('Firestore is unavailable');
 
   sendPasswordResetEmail = async (email: string): Promise<void> => {

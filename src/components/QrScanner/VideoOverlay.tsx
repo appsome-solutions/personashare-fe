@@ -28,7 +28,7 @@ const DiagonalBorder = styled.div`
   }
 `;
 
-const ReverseDiagonalBorder = styled(DiagonalBorder)`
+const ReverseDiagonalBorder = styled(DiagonalBorder as any)`
   &:before {
     top: unset;
     bottom: -2px;

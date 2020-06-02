@@ -19,23 +19,24 @@ const mimicFocus = css`
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+// @ts-ignore
 export const StyledEditable = styled<FC<StyledEditableProps>>(
   ({ activeTools, hasError, ...restProps }: StyledEditableProps) => <Editable {...restProps} />
 )`
   flex: 1;
   padding: 8px;
-  margin-bottom: ${props => (props.activeTools === 'bloc' ? '36px' : '0')};
+  margin-bottom: ${(props) => (props.activeTools === 'bloc' ? '36px' : '0')};
   transition: all 0.3s;
   touch-action: manipulation;
-  border: ${props => (props.hasError ? `1px solid ${props.theme.colors.functional.error}` : 0)};
+  border: ${(props) => (props.hasError ? `1px solid ${props.theme.colors.functional.error}` : 0)};
 
-  ${props => (props.activeTools === 'bloc' ? mimicFocus : '')};
+  ${(props) => (props.activeTools === 'bloc' ? mimicFocus : '')};
 
   blockquote {
-    border-left: 4px solid ${props => props.theme.colors.main.primary};
+    border-left: 4px solid ${(props) => props.theme.colors.main.primary};
     margin-left: 8px;
     padding-left: 8px;
-    ${props => props.theme.typography.subtitle1};
+    ${(props) => props.theme.typography.subtitle1};
     margin-top: 4px;
     margin-bottom: 4px;
   }
@@ -64,8 +65,8 @@ export const EditorBarWrapper = styled.div`
   display: flex;
   align-items: center;
 
-  background-color: ${props => props.theme.colors.utils.background.light};
-  border-top: 1px solid ${props => props.theme.colors.functional.disabled};
+  background-color: ${(props) => props.theme.colors.utils.background.light};
+  border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
 `;
 
 export const BarIcon = styled(Icon)`
@@ -74,9 +75,9 @@ export const BarIcon = styled(Icon)`
 `;
 
 export const EditorButtonWrapper = styled.div`
-  border-top: 1px solid ${props => props.theme.colors.functional.disabled};
+  border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
   &:last-child {
-    border-bottom: 1px solid ${props => props.theme.colors.functional.disabled};
+    border-bottom: 1px solid ${(props) => props.theme.colors.functional.disabled};
   }
   display: flex;
   align-items: center;
@@ -84,7 +85,7 @@ export const EditorButtonWrapper = styled.div`
 
 export const EditorButtonIconWrapper = styled.span`
   margin: 12px;
-  border: 1px solid ${props => props.theme.colors.functional.disabled};
+  border: 1px solid ${(props) => props.theme.colors.functional.disabled};
 
   height: 32px;
   width: 32px;

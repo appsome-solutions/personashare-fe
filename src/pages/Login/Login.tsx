@@ -20,14 +20,14 @@ import EmailIconSvg from 'assets/email.svg';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { signInWithGoogle } from 'helpers/signInWithGoogle';
 
-const Caption = styled.span(props => props.theme.typography.caption);
+const Caption = styled.span((props) => props.theme.typography.caption);
 
 const StyledLogo = styled.img`
   margin-top: 46px;
   margin-bottom: 36px;
 `;
 
-const StyledCard = styled(Card)`
+const StyledCard = styled(Card as any)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,38 +46,38 @@ const StyledPasswordInput = styled(PasswordInput)`
   margin-top: 20px;
 `;
 
-const ResetPassword = styled(Caption)`
+const ResetPassword = styled(Caption as any)`
   margin-top: 20px;
   align-self: flex-end;
 `;
 
-const LoginButton = styled(Button)`
+const LoginButton = styled(Button as any)`
   margin-top: 28px;
 `;
 
-const GoogleButton = styled(Button)`
+const GoogleButton = styled(Button as any)`
   && {
     background-color: #e62b33;
     &&:active,
     &&:hover {
-      color: ${props => props.theme.colors.utils.text.light};
+      color: ${(props) => props.theme.colors.utils.text.light};
       background-color: #e62b33;
     }
   }
 `;
 
-const OrLoginCaption = styled(Caption)`
+const OrLoginCaption = styled(Caption as any)`
   margin: 18px 0;
 `;
 
-const RegisterCaption = styled(Caption)`
+const RegisterCaption = styled(Caption as any)`
   text-align: center;
   margin-top: 32px;
   margin-bottom: 24px;
 `;
 
 const StyledErrorMessage = styled.div`
-  color: ${props => props.theme.colors.functional.error};
+  color: ${(props) => props.theme.colors.functional.error};
 `;
 
 const validationSchema = object({

@@ -28,44 +28,44 @@ const StyledLogo = styled.img`
 
 const CreateAccountText = styled.h5`
   margin-bottom: 20px;
-  color: ${props => props.theme.colors.utils.text.dark};
+  color: ${(props) => props.theme.colors.utils.text.dark};
 `;
 
-const StyledCard = styled(Card)`
+const StyledCard = styled(Card as any)`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 27px 24px 34px;
 `;
 
-const Caption = styled.span(props => props.theme.typography.caption);
+const Caption = styled.span((props) => props.theme.typography.caption);
 
 const StyledCheckbox = styled(FormikCheckbox)`
   align-self: start;
   margin-top: 24px;
 `;
 
-const RegisterButton = styled(Button)`
+const RegisterButton = styled(Button as any)`
   margin-top: 28px;
 `;
 
 // Specific color for this specific button:
-const GoogleButton = styled(Button)`
+const GoogleButton = styled(Button as any)`
   && {
     background-color: #e62b33;
     &&:active,
     &&:hover {
-      color: ${props => props.theme.colors.utils.text.light};
+      color: ${(props) => props.theme.colors.utils.text.light};
       background-color: #e62b33;
     }
   }
 `;
 
-const OrRegisterCaption = styled(Caption)`
+const OrRegisterCaption = styled(Caption as any)`
   margin: 18px 0;
 `;
 
-const LogInCaption = styled(Caption)`
+const LogInCaption = styled(Caption as any)`
   text-align: center;
   margin-top: 32px;
   margin-bottom: 24px;
@@ -76,7 +76,7 @@ const StyledPasswordInput = styled(PasswordInput)`
 `;
 
 const StyledErrorMessage = styled.div`
-  color: ${props => props.theme.colors.functional.error};
+  color: ${(props) => props.theme.colors.functional.error};
 `;
 
 const validationSchema = object({

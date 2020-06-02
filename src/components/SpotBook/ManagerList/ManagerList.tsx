@@ -1,6 +1,5 @@
 import React, { FC, useRef } from 'react';
 import { Carousel as AntCarousel } from 'antd';
-import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import { AgregatedPersona } from 'global/graphqls/schema';
 import { SpotPage } from '../../SpotPage/SpotPage';
@@ -11,8 +10,6 @@ import Carousel from '../../Carousel/Carousel';
 import { RecommendButtonPersona } from '../../RecommendButton/RecommendButtonPersona';
 import { SavePersona } from '../../SaveEntity/SavePersona';
 
-const MainComponent = styled.div``;
-
 export const ManagerList: FC = () => {
   const carousel = useRef<AntCarousel>(null);
   const { uuid } = useParams();
@@ -22,7 +19,7 @@ export const ManagerList: FC = () => {
   const history = useHistory();
 
   return (
-    <MainComponent>
+    <>
       <Carousel ref={carousel}>
         {data?.spot.managers.map((persona: AgregatedPersona) => (
           <div key={persona.uuid}>
@@ -40,6 +37,6 @@ export const ManagerList: FC = () => {
           </div>
         ))}
       </Carousel>
-    </MainComponent>
+    </>
   );
 };
