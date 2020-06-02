@@ -14,6 +14,7 @@ import { FirebaseProvider, Firebase } from './global/Firebase';
 import { StorageProvider, Storage } from './global/Storage';
 import { UserProvider } from 'global/UserContext/UserContext';
 import history from 'global/AppRouter/history';
+import { ResponsiveContentReplacer } from './global/ResponsiveContentReplacer/ResponsiveContentReplacer';
 
 const firebase = new Firebase();
 
@@ -24,14 +25,16 @@ const App: FunctionComponent = () => (
         <StorageProvider value={new Storage(firebase.getStorageRef())}>
           <UserProvider>
             <RWDProvider>
-              <Router history={history}>
-                <GlobalStyles />
-                <ErrorHandler>
-                  <AppRouter />
-                </ErrorHandler>
-                <TermAndCookies />
-                <StickyNavigation />
-              </Router>
+              <ResponsiveContentReplacer>
+                <Router history={history}>
+                  <GlobalStyles />
+                  <ErrorHandler>
+                    <AppRouter />
+                  </ErrorHandler>
+                  <TermAndCookies />
+                  <StickyNavigation />
+                </Router>
+              </ResponsiveContentReplacer>
             </RWDProvider>
           </UserProvider>
         </StorageProvider>
