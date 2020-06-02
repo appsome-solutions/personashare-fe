@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect, useMemo, FC } from 'react';
 import styled from 'styled-components';
+import defer from 'lodash/defer';
+import isString from 'lodash/isString';
+import isEmpty from 'lodash/isEmpty';
 import ReactQuill, { Quill as QuillClass } from 'react-quill';
 import { DrawerPage } from 'components/DrawerPage/DrawerPage';
 import 'react-quill/dist/quill.snow.css';
@@ -51,27 +54,6 @@ export const BarIcon = styled(Icon)`
   width: 36px;
 `;
 
-export const EditorButtonWrapper = styled.div`
-  border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
-  &:last-child {
-    border-bottom: 1px solid ${(props) => props.theme.colors.functional.disabled};
-  }
-  display: flex;
-  align-items: center;
-`;
-
-export const EditorButtonIconWrapper = styled.span`
-  margin: 12px;
-  border: 1px solid ${(props) => props.theme.colors.functional.disabled};
-
-  height: 32px;
-  width: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-`;
-
 const ToggleabbleContainer = styled.div<{ isVisible: boolean }>`
   display: ${(props) => (props.isVisible ? 'flex' : 'none')};
 `;
@@ -107,7 +89,6 @@ const customBlockQuoteHandler = (editor: Quill, value: boolean): void => {
 const customHandler = (editor: Quill): void => {
   const cursor = editor.getSelection()?.index || 0;
   editor.insertEmbed(cursor, 'custom', {});
-  console.warn('custom handler called', editor);
 };
 
 type Range = {
@@ -130,9 +111,11 @@ QuillClass.register(
 const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
   const [value, setValue] = useState<any>(initialValue);
   const [isRendered, setIsRendered] = useState(false);
+  const [isRefAttached, setIsRefAttached] = useState(false);
   const [isTurnIntoVisible, setIsTurnIntoVisible] = useState(false);
   const [isAddVisible, setIsAddVisible] = useState(false);
   const [isInlineVisible, setIsInlineVisible] = useState(false);
+  const [embedBlots, setEmbedBlots] = useState<any[]>([]);
   const ref = useRef<ReactQuill | null>(null);
   const turnIntoRef = useRef<boolean>(false);
 
@@ -165,9 +148,41 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
     []
   );
 
+  const onMount = (blots: any) => {
+    setEmbedBlots((embedBlots) => [...embedBlots, ...blots]);
+  };
+
+  const onUnmount = (unmountedBlot: any) => {
+    setEmbedBlots((embedBlots) => embedBlots.filter((blot) => blot.id !== unmountedBlot.id));
+  };
+
   useEffect(() => {
     setIsRendered(true);
-  }, []);
+    if (isRendered) {
+      setIsRefAttached(true);
+    }
+  }, [isRendered]);
+
+  useEffect(() => {
+    if (editor) {
+      let blots: any[] = [];
+      // @ts-ignore
+      editor.scroll.emitter.on('blot-mount', (blot) => {
+        blots.push(blot);
+        defer(() => {
+          if (blots.length > 0) {
+            onMount(blots);
+            blots = [];
+          }
+        });
+      });
+      // @ts-ignore
+      editor.scroll.emitter.on('blot-unmount', onUnmount);
+      const parsedValue = !isEmpty(initialValue) && isString(initialValue) && JSON.parse(initialValue);
+      parsedValue && editor.setContents(parsedValue as any);
+    }
+    // dependencies are missing on purpose, this hook should run only when ref got attached
+  }, [isRefAttached]);
 
   return (
     <StyledQuillContainer>
@@ -186,11 +201,14 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
           }}
           onChangeSelection={handleSelectionChange}
           modules={Editor.modules}
-          // formats={['custom', 'bold', 'header1']}
           placeholder="Edit card..."
           ref={ref}
         />
       )}
+      {isRendered &&
+        embedBlots?.map((embedBlot) => {
+          return embedBlot.renderPortal(embedBlot.id);
+        })}
       <EditorBarWrapper id="toolbar">
         <ToggleabbleContainer isVisible={!isInlineVisible}>
           <DrawerPage

@@ -4,9 +4,10 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Entity, PageType } from 'global/graphqls/schema';
 import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
 import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
-import { UPDATE_PERSONA } from 'global/graphqls/Persona';
+import { GET_PERSONA, GetPersonaType, UPDATE_PERSONA } from 'global/graphqls/Persona';
 import { useParams } from 'react-router-dom';
 import { APP_ROUTES } from 'global/AppRouter/routes';
+import { Spinner } from 'components/Spinner/Spinner';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -17,17 +18,20 @@ const pageInitialValues: PageType = {
 };
 
 export const EditPersonaPage: FC = () => {
-  const { data } = useQuery<GetPageType>(GET_PAGE);
-  const { data: spotData } = useQuery<GetCardType>(GET_CARD);
-  const [updatePersona] = useMutation<Entity>(UPDATE_PERSONA);
-  const initialValues = data?.entity?.page || pageInitialValues;
-  const cardDefaultSpot = cardDefaults;
   const { uuid } = useParams();
-
+  const { data, loading } = useQuery(GET_PERSONA, { variables: { uuid }, fetchPolicy: 'no-cache' });
+  const { data: spotData, loading: spotLoading } = useQuery<GetCardType>(GET_CARD);
+  const [updatePersona] = useMutation<Entity>(UPDATE_PERSONA);
+  const cardDefaultSpot = cardDefaults;
+  if (loading || spotLoading) {
+    return <Spinner />;
+  }
   if (!spotData) {
     return null;
   }
   if (!uuid) return null;
+  const initialValues = data?.persona?.page || pageInitialValues;
+  initialValues.content = JSON.parse(initialValues?.content);
   return (
     <EntityPage
       currentNumber={2}

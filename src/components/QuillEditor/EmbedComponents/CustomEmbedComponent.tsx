@@ -13,6 +13,7 @@ class CustomEmbed extends BlockEmbed {
   constructor(domNode) {
     super(domNode);
     this.id = domNode.getAttribute('data-id');
+    domNode.setAttribute('contenteditable', false);
     this.data = CustomEmbed.data;
   }
 
@@ -21,7 +22,6 @@ class CustomEmbed extends BlockEmbed {
   static className = 'custom';
 
   static create(value: any) {
-    debugger;
     const id = v4();
     const node = super.create(value);
     const refs = CustomEmbed.refs;
@@ -31,30 +31,31 @@ class CustomEmbed extends BlockEmbed {
       ...refs,
       [id]: React.createRef(),
     };
-    setTimeout(() => {
-      this.staticPortal(node);
-    }, 500);
     return node;
   }
 
-  static value(domNode: any) {
+  /*  static value(domNode: any) {
     const id = domNode.getAttribute('data-id');
     const ref = CustomEmbed.refs[id];
     return ref && ref.current && ref.current.getData();
   }
 
   static staticPortal(domNode: any) {
-    return createPortal(<ExampleComponent />, domNode);
-  }
+    return createPortal(<SpotBook />, domNode);
+  }*/
 
   renderPortal(id: string | number) {
-    debugger;
-    const { options } = Quill.find(this.scroll.domNode.parentNode);
-    const ref = CustomEmbed.refs[id];
-    return createPortal(
-      <ExampleComponent type={CustomEmbed.blotName} node={this.data} ref={ref} readOnly={options.readOnly} />,
-      this.domNode
-    );
+    console.warn(id);
+    return createPortal(<ExampleComponent />, this.domNode);
+  }
+  attach() {
+    super.attach();
+    this.scroll.emitter.emit('blot-mount', this);
+  }
+
+  detach() {
+    super.detach();
+    this.scroll.emitter.emit('blot-unmount', this);
   }
 }
 

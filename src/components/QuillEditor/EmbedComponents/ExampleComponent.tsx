@@ -16,7 +16,7 @@ const ExampleComponent: FC<Props> = ({ test }) => {
     <div>
       DUPA:
       <Button onClick={() => setFlag((flag) => !flag)}>
-        TEST {flag} {test}
+        TEST {`${flag}`} {test}
       </Button>
     </div>
   );
