@@ -23,14 +23,14 @@ const SearchInputStyled = styled.input`
   box-sizing: border-box;
   border-radius: 4px;
   :: placeholder{
-    ${props => props.theme.typography.body2};
+    ${(props) => props.theme.typography.body2};
     color: rgba(50, 50, 93, 0.5);
   }
   :focus {
     outline: none;
     }
   :hover {
-    border:1px solid ${props => props.theme.colors.utils.background.light}
+    border:1px solid ${(props) => props.theme.colors.utils.background.light}
     }
 `;
 

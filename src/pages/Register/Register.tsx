@@ -28,7 +28,7 @@ const StyledLogo = styled.img`
 
 const CreateAccountText = styled.h5`
   margin-bottom: 20px;
-  color: ${props => props.theme.colors.utils.text.dark};
+  color: ${(props) => props.theme.colors.utils.text.dark};
 `;
 
 const StyledCard = styled(Card)`
@@ -38,7 +38,7 @@ const StyledCard = styled(Card)`
   padding: 27px 24px 34px;
 `;
 
-const Caption = styled.span(props => props.theme.typography.caption);
+const Caption = styled.span((props) => props.theme.typography.caption);
 
 const StyledCheckbox = styled(FormikCheckbox)`
   align-self: start;
@@ -55,7 +55,7 @@ const GoogleButton = styled(Button)`
     background-color: #e62b33;
     &&:active,
     &&:hover {
-      color: ${props => props.theme.colors.utils.text.light};
+      color: ${(props) => props.theme.colors.utils.text.light};
       background-color: #e62b33;
     }
   }
@@ -76,7 +76,7 @@ const StyledPasswordInput = styled(PasswordInput)`
 `;
 
 const StyledErrorMessage = styled.div`
-  color: ${props => props.theme.colors.functional.error};
+  color: ${(props) => props.theme.colors.functional.error};
 `;
 
 const validationSchema = object({

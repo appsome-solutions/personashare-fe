@@ -40,7 +40,7 @@ export const ContactBook: FC = () => {
   const results = !searchValue
     ? data?.persona.contactBook
     : data?.persona.contactBook.filter(
-        contactBook =>
+        (contactBook) =>
           contactBook.card.name.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
           contactBook.card.description.toLowerCase().includes(searchValue.toLocaleLowerCase())
       );

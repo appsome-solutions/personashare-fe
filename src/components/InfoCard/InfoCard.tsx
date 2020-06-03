@@ -7,8 +7,8 @@ import { BoxProps } from 'components/FlexBox/FlexBox';
 import { Card } from 'components/Card/Card';
 
 const TopBar = styled.div`
-  color: ${props => props.theme.colors.utils.text.light};
-  background-color: ${props => props.theme.colors.main.primary};
+  color: ${(props) => props.theme.colors.utils.text.light};
+  background-color: ${(props) => props.theme.colors.main.primary};
   height: 40px;
   display: flex;
   justify-content: center;
@@ -25,7 +25,7 @@ type InfoCardProps = {
   title: ReactChild;
 };
 
-const ChildrenWrapper = styled.span(props => props.theme.typography.body1);
+const ChildrenWrapper = styled.span((props) => props.theme.typography.body1);
 
 export const InfoCard: FC<InfoCardProps & BoxProps> = ({ children, title, ...rest }) => (
   <Card {...rest}>

@@ -6,5 +6,5 @@ export interface IconRotableProps extends IconProps {
 }
 
 export const IconRotable = styled(Icon)<IconRotableProps>`
-  transform: rotate(${props => (props.degree ? props.degree.toString() : 0)}deg);
+  transform: rotate(${(props) => (props.degree ? props.degree.toString() : 0)}deg);
 `;
