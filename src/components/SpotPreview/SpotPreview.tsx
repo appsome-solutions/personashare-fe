@@ -10,11 +10,15 @@ import { GET_SPOT_PAGE, GetCardType } from 'global/graphqls/Spot';
 import { RecommendButtonSpot } from '../RecommendButton/RecommendButtonSpot';
 import { SaveSpotButton } from 'components/SaveEntity/SaveSpot';
 import { ManagerList } from '../SpotBook/ManagerList/ManagerList';
+import { TopNav } from '../TopNav/TopNav';
 
 const MainComponent = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  max-height: ${(props) => props.theme.contentHeight};
+
+  height: 100%;
+  overflow: auto;
 `;
 
 const Wrapper = styled.div`
@@ -46,15 +50,18 @@ export const SpotPreview: FC = () => {
   }
 
   return (
-    <MainComponent>
-      <Wrapper key={data.spot.uuid}>
-        <EntityPageComp page={data.spot.page} />
-        <RecommendButtonSpot />
-      </Wrapper>
-      <ManagerList />
-      <SecondPartSpot>
-        <SaveSpotButton />
-      </SecondPartSpot>
-    </MainComponent>
+    <>
+      <TopNav isWithBackArrow />
+      <MainComponent>
+        <Wrapper key={data.spot.uuid}>
+          <EntityPageComp page={data.spot.page} />
+          <RecommendButtonSpot />
+        </Wrapper>
+        <ManagerList />
+        <SecondPartSpot>
+          <SaveSpotButton />
+        </SecondPartSpot>
+      </MainComponent>
+    </>
   );
 };
