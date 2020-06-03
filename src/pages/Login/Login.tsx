@@ -23,7 +23,7 @@ import { signInWithGoogle } from 'helpers/signInWithGoogle';
 const Caption = styled.span((props) => props.theme.typography.caption);
 
 const StyledLogo = styled.img`
-  margin-top: 46px;
+  margin-top: 156px;
   margin-bottom: 36px;
 `;
 
