@@ -27,6 +27,7 @@ const CenteredCol = styled(Col)`
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 52px;
   }
 `;
 
