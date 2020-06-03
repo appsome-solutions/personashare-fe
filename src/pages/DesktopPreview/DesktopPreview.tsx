@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useState } from 'react';
 import styled from 'styled-components';
 import PSLogo from 'assets/ps_desktop_view.svg';
 import StudyImg from 'assets/study.svg';
@@ -6,6 +6,7 @@ import CreateImg from 'assets/create.svg';
 import { media } from 'global/RWD';
 import RoadMap from './RoadMap/RoadMap';
 import { TextUppercase } from './TextUppercase';
+import { Guide } from './Guide/Guide';
 
 export const PSDesktopLogo = styled.img.attrs(() => ({
   src: PSLogo,
@@ -35,10 +36,16 @@ export const Create = styled.img.attrs(() => ({
 `;
 
 const PreviewWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
   display: flex;
-  padding: 67px 108px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 67px 0;
+  ${media.xl`
+     padding: 67px 108px;
+     margin: 0;
+     flex-direction: row;
+  `}
 `;
 
 type ColumnProps = {
@@ -52,6 +59,11 @@ const Column = styled.div<ColumnProps>`
   justify-content: center;
   align-items: center;
   max-width: 534px;
+  margin-bottom: 24px;
+
+  ${media.xl`
+     margin: 0;
+  `}
 `;
 
 const CardHolder = styled.div`
@@ -82,29 +94,44 @@ const CardButton = styled.button`
 `;
 
 const DesktopPreview: FC = () => {
+  const [overlay, setOverlay] = useState(false);
+
   return (
-    <PreviewWrapper>
-      <Column flex={2}>
-        <PSDesktopLogo />
-        <CardHolder>
-          <CardButton>
-            <TextUppercase>I want to read about usage examples</TextUppercase>
-            <Study />
-          </CardButton>
-          <CardButton>
-            <TextUppercase>I want to create my first persona</TextUppercase>
-            <Create />
-          </CardButton>
-        </CardHolder>
-      </Column>
-      <Column>
-        <TextUppercase>Share easily and rapidly with anyone</TextUppercase>
-        <TextUppercase>be prepared for any situation</TextUppercase>
-      </Column>
-      <Column flex={2}>
-        <RoadMap />
-      </Column>
-    </PreviewWrapper>
+    <>
+      {overlay && (
+        <Guide
+          onOutsideClick={() => {
+            setOverlay(false);
+          }}
+        />
+      )}
+      <PreviewWrapper>
+        <Column flex={1}>
+          <PSDesktopLogo />
+          <CardHolder>
+            <CardButton
+              onClick={() => {
+                setOverlay(true);
+              }}
+            >
+              <TextUppercase>I want to read about usage examples</TextUppercase>
+              <Study />
+            </CardButton>
+            <CardButton
+              onClick={() => {
+                setOverlay(true);
+              }}
+            >
+              <TextUppercase>I want to create my first persona</TextUppercase>
+              <Create />
+            </CardButton>
+          </CardHolder>
+        </Column>
+        <Column flex={1}>
+          <RoadMap />
+        </Column>
+      </PreviewWrapper>
+    </>
   );
 };
 
