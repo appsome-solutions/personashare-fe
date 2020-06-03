@@ -15,7 +15,7 @@ const MainComponent = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 16px 26px;
-  ${props => props.theme.typography.subtitle2};
+  ${(props) => props.theme.typography.subtitle2};
   text-align: center;
   height: 100vh;
 `;

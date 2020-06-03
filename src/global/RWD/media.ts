@@ -15,9 +15,9 @@ interface Media {
   [key: string]: MediaCss;
 }
 
-export type BreakpointsKeysType = keyof (typeof BREAKPOINTS);
+export type BreakpointsKeysType = keyof typeof BREAKPOINTS;
 
-export const BreakpointsKeys: (BreakpointsKeysType)[] = Object.keys(BREAKPOINTS) as BreakpointsKeysType[];
+export const BreakpointsKeys: BreakpointsKeysType[] = Object.keys(BREAKPOINTS) as BreakpointsKeysType[];
 
 // Mobile first:
 export const media: Media = BreakpointsKeys.reduce((acc: Media, label: BreakpointsKeysType) => {

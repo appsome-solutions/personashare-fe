@@ -5,8 +5,8 @@ import { InputProps, TextAreaProps } from 'antd/lib/input';
 
 const StyledInput = styled(AntInput)`
   && {
-    background: ${props => props.theme.colors.utils.background.light};
-    border: 1px solid ${props => props.theme.colors.utils.border.mid};
+    background: ${(props) => props.theme.colors.utils.background.light};
+    border: 1px solid ${(props) => props.theme.colors.utils.border.mid};
     box-sizing: border-box;
     border-radius: 4px;
   }
@@ -20,8 +20,8 @@ const PasswordInput = styled(AntInput.Password)`
 
 const StyledTextArea = styled(AntInput.TextArea)`
   && {
-    background: ${props => props.theme.colors.utils.background.light};
-    border: 1px solid ${props => props.theme.colors.utils.border.mid};
+    background: ${(props) => props.theme.colors.utils.background.light};
+    border: 1px solid ${(props) => props.theme.colors.utils.border.mid};
     box-sizing: border-box;
     border-radius: 4px;
   }

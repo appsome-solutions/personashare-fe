@@ -20,7 +20,7 @@ import EmailIconSvg from 'assets/email.svg';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { signInWithGoogle } from 'helpers/signInWithGoogle';
 
-const Caption = styled.span(props => props.theme.typography.caption);
+const Caption = styled.span((props) => props.theme.typography.caption);
 
 const StyledLogo = styled.img`
   margin-top: 46px;
@@ -60,7 +60,7 @@ const GoogleButton = styled(Button)`
     background-color: #e62b33;
     &&:active,
     &&:hover {
-      color: ${props => props.theme.colors.utils.text.light};
+      color: ${(props) => props.theme.colors.utils.text.light};
       background-color: #e62b33;
     }
   }
@@ -77,7 +77,7 @@ const RegisterCaption = styled(Caption)`
 `;
 
 const StyledErrorMessage = styled.div`
-  color: ${props => props.theme.colors.functional.error};
+  color: ${(props) => props.theme.colors.functional.error};
 `;
 
 const validationSchema = object({

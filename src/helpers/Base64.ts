@@ -6,5 +6,5 @@ export const FileToBase64 = (file: File): Promise<string> =>
     };
     // Read in the image file as a data URL.
     reader.readAsBinaryString(file);
-    reader.onerror = error => reject(error);
+    reader.onerror = (error) => reject(error);
   });

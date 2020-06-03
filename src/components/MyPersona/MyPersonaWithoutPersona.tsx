@@ -31,7 +31,7 @@ const CreateSpot = styled.div`
   position: fixed;
   bottom: 66px;
   right: 18px;
-  background-color: ${props => props.theme.colors.main.primary};
+  background-color: ${(props) => props.theme.colors.main.primary};
   display: flex;
   justify-content: center;
   align-items: center;
