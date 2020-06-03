@@ -4,11 +4,14 @@ import styled from 'styled-components';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { GET_PERSONA, GetCardType, RECOMMEND_PERSONA, RecommendPersonaResponse } from 'global/graphqls/Persona';
 import recommendOn from 'assets/recommendOn.svg';
-import { useParams } from 'react-router-dom';
 import { Popconfirm } from 'antd';
 import { gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
 import _ from 'lodash';
+
+type RecommendPersona = {
+  uuid: string;
+};
 
 const RecommendEmpty = styled.img`
   position: absolute;
@@ -16,12 +19,10 @@ const RecommendEmpty = styled.img`
   top: 135px;
 `;
 
-export const RecommendButtonPersona: FC = () => {
-  const { uuid } = useParams();
+export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
   const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
-
   const [recommendPersona] = useMutation<RecommendPersonaResponse>(RECOMMEND_PERSONA, {
-    variables: { recommendedPersonaUuid: uuid, personaUuid: userPersona?.user?.defaultPersona },
+    variables: { recommendedPersonaUuid: uuid },
   });
   const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: userPersona?.user?.defaultPersona },

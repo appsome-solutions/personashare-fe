@@ -26,7 +26,7 @@ type HamburgerMenuType = {
 const HamburgerMenuStyled = styled.div`
   padding: 12px 16px;
   height: 56px;
-  background-color: ${props => props.theme.colors.main.primary};
+  background-color: ${(props) => props.theme.colors.main.primary};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,17 +38,17 @@ const HamburgerIcon = styled(Icon)`
 
 const TextInHamburger = styled.div`
   margin-left: 16px;
-  color: ${props => props.theme.colors.utils.text.dark};
+  color: ${(props) => props.theme.colors.utils.text.dark};
   && {
     text-decoration: none;
   }
-  ${props => props.theme.typography.subtitle2};
+  ${(props) => props.theme.typography.subtitle2};
 `;
 
 const LinkRouterStyle = styled(NavLink)`
   display: flex;
   align-items: center;
-  color: ${props => props.theme.colors.main.primary}
+  color: ${(props) => props.theme.colors.main.primary}
   height: 50px;
   width:100%;
   border-radius: 4px;
@@ -67,7 +67,7 @@ const RightProfile = styled.div`
 const LogoutButton = styled.div`
   display: flex;
   align-items: center;
-  color: ${props => props.theme.colors.main.primary}
+  color: ${(props) => props.theme.colors.main.primary}
   height: 50px;
   width:100%;
   border-radius: 4px;

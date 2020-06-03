@@ -70,6 +70,7 @@ export const CoreTheme = {
       letterSpacing: '0.015em',
     },
   },
+  contentHeight: 'calc(100vh - 110px)',
 };
 
 export type CoreThemePropsType = {

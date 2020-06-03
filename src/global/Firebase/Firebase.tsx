@@ -81,7 +81,7 @@ class Firebase {
 
   getStorageRef = (): storage.Reference | undefined => this.app?.storage().ref();
 
-  sendMail: SendMail = payload =>
+  sendMail: SendMail = (payload) =>
     this.firestore
       ? this.firestore
           .collection(contactMailCollection)

@@ -48,9 +48,9 @@ type SpinnerOverlayProps = {
 
 export function withSpinnerOverlay<T>(Component: ComponentType<T>, spinnerOverlayProps: SpinnerOverlayProps) {
   const ComponentWithOverlaySpinner = styled(Component)<SpinnerOverlayProps>`
-    ${spinnerOverlayProps => (spinnerOverlayProps.isLoading ? SpinnerWithOverlay : ``)};
+    ${(spinnerOverlayProps) => (spinnerOverlayProps.isLoading ? SpinnerWithOverlay : ``)};
   `;
-  const result: FC<T> = props => <ComponentWithOverlaySpinner {...props} {...(spinnerOverlayProps as any)} />;
+  const result: FC<T> = (props) => <ComponentWithOverlaySpinner {...props} {...(spinnerOverlayProps as any)} />;
 
   return result;
 }

@@ -37,7 +37,8 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.SCANNER} exact component={QrScanner} />
       <PrivateRoute path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
       <PrivateRoute path={APP_ROUTES.CHOOSE_PERSONA} exact component={ChoosePersona} />
-      <Route path={APP_ROUTES.MY_PERSONAS} exact component={MyPersona} />
+      <PrivateRoute path={APP_ROUTES.MY_PERSONAS} exact component={MyPersona} />
+      <PrivateRoute path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
       <Route path={APP_ROUTES.INFORMATIVE_CLAUSE} exact component={InformativeClause} />
       <Route path={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY} exact component={PrivacyAndCookies} />
       <Route path={APP_ROUTES.TERM_OF_USE} exact component={TermOfUse} />
@@ -51,15 +52,16 @@ export const AppRouter: FunctionComponent = () => {
       <PrivateRoute path={APP_ROUTES.SPOT_CREATION_STEP_3} exact component={CreateSpotsPage} />
       <Route path={APP_ROUTES.REGISTER} exact component={Register} />
       <PrivateRoute path={APP_ROUTES.PERSONA_CREATION_STEP_1} exact component={InitialStep} />
-      <PrivateRoute path={APP_ROUTES.PERSONA_CREATION_STEP_2} exact component={CreatePersonaCard} />
-      <PrivateRoute path={APP_ROUTES.PERSONA_CREATION_STEP_3} exact component={CreatePersonaPage} />
+      <Route path={APP_ROUTES.PERSONA_CREATION_STEP_2} exact component={CreatePersonaCard} />
+      <Route path={APP_ROUTES.PERSONA_CREATION_STEP_3} exact component={CreatePersonaPage} />
+      <Route path="/persona-creation/page" exact component={Page} />
       <Route path={APP_ROUTES.CONTACT} exact component={Contact} />
       <Route path={APP_ROUTES.RESET_PASSWORD} exact component={ResetPassword} />
       <Route path={APP_ROUTES.CHANGE_PASSWORD} exact component={ChangePassword} />
       <PrivateRoute path={APP_ROUTES.SPOT_BOOK} exact component={SpotBook} />
       <PrivateRoute path={APP_ROUTES.CONTACT_BOOK} exact component={ContactBook} />
-      <PrivateRoute path={APP_ROUTES.PERSONA_PREVIEW(':uuid')} exact component={PersonaPreview} />
-      <PrivateRoute path={APP_ROUTES.SPOT_PREVIEW(':uuid')} exact component={SpotPreview} />
+      <Route path={APP_ROUTES.PERSONA_PREVIEW(':uuid')} exact component={PersonaPreview} />
+      <Route path={APP_ROUTES.SPOT_PREVIEW(':uuid')} exact component={SpotPreview} />
     </Switch>
   );
 };

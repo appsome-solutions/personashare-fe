@@ -20,12 +20,12 @@ const InformationUnderText = styled(InfoCard)`
 `;
 
 const TextInInfo = styled.div`
-  ${props => props.theme.typography.subtitle2};
+  ${(props) => props.theme.typography.subtitle2};
 `;
 const ContactUs = styled(NavLink)`
-  ${props => props.theme.typography.subtitle2};
+  ${(props) => props.theme.typography.subtitle2};
   margin-left: 4px;
-  color: ${props => props.theme.colors.main.primary};
+  color: ${(props) => props.theme.colors.main.primary};
   text-decoration: underline;
 `;
 

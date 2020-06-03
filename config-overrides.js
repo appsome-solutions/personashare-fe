@@ -3,7 +3,7 @@ const { override, addWebpackModuleRule, addBabelPlugin } = require('customize-cr
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const bundleAnalyzerPlugin = config => {
+const bundleAnalyzerPlugin = (config) => {
   // config.plugins.push(new BundleAnalyzerPlugin());
   return config;
 };

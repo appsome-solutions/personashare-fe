@@ -21,7 +21,7 @@ const StepperWrapper = styled(Flex)`
   ::after {
     content: '';
     position: absolute;
-    background-color: ${props => props.theme.colors.main.primary};
+    background-color: ${(props) => props.theme.colors.main.primary};
     display: block;
     width: 100%;
     height: 3px;
@@ -33,7 +33,7 @@ const StepperWrapper = styled(Flex)`
 const StepperItem = styled.div<StepperItemsProps>`
   width: 24px;
   height: 24px;
-  background-color: ${props => props.theme.colors.main.primary};
+  background-color: ${(props) => props.theme.colors.main.primary};
   color: white;
   display: flex;
   justify-content: center;

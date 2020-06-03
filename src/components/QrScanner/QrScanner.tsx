@@ -32,7 +32,7 @@ type ExtendedWebcam = {
 
 const StyledWebcam = styled(Webcam)<ExtendedWebcam | any>`
   width: 100%;
-  height: calc(100vh - 108px);
+  height: ${(props) => props.theme.contentHeight};
   object-fit: fill;
 `;
 

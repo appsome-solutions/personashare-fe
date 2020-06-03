@@ -12,7 +12,7 @@ import styled from 'styled-components';
 
 const StyledEditorBarWrapper = styled(EditorBarWrapper)`
   & > div {
-    border-right: 1px solid ${props => props.theme.colors.functional.disabled};
+    border-right: 1px solid ${(props) => props.theme.colors.functional.disabled};
   }
 `;
 

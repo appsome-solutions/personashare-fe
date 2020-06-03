@@ -47,7 +47,7 @@ const getActiveTool = (editor: EditorType): ActiveToolsType => {
 
 export const Page: FC = () => {
   const editor: EditorType = useMemo(() => withReact(createEditor()), []);
-  const renderElement = useCallback(props => <Element {...props} />, []);
+  const renderElement = useCallback((props) => <Element {...props} />, []);
   const [activeToolbar, setActiveToolbar] = useState<ActiveToolsType>(false);
   const [selection, setSelection] = useState<Range | null>(null);
   const [areEditorButtonsVisible, setAreEditorButtonsVisible] = useState(false);
@@ -87,7 +87,7 @@ export const Page: FC = () => {
           <StyledEditable
             activeTools={activeToolbar}
             renderElement={renderElement}
-            renderLeaf={props => <Leaf {...props} />}
+            renderLeaf={(props) => <Leaf {...props} />}
           />
           {activeToolbar === 'inline' && <InlineTools />}
           {activeToolbar === 'bloc' && <BlockTools />}
