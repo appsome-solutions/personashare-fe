@@ -6,7 +6,6 @@ import { Register } from 'pages/Register/Register';
 import { Login } from 'pages/Login/Login';
 import { InitialStep } from 'pages/CreatePersona/InitialStep/InitialStep';
 import { ChoosePersona } from 'pages/ChoosePersona/ChoosePersona';
-import { Page } from 'pages/PersonaCreation/Page/Page';
 import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
 import { CreateSpotsStep1 } from 'pages/CreateSpot/CreateSpotsStep1';
 import { CreateSpotsCard } from 'pages/CreateSpot/CreateSpotsCard';
@@ -35,7 +34,7 @@ export const AppRouter: FunctionComponent = () => {
   return (
     <Switch>
       <Route path={APP_ROUTES.ROOT} exact component={Home} />
-      <Route path={APP_ROUTES.SCANNER} exact component={() => <QrScanner onCode={(res) => alert(res.data)} />} />
+      <Route path={APP_ROUTES.SCANNER} exact component={QrScanner} />
       <PrivateRoute path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
       <PrivateRoute path={APP_ROUTES.CHOOSE_PERSONA} exact component={ChoosePersona} />
       <PrivateRoute path={APP_ROUTES.MY_PERSONAS} exact component={MyPersona} />
