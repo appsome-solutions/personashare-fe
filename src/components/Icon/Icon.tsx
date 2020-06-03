@@ -19,18 +19,18 @@ const defaults: IconProps = {
 const Icon = styled.div.attrs({
   role: 'img',
 })<IconProps>`
-  width: ${props => props.width};
-  height: ${props => props.height};
-  cursor: ${props => props.cursor};
-  mask-image: url(${props => props.svgLink});
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  cursor: ${(props) => props.cursor};
+  mask-image: url(${(props) => props.svgLink});
   mask-position: center;
-  background: ${props => props.color || props.theme.colors.utils.text.dark} no-repeat;
+  background: ${(props) => props.color || props.theme.colors.utils.text.dark} no-repeat;
   mask-repeat: no-repeat, no-repeat;
   display: inline-block;
 
   // transparent causes disapearing icons bug
   &:hover {
-    ${props =>
+    ${(props) =>
       props.hoverBackground &&
       css`
         background-color: props.hoverBackground;

@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import { GET_SPOT_PAGE, GetCardType } from 'global/graphqls/Spot';
 import { RecommendButtonSpot } from '../RecommendButton/RecommendButtonSpot';
 import { SaveSpotButton } from 'components/SaveEntity/SaveSpot';
+import { ManagerList } from '../SpotBook/ManagerList/ManagerList';
 
 const MainComponent = styled.div`
   display: flex;
@@ -50,6 +51,7 @@ export const SpotPreview: FC = () => {
         <EntityPageComp page={data.spot.page} />
         <RecommendButtonSpot />
       </Wrapper>
+      <ManagerList />
       <SecondPartSpot>
         <SaveSpotButton />
       </SecondPartSpot>

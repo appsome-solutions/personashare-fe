@@ -9,7 +9,7 @@ import { GET_USER } from 'global/graphqls/User';
 import styled from 'styled-components';
 
 const RecommendText = styled.div`
-  ${props => props.theme.typography.body2}
+  ${(props) => props.theme.typography.body2}
 `;
 
 const MainComponent = styled.div`
@@ -27,7 +27,7 @@ export const RecommendContactBook: FC = () => {
       <RecommendText>Recommend</RecommendText>
       <Carousel ref={carousel}>
         {data?.persona.recommendList.map((persona: AgregatedPersona) => (
-          <PersonaCard card={persona.card} uuid={persona.uuid} />
+          <PersonaCard card={persona.card} uuid={persona.uuid} key={persona.uuid} />
         ))}
       </Carousel>
     </MainComponent>
