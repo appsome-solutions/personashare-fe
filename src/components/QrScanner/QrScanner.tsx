@@ -31,7 +31,7 @@ type ExtendedWebcam = {
 
 const StyledWebcam = styled(Webcam)<ExtendedWebcam | any>`
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 108px);
   object-fit: fill;
 `;
 
@@ -94,6 +94,7 @@ export const QrScanner = ({
           audio={false}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
+          forceScreenshotSourceSize
           videoConstraints={videoConstraints}
           onUserMediaError={onUserMediaError}
         />

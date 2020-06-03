@@ -8,7 +8,7 @@ type TopNavType = {
   isWithBackArrow?: boolean;
 };
 
-const StyledIcon = styled(Icon as any)`
+const StyledIcon = styled(Icon)`
   background-color: ${(props) => props.theme.colors.utils.background.light};
   margin-right: 6px;
 `;

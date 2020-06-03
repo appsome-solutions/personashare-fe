@@ -18,7 +18,7 @@ const Title = styled.h5`
   color: ${(props) => props.theme.colors.utils.text.dark};
 `;
 
-const FormButton = styled(WideButton as any)`
+const FormButton = styled(WideButton)`
   margin-top: 24px;
 `;
 

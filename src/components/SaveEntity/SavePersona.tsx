@@ -11,7 +11,7 @@ type SavePersonaUuid = {
   uuid: string;
 };
 
-const ButtonSavedStyled = styled(WideButton as any)`
+const ButtonSavedStyled = styled(WideButton)`
   && {
     background-color: ${(props) => props.theme.colors.functional.disabled};
     &&:active,

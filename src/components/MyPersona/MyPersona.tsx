@@ -19,7 +19,7 @@ import ShareQrCode from 'assets/ShareQrCode.svg';
 import { MyPersonaWithoutSpots } from './MyPersonaWithoutPersona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 
-const StyledButton = styled(Button as any)`
+const StyledButton = styled(Button)`
   width: 80%;
   margin-left: auto;
   margin-right: auto;

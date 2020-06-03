@@ -36,7 +36,7 @@ import {
   AddManagerResponse,
 } from 'global/graphqls/Spot';
 
-const StyledButton = styled(Button as any)`
+const StyledButton = styled(Button)`
   width: 80%;
   margin-left: auto;
   margin-right: auto;
@@ -57,7 +57,7 @@ const DefaultBlock = styled.div`
   border-radius: 5px;
 `;
 
-const ShareButton = styled(StyledButton as any)`
+const ShareButton = styled(StyledButton)`
   margin-top: auto;
 `;
 

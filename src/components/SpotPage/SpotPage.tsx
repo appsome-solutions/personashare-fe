@@ -13,7 +13,7 @@ type Props = {
   onClick?: any;
 };
 
-const CardStyled = styled(Card as any)`
+const CardStyled = styled(Card)`
   margin-top: 0px;
 `;
 const NameStyled = styled.div`
