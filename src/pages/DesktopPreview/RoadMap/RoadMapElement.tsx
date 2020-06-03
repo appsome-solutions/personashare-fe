@@ -27,8 +27,8 @@ const ChildrenWrapper = styled.div<ChildrenWrapperProps>`
   max-width: 194px;
   height: 100%;
   display: flex;
-  ${(props) => (props.childrenPosition === 'left' ? 'left: 100px' : 'right: 100px')};
-  ${(props) => (props.childrenPosition === 'left' ? 'text-align: left' : 'text-align: right')};
+  ${(props) => (props.childrenPosition === 'left' ? 'right: 100px' : 'left: 100px')};
+  ${(props) => (props.childrenPosition === 'left' ? 'text-align: right' : 'text-align: left')};
 `;
 
 const RoadMapElement: FC<PropsWithChildren<RoadMapElementProps>> = ({

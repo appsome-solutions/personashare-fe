@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const TextUppercase = styled.div`
+  color: #000000;
   font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: 500;

@@ -1,4 +1,4 @@
-import React, { FC, memo, ReactElement } from 'react';
+import React, { FC, memo, ReactElement, Fragment } from 'react';
 import { uniqueId } from 'lodash';
 import styled from 'styled-components';
 
@@ -55,12 +55,12 @@ const roadmap: RoadMapElementPayload[] = [
 const RoadMap: FC = () => (
   <RoadMapWrapper>
     {roadmap.map<ReactElement>(({ svgLink, text, childrenPosition }, index) => (
-      <>
-        <RoadMapElement key={uniqueId('roadMapElement')} svgLink={svgLink} childrenPosition={childrenPosition}>
+      <Fragment key={uniqueId('roadMapElement')}>
+        <RoadMapElement svgLink={svgLink} childrenPosition={childrenPosition}>
           <TextUppercase>{text}</TextUppercase>
         </RoadMapElement>
-        {roadmap[index + 1] && <ElementConnector />}
-      </>
+        {roadmap[index + 1] && <ElementConnector key={uniqueId('roadMapElement2')} />}
+      </Fragment>
     ))}
   </RoadMapWrapper>
 );
