@@ -33,7 +33,7 @@ const CreateSpot = styled.div`
   position: fixed;
   bottom: 66px;
   right: 18px;
-  background-color: ${props => props.theme.colors.main.primary};
+  background-color: ${(props) => props.theme.colors.main.primary};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +49,7 @@ const ShareQr = styled.div`
 `;
 
 const TextInShare = styled.div`
-  ${props => props.theme.typography.subtitle2};
+  ${(props) => props.theme.typography.subtitle2};
   margin-bottom: 20px;
 `;
 const ShareQrIcon = styled.img`

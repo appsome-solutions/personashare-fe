@@ -23,7 +23,7 @@ export const onBgChangeHelper = (file: File, cb: Cb): void => {
 };
 
 export const revokeObjectURLS = (objectUrls: (string | undefined)[]): void => {
-  objectUrls.forEach(objectUrl => {
+  objectUrls.forEach((objectUrl) => {
     if (objectUrl) {
       URL.revokeObjectURL(objectUrl);
     }

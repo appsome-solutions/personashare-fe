@@ -19,7 +19,7 @@ export const BlockButton = ({ svgLink, title, format, addInNewLine = false }: Bl
 
   return (
     <EditorButtonWrapper
-      onMouseDown={event => {
+      onMouseDown={(event) => {
         event.preventDefault();
 
         // overriding lost selection with last one:

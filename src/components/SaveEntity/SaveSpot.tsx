@@ -11,10 +11,10 @@ import styled from 'styled-components';
 
 const ButtonSavedStyled = styled(WideButton)`
   && {
-    background-color: ${props => props.theme.colors.functional.disabled};
+    background-color: ${(props) => props.theme.colors.functional.disabled};
     &&:active,
     &&:hover {
-      color: ${props => props.theme.colors.functional.disabled};
+      color: ${(props) => props.theme.colors.functional.disabled};
     }
   }
 `;

@@ -8,8 +8,8 @@ import { FormikInput } from 'components/FormikFields/FormikInput/FormikInput';
 export const Container = styled.span`
   margin: 0;
   padding: 0;
-  background: ${props => props.theme.colors.utils.background.light};
-  border: 1px solid ${props => props.theme.colors.utils.border.mid};
+  background: ${(props) => props.theme.colors.utils.background.light};
+  border: 1px solid ${(props) => props.theme.colors.utils.border.mid};
   box-sizing: border-box;
   border-radius: 4px;
   position: relative;
@@ -26,7 +26,7 @@ const Icon = styled(IconComponent)`
   display: flex;
   align-items: center;
   transform: translateY(-50%);
-  background-color: ${props => props.theme.colors.utils.border.mid};
+  background-color: ${(props) => props.theme.colors.utils.border.mid};
 `;
 
 export const PasswordInput = ({ className, ...rest }: InputProps) => (

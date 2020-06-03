@@ -5,7 +5,7 @@ import AddPhoto from 'assets/add_photo.svg';
 
 const Placeholder = styled.div`
   position: relative;
-  background-color: ${props => props.theme.colors.functional.disabled};
+  background-color: ${(props) => props.theme.colors.functional.disabled};
   border-radius: 6px 6px 0 0;
   height: 154px;
 `;

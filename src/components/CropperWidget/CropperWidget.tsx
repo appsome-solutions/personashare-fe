@@ -29,7 +29,7 @@ const WidgetWrapper = styled.div`
   display: flex;
   flex-direction: column-reverse;
   top: 0;
-  background-color: ${props => props.theme.colors.utils.background.light};
+  background-color: ${(props) => props.theme.colors.utils.background.light};
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   width: 100%;
   z-index: 90000000;
@@ -71,7 +71,7 @@ export const CropperWidget: FC<CropperWidgetProps> = ({ imageRef, onCrop }) => {
           imageSmoothingEnabled: false,
         })
         .toBlob(
-          blob => {
+          (blob) => {
             if (blob) {
               onCrop({
                 blobUrl: URL.createObjectURL(blob),

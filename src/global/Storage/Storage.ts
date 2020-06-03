@@ -37,7 +37,7 @@ class Storage {
 
     uploadTask.on(
       storage.TaskEvent.STATE_CHANGED,
-      snapshot => {
+      (snapshot) => {
         progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
         if (progressStates.includes(snapshot.state)) {
@@ -56,7 +56,7 @@ class Storage {
         });
       },
       () => {
-        uploadTask.snapshot.ref.getDownloadURL().then(downloadUrl => {
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadUrl) => {
           onStateChange({
             status: storage.TaskState.SUCCESS,
             progress,
@@ -106,7 +106,7 @@ class Storage {
     try {
       const lists = await this.storageRef.child(path).listAll();
       const storageItems = await Promise.all(
-        lists.items.map(async item => {
+        lists.items.map(async (item) => {
           const downloadUrl = await item.getDownloadURL();
 
           return {

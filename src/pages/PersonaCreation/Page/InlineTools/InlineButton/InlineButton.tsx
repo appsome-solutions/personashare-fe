@@ -14,7 +14,7 @@ type InlineButtonWrapperType = {
 };
 
 const StyledEditorButtonWrapper = styled(EditorButtonWrapper)<InlineButtonWrapperType>`
-  background-color: ${props => props.active && 'rgba(0,0,0,0.2)'};
+  background-color: ${(props) => props.active && 'rgba(0,0,0,0.2)'};
 `;
 
 export const InlineButton = ({ format, svgLink }: InlineButtonType) => {
@@ -22,7 +22,7 @@ export const InlineButton = ({ format, svgLink }: InlineButtonType) => {
   return (
     <StyledEditorButtonWrapper
       active={isMarkActive(editor, format)}
-      onMouseDown={event => {
+      onMouseDown={(event) => {
         event.preventDefault();
         toggleMark(editor, format);
       }}

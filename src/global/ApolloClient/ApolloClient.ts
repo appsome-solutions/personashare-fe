@@ -16,8 +16,8 @@ type CustomGraphQLError = Exclude<GraphQLError, 'message'> & {
   };
 };
 
-const logoutLink: ErrorHandler = error => {
-  if ((error?.graphQLErrors as CustomGraphQLError[])?.some(error => error.message.statusCode === 403)) {
+const logoutLink: ErrorHandler = (error) => {
+  if ((error?.graphQLErrors as CustomGraphQLError[])?.some((error) => error.message.statusCode === 403)) {
     localStorage.removeItem(PS_TOKEN_NAME);
     history.push('/login');
   }
@@ -33,7 +33,7 @@ export const client = new ApolloClient({
   uri: process.env.REACT_APP_GRAPHQL_API_URL || '',
   onError: logoutLink,
   credentials: 'include',
-  request: operation => {
+  request: (operation) => {
     const token = localStorage.getItem(PS_TOKEN_NAME);
 
     operation.setContext({

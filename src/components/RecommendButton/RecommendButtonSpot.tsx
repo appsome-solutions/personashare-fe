@@ -22,7 +22,7 @@ export const RecommendButtonSpot: FC = () => {
   const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
 
   const [recommendSpot] = useMutation<RecommendSpotResponse>(RECOMMEND_SPOT, {
-    variables: { recommendedSpotUuid: uuid, personaUuid: userPersona?.user?.defaultPersona },
+    variables: { recommendedSpotUuid: uuid },
   });
   const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: userPersona?.user?.defaultPersona },

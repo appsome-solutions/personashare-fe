@@ -3,7 +3,6 @@ import { Redirect, useParams } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { useFormik } from 'formik';
 import { useHistory } from 'react-router-dom';
-import { Node } from 'slate/dist';
 import { useFirebase } from 'global/Firebase';
 import { useStorage } from 'global/Storage';
 import { TopNav } from 'components/TopNav/TopNav';
@@ -20,7 +19,6 @@ import { Flex } from 'components/FlexBox/FlexBox';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { EditIndicator } from 'components/EditIndicator/EditIndicator';
-import { Editor } from 'components/Editor/Editor';
 
 import {
   onAvatarChangeHelper,
@@ -75,9 +73,7 @@ export const EntityPage: FC<LinkProps> = ({
   const { uuid } = useParams();
   const history = useHistory();
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
-  const { values, setFieldValue, handleSubmit, errors, isValid, setStatus, setSubmitting, isSubmitting } = useFormik<
-    PageType
-  >({
+  const { values, setFieldValue, handleSubmit, isValid, setStatus, setSubmitting, isSubmitting } = useFormik<PageType>({
     initialValues,
     onSubmit: async (formValues): Promise<void | null> => {
       const user = getCurrentUser();
@@ -174,10 +170,6 @@ export const EntityPage: FC<LinkProps> = ({
     onBgChangeHelper(bgFile, setImageRef);
   };
 
-  const onEditorValueChange = (value: Node[]): void => {
-    setFieldValue('content', value, true);
-  };
-
   const { avatarUpload, backgroundUpload } = values;
 
   return (
@@ -206,9 +198,7 @@ export const EntityPage: FC<LinkProps> = ({
             <Flex justifyContent="flex-end" mx={14} my={10}>
               <EditIndicator alt="Edit card" />
             </Flex>
-            <Flex mt={10}>
-              <Editor hasError={!!errors.content} onChange={onEditorValueChange} />
-            </Flex>
+            <Flex mt={10}></Flex>
           </form>
         </div>
         <WideButton htmlType="submit" form="page-form" disabled={!isValid}>

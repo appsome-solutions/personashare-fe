@@ -51,7 +51,7 @@ const DefaultBlock = styled.div`
   margin-left: auto;
   margin-right: auto;
   font-weight: 600;
-  color: ${props => props.theme.colors.utils.text.dark};
+  color: ${(props) => props.theme.colors.utils.text.dark};
   background-color: rgba(85, 133, 255, 0.4);
   border: 1px solid rgba(85, 133, 255, 0.2);
   border-radius: 5px;
@@ -148,7 +148,7 @@ export const ChoosePersona: FC = () => {
 
   useEffect(() => {
     if (data?.userPersonas) {
-      const defaultPersonaIndex = data.userPersonas.findIndex(persona => persona.uuid === defaultPersonaUuid);
+      const defaultPersonaIndex = data.userPersonas.findIndex((persona) => persona.uuid === defaultPersonaUuid);
       const goToIndex = defaultPersonaIndex === -1 ? 0 : defaultPersonaIndex;
       setCurrentSlide(goToIndex);
       carousel.current?.goTo(goToIndex);

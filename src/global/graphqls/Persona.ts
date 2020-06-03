@@ -66,8 +66,8 @@ export interface RecommendPersonaResponse {
 }
 
 export const RECOMMEND_PERSONA = gql`
-  mutation recommendPersona($recommendedPersonaUuid: String!, $personaUuid: String!) {
-    recommendPersona(recommendedPersonaUuid: $recommendedPersonaUuid, personaUuid: $personaUuid) {
+  mutation recommendPersona($recommendedPersonaUuid: String!) {
+    recommendPersona(recommendedPersonaUuid: $recommendedPersonaUuid) {
       uuid
     }
   }

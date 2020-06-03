@@ -21,10 +21,6 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-const DateOfSave = styled.div`
-  margin-bottom: 8px;
-`;
-
 export const SpotBook: FC = () => {
   const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
   const { data, loading } = useQuery<GetCardType>(GET_PERSONA, {
@@ -42,9 +38,9 @@ export const SpotBook: FC = () => {
   }
 
   const results = !searchValue
-    ? data?.persona.spotBook
-    : data?.persona.spotBook.filter(
-        spotBook =>
+    ? data?.persona?.spotBook
+    : data?.persona?.spotBook.filter(
+        (spotBook) =>
           spotBook.card.name.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
           spotBook.card.description.toLowerCase().includes(searchValue.toLocaleLowerCase())
       );
@@ -67,8 +63,7 @@ export const SpotBook: FC = () => {
               })
             }
           >
-            <DateOfSave>14.10.2019</DateOfSave>
-            <SpotPage card={spot.card} uuid={spot.uuid} isWithEdit={true} />
+            <SpotPage card={spot.card} uuid={spot.uuid} isWithEdit={false} />
           </Wrapper>
         ))}
       </SpotBookStyled>
