@@ -15,7 +15,7 @@ import GpsImg from 'assets/GpsImg.svg';
 import SchemeImg from 'assets/SchemeImg.svg';
 import styled from 'styled-components';
 
-const WideButtonStyled = styled(WideButton as any)`
+const WideButtonStyled = styled(WideButton)`
   margin-top: 46px;
 `;
 export const InitialStep: FC = () => {

@@ -13,7 +13,7 @@ type InlineButtonWrapperType = {
   active: boolean;
 };
 
-const StyledEditorButtonWrapper = styled(EditorButtonWrapper as any)<InlineButtonWrapperType>`
+const StyledEditorButtonWrapper = styled(EditorButtonWrapper)<InlineButtonWrapperType>`
   background-color: ${(props) => props.active && 'rgba(0,0,0,0.2)'};
 `;
 

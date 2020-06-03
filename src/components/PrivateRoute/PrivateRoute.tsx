@@ -11,9 +11,9 @@ export const PrivateRoute = ({ component: Component, ...rest }: Props) => {
   return (
     <Route
       {...rest}
-      render={props =>
+      render={(props) =>
         user ? (
-          <Component {...(props as any)} />
+          <Component {...props} />
         ) : (
           <Redirect
             to={{

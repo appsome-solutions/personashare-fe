@@ -32,7 +32,7 @@ const HamburgerMenuStyled = styled.div`
   align-items: center;
 `;
 
-const HamburgerIcon = styled(Icon as any)`
+const HamburgerIcon = styled(Icon)`
   margin-left: 28px;
 `;
 

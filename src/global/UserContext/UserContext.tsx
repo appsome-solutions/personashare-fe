@@ -26,7 +26,7 @@ const UserProvider: FC = ({ children }) => {
   }, [data]);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(async user => {
+    const unsubscribe = onAuthStateChanged(async (user) => {
       if (user) {
         const token = await user.getIdToken(true);
         localStorage.setItem(PS_TOKEN_NAME, token);

@@ -11,7 +11,7 @@ type StepperItemsProps = {
   isNextStep: boolean;
 };
 
-const StepperWrapper = styled(Flex as any)`
+const StepperWrapper = styled(Flex)`
   display: flex;
   width: 100%;
   justify-content: space-between;

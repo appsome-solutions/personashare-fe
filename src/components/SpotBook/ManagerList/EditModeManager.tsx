@@ -7,16 +7,15 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { useFirebase } from 'global/Firebase';
 import { SpotType, UPDATE_SPOT } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
-import { Entity } from '../../../global/graphqls/schema';
-import { Overlay } from '../../Overlay/Overlay';
-import { Spinner } from '../../Spinner/Spinner';
+import { Entity } from 'global/graphqls/schema';
+import { Overlay } from 'components/Overlay/Overlay';
+import { Spinner } from 'components/Spinner/Spinner';
 import { Button, Tag, Tooltip } from 'antd';
-import { Icon } from '../../Icon';
-import { InputWithSuffixIcon } from '../../InputWithSuffixIcon/InputWithSuffixIcon';
+import { Icon } from 'components/Icon';
+import { InputWithSuffixIcon } from 'components/InputWithSuffixIcon/InputWithSuffixIcon';
 import AddSvg from 'assets/add-24px.svg';
-import EmailIconSvg from '../../../assets/email.svg';
-import { WideButton } from '../../Button';
-import _ from 'lodash';
+import EmailIconSvg from 'assets/email.svg';
+import { WideButton } from 'components/Button';
 
 const InputField = styled(InputWithSuffixIcon)`
   && {
