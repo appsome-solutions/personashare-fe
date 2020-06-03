@@ -7,7 +7,7 @@ export type EditorContextType = {
   activeToolbar: ActiveToolsType;
   areEditorButtonsVisible: boolean;
   closeActiveTools: () => void;
-  setAreEditorButtonsVisible: (arg: boolean) => {};
+  setAreEditorButtonsVisible: (arg: boolean) => void;
 };
 
 const [useEditorContext, EditorContextProvider] = createCtx<EditorContextType>();
