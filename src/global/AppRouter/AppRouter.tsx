@@ -30,6 +30,7 @@ import { APP_ROUTES } from './routes';
 import { SpotBook } from 'components/SpotBook/SpotBook';
 import { PersonaPreview } from 'components/PersonaPreview/PersonaPreview';
 import { SpotPreview } from 'components/SpotPreview/SpotPreview';
+import { SpotInvitation } from 'components/SpotBook/ManagerList/SpotInvitation';
 
 export const AppRouter: FunctionComponent = () => {
   return (
@@ -63,6 +64,7 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.CONTACT_BOOK} exact component={ContactBook} />
       <Route path={APP_ROUTES.PERSONA_PREVIEW(':uuid')} exact component={PersonaPreview} />
       <Route path={APP_ROUTES.SPOT_PREVIEW(':uuid')} exact component={SpotPreview} />
+      <Route path={APP_ROUTES.SPOT_INVITATION(':uuid')} exact component={SpotInvitation} />
     </Switch>
   );
 };
