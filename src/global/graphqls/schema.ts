@@ -13,7 +13,9 @@ export const cardSchema = Yup.object({
 });
 
 export const pageSchema = Yup.object({
-  content: Yup.mixed().required().nullable(true),
+  // todo: uncomment when editor will be connected
+  // content: Yup.mixed().required().nullable(true),
+  content: Yup.mixed().notRequired(),
   avatar: Yup.string().notRequired(),
   background: Yup.string().notRequired(),
   avatarUpload: Yup.mixed<ImageRef>().nullable(true).notRequired(),
