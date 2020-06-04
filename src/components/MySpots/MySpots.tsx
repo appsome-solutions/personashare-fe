@@ -2,20 +2,19 @@ import React, { FC, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Carousel as AntCarousel } from 'antd';
 import { TopNav } from 'components/TopNav/TopNav';
-import { PageWrapperSpaceBetween } from 'components/PageWrapper';
+import { PageWrapper, PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { useQuery } from '@apollo/react-hooks';
 import { PersonaCard } from 'components/PersonaCard/PersonaCard';
 import Carousel from 'components/Carousel/Carousel';
 import { gqlEntity } from 'global/graphqls/schema';
-import { Spinner } from 'components/Spinner/Spinner';
-import { Overlay } from 'components/Overlay/Overlay';
 import { MySpotsWithoutSpots } from './MySpotsWithoutSpots';
-import { NavLink, Route, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { GET_SPOTS, GetSpotType } from 'global/graphqls/Spot';
 import AddIcon from 'assets/AddIcon.svg';
 import ShareQrCode from 'assets/ShareQrCode.svg';
 import isEmpty from 'lodash/isEmpty';
 import { APP_ROUTES } from 'global/AppRouter/routes';
+import { Loader } from 'components/Loader/Loader';
 
 const CaruouselItem = styled.div`
   padding: 0 20px;
@@ -56,56 +55,57 @@ const ShareQrIcon = styled.img`
   padding-right: 12px;
 `;
 
+const StyledPageWrapper = styled(PageWrapper)`
+  padding: 0px;
+`;
+
 export const MySpots: FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { loading, data } = useQuery<GetSpotType>(GET_SPOTS);
   const carousel = useRef<AntCarousel>(null);
   const history = useHistory();
 
-  if (loading) {
-    return (
-      <Overlay>
-        <Spinner />
-      </Overlay>
-    );
-  }
-  if (isEmpty(data?.userSpots) || !data) {
-    return <Route path={APP_ROUTES.MY_SPOTS} exact component={MySpotsWithoutSpots} />;
+  if ((isEmpty(data?.userSpots) || !data) && !loading) {
+    return <MySpotsWithoutSpots />;
   }
 
   return (
     <div>
       <TopNav isWithBackArrow />
-      <PageWrapperSpaceBetween>
-        <Carousel afterChange={setCurrentSlide} ref={carousel}>
-          {data.userSpots &&
-            data.userSpots.map((spots: gqlEntity) => (
-              <CaruouselItem key={spots.uuid}>
-                <Wrapper
-                  onClick={() =>
-                    history.push({
-                      pathname: `${APP_ROUTES.SPOT_PREVIEW(spots.uuid)}`,
-                    })
-                  }
-                >
-                  <PersonaCard card={spots.card} uuid={spots.uuid} isWithEdit={true} />
-                </Wrapper>
-              </CaruouselItem>
-            ))}
-        </Carousel>
-        <ShareQr>
-          <img src={`${data.userSpots[currentSlide].qrCodeLink}`} alt="QrCode" />
-          <TextInShare>
-            <ShareQrIcon src={ShareQrCode} alt="Share Qr Code" />
-            <a href={`${data.userSpots[currentSlide].qrCodeLink}`}>Share your QR</a>
-          </TextInShare>
-        </ShareQr>
-      </PageWrapperSpaceBetween>
-      <NavLink to={APP_ROUTES.SPOT_CREATION_STEP_1}>
-        <CreateSpot>
-          <img src={AddIcon} alt="Create Icon" />
-        </CreateSpot>
-      </NavLink>
+      <StyledPageWrapper>
+        <Loader loading={loading} data={data}>
+          <PageWrapperSpaceBetween>
+            <Carousel afterChange={setCurrentSlide} ref={carousel}>
+              {data?.userSpots &&
+                data?.userSpots.map((spots: gqlEntity) => (
+                  <CaruouselItem key={spots.uuid}>
+                    <Wrapper
+                      onClick={() =>
+                        history.push({
+                          pathname: `${APP_ROUTES.SPOT_PREVIEW(spots.uuid)}`,
+                        })
+                      }
+                    >
+                      <PersonaCard card={spots.card} uuid={spots.uuid} isWithEdit={true} />
+                    </Wrapper>
+                  </CaruouselItem>
+                ))}
+            </Carousel>
+            <ShareQr>
+              <img src={`${data?.userSpots[currentSlide].qrCodeLink}`} alt="QrCode" />
+              <TextInShare>
+                <ShareQrIcon src={ShareQrCode} alt="Share Qr Code" />
+                <a href={`${data?.userSpots[currentSlide].qrCodeLink}`}>Share your QR</a>
+              </TextInShare>
+            </ShareQr>
+          </PageWrapperSpaceBetween>
+          <NavLink to={APP_ROUTES.SPOT_CREATION_STEP_1}>
+            <CreateSpot>
+              <img src={AddIcon} alt="Create Icon" />
+            </CreateSpot>
+          </NavLink>
+        </Loader>
+      </StyledPageWrapper>
     </div>
   );
 };

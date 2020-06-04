@@ -10493,7 +10493,7 @@ prettier@prettier/prettier#master:
   version "2.1.0-dev"
   resolved "https://codeload.github.com/prettier/prettier/tar.gz/a3cdb7dcfe558a9de6fd94d0358a7bc7a162c86a"
   dependencies:
-    "@angular/compiler" "9.1.7"
+    "@angular/compiler" "9.1.9"
     "@babel/code-frame" "7.8.3"
     "@babel/parser" "7.9.6"
     "@glimmer/syntax" "0.53.0"
@@ -11315,6 +11315,11 @@ react-app-rewired@^2.1.5:
   integrity sha512-06flj0kK5tf/RN4naRv/sn6j3sQd7rsURoRLKLpffXDzJeNiAaTNic+0I8Basojy5WDwREkTqrMLewSAjcb13w==
   dependencies:
     semver "^5.6.0"
+
+react-card-flip@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/react-card-flip/-/react-card-flip-1.0.10.tgz#f3eab968f2cba6de6eccb84cf73bcaf6b53fb974"
+  integrity sha512-BqK6PmP+L/xmcH1AoMuirbxRuDIiaNy3r8734GJQqEyIWoW8L4j2c/di6mbNg+I2rGue3tLH1I9QbJLd7M89ww==
 
 react-dev-utils@^9.1.0:
   version "9.1.0"

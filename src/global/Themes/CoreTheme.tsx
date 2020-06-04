@@ -22,6 +22,7 @@ export const CoreTheme = {
     },
     functional: {
       disabled: '#B7B7B7',
+      overlay: 'rgba(183, 183, 183, 0.75)',
       error: '#D42A2A',
     },
   },

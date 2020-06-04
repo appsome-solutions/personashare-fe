@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { TopNav } from 'components/TopNav/TopNav';
-import LogoSvg from 'assets/logo.svg';
+import LogoSvg from 'assets/logo_nobg.svg';
 import { Formik, Form } from 'formik';
 import { object, string, InferType } from 'yup';
 import { useMutation } from '@apollo/react-hooks';
@@ -23,7 +23,7 @@ import { signInWithGoogle } from 'helpers/signInWithGoogle';
 const Caption = styled.span((props) => props.theme.typography.caption);
 
 const StyledLogo = styled.img`
-  margin-top: 156px;
+  margin-top: 200px;
   margin-bottom: 36px;
 `;
 
