@@ -9,7 +9,6 @@ import { useParams } from 'react-router-dom';
 import { GET_SPOT, GetCardType } from 'global/graphqls/Spot';
 import { RecommendButtonSpot } from 'components/RecommendButton/RecommendButtonSpot';
 import { SaveSpotButton } from 'components/SaveEntity/SaveSpot';
-import { ManagerList } from '../SpotBook/ManagerList/ManagerList';
 import { TopNav } from '../TopNav/TopNav';
 import { ManagerList } from 'components/SpotBook/ManagerList/ManagerList';
 import { ManagerListEditMode } from 'components/SpotBook/ManagerList/EditModeManager';
