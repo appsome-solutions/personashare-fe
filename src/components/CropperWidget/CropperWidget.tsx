@@ -52,8 +52,6 @@ export const CropperWidget: FC<CropperWidgetProps> = ({ imageRef, onCrop }) => {
   const ref = useRef<HTMLImageElement>(null);
   const [cropper, setCropper] = useState<Cropper>();
 
-  console.log(imageRef);
-
   useEffect(() => {
     if (ref.current) {
       setCropper(
