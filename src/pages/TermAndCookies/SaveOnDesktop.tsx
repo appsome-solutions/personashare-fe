@@ -8,7 +8,7 @@ const SaveOnDesktopStyled = styled.div`
   display: flex;
   padding: 12px 20px;
   flex-direction: column;
-  background-color: ${props => props.theme.colors.utils.background.light};
+  background-color: ${(props) => props.theme.colors.utils.background.light};
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   position: sticky;
@@ -20,8 +20,8 @@ const CloseSign = styled.div`
 `;
 
 const CookieText = styled.p`
-  ${props => props.theme.typography.caption};
-  color: ${props => props.theme.colors.utils.text.dark};
+  ${(props) => props.theme.typography.caption};
+  color: ${(props) => props.theme.colors.utils.text.dark};
 `;
 
 const ButtonAccept = styled(Button)`

@@ -19,7 +19,7 @@ const getActiveColor = (props: NavActive & CoreThemePropsType) =>
   props.isActive ? props.theme.colors.main.primary : props.theme.colors.functional.disabled;
 
 const NavIcon = styled(Icon)<NavActive>`
-  background-color: ${props => getActiveColor(props)};
+  background-color: ${(props) => getActiveColor(props)};
 `;
 
 const CenteredCol = styled(Col)`
@@ -27,14 +27,15 @@ const CenteredCol = styled(Col)`
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 52px;
   }
 `;
 
 const NavText = styled.span.attrs({
   style: (props: CoreThemePropsType) => props.theme.typography.subtitle2,
 })<NavActive>`
-  color: ${props => getActiveColor(props)};
-  display: ${props => !props.isActive && 'none'};
+  color: ${(props) => getActiveColor(props)};
+  display: ${(props) => !props.isActive && 'none'};
 `;
 
 const StyledLink = styled(Link)`

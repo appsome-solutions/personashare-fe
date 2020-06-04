@@ -22,7 +22,7 @@ export const InlineButton = ({ format, svgLink }: InlineButtonType) => {
   return (
     <StyledEditorButtonWrapper
       active={isMarkActive(editor, format)}
-      onMouseDown={(event: any) => {
+      onMouseDown={(event) => {
         event.preventDefault();
         toggleMark(editor, format);
       }}

@@ -17,7 +17,7 @@ const EditMenuBox = styled.div`
 `;
 
 const EditAndRemoveBox = styled.div`
-  ${props => props.theme.typography.caption};
+  ${(props) => props.theme.typography.caption};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,12 +30,12 @@ const MenuStyled = styled(Menu)`
 `;
 
 const MenuEditStyled = styled(Menu.Item)`
-  border-bottom: 1px ${props => props.theme.colors.main.primary} solid;
+  border-bottom: 1px ${(props) => props.theme.colors.main.primary} solid;
   padding: 4px 4px 4px 8px;
 `;
 
 const MenuRemoveStyled = styled(Menu.Item)`
-  border-top: 1px ${props => props.theme.colors.main.primary} solid;
+  border-top: 1px ${(props) => props.theme.colors.main.primary} solid;
   padding: 4px 4px 4px 8px;
 `;
 
@@ -107,7 +107,7 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
     <>
       <Dropdown overlay={menuBuild} trigger={['click']} placement="bottomRight">
         <EditMenuBox>
-          <img src={EditMenu} alt="Edit Menu" onClick={e => e.preventDefault()} />
+          <img src={EditMenu} alt="Edit Menu" onClick={(e) => e.preventDefault()} />
         </EditMenuBox>
       </Dropdown>
     </>

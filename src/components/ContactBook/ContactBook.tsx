@@ -12,8 +12,8 @@ import { AgregatedPersona, gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
 
 const ContactBookStyled = styled.div`
-  margin: 30px 16px 40px 16px;
-  height: 100vh;
+  padding: 30px 16px 40px 16px;
+  min-height: ${(props) => props.theme.contentHeight};
 `;
 
 const Wrapper = styled.div`
