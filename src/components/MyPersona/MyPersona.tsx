@@ -125,13 +125,21 @@ export const MyPersona: FC = () => {
     }
   };
 
+  const StyledCarousel = styled(Carousel)`
+    && {
+      .slick-track {
+        margin: auto;
+      }
+    }
+  `;
+
   return (
     <div>
       <TopNav isWithBackArrow />
       <StyledPageWrapper>
         <Loader loading={loading} data={data}>
           <PageWrapperSpaceBetween>
-            <Carousel afterChange={setCurrentSlide} ref={carousel}>
+            <StyledCarousel afterChange={setCurrentSlide} ref={carousel}>
               {data?.userPersonas &&
                 data?.userPersonas.map((persona: gqlEntity) => (
                   <CaruouselItem key={persona.uuid}>
@@ -151,7 +159,7 @@ export const MyPersona: FC = () => {
                     </Wrapper>
                   </CaruouselItem>
                 ))}
-            </Carousel>
+            </StyledCarousel>
             <ShareQr>
               <img src={`${data?.userPersonas[currentSlide].qrCodeLink}`} alt="QrCode Icon" />
               <TextInShare>
