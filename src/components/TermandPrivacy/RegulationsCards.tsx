@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import LogoInTerms from 'assets/LogoInTerms.svg';
+import { TopNav } from '../TopNav/TopNav';
 
 export type RegulationsProps = {
   contentName: string;
@@ -15,9 +16,10 @@ const MainComponent = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 16px 26px;
-  ${props => props.theme.typography.subtitle2};
+  ${(props) => props.theme.typography.subtitle2};
   text-align: center;
-  height: 100vh;
+  height: ${(props) => props.theme.contentHeight};
+  overflow: auto;
 `;
 
 const RegulationText = styled.div`
@@ -43,14 +45,17 @@ export const RegulationsCards: FC<RegulationsProps> = ({
   textInRegulation,
   numberOfArticle,
 }) => (
-  <MainComponent>
-    <img src={LogoInTerms} alt="Logo In Terms" />
-    <RegulationText>
-      <b>{contentName}</b>
-    </RegulationText>
-    <ArticleText>{articleText}</ArticleText>
-    <NumberArticle>{numberOfArticle}</NumberArticle>
-    <TextInRegulation>{textInRegulation}</TextInRegulation>
-    [...]
-  </MainComponent>
+  <>
+    <TopNav isWithBackArrow />
+    <MainComponent>
+      <img src={LogoInTerms} alt="Logo In Terms" />
+      <RegulationText>
+        <b>{contentName}</b>
+      </RegulationText>
+      <ArticleText>{articleText}</ArticleText>
+      <NumberArticle>{numberOfArticle}</NumberArticle>
+      <TextInRegulation>{textInRegulation}</TextInRegulation>
+      [...]
+    </MainComponent>
+  </>
 );

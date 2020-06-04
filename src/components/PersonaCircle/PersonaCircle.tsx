@@ -12,8 +12,8 @@ const PersonCircle = styled.div`
   height: 115px;
   width: 115px;
   border-radius: 50%;
-  background-color: ${props => props.theme.colors.utils.background.light};
-  border: 10px solid ${props => props.theme.colors.utils.background.light};
+  background-color: ${(props) => props.theme.colors.utils.background.light};
+  border: 10px solid ${(props) => props.theme.colors.utils.background.light};
 `;
 
 export const PersonaCircleWrapper = styled.div`

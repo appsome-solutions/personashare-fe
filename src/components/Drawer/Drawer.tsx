@@ -17,7 +17,7 @@ const StyledDrawer = styled(Drawer).attrs({
 
 const HeaderDivider = styled.div`
   height: 24px;
-  background-color: ${props => props.theme.colors.utils.text.dark};
+  background-color: ${(props) => props.theme.colors.utils.text.dark};
 `;
 
 const DrawerWrapper = styled.div`
@@ -25,14 +25,14 @@ const DrawerWrapper = styled.div`
   flex-direction: column;
   padding: 12px 16px;
   font-size: 18px;
-  background-color: ${props => props.theme.colors.utils.background.mid.color};
+  background-color: ${(props) => props.theme.colors.utils.background.mid.color};
 `;
 
 const HamburgerMenuIcon = styled(Icon).attrs({
   svgLink: HamburgerMenuSvg,
 })`
   margin-right: 36px;
-  background-color: ${props => props.theme.colors.utils.background.light};
+  background-color: ${(props) => props.theme.colors.utils.background.light};
   height: 20px;
   width: 30px;
 `;

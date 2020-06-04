@@ -12,8 +12,8 @@ import { AgregatedSpot, gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
 
 const SpotBookStyled = styled.div`
-  margin: 24px 16px 32px 16px;
-  height: 100vh;
+  padding: 24px 16px 32px 16px;
+  min-height: ${(props) => props.theme.contentHeight};
 `;
 
 const Wrapper = styled.div`

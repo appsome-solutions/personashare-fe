@@ -9,6 +9,8 @@ import { useParams } from 'react-router-dom';
 import { GET_SPOT, GetCardType } from 'global/graphqls/Spot';
 import { RecommendButtonSpot } from 'components/RecommendButton/RecommendButtonSpot';
 import { SaveSpotButton } from 'components/SaveEntity/SaveSpot';
+import { ManagerList } from '../SpotBook/ManagerList/ManagerList';
+import { TopNav } from '../TopNav/TopNav';
 import { ManagerList } from 'components/SpotBook/ManagerList/ManagerList';
 import { ManagerListEditMode } from 'components/SpotBook/ManagerList/EditModeManager';
 import { APP_ROUTES } from 'global/AppRouter/routes';
@@ -20,7 +22,10 @@ type SpotPreviewType = {
 const MainComponent = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  max-height: ${(props) => props.theme.contentHeight};
+
+  height: 100%;
+  overflow: auto;
 `;
 
 const Wrapper = styled.div`
@@ -54,22 +59,25 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
   }
 
   return (
-    <MainComponent>
-      <Wrapper key={data.spot.uuid}>
-        <EntityPageComp page={data.spot.page} />
-        <RecommendButtonSpot />
-      </Wrapper>
-      {isEditMode ? (
-        <ManagerList />
-      ) : (
-        <ManagerListEditMode
-          invitationLink={`${baseUrl}${APP_ROUTES.SPOT_INVITATION(data?.spot.uuid)}`}
-          spot={data?.spot}
-        />
-      )}
-      <SecondPartSpot>
-        <SaveSpotButton />
-      </SecondPartSpot>
-    </MainComponent>
+    <>
+      <TopNav isWithBackArrow />
+      <MainComponent>
+        <Wrapper key={data.spot.uuid}>
+          <EntityPageComp page={data.spot.page} />
+          <RecommendButtonSpot />
+        </Wrapper>
+        {isEditMode ? (
+          <ManagerList />
+        ) : (
+          <ManagerListEditMode
+            invitationLink={`${baseUrl}${APP_ROUTES.SPOT_INVITATION(data?.spot.uuid)}`}
+            spot={data?.spot}
+          />
+        )}
+        <SecondPartSpot>
+          <SaveSpotButton />
+        </SecondPartSpot>
+      </MainComponent>
+    </>
   );
 };

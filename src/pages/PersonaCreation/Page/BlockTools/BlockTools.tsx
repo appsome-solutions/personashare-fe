@@ -9,7 +9,7 @@ import { BarIcon, EditorBarWrapper } from '../EditorStyles';
 const Separator = styled.div`
   width: 1px;
   height: 36px;
-  background-color: ${props => props.theme.colors.functional.disabled};
+  background-color: ${(props) => props.theme.colors.functional.disabled};
 `;
 
 const TurnInto = styled.span`

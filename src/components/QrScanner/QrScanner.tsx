@@ -6,6 +6,7 @@ import getPixels from 'get-pixels';
 import VideoOverlay from './VideoOverlay';
 import { useWorkerDecode } from './hooks/useWorkerDecode';
 import { LoginOrHamburger } from './LoginOrHamburger';
+import { useHistory } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,7 +32,7 @@ type ExtendedWebcam = {
 
 const StyledWebcam = styled(Webcam)<ExtendedWebcam | any>`
   width: 100%;
-  height: calc(100vh - 108px);
+  height: ${(props) => props.theme.contentHeight};
   object-fit: fill;
 `;
 
@@ -44,7 +45,7 @@ type defaultProps = {
 };
 
 type Props = {
-  onCode: (code: QRCode) => void;
+  onCode?: (code: QRCode) => void;
   onUserMediaError?: (error: string) => void;
 } & defaultProps;
 
@@ -57,15 +58,11 @@ export type ImagePixels = {
 
 let webWorker: Worker | null = null;
 
-export const QrScanner = ({
-  onCode,
-  onError,
-  onUserMediaError,
-  className,
-  videoConstraints,
-  interval,
-  buttonMode,
-}: Props) => {
+export const QrScanner = ({ onError, onUserMediaError, className, videoConstraints, interval, buttonMode }: Props) => {
+  const history = useHistory();
+  const redirectToQr = useCallback((decodedQr: QRCode): void => {
+    history.push(decodedQr.data.split('http://localhost:3000')[1]);
+  }, []);
   const webcamRef = React.useRef<Webcam>(null);
   const capture = useCallback(() => {
     const imageSrc = webcamRef?.current?.getScreenshot();
@@ -82,7 +79,7 @@ export const QrScanner = ({
     });
   }, [webcamRef, onError]);
 
-  webWorker = useWorkerDecode({ capture, interval, onCode });
+  webWorker = useWorkerDecode({ capture, interval, onCode: redirectToQr });
 
   return (
     <>

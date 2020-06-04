@@ -38,7 +38,7 @@ export const Element = ({ attributes, children, element }: any) => {
 
 export const isBlockActive = (editor: EditorType, format: EditorBlockFormats) => {
   const [match] = Editor.nodes(editor, {
-    match: n => n.type === format,
+    match: (n) => n.type === format,
   });
 
   return !!match;
@@ -49,7 +49,7 @@ export const toggleBlock = (editor: EditorType, format: EditorBlockFormats) => {
   const isList = LIST_TYPES.includes(format);
 
   Transforms.unwrapNodes(editor, {
-    match: n => LIST_TYPES.includes(n.type),
+    match: (n) => LIST_TYPES.includes(n.type),
     split: true,
   });
 

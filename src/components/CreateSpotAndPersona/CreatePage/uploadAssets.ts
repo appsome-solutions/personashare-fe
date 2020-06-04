@@ -27,15 +27,15 @@ export const uploadAssets = async (
   dir: string,
   assets: AssetBlob[]
 ): Promise<UploadedAsset[]> => {
-  const filteredAssets = assets.filter(asset => asset.blob !== null) as AssetWithBlob[];
+  const filteredAssets = assets.filter((asset) => asset.blob !== null) as AssetWithBlob[];
   return await Promise.all<UploadedAsset>(
-    filteredAssets.map(asset =>
+    filteredAssets.map((asset) =>
       storageRef
         .child(`${dir}/${asset.name}`)
         .put(asset.blob, asset.metaData)
-        .then(ref => ref.ref.getDownloadURL())
+        .then((ref) => ref.ref.getDownloadURL())
         .then(
-          url =>
+          (url) =>
             ({
               url,
               assetType: asset.metaData?.customMetadata?.assetType,
@@ -46,4 +46,4 @@ export const uploadAssets = async (
 };
 
 export const getUrl = (assets: UploadedAsset[], assetType: AssetType): string =>
-  assets.filter(asset => asset.assetType === assetType).map(entry => entry.url)[0] || '';
+  assets.filter((asset) => asset.assetType === assetType).map((entry) => entry.url)[0] || '';
