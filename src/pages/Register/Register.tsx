@@ -41,8 +41,14 @@ const StyledCard = styled(Card)`
 const Caption = styled.span((props) => props.theme.typography.caption);
 
 const StyledCheckbox = styled(FormikCheckbox)`
-  align-self: start;
-  margin-top: 24px;
+  && {
+    align-self: start;
+    margin-top: 16px;
+
+    .ant-checkbox {
+      margin: 8px 8px 8px 0;
+    }
+  }
 `;
 
 const RegisterButton = styled(Button)`
@@ -161,7 +167,7 @@ export const Register: FC = () => {
                 <StyledCheckbox name="termsAccepted">
                   <Caption>
                     I read and agree to
-                    <LinkStyle to={APP_ROUTES.TERM_OF_USE}>Terms of use,</LinkStyle>
+                    <LinkStyle to={APP_ROUTES.TERM_OF_USE}> Terms of use,</LinkStyle>
                     <LinkStyle to={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY}>privacy and cookies policy</LinkStyle>
                     and
                     <LinkStyleLeft to={APP_ROUTES.INFORMATIVE_CLAUSE}>informative clause</LinkStyleLeft>
