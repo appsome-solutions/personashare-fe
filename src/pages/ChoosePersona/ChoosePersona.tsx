@@ -32,7 +32,7 @@ import {
   RecommendSpotResponse,
   PARTICIPATE,
   ParticipateResponse,
-  ADD_MENAGER,
+  ADD_MANAGER,
   AddManagerResponse,
 } from 'global/graphqls/Spot';
 
@@ -105,7 +105,7 @@ const callSpotMutation = (
 ): Promise<ExecutionResult<RecommendSpotResponse | ParticipateResponse | AddManagerResponse>> | null => {
   const recommendSpot = partial(client.mutate, { mutation: RECOMMEND_SPOT });
   const participate = partial(client.mutate, { mutation: PARTICIPATE });
-  const addMenager = partial(client.mutate, { mutation: ADD_MENAGER });
+  const addMenager = partial(client.mutate, { mutation: ADD_MANAGER });
   switch (action) {
     case 'recommended':
       return recommendSpot({

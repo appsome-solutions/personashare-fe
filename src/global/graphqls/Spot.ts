@@ -43,9 +43,9 @@ export interface AddManagerResponse {
   };
 }
 
-export const ADD_MENAGER = gql`
-  mutation addMenager($personaId: String!, $spotId: String!) {
-    addMenager(personaId: $personaId, spotId: $spotId) {
+export const ADD_MANAGER = gql`
+  mutation addManager($personaId: String!, $spotId: String!) {
+    addManager(personaId: $personaId, spotId: $spotId) {
       uuid
     }
   }
@@ -128,6 +128,7 @@ export const UPDATE_SPOT = gql`
       qrCodeLink
       invitedManagerEmails {
         email
+        status
       }
     }
   }
