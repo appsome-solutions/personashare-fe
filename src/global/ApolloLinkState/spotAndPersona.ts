@@ -36,9 +36,9 @@ const entityResolvers: Resolvers = {
 
       const data = {
         entity: {
-          ...previousState.entity,
+          ...previousState?.entity,
           card: {
-            ...previousState.entity.card,
+            ...previousState?.entity?.card,
             ...card,
           },
         },

@@ -31,7 +31,7 @@ const CreateAccountText = styled.h5`
   color: ${(props) => props.theme.colors.utils.text.dark};
 `;
 
-const StyledCard = styled(Card as any)`
+const StyledCard = styled(Card)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,16 +41,22 @@ const StyledCard = styled(Card as any)`
 const Caption = styled.span((props) => props.theme.typography.caption);
 
 const StyledCheckbox = styled(FormikCheckbox)`
-  align-self: start;
-  margin-top: 24px;
+  && {
+    align-self: start;
+    margin-top: 16px;
+
+    .ant-checkbox {
+      margin: 8px 8px 8px 0;
+    }
+  }
 `;
 
-const RegisterButton = styled(Button as any)`
+const RegisterButton = styled(Button)`
   margin-top: 28px;
 `;
 
 // Specific color for this specific button:
-const GoogleButton = styled(Button as any)`
+const GoogleButton = styled(Button)`
   && {
     background-color: #e62b33;
     &&:active,
@@ -61,11 +67,11 @@ const GoogleButton = styled(Button as any)`
   }
 `;
 
-const OrRegisterCaption = styled(Caption as any)`
+const OrRegisterCaption = styled(Caption)`
   margin: 18px 0;
 `;
 
-const LogInCaption = styled(Caption as any)`
+const LogInCaption = styled(Caption)`
   text-align: center;
   margin-top: 32px;
   margin-bottom: 24px;
@@ -161,7 +167,7 @@ export const Register: FC = () => {
                 <StyledCheckbox name="termsAccepted">
                   <Caption>
                     I read and agree to
-                    <LinkStyle to={APP_ROUTES.TERM_OF_USE}>Terms of use,</LinkStyle>
+                    <LinkStyle to={APP_ROUTES.TERM_OF_USE}> Terms of use,</LinkStyle>
                     <LinkStyle to={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY}>privacy and cookies policy</LinkStyle>
                     and
                     <LinkStyleLeft to={APP_ROUTES.INFORMATIVE_CLAUSE}>informative clause</LinkStyleLeft>

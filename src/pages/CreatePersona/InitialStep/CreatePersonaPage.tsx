@@ -26,6 +26,8 @@ export const CreatePersonaPage: FC = () => {
     return null;
   }
 
+  initialValues.content = 'todo: remove it when editor will be working';
+
   return (
     <EntityPage
       currentNumber={3}

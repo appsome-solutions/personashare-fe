@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { TopNav } from 'components/TopNav/TopNav';
-import LogoSvg from 'assets/logo.svg';
+import LogoSvg from 'assets/logo_nobg.svg';
 import { Formik, Form } from 'formik';
 import { object, string, InferType } from 'yup';
 import { useMutation } from '@apollo/react-hooks';
@@ -23,11 +23,11 @@ import { signInWithGoogle } from 'helpers/signInWithGoogle';
 const Caption = styled.span((props) => props.theme.typography.caption);
 
 const StyledLogo = styled.img`
-  margin-top: 46px;
+  margin-top: 200px;
   margin-bottom: 36px;
 `;
 
-const StyledCard = styled(Card as any)`
+const StyledCard = styled(Card)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,16 +46,16 @@ const StyledPasswordInput = styled(PasswordInput)`
   margin-top: 20px;
 `;
 
-const ResetPassword = styled(Caption as any)`
+const ResetPassword = styled(Caption)`
   margin-top: 20px;
   align-self: flex-end;
 `;
 
-const LoginButton = styled(Button as any)`
+const LoginButton = styled(Button)`
   margin-top: 28px;
 `;
 
-const GoogleButton = styled(Button as any)`
+const GoogleButton = styled(Button)`
   && {
     background-color: #e62b33;
     &&:active,
@@ -66,11 +66,11 @@ const GoogleButton = styled(Button as any)`
   }
 `;
 
-const OrLoginCaption = styled(Caption as any)`
+const OrLoginCaption = styled(Caption)`
   margin: 18px 0;
 `;
 
-const RegisterCaption = styled(Caption as any)`
+const RegisterCaption = styled(Caption)`
   text-align: center;
   margin-top: 32px;
   margin-bottom: 24px;

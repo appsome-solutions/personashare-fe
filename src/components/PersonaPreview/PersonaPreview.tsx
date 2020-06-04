@@ -11,11 +11,17 @@ import { useParams } from 'react-router-dom';
 import { RecommendButtonPersona } from 'components/RecommendButton/RecommendButtonPersona';
 import { SavePersona } from '../SaveEntity/SavePersona';
 import { RecommendContactBook } from '../ContactBook/RecommendListContact';
+import { TopNav } from '../TopNav/TopNav';
+
+const PersonaPreviewWrapper = styled.div`
+  height: ${(props) => props.theme.contentHeight};
+  overflow: auto;
+`;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
 `;
 
 const SecondPartPersona = styled.div`
@@ -42,14 +48,17 @@ export const PersonaPreview: FC = () => {
 
   return (
     <>
-      <Wrapper key={data.persona.uuid}>
-        <EntityPageComp page={data.persona.page} />
-        <RecommendButtonPersona uuid={uuid} />
-      </Wrapper>
-      <SecondPartPersona>
-        <RecommendContactBook />
-        <SavePersona uuid={uuid} />
-      </SecondPartPersona>
+      <TopNav isWithBackArrow />
+      <PersonaPreviewWrapper>
+        <Wrapper key={data.persona.uuid}>
+          <EntityPageComp page={data.persona.page} />
+          <RecommendButtonPersona uuid={uuid} />
+        </Wrapper>
+        <SecondPartPersona>
+          <RecommendContactBook />
+          <SavePersona uuid={uuid} />
+        </SecondPartPersona>
+      </PersonaPreviewWrapper>
     </>
   );
 };

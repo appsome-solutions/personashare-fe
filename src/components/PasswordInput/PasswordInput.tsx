@@ -18,7 +18,7 @@ export const Container = styled.span`
   text-align: start;
 `;
 
-const Icon = styled(IconComponent as any)`
+const Icon = styled(IconComponent)`
   position: absolute;
   top: 50%;
   right: 12px;

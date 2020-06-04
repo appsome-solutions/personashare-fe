@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Carousel as AntCarousel } from 'antd';
 import { TopNav } from 'components/TopNav/TopNav';
-import { PageWrapperSpaceBetween } from 'components/PageWrapper';
+import { PageWrapper, PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import isEmpty from 'lodash/isEmpty';
 import { GET_PERSONAS, GetPersonaType, SET_DEFAULT_PERSONA, SetDefaultPersonaResponse } from 'global/graphqls/Persona';
@@ -11,13 +11,12 @@ import { Button } from 'components/Button';
 import Carousel from 'components/Carousel/Carousel';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { gqlEntity } from 'global/graphqls/schema';
-import { Spinner } from 'components/Spinner/Spinner';
-import { Overlay } from 'components/Overlay/Overlay';
-import { NavLink, Route, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import AddIcon from 'assets/AddIcon.svg';
 import ShareQrCode from 'assets/ShareQrCode.svg';
-import { MyPersonaWithoutSpots } from './MyPersonaWithoutPersona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
+import { MySpotsWithoutSpots } from '../MySpots/MySpotsWithoutSpots';
+import { Loader } from '../Loader/Loader';
 
 const StyledButton = styled(Button)`
   width: 80%;
@@ -50,6 +49,7 @@ const Wrapper = styled.div`
   .slick-active {
     margin-bottom: 10px;
   }
+  align-items: center;
 `;
 
 const CreatePersona = styled.div`
@@ -89,6 +89,10 @@ const LinkStyled = styled.a`
   text-decoration:none;
 `;
 
+const StyledPageWrapper = styled(PageWrapper)`
+  padding: 0px;
+`;
+
 export const MyPersona: FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { loading, data } = useQuery<GetPersonaType>(GET_PERSONAS);
@@ -107,16 +111,9 @@ export const MyPersona: FC = () => {
     }
   }, [data, defaultPersonaUuid]);
 
-  if (loading) {
-    return (
-      <Overlay>
-        <Spinner />
-      </Overlay>
-    );
-  }
   // OR !data is used cause typescript doesn't know that data can no longer be undefined in return method
-  if (isEmpty(data?.userPersonas) || !data) {
-    return <Route path="/my-personas" exact component={MyPersonaWithoutSpots} />;
+  if ((isEmpty(data?.userPersonas) || !data) && !loading) {
+    return <MySpotsWithoutSpots />;
   }
 
   const handleSetDefault = async (uuid: string): Promise<void> => {
@@ -128,46 +125,58 @@ export const MyPersona: FC = () => {
     }
   };
 
+  const StyledCarousel = styled(Carousel)`
+    && {
+      .slick-track {
+        margin: auto;
+      }
+    }
+  `;
+
   return (
     <div>
       <TopNav isWithBackArrow />
-      <PageWrapperSpaceBetween>
-        <Carousel afterChange={setCurrentSlide} ref={carousel}>
-          {data.userPersonas &&
-            data.userPersonas.map((persona: gqlEntity) => (
-              <CaruouselItem key={persona.uuid}>
-                <Wrapper
-                  onClick={() =>
-                    history.push({
-                      pathname: `${APP_ROUTES.PERSONA_PREVIEW(persona.uuid)}`,
-                    })
-                  }
-                >
-                  <PersonaCard card={persona.card} uuid={persona.uuid} isWithEdit={true} />
-                  {persona.uuid === defaultPersonaUuid ? (
-                    <DefaultBlock>DEFAULT</DefaultBlock>
-                  ) : (
-                    <StyledButton onClick={() => handleSetDefault(persona.uuid)}>SET AS DEFAULT</StyledButton>
-                  )}
-                </Wrapper>
-              </CaruouselItem>
-            ))}
-        </Carousel>
-        <ShareQr>
-          <img src={`${data.userPersonas[currentSlide].qrCodeLink}`} alt="QrCode Icon" />
-          <TextInShare>
-            <ShareQrIcon src={ShareQrCode} alt="Share Qr Code" />
-            <LinkStyled href={`${data.userPersonas[currentSlide].qrCodeLink}`} download="output.png">
-              Share your QR
-            </LinkStyled>
-          </TextInShare>
-        </ShareQr>
-      </PageWrapperSpaceBetween>
-      <NavLink to={APP_ROUTES.PERSONA_CREATION_STEP_1}>
-        <CreatePersona>
-          <img src={AddIcon} alt="Create Icon" />
-        </CreatePersona>
-      </NavLink>
+      <StyledPageWrapper>
+        <Loader loading={loading} data={data}>
+          <PageWrapperSpaceBetween>
+            <StyledCarousel afterChange={setCurrentSlide} ref={carousel}>
+              {data?.userPersonas &&
+                data?.userPersonas.map((persona: gqlEntity) => (
+                  <CaruouselItem key={persona.uuid}>
+                    <Wrapper
+                      onClick={() =>
+                        history.push({
+                          pathname: `${APP_ROUTES.PERSONA_PREVIEW(persona.uuid)}`,
+                        })
+                      }
+                    >
+                      <PersonaCard card={persona.card} uuid={persona.uuid} isWithEdit={true} />
+                      {persona.uuid === defaultPersonaUuid ? (
+                        <DefaultBlock>DEFAULT</DefaultBlock>
+                      ) : (
+                        <StyledButton onClick={() => handleSetDefault(persona.uuid)}>SET AS DEFAULT</StyledButton>
+                      )}
+                    </Wrapper>
+                  </CaruouselItem>
+                ))}
+            </StyledCarousel>
+            <ShareQr>
+              <img src={`${data?.userPersonas[currentSlide].qrCodeLink}`} alt="QrCode Icon" />
+              <TextInShare>
+                <ShareQrIcon src={ShareQrCode} alt="Share Qr Code" />
+                <LinkStyled href={`${data?.userPersonas[currentSlide].qrCodeLink}`} download="output.png">
+                  Share your QR
+                </LinkStyled>
+              </TextInShare>
+            </ShareQr>
+          </PageWrapperSpaceBetween>
+          <NavLink to={APP_ROUTES.PERSONA_CREATION_STEP_1}>
+            <CreatePersona>
+              <img src={AddIcon} alt="Create Icon" />
+            </CreatePersona>
+          </NavLink>
+        </Loader>
+      </StyledPageWrapper>
     </div>
   );
 };

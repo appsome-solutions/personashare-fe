@@ -7,15 +7,17 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { useFirebase } from 'global/Firebase';
 import { SpotType, UPDATE_SPOT } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
-import { Entity } from '../../../global/graphqls/schema';
-import { Overlay } from '../../Overlay/Overlay';
-import { Spinner } from '../../Spinner/Spinner';
+import { Entity } from 'global/graphqls/schema';
+import { Overlay } from 'components/Overlay/Overlay';
+import { Spinner } from 'components/Spinner/Spinner';
 import { Button, Tag, Tooltip } from 'antd';
-import { Icon } from '../../Icon';
-import { InputWithSuffixIcon } from '../../InputWithSuffixIcon/InputWithSuffixIcon';
+import { Icon } from 'components/Icon';
+import { InputWithSuffixIcon } from 'components/InputWithSuffixIcon/InputWithSuffixIcon';
 import AddSvg from 'assets/add-24px.svg';
-import EmailIconSvg from '../../../assets/email.svg';
-import { WideButton } from '../../Button';
+import EmailIconSvg from 'assets/email.svg';
+import { WideButton } from 'components/Button';
+import 'antd/dist/antd.css';
+import { CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
 
 const InputField = styled(InputWithSuffixIcon)`
   && {
@@ -46,6 +48,14 @@ const ButtonWrapper = styled.div`
   align-items: center;
 `;
 
+const CheckIcon = styled(CheckCircleOutlined)`
+  margin-right: 2px;
+`;
+
+const ClockIcon = styled(ClockCircleOutlined)`
+  margin-right: 2px;
+`;
+
 type InvitationsProps = {
   invitationLink: string;
   spot: SpotType['spot'];
@@ -73,6 +83,11 @@ export type RemoveEmail = (
   setFieldValue: FormikHelpers<SendInvitationPayload>['setFieldValue']
 ) => void;
 
+const initialValues: SendInvitationPayload = {
+  emails: [],
+  currentEmail: '',
+};
+
 const currentYear = new Date().getFullYear();
 
 export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot }) => {
@@ -85,11 +100,6 @@ export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot
   const userName = data?.persona.card.name;
   const invitedManagerEmails = spot?.invitedManagerEmails;
   const [inputVisible, setInputVisible] = useState(true);
-
-  const initialValues: SendInvitationPayload = {
-    emails: spot.invitedManagerEmails.map((el) => el.email),
-    currentEmail: '',
-  };
 
   const handleSubmit = useCallback(
     (values: SendInvitationPayload, { setSubmitting }) => {
@@ -127,7 +137,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot
                   },
                   invitedManagerEmails: values.emails.map((el) => ({
                     email: el,
-                    status: 'sent',
+                    status: 'waiting',
                   })),
                 },
               },
@@ -179,13 +189,42 @@ export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot
   const showInput = () => {
     setInputVisible(true);
   };
-
   return (
     <>
       <CardBody className={CardBody}>
         <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={sendInvitationSchema}>
           {({ values, setFieldValue, setFieldError, errors, isValid }) => (
             <Form id="spotInvitations">
+              {invitedManagerEmails.map((EmailInvitation, index) => {
+                if (EmailInvitation.status === 'accepted') {
+                  return (
+                    <>
+                      <Tag
+                        key={EmailInvitation.email}
+                        color="green"
+                        closable={index !== -1}
+                        afterClose={() => removeEmail(EmailInvitation.email, values, setFieldValue)}
+                      >
+                        <CheckIcon />
+                        {EmailInvitation.email}
+                      </Tag>
+                    </>
+                  );
+                } else {
+                  return (
+                    <>
+                      <Tag
+                        key={EmailInvitation.email}
+                        closable={index !== -1}
+                        afterClose={() => removeEmail(EmailInvitation.email, values, setFieldValue)}
+                      >
+                        <ClockIcon />
+                        {EmailInvitation.email}
+                      </Tag>
+                    </>
+                  );
+                }
+              })}
               {values.emails &&
                 values.emails.map((email: string, index) => {
                   const isLongTag = email.length > 20;
@@ -193,7 +232,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot
                     <Tag
                       key={email}
                       closable={index !== -1}
-                      // afterClose={() => removeEmail(email, values, setFieldValue)}
+                      afterClose={() => removeEmail(email, values, setFieldValue)}
                     >
                       {isLongTag ? `${email.slice(0, 20)}...` : email}
                     </Tag>
@@ -213,7 +252,6 @@ export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot
                     <IconBox>
                       <Icon
                         svgLink={AddSvg}
-                        color="white"
                         width="32px"
                         height="32px"
                         onClick={() => addEmail(values, setFieldValue, setFieldError, errors)}
