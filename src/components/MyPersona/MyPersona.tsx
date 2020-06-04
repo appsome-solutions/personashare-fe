@@ -49,6 +49,7 @@ const Wrapper = styled.div`
   .slick-active {
     margin-bottom: 10px;
   }
+  align-items: center;
 `;
 
 const CreatePersona = styled.div`

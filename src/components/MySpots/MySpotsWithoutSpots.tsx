@@ -11,7 +11,9 @@ const Wrapper = styled.div`
   justify-content: center;
   padding-top: 32px;
   width: auto;
-  height: 100vh;
+
+  height: ${(props) => props.theme.contentHeight};
+  overflow: auto;
 `;
 
 const TextAndImg = styled.div`
