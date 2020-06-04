@@ -34,12 +34,13 @@ const WidgetWrapper = styled.div`
   width: 100%;
   z-index: 90000000;
   transition: 400ms ease all;
+  height: 300px;
 `;
 
 export const cropperDefaults: Cropper.Options = {
   aspectRatio: 16 / 9,
   minCropBoxHeight: 154,
-  viewMode: 3,
+  viewMode: 2,
   center: true,
   zoomable: false,
   cropBoxResizable: false,
@@ -50,6 +51,8 @@ export const cropperDefaults: Cropper.Options = {
 export const CropperWidget: FC<CropperWidgetProps> = ({ imageRef, onCrop }) => {
   const ref = useRef<HTMLImageElement>(null);
   const [cropper, setCropper] = useState<Cropper>();
+
+  console.log(imageRef);
 
   useEffect(() => {
     if (ref.current) {
