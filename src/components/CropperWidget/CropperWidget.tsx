@@ -34,12 +34,13 @@ const WidgetWrapper = styled.div`
   width: 100%;
   z-index: 90000000;
   transition: 400ms ease all;
+  max-height: 300px;
 `;
 
 export const cropperDefaults: Cropper.Options = {
   aspectRatio: 16 / 9,
   minCropBoxHeight: 154,
-  viewMode: 3,
+  viewMode: 2,
   center: true,
   zoomable: false,
   cropBoxResizable: false,
