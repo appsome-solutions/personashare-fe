@@ -12,7 +12,7 @@ const BackgroundPlaceholderStyle = styled(BackgroundPlaceholder)`
   width: 100%;
 `;
 
-const PersonaCircleWrapperStyle = styled(PersonaCircleWrapper as any)`
+const PersonaCircleWrapperStyle = styled(PersonaCircleWrapper)`
   max-width: 100%;
 `;
 

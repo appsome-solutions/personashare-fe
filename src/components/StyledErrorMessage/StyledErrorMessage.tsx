@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
 export const StyledErrorMessage = styled.div`
-  color: ${props => props.theme.colors.functional.error};
+  color: ${(props) => props.theme.colors.functional.error};
 `;

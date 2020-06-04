@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Flex } from 'components/FlexBox/FlexBox';
 
 //TODO: Remove after integration with stepper
-export const MockedStepper = styled(Flex as any)`
+export const MockedStepper = styled(Flex)`
   height: 24px;
   width: 100%;
   margin: 30px 0;

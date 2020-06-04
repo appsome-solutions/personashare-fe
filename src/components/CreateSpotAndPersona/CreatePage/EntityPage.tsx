@@ -73,9 +73,7 @@ export const EntityPage: FC<LinkProps> = ({
   const { uuid } = useParams();
   const history = useHistory();
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
-  const { values, setFieldValue, handleSubmit, errors, isValid, setStatus, setSubmitting, isSubmitting } = useFormik<
-    PageType
-  >({
+  const { values, setFieldValue, handleSubmit, isValid, setStatus, setSubmitting, isSubmitting } = useFormik<PageType>({
     initialValues,
     onSubmit: async (formValues): Promise<void | null> => {
       const user = getCurrentUser();

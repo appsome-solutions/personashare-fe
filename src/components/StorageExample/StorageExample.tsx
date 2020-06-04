@@ -31,14 +31,14 @@ export const StorageExample: FC = () => {
   const [items, setItems] = useState<StorageItem[]>([]);
 
   const fetchItems = (): void => {
-    list(dirName).then(result => {
+    list(dirName).then((result) => {
       if (result.items) {
         setItems(result.items);
       }
     });
   };
 
-  const onUploadStateChange: OnStateChange = result => {
+  const onUploadStateChange: OnStateChange = (result) => {
     if (result.status === 'running') {
       setDisabled(true);
     }
@@ -67,17 +67,17 @@ export const StorageExample: FC = () => {
       <progress max={100} value={progress} />
       <input
         type="file"
-        onChange={e => handleChange(e.target.files)}
+        onChange={(e) => handleChange(e.target.files)}
         multiple={false}
         disabled={disabled}
         accept="images"
       />
       {items && (
         <div>
-          {items.map(item => (
+          {items.map((item) => (
             <div key={item.downloadUrl}>
               <Image src={item.downloadUrl} />
-              <button onClick={_e => handleRemove(item.refPath || '')}>Remove</button>
+              <button onClick={(_e) => handleRemove(item.refPath || '')}>Remove</button>
             </div>
           ))}
         </div>

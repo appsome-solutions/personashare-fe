@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Flex } from '../FlexBox/FlexBox';
 import { FlexboxProps } from 'styled-system';
 
-export const PageWrapper = styled(Flex as any)<FlexboxProps>`
+export const PageWrapper = styled(Flex)<FlexboxProps>`
   justify-content: ${(props) => props.justifyContent || 'center'};
   flex-direction: ${(props) => props.flexDirection || 'column'};
   padding: 0 16px;

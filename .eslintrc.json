@@ -35,6 +35,7 @@
         "allowExpressions": true
       }
     ],
-    "@typescript-eslint/ban-ts-ignore": "warn"
+    "@typescript-eslint/ban-ts-ignore": "warn",
+    "linebreak-style": "off"
   }
 }

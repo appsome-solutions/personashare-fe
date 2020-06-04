@@ -29,7 +29,7 @@ const getRWDData = (): RWDContextData => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any) as RWDDataType;
 
-  BreakpointsKeys.forEach(key => {
+  BreakpointsKeys.forEach((key) => {
     RWDData.less[key] = window.innerWidth <= BREAKPOINTS[key];
     RWDData.more[key] = window.innerWidth > BREAKPOINTS[key];
   });
