@@ -61,7 +61,7 @@ let webWorker: Worker | null = null;
 export const QrScanner = ({ onError, onUserMediaError, className, videoConstraints, interval, buttonMode }: Props) => {
   const history = useHistory();
   const redirectToQr = useCallback((decodedQr: QRCode): void => {
-    history.push(decodedQr.data.split('http://localhost:3000')[1]);
+    history.push(new URL(decodedQr.data).pathname);
   }, []);
   const webcamRef = React.useRef<Webcam>(null);
   const capture = useCallback(() => {
