@@ -1,17 +1,14 @@
 import React, { FC, useRef } from 'react';
 import { Carousel as AntCarousel } from 'antd';
-import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import { AgregatedPersona } from 'global/graphqls/schema';
-import { SpotPage } from '../../SpotPage/SpotPage';
-import { GET_SPOT, GetCardType } from '../../../global/graphqls/Spot';
+import { SpotPage } from 'components/SpotPage/SpotPage';
+import { GET_SPOT, GetCardType } from 'global/graphqls/Spot';
 import { useHistory, useParams } from 'react-router-dom';
-import { APP_ROUTES } from '../../../global/AppRouter/routes';
-import Carousel from '../../Carousel/Carousel';
-import { RecommendButtonPersona } from '../../RecommendButton/RecommendButtonPersona';
-import { SavePersona } from '../../SaveEntity/SavePersona';
-
-const MainComponent = styled.div``;
+import { APP_ROUTES } from 'global/AppRouter/routes';
+import Carousel from 'components/Carousel/Carousel';
+import { RecommendButtonPersona } from 'components/RecommendButton/RecommendButtonPersona';
+import { SavePersona } from 'components/SaveEntity/SavePersona';
 
 export const ManagerList: FC = () => {
   const carousel = useRef<AntCarousel>(null);
@@ -22,7 +19,7 @@ export const ManagerList: FC = () => {
   const history = useHistory();
 
   return (
-    <MainComponent>
+    <>
       <Carousel ref={carousel}>
         {data?.spot.managers.map((persona: AgregatedPersona) => (
           <div key={persona.uuid}>
@@ -40,6 +37,6 @@ export const ManagerList: FC = () => {
           </div>
         ))}
       </Carousel>
-    </MainComponent>
+    </>
   );
 };

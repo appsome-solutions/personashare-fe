@@ -47,6 +47,11 @@ export type gqlUser = {
   defaultPersona: string;
 };
 
+export type EmailInvitation = {
+  email: string;
+  status: string;
+};
+
 export type AgregatedPersona = {
   uuid: string;
   personaUUIDs: string[];
@@ -76,4 +81,11 @@ export type AgregatedSpot = {
   visibilityList: AgregatedPersona[];
   owner: AgregatedPersona;
   participants: AgregatedPersona[];
+  invitedManagerEmails: EmailInvitation[];
+};
+
+export type UpdateSpotInput = {
+  card: EntityCard;
+  page: EntityPage;
+  invitedManagerEmails: string[];
 };

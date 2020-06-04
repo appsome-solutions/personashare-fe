@@ -6,11 +6,17 @@ import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { EntityPageComp } from 'components/EntityPageComp/EntityPageComp';
 import { useParams } from 'react-router-dom';
-import { GET_SPOT_PAGE, GetCardType } from 'global/graphqls/Spot';
+import { GET_SPOT, GetCardType } from 'global/graphqls/Spot';
 import { RecommendButtonSpot } from '../RecommendButton/RecommendButtonSpot';
 import { SaveSpotButton } from 'components/SaveEntity/SaveSpot';
 import { ManagerList } from '../SpotBook/ManagerList/ManagerList';
+import { ManagerListEditMode } from '../SpotBook/ManagerList/EditModeManager';
+import { APP_ROUTES } from '../../global/AppRouter/routes';
 import { TopNav } from '../TopNav/TopNav';
+
+type SpotPreviewType = {
+  isEditMode?: boolean;
+};
 
 const MainComponent = styled.div`
   display: flex;
@@ -31,9 +37,11 @@ const SecondPartSpot = styled.div`
   margin: 0 16px 28px 16px;
 `;
 
-export const SpotPreview: FC = () => {
+const baseUrl = process.env.REACT_APP_BASE_URL || 'https://persona-share.netlify.app';
+
+export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
   const { uuid } = useParams();
-  const { loading, data } = useQuery<GetCardType>(GET_SPOT_PAGE, {
+  const { loading, data } = useQuery<GetCardType>(GET_SPOT, {
     variables: { uuid },
   });
 
@@ -57,7 +65,14 @@ export const SpotPreview: FC = () => {
           <EntityPageComp page={data.spot.page} />
           <RecommendButtonSpot />
         </Wrapper>
-        <ManagerList />
+        {isEditMode ? (
+          <ManagerList />
+        ) : (
+          <ManagerListEditMode
+            invitationLink={`${baseUrl}${APP_ROUTES.SPOT_INVITATION(data?.spot.uuid)}`}
+            spot={data?.spot}
+          />
+        )}
         <SecondPartSpot>
           <SaveSpotButton />
         </SecondPartSpot>

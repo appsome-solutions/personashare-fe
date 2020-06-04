@@ -19,6 +19,7 @@ const mimicFocus = css`
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+// @ts-ignore
 export const StyledEditable = styled<FC<StyledEditableProps>>(
   ({ activeTools, hasError, ...restProps }: StyledEditableProps) => <Editable {...restProps} />
 )`
