@@ -104,12 +104,12 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
   );
 
   return (
-    <>
+    <div onClick={(e) => e.stopPropagation()}>
       <Dropdown overlay={menuBuild} trigger={['click']} placement="bottomRight">
         <EditMenuBox>
           <img src={EditMenu} alt="Edit Menu" onClick={(e) => e.preventDefault()} />
         </EditMenuBox>
       </Dropdown>
-    </>
+    </div>
   );
 };

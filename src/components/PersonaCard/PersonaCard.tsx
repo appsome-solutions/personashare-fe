@@ -21,9 +21,13 @@ const DescriptionStyled = styled.div`
   margin-bottom: 16px;
 `;
 
+const StyledCard = styled(Card)`
+  width: 262px;
+`;
+
 export const PersonaCard: FC<Props> = ({ card, uuid, isWithEdit }) => {
   return (
-    <Card mt={31} mb={40} position="relative">
+    <StyledCard mt={31} mb={40} position="relative">
       <BackgroundPlaceholder background={card.background} alt="Card background">
         <PersonaCircleWrapper>
           <PersonaCircle avatar={card.avatar} alt="Avatar card" />
@@ -34,6 +38,6 @@ export const PersonaCard: FC<Props> = ({ card, uuid, isWithEdit }) => {
         <NameStyled>{card.name}</NameStyled>
         <DescriptionStyled>{card.description}</DescriptionStyled>
       </CardBody>
-    </Card>
+    </StyledCard>
   );
 };
