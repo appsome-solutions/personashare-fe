@@ -15,7 +15,7 @@ export const useWorkerDecode = ({ capture, interval, onCode }: UseWorkerDecode):
     const onMessage = (message: MessageEvent): void => {
       onCode(message.data);
     };
-    setWorker((prevState) => {
+    setWorker(prevState => {
       prevState = new Worker();
       prevState.addEventListener('message', onMessage);
       return prevState;

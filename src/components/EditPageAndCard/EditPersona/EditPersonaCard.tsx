@@ -5,6 +5,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { CardType } from 'global/graphqls/schema';
 import { GET_PERSONA, GetCardType, UPDATE_PERSONA_CARD } from 'global/graphqls/Persona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
+import { Spinner } from '../../Spinner/Spinner';
 
 const cardInitialValues: CardType = {
   name: '',
@@ -17,17 +18,22 @@ const cardInitialValues: CardType = {
 
 export const EditPersonaCard: FC = () => {
   const { uuid } = useParams();
-  const { data } = useQuery<GetCardType>(GET_PERSONA, {
+  const { data, loading } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid },
   });
-  const initialValues = data ? data.persona.card : cardInitialValues;
   const [updateCard] = useMutation<GetCardType>(UPDATE_PERSONA_CARD);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   if (!uuid) return null;
 
   if (!data) {
     return null;
   }
+  const initialValues = data ? data.persona.card : cardInitialValues;
+
   return (
     <EntityCard
       nextPathName={APP_ROUTES.EDIT_PERSONA_UUID_STEP_2(uuid)}
