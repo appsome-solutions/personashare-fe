@@ -6,7 +6,6 @@ import { PageType, Entity } from 'global/graphqls/schema';
 import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
 import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
-import { GET_PERSONAS } from '../../global/graphqls/Persona';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -27,8 +26,8 @@ export const CreateSpotsPage: FC = () => {
       const { createSpot } = data;
       const { userSpots } = cache.readQuery({ query: GET_SPOTS }) as { userSpots: any };
       cache.writeQuery({
-        query: GET_PERSONAS,
-        data: { userPersonas: userSpots.concat([createSpot]) },
+        query: userSpots,
+        data: { userSpots: userSpots.concat([createSpot]) },
       });
     },
   });

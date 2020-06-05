@@ -7,7 +7,6 @@ import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
 import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
 import { useParams } from 'react-router-dom';
 import { APP_ROUTES } from 'global/AppRouter/routes';
-import { GET_PERSONAS } from '../../../global/graphqls/Persona';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -28,8 +27,8 @@ export const EditSpotPage: FC = () => {
       const { updateSpot } = data;
       const { userSpots } = cache.readQuery({ query: GET_SPOTS }) as { userSpots: any };
       cache.writeQuery({
-        query: GET_PERSONAS,
-        data: { userPersonas: userSpots.concat([updateSpot]) },
+        query: GET_SPOTS,
+        data: { userSpots: userSpots.concat([updateSpot]) },
       });
     },
   });
