@@ -30,10 +30,12 @@ import { SpotBook } from 'components/SpotBook/SpotBook';
 import { PersonaPreview } from 'components/PersonaPreview/PersonaPreview';
 import { SpotPreview } from 'components/SpotPreview/SpotPreview';
 import { SpotInvitation } from 'components/SpotBook/ManagerList/SpotInvitation';
+import QuillEditor from '../../components/QuillEditor/QuillEditor';
 
 export const AppRouter: FunctionComponent = () => {
   return (
     <Switch>
+      <Route path="/editor" exact component={QuillEditor} />
       <Route path={APP_ROUTES.ROOT} exact component={Home} />
       <Route path={APP_ROUTES.SCANNER} exact component={QrScanner} />
       <PrivateRoute path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />

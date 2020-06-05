@@ -22,7 +22,6 @@ export const EditorButtonWrapper = styled.div`
 export const EditorButtonIconWrapper = styled.span`
   margin: 12px;
   border: 1px solid ${(props) => props.theme.colors.functional.disabled};
-
   height: 32px;
   width: 32px;
   display: flex;
@@ -37,15 +36,13 @@ const StyledButton = styled(Button)`
   }
 `;
 
-export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => {
-  return (
-    <EditorButtonWrapper>
-      <EditorButtonIconWrapper>
-        <StyledButton className={className} value={value}>
-          <Icon svgLink={svgLink ?? ''} />
-        </StyledButton>
-      </EditorButtonIconWrapper>
-      {title}
-    </EditorButtonWrapper>
-  );
-};
+export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => (
+  <EditorButtonWrapper>
+    <EditorButtonIconWrapper>
+      <StyledButton className={className} value={value}>
+        <Icon svgLink={svgLink ?? ''} />
+      </StyledButton>
+    </EditorButtonIconWrapper>
+    {title}
+  </EditorButtonWrapper>
+);

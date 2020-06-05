@@ -25,7 +25,7 @@ const EditorButtons = memo(({ addInNewLine = false }: EditorButtonTypes) => {
       <BlockButton className={`ql-header${suffix}`} title="Heading 1" svgLink={Heading1} value={1} />
       <BlockButton className={`ql-header${suffix}`} title="Heading 2" svgLink={Heading2} value={2} />
       <BlockButton className={`ql-blockquote${suffix}`} title="Quote" svgLink={QuoteSvg} />
-      <BlockButton className={`ql-code-block${suffix}`} title="Quote" svgLink={CodeSvg} />
+      <BlockButton className={`ql-code-block${suffix}`} title="Code" svgLink={CodeSvg} />
       <BlockButton className={`ql-list${suffix}`} title="Numbered list" svgLink={NumberedListSvg} value="ordered" />
       <BlockButton className={`ql-list${suffix}`} title="Bulleted list" svgLink={BulletedListSvg} value="bullet" />
     </DrawerContent>
