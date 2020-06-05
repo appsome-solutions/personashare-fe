@@ -12,7 +12,7 @@ const CookiesBarStyled = styled.div`
   display: flex;
   padding: 27px 21px;
   flex-direction: column;
-  background-color: ${props => props.theme.colors.utils.background.light};
+  background-color: ${(props) => props.theme.colors.utils.background.light};
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   position: sticky;
@@ -22,14 +22,14 @@ const CookiesBarStyled = styled.div`
 `;
 
 const CookieText = styled.p`
-  ${props => props.theme.typography.caption};
-  color: ${props => props.theme.colors.utils.text.dark};
+  ${(props) => props.theme.typography.caption};
+  color: ${(props) => props.theme.colors.utils.text.dark};
 `;
 
 const TextHere = styled.span`
-  ${props => props.theme.typography.caption};
-  color: ${props => props.theme.colors.main.secondary};
-  text-decoration-line: ${props => props.theme.textDecorationLine};
+  ${(props) => props.theme.typography.caption};
+  color: ${(props) => props.theme.colors.main.secondary};
+  text-decoration-line: ${(props) => props.theme.textDecorationLine};
   text-decoration-skip: spaces;
 `;
 

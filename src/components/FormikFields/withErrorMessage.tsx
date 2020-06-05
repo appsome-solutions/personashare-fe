@@ -13,7 +13,7 @@ const WithErrorMessageContainer = styled.div`
 const ErrorText = styled.div`
   font-size: 12px;
   padding-left: 5px;
-  color: ${props => props.theme.colors.functional.error};
+  color: ${(props) => props.theme.colors.functional.error};
 `;
 
 export function withErrorMessage<P extends FieldProps>(FieldComponent: fieldComponent<P> | any) {
@@ -24,7 +24,7 @@ export function withErrorMessage<P extends FieldProps>(FieldComponent: fieldComp
         {...props}
         isValid={props.form.touched[props.field.name] && !props.form.errors[props.field.name]}
       />
-      <ErrorMessage name={props.field.name}>{msg => <ErrorText>{msg}</ErrorText>}</ErrorMessage>
+      <ErrorMessage name={props.field.name}>{(msg) => <ErrorText>{msg}</ErrorText>}</ErrorMessage>
     </WithErrorMessageContainer>
   );
 }

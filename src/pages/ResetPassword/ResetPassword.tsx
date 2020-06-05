@@ -26,9 +26,7 @@ const InputField = styled(InputWithSuffixIcon)`
 `;
 
 const validationSchema = object({
-  email: string()
-    .email()
-    .required(),
+  email: string().email().required(),
 });
 
 type ResetPasswordFormValues = InferType<typeof validationSchema>;
@@ -41,7 +39,7 @@ export const ResetPassword: FC = () => {
   const { sendPasswordResetEmail } = useFirebase();
   const history = useHistory();
   const [apiError, setApiError] = useState('');
-  const handleSubmit = useCallback(async values => {
+  const handleSubmit = useCallback(async (values) => {
     setApiError('');
     try {
       await sendPasswordResetEmail(values.email);

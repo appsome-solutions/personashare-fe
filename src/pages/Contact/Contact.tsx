@@ -33,9 +33,7 @@ const Message = styled(FormikTextArea)`
 
 const validationSchema = object({
   name: string().required(),
-  email: string()
-    .email()
-    .required(),
+  email: string().email().required(),
   message: string().required(),
 });
 
@@ -51,7 +49,7 @@ export const Contact: FC = () => {
   const { sendMail } = useFirebase();
   const [apiError, setApiError] = useState('');
   const history = useHistory();
-  const handleSubmit = useCallback(values => {
+  const handleSubmit = useCallback((values) => {
     setApiError('');
     sendMail({
       message: {
@@ -62,7 +60,7 @@ export const Contact: FC = () => {
       .then(() => {
         history.push(APP_ROUTES.SPOT_CREATION_STEP_1);
       })
-      .catch(e => {
+      .catch((e) => {
         setApiError(e.message ? e.message : 'Error while sending an email');
       });
   }, []);

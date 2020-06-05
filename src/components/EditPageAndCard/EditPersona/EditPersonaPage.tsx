@@ -3,8 +3,8 @@ import { EntityPage } from 'components/CreateSpotAndPersona/CreatePage/EntityPag
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Entity, PageType } from 'global/graphqls/schema';
 import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
-import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
-import { GET_PERSONA, GetPersonaType, UPDATE_PERSONA } from 'global/graphqls/Persona';
+import { GET_CARD, GetCardType } from 'global/graphqls/SpotAndPersona';
+import { GET_PERSONA, UPDATE_PERSONA, GET_PERSONAS } from 'global/graphqls/Persona';
 import { useParams } from 'react-router-dom';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { Spinner } from 'components/Spinner/Spinner';
@@ -21,7 +21,19 @@ export const EditPersonaPage: FC = () => {
   const { uuid } = useParams();
   const { data, loading } = useQuery(GET_PERSONA, { variables: { uuid }, fetchPolicy: 'no-cache' });
   const { data: spotData, loading: spotLoading } = useQuery<GetCardType>(GET_CARD);
-  const [updatePersona] = useMutation<Entity>(UPDATE_PERSONA);
+  const [updatePersona] = useMutation<{ updatePersona: Entity }>(UPDATE_PERSONA, {
+    update(cache, { data }) {
+      if (!data) {
+        return;
+      }
+      const { updatePersona } = data;
+      const { userPersonas } = cache.readQuery({ query: GET_PERSONAS }) as { userPersonas: any };
+      cache.writeQuery({
+        query: GET_PERSONAS,
+        data: { userPersonas: userPersonas.concat([updatePersona]) },
+      });
+    },
+  });
   const cardDefaultSpot = cardDefaults;
   if (loading || spotLoading) {
     return <Spinner />;

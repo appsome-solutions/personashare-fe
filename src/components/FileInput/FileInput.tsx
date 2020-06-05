@@ -22,7 +22,7 @@ export const FileInput: FC<FileInputProps> = ({ name, id, onFileChange }) => (
       type="file"
       name={name}
       id={id}
-      onChange={e => {
+      onChange={(e) => {
         if (e && e.target && e.target.files) {
           onFileChange && onFileChange(e.target.files[0]);
         }

@@ -47,7 +47,11 @@ export interface LinkProps {
       };
       uuid: string | undefined;
     };
-  }) => Promise<ExecutionResult<Entity>>;
+  }) => Promise<
+    ExecutionResult<
+      { updatePersona: Entity } | { updateSpot: Entity } | { createPersona: Entity } | { createSpot: Entity }
+    >
+  >;
 }
 
 const initialState: ImageRef = {

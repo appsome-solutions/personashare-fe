@@ -6,7 +6,7 @@ import { InputProps } from 'antd/lib/input';
 import { FormikInput } from 'components/FormikFields/FormikInput/FormikInput';
 
 const EmailIcon = styled(Icon)`
-  background-color: ${props => props.theme.colors.utils.border.mid};
+  background-color: ${(props) => props.theme.colors.utils.border.mid};
 `;
 
 export const EmailInput = (props: InputProps) => (
