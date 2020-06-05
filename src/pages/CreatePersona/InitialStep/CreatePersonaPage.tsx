@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { EntityPage } from 'components/CreateSpotAndPersona/CreatePage/EntityPage';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { PageType, Entity } from 'global/graphqls/schema';
-import { CREATE_PERSONA } from 'global/graphqls/Persona';
+import { CREATE_PERSONA, GET_PERSONAS } from 'global/graphqls/Persona';
 import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
 import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
@@ -18,7 +18,19 @@ const pageInitialValues: PageType = {
 export const CreatePersonaPage: FC = () => {
   const { data } = useQuery<GetPageType>(GET_PAGE);
   const { data: personaData } = useQuery<GetCardType>(GET_CARD);
-  const [createPersona] = useMutation<Entity>(CREATE_PERSONA);
+  const [createPersona] = useMutation<{ createPersona: Entity }>(CREATE_PERSONA, {
+    update(cache, { data }) {
+      if (!data) {
+        return;
+      }
+      const { createPersona } = data;
+      const { userPersonas } = cache.readQuery({ query: GET_PERSONAS }) as { userPersonas: any };
+      cache.writeQuery({
+        query: GET_PERSONAS,
+        data: { userPersonas: userPersonas.concat([createPersona]) },
+      });
+    },
+  });
   const initialValues = data?.entity?.page || pageInitialValues;
   const cardDefaultPersona = cardDefaults;
 
