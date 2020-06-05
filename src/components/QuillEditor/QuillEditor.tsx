@@ -108,7 +108,11 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
 
   const editor = ref.current?.getEditor();
 
-  const handleSelectionChange = (range: Range): void => {
+  const handleSelectionChange = (range: Range | any): void => {
+    // sometimes delta object is passed to this handler, it has 'ops' prop, ignore it
+    if (range?.ops) {
+      return;
+    }
     if (!range?.length) {
       setIsInlineVisible(false);
       return;
@@ -128,8 +132,8 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
               insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'list'),
             'blockquote-newLine': (value: boolean) =>
               insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'blockquote'),
-            'code-newLine': (value: boolean) =>
-              insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'code'),
+            'code-block-newLine': (value: boolean) =>
+              insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'code-block'),
             custom: () => customHandler((ref.current?.getEditor() as unknown) as Quill),
           },
         },
