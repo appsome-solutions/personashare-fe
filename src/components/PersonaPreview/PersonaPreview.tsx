@@ -51,8 +51,10 @@ export const PersonaPreview: FC = () => {
       <TopNav isWithBackArrow />
       <PersonaPreviewWrapper>
         <Wrapper key={data.persona.uuid}>
-          <EntityPageComp page={data.persona.page} />
-          <RecommendButtonPersona uuid={uuid} />
+          <div>
+            <EntityPageComp page={data.persona.page} />
+            <RecommendButtonPersona uuid={uuid} />
+          </div>
         </Wrapper>
         <SecondPartPersona>
           <RecommendContactBook />
