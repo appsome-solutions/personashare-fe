@@ -74,18 +74,6 @@ const insertIntoEditor = (editor: Quill, value: string | boolean | number, type:
   editor.setSelection(cursor + 1, 0);
 };
 
-const customHeaderHandler = (editor: Quill, value: number): void => {
-  insertIntoEditor(editor, value, 'header');
-};
-
-const customListHandler = (editor: Quill, value: string): void => {
-  insertIntoEditor(editor, value, 'list');
-};
-
-const customBlockQuoteHandler = (editor: Quill, value: boolean): void => {
-  insertIntoEditor(editor, value, 'blockquote');
-};
-
 const customHandler = (editor: Quill): void => {
   const cursor = editor.getSelection()?.index || 0;
   editor.insertEmbed(cursor, 'custom', {});
@@ -109,7 +97,6 @@ QuillClass.register(
 );
 
 const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
-  const [value, setValue] = useState<any>(initialValue);
   const [isRendered, setIsRendered] = useState(false);
   const [isRefAttached, setIsRefAttached] = useState(false);
   const [isTurnIntoVisible, setIsTurnIntoVisible] = useState(false);
@@ -136,10 +123,13 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
           container: '#toolbar',
           handlers: {
             'header-newLine': (value: number) =>
-              customHeaderHandler((ref.current?.getEditor() as unknown) as Quill, value),
-            'list-newLine': (value: string) => customListHandler((ref.current?.getEditor() as unknown) as Quill, value),
+              insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'header'),
+            'list-newLine': (value: string) =>
+              insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'list'),
             'blockquote-newLine': (value: boolean) =>
-              customBlockQuoteHandler((ref.current?.getEditor() as unknown) as Quill, value),
+              insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'blockquote'),
+            'code-newLine': (value: boolean) =>
+              insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'code'),
             custom: () => customHandler((ref.current?.getEditor() as unknown) as Quill),
           },
         },
@@ -189,11 +179,9 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
       {isRendered && (
         <ReactQuill
           theme={undefined}
-          value={value}
           onChange={(value, delta, source, editor) => {
             if (value && delta && source && editor) {
               const currentDelta = editor.getContents();
-              setValue(currentDelta);
               onChange && onChange(currentDelta);
               setIsTurnIntoVisible(false);
               setIsAddVisible(false);
