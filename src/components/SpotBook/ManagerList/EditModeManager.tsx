@@ -186,6 +186,9 @@ export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot
     }
   };
 
+  // workaround for missing antd-types
+  const StyledTag = styled(Tag)<{ afterClose: () => void }>``;
+
   const showInput = () => {
     setInputVisible(true);
   };
@@ -199,7 +202,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot
                 if (EmailInvitation.status === 'accepted') {
                   return (
                     <>
-                      <Tag
+                      <StyledTag
                         key={EmailInvitation.email}
                         color="green"
                         closable={index !== -1}
@@ -207,20 +210,20 @@ export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot
                       >
                         <CheckIcon />
                         {EmailInvitation.email}
-                      </Tag>
+                      </StyledTag>
                     </>
                   );
                 } else {
                   return (
                     <>
-                      <Tag
+                      <StyledTag
                         key={EmailInvitation.email}
                         closable={index !== -1}
                         afterClose={() => removeEmail(EmailInvitation.email, values, setFieldValue)}
                       >
                         <ClockIcon />
                         {EmailInvitation.email}
-                      </Tag>
+                      </StyledTag>
                     </>
                   );
                 }
@@ -229,13 +232,13 @@ export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot
                 values.emails.map((email: string, index) => {
                   const isLongTag = email.length > 20;
                   const tagElem = (
-                    <Tag
+                    <StyledTag
                       key={email}
                       closable={index !== -1}
                       afterClose={() => removeEmail(email, values, setFieldValue)}
                     >
                       {isLongTag ? `${email.slice(0, 20)}...` : email}
-                    </Tag>
+                    </StyledTag>
                   );
                   return isLongTag ? (
                     <Tooltip title={email} key={email}>
