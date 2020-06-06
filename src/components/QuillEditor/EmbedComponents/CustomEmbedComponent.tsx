@@ -2,7 +2,7 @@ import React, { ReactPortal } from 'react';
 import { createPortal } from 'react-dom';
 import { Quill } from 'react-quill';
 import { v4 } from 'uuid';
-import ExampleComponent from './ExampleComponent';
+import { ManagerList } from '../../SpotBook/ManagerList/ManagerList';
 
 const BlockEmbed = Quill.import('blots/block/embed');
 
@@ -33,7 +33,7 @@ class CustomEmbed extends BlockEmbed {
 
   renderPortal(id: string | number): ReactPortal {
     this.domNode.setAttribute('data-id', String(id));
-    return createPortal(<ExampleComponent />, this.domNode);
+    return createPortal(<ManagerList />, this.domNode);
   }
   attach() {
     super.attach();
