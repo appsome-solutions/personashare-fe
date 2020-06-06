@@ -236,6 +236,24 @@ export const EntityPage: FC<LinkProps> = ({
                 }}
               />
             </Flex>
+            <Flex mt={10}>
+              <UploadAssets
+                asImageUpload
+                onAddFile={(file) => {
+                  setUserAssetsList({
+                    ...userAssetsList,
+                    [file.name]: {
+                      name: file.name,
+                      blob: file,
+                      metaData: { customMetadata: { assetType: AssetType.USER_ASSET } },
+                    },
+                  });
+                }}
+                onRemoveFile={(file) => {
+                  delete userAssetsList[file.name];
+                }}
+              />
+            </Flex>
           </form>
         </div>
         <WideButton htmlType="submit" form="page-form" disabled={!isValid}>
