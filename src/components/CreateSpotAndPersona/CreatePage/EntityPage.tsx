@@ -238,7 +238,19 @@ export const EntityPage: FC<LinkProps> = ({
             </Flex>
             <Flex mt={10}>
               <UploadAssets
+                assetsList={[
+                  {
+                    uid: '-1',
+                    name: 'xxx.png',
+                    status: 'done',
+                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    size: 10000,
+                    type: 'image/png',
+                  },
+                ]}
                 asImageUpload
+                asPreview
                 onAddFile={(file) => {
                   setUserAssetsList({
                     ...userAssetsList,

@@ -42,18 +42,23 @@ type UploadAssetsProps = {
   onAddFile(file: File): void;
   onRemoveFile(file: UploadFile): void;
   asImageUpload?: boolean;
+  asPreview?: boolean;
+  assetsList?: UploadFile[];
 };
 
 export const UploadAssets: FC<UploadAssetsProps> = ({
   onAddFile,
   onRemoveFile,
   asImageUpload = false,
+  asPreview = false,
+  assetsList = [],
 }: UploadAssetsProps) => {
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [fileList, setFileList] = useState<UploadFile[]>(assetsList);
 
   return (
     <UploadWrapper>
       <Upload
+        disabled={asPreview}
         accept={asImageUpload ? 'image/*' : '*'}
         listType="picture"
         fileList={fileList}
