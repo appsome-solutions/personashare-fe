@@ -28,6 +28,7 @@ import {
 } from 'pages/CreatePersona/helpers';
 import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
 import { ExecutionResult } from 'graphql';
+import { UploadAssets } from '../../UploadAssets/UploadAssets';
 
 export interface LinkProps {
   previousStepPath: string;
@@ -60,6 +61,10 @@ const initialState: ImageRef = {
   blob: null,
 };
 
+type UploadAssetsState = {
+  [name: string]: AssetBlob;
+};
+
 export const EntityPage: FC<LinkProps> = ({
   previousStepPath,
   nameSpotOrPersona,
@@ -77,6 +82,7 @@ export const EntityPage: FC<LinkProps> = ({
   const { uuid } = useParams();
   const history = useHistory();
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
+  const [userAssetsList, setUserAssetsList] = useState<UploadAssetsState>({});
   const { values, setFieldValue, handleSubmit, isValid, setStatus, setSubmitting, isSubmitting } = useFormik<PageType>({
     initialValues,
     onSubmit: async (formValues): Promise<void | null> => {
@@ -119,7 +125,11 @@ export const EntityPage: FC<LinkProps> = ({
         },
       ];
 
-      const uploadedAssets = await uploadAssets(storageRef, user.uid, assetsBlobs);
+      const uploadedAssets = await uploadAssets(
+        storageRef,
+        user.uid,
+        assetsBlobs.concat(Object.values(userAssetsList))
+      );
 
       const payload = {
         card: {
@@ -208,6 +218,41 @@ export const EntityPage: FC<LinkProps> = ({
             </Flex>
             <Flex mt={10}>
               <QuillEditor onChange={onEditorValueChange} initialValue={content} />
+            </Flex>
+            <Flex mt={10}>
+              <UploadAssets
+                onAddFile={(file) => {
+                  setUserAssetsList({
+                    ...userAssetsList,
+                    [file.name]: {
+                      name: file.name,
+                      blob: file,
+                      metaData: { customMetadata: { assetType: AssetType.USER_ASSET } },
+                    },
+                  });
+                }}
+                onRemoveFile={(file) => {
+                  delete userAssetsList[file.name];
+                }}
+              />
+            </Flex>
+            <Flex mt={10}>
+              <UploadAssets
+                asImageUpload
+                onAddFile={(file) => {
+                  setUserAssetsList({
+                    ...userAssetsList,
+                    [file.name]: {
+                      name: file.name,
+                      blob: file,
+                      metaData: { customMetadata: { assetType: AssetType.USER_ASSET } },
+                    },
+                  });
+                }}
+                onRemoveFile={(file) => {
+                  delete userAssetsList[file.name];
+                }}
+              />
             </Flex>
           </form>
         </div>

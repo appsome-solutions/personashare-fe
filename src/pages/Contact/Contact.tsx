@@ -49,21 +49,24 @@ export const Contact: FC = () => {
   const { sendMail } = useFirebase();
   const [apiError, setApiError] = useState('');
   const history = useHistory();
-  const handleSubmit = useCallback((values) => {
-    setApiError('');
-    sendMail({
-      message: {
-        subject: `Name: ${values.name} <br /> Email: ${values.email} <br /> Message: ${values.message} <br />`,
-        html: values.message,
-      },
-    })
-      .then(() => {
-        history.push(APP_ROUTES.SPOT_CREATION_STEP_1);
+  const handleSubmit = useCallback(
+    (values) => {
+      setApiError('');
+      sendMail({
+        message: {
+          subject: `Name: ${values.name} <br /> Email: ${values.email} <br /> Message: ${values.message} <br />`,
+          html: values.message,
+        },
       })
-      .catch((e) => {
-        setApiError(e.message ? e.message : 'Error while sending an email');
-      });
-  }, []);
+        .then(() => {
+          history.push(APP_ROUTES.SPOT_CREATION_STEP_1);
+        })
+        .catch((e) => {
+          setApiError(e.message ? e.message : 'Error while sending an email');
+        });
+    },
+    [setApiError, sendMail, history]
+  );
 
   return (
     <div>

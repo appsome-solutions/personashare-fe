@@ -1,4 +1,4 @@
-import React, { FC, useState, useRef, useEffect } from 'react';
+import React, { FC, useState, useRef, useEffect, useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import ReactCardFlip from 'react-card-flip';
 
@@ -69,23 +69,26 @@ export const Guide: FC<GuideProps> = ({ onOutsideClick }: GuideProps) => {
   const cardFrontRef = useRef<HTMLDivElement>(null);
   const cardBackRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = (event: any): void => {
-    if (
-      cardFrontRef.current &&
-      cardBackRef.current &&
-      !cardFrontRef.current.contains(event.target) &&
-      !cardBackRef.current.contains(event.target)
-    ) {
-      onOutsideClick();
-    }
-  };
+  const handleClickOutside = useCallback(
+    (event: any): void => {
+      if (
+        cardFrontRef.current &&
+        cardBackRef.current &&
+        !cardFrontRef.current.contains(event.target) &&
+        !cardBackRef.current.contains(event.target)
+      ) {
+        onOutsideClick();
+      }
+    },
+    [cardBackRef, cardFrontRef, onOutsideClick]
+  );
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, false);
     return () => {
       document.removeEventListener('click', handleClickOutside, false);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   const changeStep = (): void => {
     if (step < steps.length) {
