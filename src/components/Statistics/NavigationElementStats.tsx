@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Col } from 'antd';
 import { Link } from 'react-router-dom';
-import { CoreThemePropsType } from '../../global/Themes/CoreTheme';
+import { CoreThemePropsType } from 'global/Themes/CoreTheme';
 
 type NavActive = {
   isActive: boolean;

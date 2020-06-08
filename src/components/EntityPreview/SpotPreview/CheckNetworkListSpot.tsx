@@ -1,12 +1,12 @@
-import { APP_ROUTES } from '../../../global/AppRouter/routes';
-import { AgregatedPersona, gqlUser } from '../../../global/graphqls/schema';
+import { APP_ROUTES } from 'global/AppRouter/routes';
+import { AgregatedPersona, gqlUser } from 'global/graphqls/schema';
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { GET_USER } from '../../../global/graphqls/User';
+import { GET_USER } from 'global/graphqls/User';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { PersonaCardMini } from '../../Statistics/PersonaCardMini';
-import { GET_SPOT, GetCardType } from '../../../global/graphqls/Spot';
+import { PersonaCardMini } from 'components/Statistics/PersonaCardMini';
+import { GET_SPOT, GetCardType } from 'global/graphqls/Spot';
 
 const HowManyUsers = styled.div`
   ${(props) => props.theme.typography.body1}

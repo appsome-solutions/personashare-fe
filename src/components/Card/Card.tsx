@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Box } from '../FlexBox/FlexBox';
+import { Box } from 'components/FlexBox/FlexBox';
 
 export const Card = styled(Box)`
   background-color: ${(props) => props.theme.colors.utils.background.light};

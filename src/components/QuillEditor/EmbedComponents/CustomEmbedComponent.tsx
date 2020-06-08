@@ -2,7 +2,7 @@ import React, { ReactPortal } from 'react';
 import { createPortal } from 'react-dom';
 import { Quill } from 'react-quill';
 import { v4 } from 'uuid';
-import { ManagerList } from '../../SpotBook/ManagerList/ManagerList';
+import { ManagerList } from 'components/SpotBook/ManagerList/ManagerList';
 
 const BlockEmbed = Quill.import('blots/block/embed');
 

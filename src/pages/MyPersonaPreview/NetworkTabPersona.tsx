@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { TopNav } from '../../components/TopNav/TopNav';
-import { StatsNavigationPersona } from '../../components/Statistics/StatsNavigationPersona';
-import { CheckNetworkListPersona } from '../../components/EntityPreview/PersonaPreview/CheckNetworkListPersona';
-import { InfoCard } from '../../components/InfoCard/InfoCard';
+import { TopNav } from 'components/TopNav/TopNav';
+import { StatsNavigationPersona } from 'components/Statistics/StatsNavigationPersona';
+import { CheckNetworkListPersona } from 'components/EntityPreview/PersonaPreview/CheckNetworkListPersona';
+import { InfoCard } from 'components/InfoCard/InfoCard';
 
 const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};

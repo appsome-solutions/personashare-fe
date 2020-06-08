@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { CheckNetworkListSpot } from '../../components/EntityPreview/SpotPreview/CheckNetworkListSpot';
-import { InfoCard } from '../../components/InfoCard/InfoCard';
-import { TopNav } from '../../components/TopNav/TopNav';
-import { StatsNavigationSpot } from '../../components/Statistics/StatsNavigationSpot';
+import { CheckNetworkListSpot } from 'components/EntityPreview/SpotPreview/CheckNetworkListSpot';
+import { InfoCard } from 'components/InfoCard/InfoCard';
+import { TopNav } from 'components/TopNav/TopNav';
+import { StatsNavigationSpot } from 'components/Statistics/StatsNavigationSpot';
 
 const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};

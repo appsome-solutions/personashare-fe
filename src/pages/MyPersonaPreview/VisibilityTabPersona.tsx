@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { TopNav } from '../../components/TopNav/TopNav';
-import { StatsNavigationPersona } from '../../components/Statistics/StatsNavigationPersona';
-import { CheckVisibilityPersona } from '../../components/EntityPreview/PersonaPreview/CheckVisibilityPersona';
+import { TopNav } from 'components/TopNav/TopNav';
+import { StatsNavigationPersona } from 'components/Statistics/StatsNavigationPersona';
+import { CheckVisibilityPersona } from 'components/EntityPreview/PersonaPreview/CheckVisibilityPersona';
 import styled from 'styled-components';
-import { InfoCard } from '../../components/InfoCard/InfoCard';
+import { InfoCard } from 'components/InfoCard/InfoCard';
 
 const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};

@@ -15,8 +15,8 @@ import { NavLink, useHistory } from 'react-router-dom';
 import AddIcon from 'assets/AddIcon.svg';
 import ShareQrCode from 'assets/ShareQrCode.svg';
 import { APP_ROUTES } from 'global/AppRouter/routes';
-import { MySpotsWithoutSpots } from '../MySpots/MySpotsWithoutSpots';
-import { Loader } from '../Loader/Loader';
+import { MySpotsWithoutSpots } from 'components/MySpots/MySpotsWithoutSpots';
+import { Loader } from 'components/Loader/Loader';
 
 const StyledButton = styled(Button)`
   width: 80%;

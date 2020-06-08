@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { Card } from '../Card/Card';
-import { Flex } from '../FlexBox/FlexBox';
-import { WideButton } from '../Button';
+import { Card } from 'components/Card/Card';
+import { Flex } from 'components/FlexBox/FlexBox';
+import { WideButton } from 'components/Button';
 
 type FormProps = {
   title: string;

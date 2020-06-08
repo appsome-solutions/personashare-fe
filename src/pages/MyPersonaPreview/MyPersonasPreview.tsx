@@ -4,10 +4,10 @@ import isEmpty from 'lodash/isEmpty';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { useParams } from 'react-router-dom';
-import { EntityPreview } from '../../components/EntityPreview/EntityPreview';
-import { GET_PERSONA, GetCardType } from '../../global/graphqls/Persona';
-import { TopNav } from '../../components/TopNav/TopNav';
-import { StatsNavigationPersona } from '../../components/Statistics/StatsNavigationPersona';
+import { EntityPreview } from 'components/EntityPreview/EntityPreview';
+import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
+import { TopNav } from 'components/TopNav/TopNav';
+import { StatsNavigationPersona } from 'components/Statistics/StatsNavigationPersona';
 
 export const MyPersonaPreview: FC = () => {
   const { uuid } = useParams();
