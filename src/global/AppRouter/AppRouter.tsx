@@ -30,6 +30,12 @@ import { SpotBook } from 'components/SpotBook/SpotBook';
 import { PersonaPreview } from 'components/PersonaPreview/PersonaPreview';
 import { SpotPreview } from 'components/SpotPreview/SpotPreview';
 import { SpotInvitation } from 'components/SpotBook/ManagerList/SpotInvitation';
+import { MyPersonaPreview } from '../../pages/MyPersonaPreview/MyPersonasPreview';
+import { VisibilityTabPersona } from '../../pages/MyPersonaPreview/VisibilityTabPersona';
+import { NetworkTabSpot } from '../../pages/MySpotPreview/NetworkTabSpot';
+import { MySpotPreview } from '../../pages/MySpotPreview/MySpotPreview';
+import { VisibilityTabSpot } from '../../pages/MySpotPreview/VisibilityTabSpot';
+import { NetworkTabPersona } from '../../pages/MyPersonaPreview/NetworkTabPersona';
 
 export const AppRouter: FunctionComponent = () => {
   return (
@@ -63,6 +69,12 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.PERSONA_PREVIEW(':uuid')} exact component={PersonaPreview} />
       <Route path={APP_ROUTES.SPOT_PREVIEW(':uuid')} exact component={SpotPreview} />
       <Route path={APP_ROUTES.SPOT_INVITATION(':uuid')} exact component={SpotInvitation} />
+      <Route path={APP_ROUTES.MY_PERSONA_PREVIEW(':uuid')} exact component={MyPersonaPreview} />
+      <Route path={APP_ROUTES.MY_PERSONA_PREVIEW_TAB(':uuid', 'visibility')} exact component={VisibilityTabPersona} />
+      <Route path={APP_ROUTES.MY_PERSONA_PREVIEW_TAB(':uuid', 'network')} exact component={NetworkTabPersona} />
+      <Route path={APP_ROUTES.MY_SPOT_PREVIEW(':uuid')} exact component={MySpotPreview} />
+      <Route path={APP_ROUTES.MY_SPOT_PREVIEW_TAB(':uuid', 'visibility')} exact component={VisibilityTabSpot} />
+      <Route path={APP_ROUTES.MY_SPOT_PREVIEW_TAB(':uuid', 'network')} exact component={NetworkTabSpot} />
     </Switch>
   );
 };
