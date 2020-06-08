@@ -37,8 +37,6 @@ const SecondPartSpot = styled.div`
   margin: 0 16px 28px 16px;
 `;
 
-const baseUrl = process.env.REACT_APP_BASE_URL || 'https://persona-share.netlify.app';
-
 export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
   const { uuid } = useParams();
   const { loading, data } = useQuery<GetCardType>(GET_SPOT, {
@@ -65,14 +63,7 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
           <EntityPageComp page={data.spot.page} />
           <RecommendButtonSpot />
         </Wrapper>
-        {isEditMode ? (
-          <ManagerList />
-        ) : (
-          <ManagerListEditMode
-            invitationLink={`${baseUrl}${APP_ROUTES.SPOT_INVITATION(data?.spot.uuid)}`}
-            spot={data?.spot}
-          />
-        )}
+        {isEditMode && <ManagerList />}
         <SecondPartSpot>
           <SaveSpotButton />
         </SecondPartSpot>
