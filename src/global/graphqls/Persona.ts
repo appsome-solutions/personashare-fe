@@ -237,8 +237,12 @@ export const GET_PERSONA = gql`
   }
 `;
 
-export interface RemoveResponse {
+export interface RemovePersonaResponse {
   removePersona: boolean;
+}
+
+export interface RemoveSpotResponse {
+  removeSpot: boolean;
 }
 
 export const REMOVE_PERSONA = gql`

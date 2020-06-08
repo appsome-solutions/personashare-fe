@@ -14,13 +14,13 @@ type RecommendPersona = {
 };
 
 const RecommendEmpty = styled.img`
-  position: absolute;
-  right: 20px;
-  top: 135px;
+  position: relative;
+  top: -21px;
+  left: calc(100% - 61px);
 `;
 
 export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
-  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
+  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER, { fetchPolicy: 'network-only' });
   const [recommendPersona] = useMutation<RecommendPersonaResponse>(RECOMMEND_PERSONA, {
     variables: { recommendedPersonaUuid: uuid },
   });

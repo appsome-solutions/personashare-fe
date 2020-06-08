@@ -5,10 +5,13 @@ import EditIcon from 'assets/EditIcon.svg';
 import RemoveIcon from 'assets/RemoveIcon.svg';
 import EditMenu from 'assets/EditMenu.svg';
 import { NavLink, useLocation } from 'react-router-dom';
-import { REMOVE_PERSONA, RemoveResponse } from 'global/graphqls/Persona';
+import { GET_PERSONAS, REMOVE_PERSONA, RemovePersonaResponse, RemoveSpotResponse } from 'global/graphqls/Persona';
 import { useMutation } from '@apollo/react-hooks';
-import { REMOVE_SPOT } from 'global/graphqls/Spot';
+import { GET_SPOTS, REMOVE_SPOT } from 'global/graphqls/Spot';
 import { APP_ROUTES } from 'global/AppRouter/routes';
+import _ from 'lodash';
+import { Spinner } from '../Spinner/Spinner';
+import { Overlay } from '../Overlay/Overlay';
 
 const EditMenuBox = styled.div`
   position: relative;
@@ -48,14 +51,43 @@ type EditAndRemoveMenuType = {
   uuid: string;
 };
 
+const StyledOverlay = styled(Overlay)`
+  top: 31px;
+  width: 262px;
+`;
+
 export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid }) => {
   const { pathname } = useLocation();
-  const [personaRemove] = useMutation<RemoveResponse>(REMOVE_PERSONA, {
+  const [personaRemove, { loading: isPersonaRemovalLoading }] = useMutation<RemovePersonaResponse>(REMOVE_PERSONA, {
     variables: { personaUuid: uuid },
+    update(cache) {
+      const { userPersonas } = cache.readQuery({ query: GET_PERSONAS }) as { userPersonas: any };
+      console.log(userPersonas);
+      console.log(_.filter(userPersonas, (userPersona) => userPersona.uuid !== uuid));
+      cache.writeQuery({
+        query: GET_PERSONAS,
+        data: { userPersonas: _.filter(userPersonas, (userPersona) => userPersona.uuid !== uuid) },
+      });
+    },
   });
-  const [spotRemove] = useMutation<RemoveResponse>(REMOVE_SPOT, {
+  const [spotRemove, { loading: isSpotRemovalLoading }] = useMutation<RemoveSpotResponse>(REMOVE_SPOT, {
     variables: { spotUuid: uuid },
+    update(cache) {
+      const { userSpots } = cache.readQuery({ query: GET_SPOTS }) as { userSpots: any };
+      cache.writeQuery({
+        query: GET_SPOTS,
+        data: { userSpots: _.filter(userSpots, (userSpot) => userSpot.uuid !== uuid) },
+      });
+    },
   });
+
+  if (isPersonaRemovalLoading || isSpotRemovalLoading) {
+    return (
+      <StyledOverlay>
+        <Spinner />
+      </StyledOverlay>
+    );
+  }
 
   const NavLinkFunctionality = () => {
     if (pathname.includes('personas')) {

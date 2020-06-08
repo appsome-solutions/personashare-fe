@@ -36,10 +36,12 @@ import { NetworkTabSpot } from '../../pages/MySpotPreview/NetworkTabSpot';
 import { MySpotPreview } from '../../pages/MySpotPreview/MySpotPreview';
 import { VisibilityTabSpot } from '../../pages/MySpotPreview/VisibilityTabSpot';
 import { NetworkTabPersona } from '../../pages/MyPersonaPreview/NetworkTabPersona';
+import QuillEditor from '../../components/QuillEditor/QuillEditor';
 
 export const AppRouter: FunctionComponent = () => {
   return (
     <Switch>
+      <Route path="/editor" exact component={QuillEditor} />
       <Route path={APP_ROUTES.ROOT} exact component={Home} />
       <Route path={APP_ROUTES.SCANNER} exact component={QrScanner} />
       <PrivateRoute path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
