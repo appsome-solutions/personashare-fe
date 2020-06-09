@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { CoreThemePropsType } from '../../global/Themes/CoreTheme';
 
 export interface IconProps {
   svgLink: string;
@@ -16,9 +17,9 @@ const defaults: IconProps = {
   cursor: 'pointer',
 };
 
-const Icon = styled.div.attrs({
+const Icon = styled.div.attrs(() => ({
   role: 'img',
-})<IconProps>`
+}))<IconProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   cursor: ${(props) => props.cursor};
