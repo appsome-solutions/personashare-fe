@@ -30,6 +30,8 @@ import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
 import { ExecutionResult } from 'graphql';
 import { UploadAssets } from '../../UploadAssets/UploadAssets';
 import { ManagerListEditMode } from '../../SpotBook/ManagerList/EditModeManager';
+import { useMutation } from '@apollo/react-hooks';
+import { CLEAR_CARD, GetCardType, UPDATE_CARD } from '../../../global/graphqls/SpotAndPersona';
 
 export interface LinkProps {
   previousStepPath: string;
@@ -83,6 +85,7 @@ export const EntityPage: FC<LinkProps> = ({
   const { uuid } = useParams();
   const history = useHistory();
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
+  const [clearCard] = useMutation<GetCardType>(CLEAR_CARD);
   const isSpot = nameSpotOrPersona.toLocaleLowerCase().includes('spot');
   const onSpotCreationOrUpdateArray: Array<(arg0: any, values: any, arg2: any) => void> = [];
   const [userAssetsList, setUserAssetsList] = useState<UploadAssetsState>({});
@@ -171,6 +174,7 @@ export const EntityPage: FC<LinkProps> = ({
         formValues?.backgroundUpload?.blobUrl,
       ];
       revokeObjectURLS(urls);
+      await clearCard();
       history.push(nextStepPath);
     },
     validationSchema: pageSchema,
