@@ -48,14 +48,14 @@ const TextInHamburger = styled.div`
 const LinkRouterStyle = styled(NavLink)`
   display: flex;
   align-items: center;
-  color: ${(props) => props.theme.colors.main.primary}
+  color: ${(props) => props.theme.colors.main.primary};
   height: 50px;
-  width:100%;
+  width: 100%;
   border-radius: 4px;
   text-decoration: none;
   :hover {
     background-color: rgba(85, 133, 255, 0.2);
-    }
+  }
 `;
 
 const RightProfile = styled.div`
@@ -67,14 +67,15 @@ const RightProfile = styled.div`
 const LogoutButton = styled.div`
   display: flex;
   align-items: center;
-  color: ${(props) => props.theme.colors.main.primary}
+  color: ${(props) => props.theme.colors.main.primary};
   height: 50px;
-  width:100%;
+  width: 100%;
   border-radius: 4px;
   text-decoration: none;
   :hover {
     background-color: rgba(85, 133, 255, 0.2);
-    }`;
+  }
+`;
 
 const CircleStyled = styled.div`
   position: absolute;
