@@ -2,29 +2,29 @@ import React, { ReactPortal } from 'react';
 import { createPortal } from 'react-dom';
 import { Quill } from 'react-quill';
 import { v4 } from 'uuid';
-import { UploadAssets } from '../../UploadAssets/UploadAssets';
+import { ManagerListEditMode } from '../../SpotBook/ManagerList/EditModeManager';
 
 const BlockEmbed = Quill.import('blots/block/embed');
 
-class EmbedUploadAssets extends BlockEmbed {
+class EmbedManagerList extends BlockEmbed {
   constructor(domNode: HTMLElement) {
     super(domNode);
     this.id = domNode.getAttribute('data-id');
-    this.data = EmbedUploadAssets.data;
+    this.data = EmbedManagerList.data;
     domNode.setAttribute('contenteditable', String(false));
   }
 
   static tagName = 'div';
-  static blotName = 'upload-asset';
-  static className = 'upload-asset';
+  static blotName = 'manager-list';
+  static className = 'manager-list';
 
   static create(value: any): HTMLElement {
     const id = v4();
     const node = super.create(value);
-    const refs = EmbedUploadAssets.refs;
+    const refs = EmbedManagerList.refs;
     node.setAttribute('data-id', id);
-    EmbedUploadAssets.data = value;
-    EmbedUploadAssets.refs = {
+    EmbedManagerList.data = value;
+    EmbedManagerList.refs = {
       ...refs,
       [id]: React.createRef(),
     };
@@ -34,7 +34,7 @@ class EmbedUploadAssets extends BlockEmbed {
   renderPortal(id: string | number): ReactPortal {
     this.domNode.setAttribute('data-id', String(id));
     return createPortal(
-      <UploadAssets onAddFile={() => console.log('file added')} onRemoveFile={() => console.log('file removed')} />,
+      <ManagerListEditMode uuid={String(id)} onSpotCreationOrUpdate={() => console.log('spot created or updated')} />,
       this.domNode
     );
   }
@@ -49,4 +49,4 @@ class EmbedUploadAssets extends BlockEmbed {
   }
 }
 
-export default EmbedUploadAssets;
+export default EmbedManagerList;

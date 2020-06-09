@@ -15,7 +15,8 @@ import UnderlineSvg from 'assets/format_underlined.svg';
 import CodeSvg from 'assets/code.svg';
 import Quill from 'quill';
 import { InlineButton } from './Buttons/InlineButton';
-import CustomEmbed from './EmbedComponents/EmbedUploadAssets';
+import EmbedUploadAssets from './EmbedComponents/EmbedUploadAssets';
+import EmbedManagerList from './EmbedComponents/EmbedManagerList';
 
 const StyledQuillContainer = styled.div`
   width: 100%;
@@ -70,6 +71,7 @@ const TurnInto = styled.span`
 
 const insertIntoEditor = (editor: Quill, value: string | boolean | number, type: string): void => {
   const cursor = editor.getSelection()?.index || 0;
+  console.warn(editor.getContents());
   editor.insertText(cursor + 1, '\n', type, value);
   editor.setSelection(cursor + 1, 0);
 };
@@ -77,6 +79,11 @@ const insertIntoEditor = (editor: Quill, value: string | boolean | number, type:
 const uploadAssetHandler = (editor: Quill): void => {
   const cursor = editor.getSelection()?.index || 0;
   editor.insertEmbed(cursor, 'upload-asset', {});
+};
+
+const managerListHandler = (editor: Quill): void => {
+  const cursor = editor.getSelection()?.index || 0;
+  editor.insertEmbed(cursor, 'manager-list', {});
 };
 
 type Range = {
@@ -92,7 +99,8 @@ type Props = {
 
 QuillClass.register(
   {
-    'formats/upload-asset': CustomEmbed,
+    'formats/upload-asset': EmbedUploadAssets,
+    'formats/manager-list': EmbedManagerList,
   },
   true
 );
@@ -136,6 +144,7 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '', editable = true }
             'code-block-newLine': (value: boolean) =>
               insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'code-block'),
             'upload-asset': () => uploadAssetHandler((ref.current?.getEditor() as unknown) as Quill),
+            'manager-list': () => managerListHandler((ref.current?.getEditor() as unknown) as Quill),
           },
         },
       },
@@ -201,59 +210,60 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '', editable = true }
           ref={ref}
         />
       )}
-      {isRendered &&
-        embedBlots?.map((embedBlot) => {
-          console.warn(embedBlot);
-          return embedBlot.renderPortal(embedBlot.id);
-        })}
-      <EditorBarWrapper id="toolbar">
-        <ToggleabbleContainer isVisible={!isInlineVisible}>
-          <DrawerPage
-            title="Add in a new line"
-            OnClickComponent={() => (
-              <BarIcon
-                svgLink={AddSvg}
-                onClick={() => {
-                  editor?.focus();
-                  setIsTurnIntoVisible(true);
-                  turnIntoRef.current = false;
-                }}
-              />
-            )}
-            onClose={() => setIsTurnIntoVisible(false)}
-            isVisible={isTurnIntoVisible}
-            getContainer="#toolbar"
-          >
-            <EditorButtons addInNewLine={true} />
-          </DrawerPage>
-          <Separator />
-          <DrawerPage
-            isVisible={isAddVisible}
-            OnClickComponent={() => (
-              <TurnInto
-                onClick={() => {
-                  editor?.focus();
-                  setIsAddVisible(true);
-                  turnIntoRef.current = true;
-                }}
-              >
-                Turn into
-              </TurnInto>
-            )}
-            onClose={() => setIsAddVisible(false)}
-            title="Turn Into"
-            getContainer="#toolbar"
-          >
-            <EditorButtons />
-          </DrawerPage>
-        </ToggleabbleContainer>
-        <ToggleabbleContainer isVisible={isInlineVisible}>
-          <InlineButton className={`ql-bold`} svgLink={BoldSvg} />
-          <InlineButton className={`ql-code`} svgLink={CodeSvg} />
-          <InlineButton className={`ql-italic`} svgLink={ItalicSvg} />
-          <InlineButton className={`ql-underline`} svgLink={UnderlineSvg} />
-        </ToggleabbleContainer>
-      </EditorBarWrapper>
+      {isRendered && embedBlots?.map((embedBlot) => embedBlot.renderPortal(embedBlot.id))}
+      {editable ? (
+        <EditorBarWrapper id="toolbar">
+          <ToggleabbleContainer isVisible={!isInlineVisible}>
+            <DrawerPage
+              title="Add in a new line"
+              OnClickComponent={() => (
+                <BarIcon
+                  svgLink={AddSvg}
+                  onClick={() => {
+                    editor?.focus();
+                    setIsTurnIntoVisible(true);
+                    turnIntoRef.current = false;
+                  }}
+                />
+              )}
+              onClose={() => setIsTurnIntoVisible(false)}
+              isVisible={isTurnIntoVisible}
+              getContainer="#toolbar"
+            >
+              <EditorButtons addInNewLine={true} />
+            </DrawerPage>
+            <Separator />
+            <DrawerPage
+              isVisible={isAddVisible}
+              OnClickComponent={() => (
+                <TurnInto
+                  onClick={() => {
+                    editor?.focus();
+                    setIsAddVisible(true);
+                    turnIntoRef.current = true;
+                  }}
+                >
+                  Turn into
+                </TurnInto>
+              )}
+              onClose={() => setIsAddVisible(false)}
+              title="Turn Into"
+              getContainer="#toolbar"
+            >
+              <EditorButtons />
+            </DrawerPage>
+          </ToggleabbleContainer>
+          <ToggleabbleContainer isVisible={isInlineVisible}>
+            <InlineButton className={`ql-bold`} svgLink={BoldSvg} />
+            <InlineButton className={`ql-code`} svgLink={CodeSvg} />
+            <InlineButton className={`ql-italic`} svgLink={ItalicSvg} />
+            <InlineButton className={`ql-underline`} svgLink={UnderlineSvg} />
+          </ToggleabbleContainer>
+        </EditorBarWrapper>
+      ) : (
+        // this is need for Quill to don't crash...
+        <div id="toolbar"></div>
+      )}
     </StyledQuillContainer>
   );
 };
