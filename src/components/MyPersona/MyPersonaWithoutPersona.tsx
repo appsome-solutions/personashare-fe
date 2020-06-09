@@ -37,7 +37,7 @@ const CreateSpot = styled.div`
   align-items: center;
 `;
 
-export const MyPersonaWithoutSpots: FC = () => {
+export const MyPersonaWithoutPersona: FC = () => {
   return (
     <>
       <TopNav isWithBackArrow />
