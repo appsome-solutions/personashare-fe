@@ -18,8 +18,8 @@ const MainComponent = styled.div`
   padding: 16px 26px;
   ${(props) => props.theme.typography.subtitle2};
   text-align: center;
-  height: ${(props) => props.theme.contentHeight};
   overflow: auto;
+  height: 85vh;
 `;
 
 const RegulationText = styled.div`
