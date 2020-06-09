@@ -26,7 +26,5 @@ export const LoginOrHamburger: FC = () => {
     return <LoginBar isLogged={true} />;
   } else if (personaData && data) {
     return <HamburgerMenu isWithHamburger={true} uuid={data?.user.defaultPersona} card={personaData?.persona?.card} />;
-  } else if (!personaData && data) {
-    return <HamburgerMenu isWithHamburger={true} />;
   } else return null;
 };
