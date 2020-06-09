@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 /* eslint-disable-next-line */
 import Worker from 'worker-loader!./../decodeWorker.worker';
 import { QRCode } from 'jsqr';
@@ -10,24 +10,21 @@ type UseWorkerDecode = {
 };
 
 export const useWorkerDecode = ({ capture, interval, onCode }: UseWorkerDecode): Worker | null => {
-  const [worker, setWorker] = useState<Worker | null>(null);
+  const worker = useRef<Worker | null>(null);
   useEffect(() => {
     const onMessage = (message: MessageEvent): void => {
       onCode(message.data);
     };
-    setWorker((prevState) => {
-      prevState = new Worker();
-      prevState.addEventListener('message', onMessage);
-      return prevState;
-    });
+    worker.current = new Worker();
+    worker.current.addEventListener('message', onMessage);
     const timer = setInterval(capture, interval);
     return () => {
-      if (worker) {
-        worker.terminate();
-        setWorker(null);
+      if (worker.current) {
+        worker.current.terminate();
+        worker.current = null;
       }
       clearInterval(timer);
     };
   }, [capture, interval, onCode]);
-  return worker;
+  return worker.current;
 };

@@ -15,7 +15,7 @@ import UnderlineSvg from 'assets/format_underlined.svg';
 import CodeSvg from 'assets/code.svg';
 import Quill from 'quill';
 import { InlineButton } from './Buttons/InlineButton';
-import CustomEmbed from './EmbedComponents/CustomEmbedComponent';
+import CustomEmbed from './EmbedComponents/EmbedUploadAssets';
 
 const StyledQuillContainer = styled.div`
   width: 100%;
@@ -74,9 +74,9 @@ const insertIntoEditor = (editor: Quill, value: string | boolean | number, type:
   editor.setSelection(cursor + 1, 0);
 };
 
-const customHandler = (editor: Quill): void => {
+const uploadAssetHandler = (editor: Quill): void => {
   const cursor = editor.getSelection()?.index || 0;
-  editor.insertEmbed(cursor, 'custom', {});
+  editor.insertEmbed(cursor, 'upload-asset', {});
 };
 
 type Range = {
@@ -87,16 +87,17 @@ type Range = {
 type Props = {
   onChange?: (value: any) => void;
   initialValue?: string;
+  editable?: boolean;
 };
 
 QuillClass.register(
   {
-    'formats/custom': CustomEmbed,
+    'formats/upload-asset': CustomEmbed,
   },
   true
 );
 
-const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
+const QuillEditor: FC<Props> = ({ onChange, initialValue = '', editable = true }) => {
   const [isRendered, setIsRendered] = useState(false);
   const [isRefAttached, setIsRefAttached] = useState(false);
   const [isTurnIntoVisible, setIsTurnIntoVisible] = useState(false);
@@ -134,7 +135,7 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
               insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'blockquote'),
             'code-block-newLine': (value: boolean) =>
               insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'code-block'),
-            custom: () => customHandler((ref.current?.getEditor() as unknown) as Quill),
+            'upload-asset': () => uploadAssetHandler((ref.current?.getEditor() as unknown) as Quill),
           },
         },
       },
@@ -174,6 +175,9 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
       editor.scroll.emitter.on('blot-unmount', onUnmount);
       const parsedValue = !isEmpty(initialValue) && isString(initialValue) && JSON.parse(initialValue);
       parsedValue && editor.setContents(parsedValue as any);
+      if (!editable) {
+        editor.enable(false);
+      }
     }
     // dependencies are missing on purpose, this hook should run only when ref got attached
   }, [isRefAttached]);
@@ -199,6 +203,7 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
       )}
       {isRendered &&
         embedBlots?.map((embedBlot) => {
+          console.warn(embedBlot);
           return embedBlot.renderPortal(embedBlot.id);
         })}
       <EditorBarWrapper id="toolbar">
@@ -247,7 +252,6 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '' }) => {
           <InlineButton className={`ql-code`} svgLink={CodeSvg} />
           <InlineButton className={`ql-italic`} svgLink={ItalicSvg} />
           <InlineButton className={`ql-underline`} svgLink={UnderlineSvg} />
-          <InlineButton className={`ql-custom`} svgLink={UnderlineSvg} />
         </ToggleabbleContainer>
       </EditorBarWrapper>
     </StyledQuillContainer>

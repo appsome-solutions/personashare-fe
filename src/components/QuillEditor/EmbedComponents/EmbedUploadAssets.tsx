@@ -2,7 +2,7 @@ import React, { ReactPortal } from 'react';
 import { createPortal } from 'react-dom';
 import { Quill } from 'react-quill';
 import { v4 } from 'uuid';
-import { ManagerList } from '../../SpotBook/ManagerList/ManagerList';
+import { UploadAssets } from '../../UploadAssets/UploadAssets';
 
 const BlockEmbed = Quill.import('blots/block/embed');
 
@@ -15,8 +15,8 @@ class CustomEmbed extends BlockEmbed {
   }
 
   static tagName = 'div';
-  static blotName = 'custom';
-  static className = 'custom';
+  static blotName = 'upload-asset';
+  static className = 'upload-asset';
 
   static create(value: any): HTMLElement {
     const id = v4();
@@ -33,7 +33,10 @@ class CustomEmbed extends BlockEmbed {
 
   renderPortal(id: string | number): ReactPortal {
     this.domNode.setAttribute('data-id', String(id));
-    return createPortal(<ManagerList />, this.domNode);
+    return createPortal(
+      <UploadAssets onAddFile={() => console.log('file added')} onRemoveFile={() => console.log('file removed')} />,
+      this.domNode
+    );
   }
   attach() {
     super.attach();
