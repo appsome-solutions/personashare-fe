@@ -26,7 +26,7 @@ export const CreateSpotsPage: FC = () => {
       const { createSpot } = data;
       const { userSpots } = cache.readQuery({ query: GET_SPOTS }) as { userSpots: any };
       cache.writeQuery({
-        query: userSpots,
+        query: GET_SPOTS,
         data: { userSpots: userSpots.concat([createSpot]) },
       });
     },

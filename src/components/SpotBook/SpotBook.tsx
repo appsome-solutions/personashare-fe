@@ -29,7 +29,7 @@ export const SpotBook: FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
 
-  if (loading) {
+  if (loading || !data) {
     return (
       <Overlay>
         <Spinner />
@@ -52,6 +52,7 @@ export const SpotBook: FC = () => {
         isWithSearch={true}
         searchValue={searchValue}
         setSearchValue={setSearchValue}
+        card={data.persona.card}
       />
       <SpotBookStyled>
         {results?.map((spot: AgregatedSpot) => (

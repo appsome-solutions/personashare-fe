@@ -31,9 +31,9 @@ const CenteredCol = styled(Col)`
   }
 `;
 
-const NavText = styled.span.attrs({
-  style: (props: CoreThemePropsType) => props.theme.typography.subtitle2,
-})<NavActive>`
+const NavText = styled.span.attrs((props: CoreThemePropsType) => ({
+  style: props.theme.typography.subtitle2,
+}))<NavActive>`
   color: ${(props) => getActiveColor(props)};
   display: ${(props) => !props.isActive && 'none'};
 `;

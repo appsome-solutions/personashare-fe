@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef } from 'react';
+import React, { FC, useState, useEffect, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import { Carousel as AntCarousel } from 'antd';
 import { TopNav } from 'components/TopNav/TopNav';
@@ -13,10 +13,10 @@ import { useUserContext } from 'global/UserContext/UserContext';
 import { gqlEntity } from 'global/graphqls/schema';
 import { NavLink, useHistory } from 'react-router-dom';
 import AddIcon from 'assets/AddIcon.svg';
-import ShareQrCode from 'assets/ShareQrCode.svg';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { MySpotsWithoutSpots } from '../MySpots/MySpotsWithoutSpots';
 import { Loader } from '../Loader/Loader';
+import { ShareQrComponent } from './ShareQrComponent';
 
 const StyledButton = styled(Button)`
   width: 80%;
@@ -65,32 +65,8 @@ const CreatePersona = styled.div`
   align-items: center;
 `;
 
-const ShareQr = styled.div`
-  margin-top: 46px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  flex-direction: column;
-`;
-
-const TextInShare = styled.div`
-  ${(props) => props.theme.typography.subtitle2};
-  margin-bottom: 20px;
-`;
-
-const ShareQrIcon = styled.img`
-  padding-right: 12px;
-`;
-
-const LinkStyled = styled.a`
-  color: ${(props) => props.theme.colors.utils.text.dark};
-  ${(props) => props.theme.typography.subtitle2}
-  text-decoration:none;
-`;
-
 const StyledPageWrapper = styled(PageWrapper)`
-  padding: 0px;
+  padding: 0;
 `;
 
 export const MyPersona: FC = () => {
@@ -102,6 +78,15 @@ export const MyPersona: FC = () => {
   const carousel = useRef<AntCarousel>(null);
   const history = useHistory();
 
+  const handleSetDefault = async (uuid: string): Promise<void> => {
+    try {
+      const { data } = await setDefaultPersona({ variables: { uuid: uuid } });
+      setDefaultPersonaUuid(data?.setDefaultPersona.uuid);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     if (data?.userPersonas) {
       const defaultPersonaIndex = data.userPersonas.findIndex((persona) => persona.uuid === defaultPersonaUuid);
@@ -111,19 +96,41 @@ export const MyPersona: FC = () => {
     }
   }, [data, defaultPersonaUuid]);
 
+  const renderCarousel = useCallback(
+    (userPersonas) => (
+      <StyledCarousel
+        ref={carousel}
+        afterChange={(currentIndex) => {
+          setCurrentSlide(currentIndex);
+        }}
+      >
+        {userPersonas.map((persona: gqlEntity) => (
+          <CaruouselItem key={persona.uuid}>
+            <Wrapper
+              onClick={() =>
+                history.push({
+                  pathname: `${APP_ROUTES.PERSONA_PREVIEW(persona.uuid)}`,
+                })
+              }
+            >
+              <PersonaCard card={persona.card} uuid={persona.uuid} isWithEdit={true} />
+              {persona.uuid === defaultPersonaUuid ? (
+                <DefaultBlock>DEFAULT</DefaultBlock>
+              ) : (
+                <StyledButton onClick={() => handleSetDefault(persona.uuid)}>SET AS DEFAULT</StyledButton>
+              )}
+            </Wrapper>
+          </CaruouselItem>
+        ))}
+      </StyledCarousel>
+    ),
+    [data?.userPersonas]
+  );
+
   // OR !data is used cause typescript doesn't know that data can no longer be undefined in return method
   if ((isEmpty(data?.userPersonas) || !data) && !loading) {
     return <MySpotsWithoutSpots />;
   }
-
-  const handleSetDefault = async (uuid: string): Promise<void> => {
-    try {
-      const { data } = await setDefaultPersona({ variables: { uuid: uuid } });
-      setDefaultPersonaUuid(data?.setDefaultPersona.uuid);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const StyledCarousel = styled(Carousel)`
     && {
@@ -139,36 +146,8 @@ export const MyPersona: FC = () => {
       <StyledPageWrapper>
         <Loader loading={loading} data={data}>
           <PageWrapperSpaceBetween>
-            <StyledCarousel afterChange={setCurrentSlide} ref={carousel}>
-              {data?.userPersonas &&
-                data?.userPersonas.map((persona: gqlEntity) => (
-                  <CaruouselItem key={persona.uuid}>
-                    <Wrapper
-                      onClick={() =>
-                        history.push({
-                          pathname: `${APP_ROUTES.PERSONA_PREVIEW(persona.uuid)}`,
-                        })
-                      }
-                    >
-                      <PersonaCard card={persona.card} uuid={persona.uuid} isWithEdit={true} />
-                      {persona.uuid === defaultPersonaUuid ? (
-                        <DefaultBlock>DEFAULT</DefaultBlock>
-                      ) : (
-                        <StyledButton onClick={() => handleSetDefault(persona.uuid)}>SET AS DEFAULT</StyledButton>
-                      )}
-                    </Wrapper>
-                  </CaruouselItem>
-                ))}
-            </StyledCarousel>
-            <ShareQr>
-              <img src={`${data?.userPersonas[currentSlide].qrCodeLink}`} alt="QrCode Icon" />
-              <TextInShare>
-                <ShareQrIcon src={ShareQrCode} alt="Share Qr Code" />
-                <LinkStyled href={`${data?.userPersonas[currentSlide].qrCodeLink}`} download="output.png">
-                  Share your QR
-                </LinkStyled>
-              </TextInShare>
-            </ShareQr>
+            {data?.userPersonas && renderCarousel(data.userPersonas)}
+            <ShareQrComponent qrCodeLink={data?.userPersonas[currentSlide].qrCodeLink} />
           </PageWrapperSpaceBetween>
           <NavLink to={APP_ROUTES.PERSONA_CREATION_STEP_1}>
             <CreatePersona>

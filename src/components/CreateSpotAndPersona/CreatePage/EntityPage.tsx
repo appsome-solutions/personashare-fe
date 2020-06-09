@@ -29,6 +29,9 @@ import {
 import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
 import { ExecutionResult } from 'graphql';
 import { UploadAssets } from '../../UploadAssets/UploadAssets';
+import { ManagerListEditMode } from '../../SpotBook/ManagerList/EditModeManager';
+import { useMutation } from '@apollo/react-hooks';
+import { CLEAR_CARD, GetCardType, UPDATE_CARD } from '../../../global/graphqls/SpotAndPersona';
 
 export interface LinkProps {
   previousStepPath: string;
@@ -82,6 +85,9 @@ export const EntityPage: FC<LinkProps> = ({
   const { uuid } = useParams();
   const history = useHistory();
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
+  const [clearCard] = useMutation<GetCardType>(CLEAR_CARD);
+  const isSpot = nameSpotOrPersona.toLocaleLowerCase().includes('spot');
+  const onSpotCreationOrUpdateArray: Array<(arg0: any, values: any, arg2: any) => void> = [];
   const [userAssetsList, setUserAssetsList] = useState<UploadAssetsState>({});
   const { values, setFieldValue, handleSubmit, isValid, setStatus, setSubmitting, isSubmitting } = useFormik<PageType>({
     initialValues,
@@ -147,12 +153,19 @@ export const EntityPage: FC<LinkProps> = ({
       if (!onPageSubmitCreateOrUpdate) {
         return null;
       }
-      await onPageSubmitCreateOrUpdate({
+      const newPageEntityData = await onPageSubmitCreateOrUpdate({
         variables: {
           payload,
           uuid,
         },
       });
+
+      if (isSpot) {
+        // @ts-ignore
+        const newPageEntity = newPageEntityData?.data?.createSpot || newPageEntityData?.data?.updateSpot;
+
+        await Promise.all(onSpotCreationOrUpdateArray.map((el) => el(newPageEntity, values, setSubmitting)));
+      }
 
       const urls = [
         avatarUpload?.blobUrl,
@@ -161,6 +174,7 @@ export const EntityPage: FC<LinkProps> = ({
         formValues?.backgroundUpload?.blobUrl,
       ];
       revokeObjectURLS(urls);
+      await clearCard();
       history.push(nextStepPath);
     },
     validationSchema: pageSchema,
@@ -266,6 +280,14 @@ export const EntityPage: FC<LinkProps> = ({
                 }}
               />
             </Flex>
+            {isSpot && (
+              <ManagerListEditMode
+                uuid={uuid}
+                onSpotCreationOrUpdate={(callback) => {
+                  onSpotCreationOrUpdateArray.push(callback);
+                }}
+              />
+            )}
           </form>
         </div>
         <WideButton htmlType="submit" form="page-form" disabled={!isValid}>

@@ -13,6 +13,7 @@ import { TopNav } from '../TopNav/TopNav';
 import { ManagerList } from 'components/SpotBook/ManagerList/ManagerList';
 import { ManagerListEditMode } from 'components/SpotBook/ManagerList/EditModeManager';
 import { APP_ROUTES } from 'global/AppRouter/routes';
+import { vh } from 'helpers/styled';
 
 type SpotPreviewType = {
   isEditMode?: boolean;
@@ -30,14 +31,12 @@ const MainComponent = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: ${vh(100)};
 `;
 
 const SecondPartSpot = styled.div`
   margin: 0 16px 28px 16px;
 `;
-
-const baseUrl = process.env.REACT_APP_BASE_URL || 'https://persona-share.netlify.app';
 
 export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
   const { uuid } = useParams();
@@ -65,14 +64,7 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
           <EntityPageComp page={data.spot.page} />
           <RecommendButtonSpot />
         </Wrapper>
-        {isEditMode ? (
-          <ManagerList />
-        ) : (
-          <ManagerListEditMode
-            invitationLink={`${baseUrl}${APP_ROUTES.SPOT_INVITATION(data?.spot.uuid)}`}
-            spot={data?.spot}
-          />
-        )}
+        {isEditMode && <ManagerList />}
         <SecondPartSpot>
           <SaveSpotButton />
         </SecondPartSpot>
