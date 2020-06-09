@@ -5,12 +5,22 @@ import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
 import React, { FC } from 'react';
 import { gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
+import { Overlay } from '../Overlay/Overlay';
+import { Spinner } from '../Spinner/Spinner';
 
 export const LoginOrHamburger: FC = () => {
-  const { data } = useQuery<{ user: gqlUser }>(GET_USER);
-  const { data: personaData } = useQuery<GetCardType>(GET_PERSONA, {
+  const { data, loading } = useQuery<{ user: gqlUser }>(GET_USER);
+  const { loading: isPersonaLoading, data: personaData } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: data?.user.defaultPersona },
   });
+
+  if (isPersonaLoading || loading) {
+    return (
+      <Overlay>
+        <Spinner />
+      </Overlay>
+    );
+  }
 
   if (!data) {
     return <LoginBar isLogged={true} />;
