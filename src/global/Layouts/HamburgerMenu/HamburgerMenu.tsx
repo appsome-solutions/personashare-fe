@@ -17,7 +17,7 @@ import { EntityCard as EntityType } from 'global/graphqls/schema';
 type HamburgerMenuType = {
   isWithHamburger?: boolean;
   isWithSearch?: boolean;
-  card?: EntityType | null;
+  card: EntityType | null;
   uuid?: string;
   searchValue?: string;
   setSearchValue?: any;
@@ -123,7 +123,7 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
             </LogoutButton>
           </DrawerMenu>
           {isWithSearch && <SearchPositionBox searchValue={searchValue} setSearchValue={setSearchValue} />}
-          <Link to={`.${APP_ROUTES.MY_PERSONAS}`}>
+          <Link to={`${APP_ROUTES.MY_PERSONAS}`}>
             <RightProfile>
               <CircleStyled>
                 <PersonaCircleStyle avatar={card?.avatar} alt="Avatar card" />
