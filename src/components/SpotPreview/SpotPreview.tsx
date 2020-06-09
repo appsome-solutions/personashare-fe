@@ -13,6 +13,7 @@ import { TopNav } from '../TopNav/TopNav';
 import { ManagerList } from 'components/SpotBook/ManagerList/ManagerList';
 import { ManagerListEditMode } from 'components/SpotBook/ManagerList/EditModeManager';
 import { APP_ROUTES } from 'global/AppRouter/routes';
+import { vh } from 'helpers/styled';
 
 type SpotPreviewType = {
   isEditMode?: boolean;
@@ -30,7 +31,7 @@ const MainComponent = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: ${vh(100)};
 `;
 
 const SecondPartSpot = styled.div`

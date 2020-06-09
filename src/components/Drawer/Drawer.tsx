@@ -3,10 +3,11 @@ import React, { useContext, useState } from 'react';
 import { Drawer } from 'antd';
 import { Icon } from '../Icon';
 import HamburgerMenuSvg from 'assets/HamburgerMenu.svg';
+import { CoreThemePropsType } from '../../global/Themes/CoreTheme';
 
-const StyledDrawer = styled(Drawer).attrs({
+const StyledDrawer = styled(Drawer).attrs(() => ({
   width: 'calc(100% - 56px)',
-})`
+}))`
   .ant-drawer-body {
     padding: 0;
   }
@@ -28,9 +29,9 @@ const DrawerWrapper = styled.div`
   background-color: ${(props) => props.theme.colors.utils.background.mid.color};
 `;
 
-const HamburgerMenuIcon = styled(Icon).attrs({
+const HamburgerMenuIcon = styled(Icon).attrs(() => ({
   svgLink: HamburgerMenuSvg,
-})`
+}))`
   margin-right: 36px;
   background-color: ${(props) => props.theme.colors.utils.background.light};
   height: 20px;
