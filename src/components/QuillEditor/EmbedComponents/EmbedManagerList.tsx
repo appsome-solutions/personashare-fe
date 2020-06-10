@@ -2,29 +2,29 @@ import React, { ReactPortal } from 'react';
 import { createPortal } from 'react-dom';
 import { Quill } from 'react-quill';
 import { v4 } from 'uuid';
-import { ManagerList } from '../../SpotBook/ManagerList/ManagerList';
+import { ManagerListEditMode } from '../../SpotBook/ManagerList/EditModeManager';
 
 const BlockEmbed = Quill.import('blots/block/embed');
 
-class CustomEmbed extends BlockEmbed {
+class EmbedManagerList extends BlockEmbed {
   constructor(domNode: HTMLElement) {
     super(domNode);
     this.id = domNode.getAttribute('data-id');
-    this.data = CustomEmbed.data;
+    this.data = EmbedManagerList.data;
     domNode.setAttribute('contenteditable', String(false));
   }
 
   static tagName = 'div';
-  static blotName = 'custom';
-  static className = 'custom';
+  static blotName = 'manager-list';
+  static className = 'manager-list';
 
   static create(value: any): HTMLElement {
     const id = v4();
     const node = super.create(value);
-    const refs = CustomEmbed.refs;
+    const refs = EmbedManagerList.refs;
     node.setAttribute('data-id', id);
-    CustomEmbed.data = value;
-    CustomEmbed.refs = {
+    EmbedManagerList.data = value;
+    EmbedManagerList.refs = {
       ...refs,
       [id]: React.createRef(),
     };
@@ -33,7 +33,10 @@ class CustomEmbed extends BlockEmbed {
 
   renderPortal(id: string | number): ReactPortal {
     this.domNode.setAttribute('data-id', String(id));
-    return createPortal(<ManagerList />, this.domNode);
+    return createPortal(
+      <ManagerListEditMode uuid={String(id)} onSpotCreationOrUpdate={() => console.log('spot created or updated')} />,
+      this.domNode
+    );
   }
   attach() {
     super.attach();
@@ -46,4 +49,4 @@ class CustomEmbed extends BlockEmbed {
   }
 }
 
-export default CustomEmbed;
+export default EmbedManagerList;
