@@ -81,7 +81,7 @@ export const TopNav = ({ isWithBackArrow }: TopNavType) => {
         <Link to={`${APP_ROUTES.MY_PERSONAS}`}>
           <RightProfile>
             <CircleStyled>
-              <PersonaCircleStyle avatar={personaData.persona.card.avatar} alt="Avatar card" />
+              <PersonaCircleStyle avatar={personaData.persona.card.avatar} alt="Avatar card" withFileInput={false} />
             </CircleStyled>
           </RightProfile>
         </Link>

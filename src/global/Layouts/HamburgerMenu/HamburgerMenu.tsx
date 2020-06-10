@@ -126,7 +126,7 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
           <Link to={`${APP_ROUTES.MY_PERSONAS}`}>
             <RightProfile>
               <CircleStyled>
-                <PersonaCircleStyle avatar={card?.avatar} alt="Avatar card" />
+                <PersonaCircleStyle avatar={card?.avatar} alt="Avatar card" withFileInput={false} />
               </CircleStyled>
             </RightProfile>
           </Link>

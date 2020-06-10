@@ -37,13 +37,20 @@ type PersonaCircleProps = {
   alt: string;
   avatar?: string;
   onAvatarSet?: (file: File) => void;
+  withFileInput?: boolean;
 };
 
-export const PersonaCircle: FC<BoxProps & PersonaCircleProps> = ({ alt, avatar, onAvatarSet, ...restProps }) => {
+export const PersonaCircle: FC<BoxProps & PersonaCircleProps> = ({
+  alt,
+  avatar,
+  onAvatarSet,
+  withFileInput = true,
+  ...restProps
+}) => {
   return (
     <PersonCircle {...restProps}>
       <AvatarImage src={avatar || AddPhoto} alt={alt} />
-      <FileInput onFileChange={onAvatarSet} name="avatarUpload" id="avatar" accept="image/*" />
+      {withFileInput && <FileInput onFileChange={onAvatarSet} name="avatarUpload" id="avatar" accept="image/*" />}
     </PersonCircle>
   );
 };
