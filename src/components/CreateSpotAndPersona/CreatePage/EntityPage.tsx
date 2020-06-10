@@ -150,8 +150,6 @@ export const EntityPage: FC<LinkProps> = ({
           } as UploadFile;
         });
 
-      console.error(fileList);
-
       const payload = {
         card: {
           name,
