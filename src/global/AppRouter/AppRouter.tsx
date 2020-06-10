@@ -30,13 +30,13 @@ import { SpotBook } from 'components/SpotBook/SpotBook';
 import { PersonaPreview } from 'components/PersonaPreview/PersonaPreview';
 import { SpotPreview } from 'components/SpotPreview/SpotPreview';
 import { SpotInvitation } from 'components/SpotBook/ManagerList/SpotInvitation';
-import { MyPersonaPreview } from '../../pages/MyPersonaPreview/MyPersonasPreview';
-import { VisibilityTabPersona } from '../../pages/MyPersonaPreview/VisibilityTabPersona';
-import { NetworkTabSpot } from '../../pages/MySpotPreview/NetworkTabSpot';
-import { MySpotPreview } from '../../pages/MySpotPreview/MySpotPreview';
-import { VisibilityTabSpot } from '../../pages/MySpotPreview/VisibilityTabSpot';
-import { NetworkTabPersona } from '../../pages/MyPersonaPreview/NetworkTabPersona';
-import QuillEditor from '../../components/QuillEditor/QuillEditor';
+import { MyPersonaPreview } from 'pages/MyPersonaPreview/MyPersonasPreview';
+import { VisibilityTabPersona } from 'pages/MyPersonaPreview/VisibilityTabPersona';
+import { NetworkTabSpot } from 'pages/MySpotPreview/NetworkTabSpot';
+import { MySpotPreview } from 'pages/MySpotPreview/MySpotPreview';
+import { VisibilityTabSpot } from 'pages/MySpotPreview/VisibilityTabSpot';
+import { NetworkTabPersona } from 'pages/MyPersonaPreview/NetworkTabPersona';
+import QuillEditor from 'components/QuillEditor/QuillEditor';
 
 export const AppRouter: FunctionComponent = () => {
   return (
