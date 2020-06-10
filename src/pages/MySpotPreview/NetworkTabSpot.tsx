@@ -1,9 +1,14 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { CheckNetworkListSpot } from 'components/EntityPreview/SpotPreview/CheckNetworkListSpot';
 import { InfoCard } from 'components/InfoCard/InfoCard';
 import { TopNav } from 'components/TopNav/TopNav';
 import { StatsNavigationSpot } from 'components/Statistics/StatsNavigationSpot';
+import { CheckEntity } from 'components/EntityPreview/CheckEntity';
+import { useQuery } from '@apollo/react-hooks';
+import { gqlUser } from 'global/graphqls/schema';
+import { GET_USER } from 'global/graphqls/User';
+import { GET_SPOT, GetCardType } from 'global/graphqls/Spot';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};
@@ -22,6 +27,11 @@ const TextInInfo = styled.div`
 `;
 
 export const NetworkTabSpot: FC = () => {
+  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
+  const { data } = useQuery<GetCardType>(GET_SPOT, {
+    variables: { uuid: userPersona?.user?.defaultPersona },
+  });
+
   return (
     <>
       <TopNav isWithBackArrow />
@@ -30,7 +40,12 @@ export const NetworkTabSpot: FC = () => {
         <InformationUnderText title="">
           <TextInInfo>In a network tab you can see how many people recommend your spot.</TextInInfo>
         </InformationUnderText>
-        <CheckNetworkListSpot />
+        <CheckEntity
+          visibilityOrNetworkQuery={data?.spot?.networkList}
+          savedOrRecommend="recommend"
+          spotsOrPersonsText="spot"
+          link={APP_ROUTES.SPOT_PREVIEW}
+        />
       </PersonaPreviewWrapper>
     </>
   );

@@ -1,9 +1,14 @@
 import React, { FC } from 'react';
 import { TopNav } from 'components/TopNav/TopNav';
 import { StatsNavigationPersona } from 'components/Statistics/StatsNavigationPersona';
-import { CheckVisibilityPersona } from 'components/EntityPreview/PersonaPreview/CheckVisibilityPersona';
 import styled from 'styled-components';
 import { InfoCard } from 'components/InfoCard/InfoCard';
+import { useQuery } from '@apollo/react-hooks';
+import { gqlUser } from 'global/graphqls/schema';
+import { GET_USER } from 'global/graphqls/User';
+import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
+import { CheckEntity } from 'components/EntityPreview/CheckEntity';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};
@@ -22,15 +27,25 @@ const TextInInfo = styled.div`
 `;
 
 export const VisibilityTabPersona: FC = () => {
+  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
+  const { data } = useQuery<GetCardType>(GET_PERSONA, {
+    variables: { uuid: userPersona?.user?.defaultPersona },
+  });
+
   return (
     <>
       <TopNav isWithBackArrow />
       <StatsNavigationPersona />
       <PersonaPreviewWrapper>
         <InformationUnderText title="">
-          <TextInInfo>In a network tab you can see how many people saved your default persona.</TextInInfo>
+          <TextInInfo>In a visibility tab you can see how many people saved your default persona.</TextInInfo>
         </InformationUnderText>
-        <CheckVisibilityPersona />
+        <CheckEntity
+          visibilityOrNetworkQuery={data?.persona.visibilityList}
+          savedOrRecommend="saved"
+          spotsOrPersonsText="persona"
+          link={APP_ROUTES.PERSONA_PREVIEW}
+        />
       </PersonaPreviewWrapper>
     </>
   );

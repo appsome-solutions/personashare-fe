@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { EntityPageComp } from 'components/EntityPageComp/EntityPageComp';
 import { EntityPage } from 'global/graphqls/schema';
 
-export interface EntityPreviewProps {
+export interface EntityPreviewPropsType {
   uuidQuery: any;
   entityPage: EntityPage;
 }
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-export const EntityPreview: FC<EntityPreviewProps> = ({ uuidQuery, entityPage }) => {
+export const EntityPreview: FC<EntityPreviewPropsType> = ({ uuidQuery, entityPage }) => {
   return (
     <PersonaPreviewWrapper>
       <Wrapper key={uuidQuery}>

@@ -1,10 +1,14 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-
 import { TopNav } from 'components/TopNav/TopNav';
 import { StatsNavigationPersona } from 'components/Statistics/StatsNavigationPersona';
-import { CheckNetworkListPersona } from 'components/EntityPreview/PersonaPreview/CheckNetworkListPersona';
 import { InfoCard } from 'components/InfoCard/InfoCard';
+import { useQuery } from '@apollo/react-hooks';
+import { gqlUser } from 'global/graphqls/schema';
+import { GET_USER } from 'global/graphqls/User';
+import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
+import { CheckEntity } from 'components/EntityPreview/CheckEntity';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};
@@ -23,6 +27,11 @@ const TextInInfo = styled.div`
 `;
 
 export const NetworkTabPersona: FC = () => {
+  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
+  const { data } = useQuery<GetCardType>(GET_PERSONA, {
+    variables: { uuid: userPersona?.user?.defaultPersona },
+  });
+
   return (
     <>
       <TopNav isWithBackArrow />
@@ -31,7 +40,12 @@ export const NetworkTabPersona: FC = () => {
         <InformationUnderText title="">
           <TextInInfo>In a network tab you can see how many people recommend your default persona.</TextInInfo>
         </InformationUnderText>
-        <CheckNetworkListPersona />
+        <CheckEntity
+          visibilityOrNetworkQuery={data?.persona.networkList}
+          savedOrRecommend="recommend"
+          spotsOrPersonsText="persona"
+          link={APP_ROUTES.PERSONA_PREVIEW}
+        />
       </PersonaPreviewWrapper>
     </>
   );
