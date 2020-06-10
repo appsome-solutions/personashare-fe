@@ -110,7 +110,7 @@ export const MyPersona: FC = () => {
             <Wrapper
               onClick={() =>
                 history.push({
-                  pathname: `${APP_ROUTES.PERSONA_PREVIEW(persona.uuid)}`,
+                  pathname: `${APP_ROUTES.MY_PERSONA_PREVIEW(persona.uuid)}`,
                 })
               }
             >
