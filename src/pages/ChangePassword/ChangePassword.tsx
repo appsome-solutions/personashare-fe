@@ -42,16 +42,19 @@ export const ChangePassword: FC = () => {
   const [apiError, setApiError] = useState('');
   const { handleResetPassword } = useFirebase();
   const history = useHistory();
-  const handleSubmit = useCallback(async ({ password }: ChangePasswordFormValues) => {
-    const { oobCode, continueUrl } = getUrlsParams(['oobCode', 'continueUrl']);
-    setApiError('');
-    try {
-      const redirectUrl = await handleResetPassword(password, oobCode, continueUrl);
-      history.push(redirectUrl);
-    } catch (e) {
-      setApiError(e.message ? e.message : 'Error while resetting password');
-    }
-  }, []);
+  const handleSubmit = useCallback(
+    async ({ password }: ChangePasswordFormValues) => {
+      const { oobCode, continueUrl } = getUrlsParams(['oobCode', 'continueUrl']);
+      setApiError('');
+      try {
+        const redirectUrl = await handleResetPassword(password, oobCode, continueUrl);
+        history.push(redirectUrl);
+      } catch (e) {
+        setApiError(e.message ? e.message : 'Error while resetting password');
+      }
+    },
+    [history, handleResetPassword, setApiError]
+  );
 
   return (
     <div>

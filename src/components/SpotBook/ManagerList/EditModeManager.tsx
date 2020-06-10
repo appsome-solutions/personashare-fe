@@ -5,9 +5,9 @@ import { Form, Formik, FormikErrors, FormikHelpers } from 'formik';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { useFirebase } from 'global/Firebase';
-import { SpotType, UPDATE_SPOT } from 'global/graphqls/Spot';
+import { GET_SPOT, SpotType, UPDATE_SPOT } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
-import { Entity } from 'global/graphqls/schema';
+import { AgregatedSpot, Entity } from 'global/graphqls/schema';
 import { Overlay } from 'components/Overlay/Overlay';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Button, Tag, Tooltip } from 'antd';
@@ -18,6 +18,7 @@ import EmailIconSvg from 'assets/email.svg';
 import { WideButton } from 'components/Button';
 import 'antd/dist/antd.css';
 import { CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { APP_ROUTES } from '../../../global/AppRouter/routes';
 
 const InputField = styled(InputWithSuffixIcon)`
   && {
@@ -57,8 +58,8 @@ const ClockIcon = styled(ClockCircleOutlined)`
 `;
 
 type InvitationsProps = {
-  invitationLink: string;
-  spot: SpotType['spot'];
+  uuid: string;
+  onSpotCreationOrUpdate: (arg: (arg0: any, values: SendInvitationPayload, arg2: any) => void) => void;
 };
 
 const sendInvitationSchema = Yup.object({
@@ -90,20 +91,62 @@ const initialValues: SendInvitationPayload = {
 
 const currentYear = new Date().getFullYear();
 
-export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot }) => {
-  const { sendMail } = useFirebase();
-  const { user } = useUserContext();
-  const { data, loading } = useQuery<GetCardType>(GET_PERSONA, {
-    variables: { uuid: user?.defaultPersona },
-  });
-  const [updateSpot] = useMutation<Entity>(UPDATE_SPOT);
-  const userName = data?.persona.card.name;
-  const invitedManagerEmails = spot?.invitedManagerEmails;
-  const [inputVisible, setInputVisible] = useState(true);
+const baseUrl = process.env.REACT_APP_BASE_URL || 'https://persona-share.netlify.app';
 
-  const handleSubmit = useCallback(
-    (values: SendInvitationPayload, { setSubmitting }) => {
-      if (userName) {
+const withProvider = (Component: any) => {
+  return ({ uuid, onSpotCreationOrUpdate }: InvitationsProps) => {
+    const { user } = useUserContext();
+    const { loading: areSpotDataLoading, data: spotData } = useQuery<{ spot: AgregatedSpot }>(GET_SPOT, {
+      variables: { uuid },
+    });
+    const { data, loading } = useQuery<GetCardType>(GET_PERSONA, {
+      variables: { uuid: user?.defaultPersona },
+    });
+    const [updateSpot] = useMutation<Entity>(UPDATE_SPOT);
+
+    if (loading || areSpotDataLoading || !data) {
+      return (
+        <Overlay>
+          <Spinner />
+        </Overlay>
+      );
+    }
+
+    return (
+      <Component
+        updateSpot={updateSpot}
+        spotData={spotData}
+        data={data}
+        onSpotCreationOrUpdate={onSpotCreationOrUpdate}
+      />
+    );
+  };
+};
+
+type ManagerListEditModeType = {
+  spotData: { spot: AgregatedSpot };
+  data: GetCardType;
+  updateSpot: (arg: any) => {};
+  onSpotCreationOrUpdate: (arg: (arg0: any, values: SendInvitationPayload, arg2: any) => void) => void;
+};
+
+export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
+  ({ spotData, data, updateSpot, onSpotCreationOrUpdate }: ManagerListEditModeType) => {
+    const { sendMail } = useFirebase();
+
+    const spot = spotData?.spot;
+
+    const userName = data?.persona.card.name;
+    const invitedManagerEmails = spot ? spot?.invitedManagerEmails : [];
+    const [inputVisible, setInputVisible] = useState(true);
+
+    const handleSubmit = useCallback(
+      (spot, values: SendInvitationPayload, setSubmitting) => {
+        const invitationLink = `${baseUrl}${APP_ROUTES.SPOT_INVITATION(spot.uuid)}`;
+        if (!userName) {
+          return;
+        }
+
         setSubmitting(true);
         const result = values.emails.map((email) =>
           sendMail({
@@ -121,7 +164,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot
           })
         );
 
-        Promise.all(result)
+        return Promise.all(result)
           .then(() => {
             updateSpot({
               variables: {
@@ -148,133 +191,132 @@ export const ManagerListEditMode: FC<InvitationsProps> = ({ invitationLink, spot
             console.error(e);
             setSubmitting(false);
           });
-      }
-    },
-    [userName, invitationLink, invitedManagerEmails]
-  );
+      },
+      [userName, invitedManagerEmails]
+    );
 
-  if (loading) {
+    const addEmail: AddEmail = (values, setFieldValue, setFieldError, errors) => {
+      const { currentEmail, emails } = values;
+
+      if (emails.includes(currentEmail)) {
+        setFieldError('currentEmail', 'Email already included!');
+        return;
+      }
+
+      if (!currentEmail || errors.currentEmail) {
+        return;
+      }
+      setFieldValue('emails', [...emails, currentEmail]);
+      setFieldValue('currentEmail', '');
+      setInputVisible(false);
+    };
+
+    const removeEmail: RemoveEmail = (emailToRemove, values, setFieldValue) => {
+      if (values.emails.includes(emailToRemove)) {
+        setFieldValue(
+          'emails',
+          values.emails.filter((email) => email !== emailToRemove)
+        );
+      }
+    };
+
+    const showInput = () => {
+      setInputVisible(true);
+    };
     return (
-      <Overlay>
-        <Spinner />
-      </Overlay>
+      <>
+        <CardBody className={CardBody}>
+          {/* eslint-disable-next-line @typescript-eslint/no-empty-function */}
+          <Formik initialValues={initialValues} onSubmit={() => {}} validationSchema={sendInvitationSchema}>
+            {({ values, setFieldValue, setFieldError, errors }) => (
+              <Form id="spotInvitations">
+                {
+                  // I know this is shitty code but this whole component needs to be refactored
+                  onSpotCreationOrUpdate((newSpot, _formikValues, setSubmitting) =>
+                    handleSubmit(newSpot, values, setSubmitting)
+                  )
+                }
+                {invitedManagerEmails.map((EmailInvitation, index) => {
+                  if (EmailInvitation.status === 'accepted') {
+                    return (
+                      <>
+                        <Tag
+                          key={EmailInvitation.email}
+                          color="green"
+                          closable={index !== -1}
+                          onClose={() => removeEmail(EmailInvitation.email, values, setFieldValue)}
+                        >
+                          <CheckIcon />
+                          {EmailInvitation.email}
+                        </Tag>
+                      </>
+                    );
+                  } else {
+                    return (
+                      <>
+                        <Tag
+                          key={EmailInvitation.email}
+                          closable={index !== -1}
+                          onClose={() => removeEmail(EmailInvitation.email, values, setFieldValue)}
+                        >
+                          <ClockIcon />
+                          {EmailInvitation.email}
+                        </Tag>
+                      </>
+                    );
+                  }
+                })}
+                {values.emails &&
+                  values.emails.map((email: string, index) => {
+                    const isLongTag = email.length > 20;
+                    const tagElem = (
+                      <Tag
+                        key={email}
+                        closable={index !== -1}
+                        onClose={() => removeEmail(email, values, setFieldValue)}
+                      >
+                        {isLongTag ? `${email.slice(0, 20)}...` : email}
+                      </Tag>
+                    );
+                    return isLongTag ? (
+                      <Tooltip title={email} key={email}>
+                        {tagElem}
+                      </Tooltip>
+                    ) : (
+                      tagElem
+                    );
+                  })}
+                {inputVisible && (
+                  <ButtonWrapper>
+                    <InputField
+                      name="currentEmail"
+                      placeholder="Email"
+                      type="text"
+                      size="small"
+                      svgLink={EmailIconSvg}
+                    />
+                    <IconWrapper>
+                      <IconBox>
+                        <Icon
+                          svgLink={AddSvg}
+                          width="32px"
+                          height="32px"
+                          onClick={() => addEmail(values, setFieldValue, setFieldError, errors)}
+                        />
+                      </IconBox>
+                    </IconWrapper>
+                  </ButtonWrapper>
+                )}
+                {!inputVisible && (
+                  <Button size="small" type="dashed" onClick={showInput}>
+                    + New Tag
+                  </Button>
+                )}
+              </Form>
+            )}
+          </Formik>
+        </CardBody>
+      </>
     );
   }
-
-  const addEmail: AddEmail = (values, setFieldValue, setFieldError, errors) => {
-    const { currentEmail, emails } = values;
-
-    if (emails.includes(currentEmail)) {
-      setFieldError('currentEmail', 'Email already included!');
-      return;
-    }
-
-    if (!currentEmail || errors.currentEmail) {
-      return;
-    }
-    setFieldValue('emails', [...emails, currentEmail]);
-    setFieldValue('currentEmail', '');
-    setInputVisible(false);
-  };
-
-  const removeEmail: RemoveEmail = (emailToRemove, values, setFieldValue) => {
-    if (values.emails.includes(emailToRemove)) {
-      setFieldValue(
-        'emails',
-        values.emails.filter((email) => email !== emailToRemove)
-      );
-    }
-  };
-
-  // workaround for missing antd-types
-  const StyledTag = styled(Tag)<{ afterClose: () => void }>``;
-
-  const showInput = () => {
-    setInputVisible(true);
-  };
-  return (
-    <>
-      <CardBody className={CardBody}>
-        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={sendInvitationSchema}>
-          {({ values, setFieldValue, setFieldError, errors, isValid }) => (
-            <Form id="spotInvitations">
-              {invitedManagerEmails.map((EmailInvitation, index) => {
-                if (EmailInvitation.status === 'accepted') {
-                  return (
-                    <>
-                      <StyledTag
-                        key={EmailInvitation.email}
-                        color="green"
-                        closable={index !== -1}
-                        afterClose={() => removeEmail(EmailInvitation.email, values, setFieldValue)}
-                      >
-                        <CheckIcon />
-                        {EmailInvitation.email}
-                      </StyledTag>
-                    </>
-                  );
-                } else {
-                  return (
-                    <>
-                      <StyledTag
-                        key={EmailInvitation.email}
-                        closable={index !== -1}
-                        afterClose={() => removeEmail(EmailInvitation.email, values, setFieldValue)}
-                      >
-                        <ClockIcon />
-                        {EmailInvitation.email}
-                      </StyledTag>
-                    </>
-                  );
-                }
-              })}
-              {values.emails &&
-                values.emails.map((email: string, index) => {
-                  const isLongTag = email.length > 20;
-                  const tagElem = (
-                    <StyledTag
-                      key={email}
-                      closable={index !== -1}
-                      afterClose={() => removeEmail(email, values, setFieldValue)}
-                    >
-                      {isLongTag ? `${email.slice(0, 20)}...` : email}
-                    </StyledTag>
-                  );
-                  return isLongTag ? (
-                    <Tooltip title={email} key={email}>
-                      {tagElem}
-                    </Tooltip>
-                  ) : (
-                    tagElem
-                  );
-                })}
-              {inputVisible && (
-                <ButtonWrapper>
-                  <InputField name="currentEmail" placeholder="Email" type="text" size="small" svgLink={EmailIconSvg} />
-                  <IconWrapper>
-                    <IconBox>
-                      <Icon
-                        svgLink={AddSvg}
-                        width="32px"
-                        height="32px"
-                        onClick={() => addEmail(values, setFieldValue, setFieldError, errors)}
-                      />
-                    </IconBox>
-                  </IconWrapper>
-                </ButtonWrapper>
-              )}
-              {!inputVisible && (
-                <Button size="small" type="dashed" onClick={showInput}>
-                  + New Tag
-                </Button>
-              )}
-              <WideButton htmlType="submit" disabled={!isValid}>
-                SEND INVITATION
-              </WideButton>
-            </Form>
-          )}
-        </Formik>
-      </CardBody>
-    </>
-  );
-};
+);

@@ -28,6 +28,10 @@ import {
 } from 'pages/CreatePersona/helpers';
 import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
 import { ExecutionResult } from 'graphql';
+import { UploadAssets } from '../../UploadAssets/UploadAssets';
+import { ManagerListEditMode } from '../../SpotBook/ManagerList/EditModeManager';
+import { useMutation } from '@apollo/react-hooks';
+import { CLEAR_CARD, GetCardType, UPDATE_CARD } from '../../../global/graphqls/SpotAndPersona';
 
 export interface LinkProps {
   previousStepPath: string;
@@ -60,6 +64,10 @@ const initialState: ImageRef = {
   blob: null,
 };
 
+type UploadAssetsState = {
+  [name: string]: AssetBlob;
+};
+
 export const EntityPage: FC<LinkProps> = ({
   previousStepPath,
   nameSpotOrPersona,
@@ -77,6 +85,10 @@ export const EntityPage: FC<LinkProps> = ({
   const { uuid } = useParams();
   const history = useHistory();
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
+  const [clearCard] = useMutation<GetCardType>(CLEAR_CARD);
+  const isSpot = nameSpotOrPersona.toLocaleLowerCase().includes('spot');
+  const onSpotCreationOrUpdateArray: Array<(arg0: any, values: any, arg2: any) => void> = [];
+  const [userAssetsList, setUserAssetsList] = useState<UploadAssetsState>({});
   const { values, setFieldValue, handleSubmit, isValid, setStatus, setSubmitting, isSubmitting } = useFormik<PageType>({
     initialValues,
     onSubmit: async (formValues): Promise<void | null> => {
@@ -119,7 +131,11 @@ export const EntityPage: FC<LinkProps> = ({
         },
       ];
 
-      const uploadedAssets = await uploadAssets(storageRef, user.uid, assetsBlobs);
+      const uploadedAssets = await uploadAssets(
+        storageRef,
+        user.uid,
+        assetsBlobs.concat(Object.values(userAssetsList))
+      );
 
       const payload = {
         card: {
@@ -137,12 +153,19 @@ export const EntityPage: FC<LinkProps> = ({
       if (!onPageSubmitCreateOrUpdate) {
         return null;
       }
-      await onPageSubmitCreateOrUpdate({
+      const newPageEntityData = await onPageSubmitCreateOrUpdate({
         variables: {
           payload,
           uuid,
         },
       });
+
+      if (isSpot) {
+        // @ts-ignore
+        const newPageEntity = newPageEntityData?.data?.createSpot || newPageEntityData?.data?.updateSpot;
+
+        await Promise.all(onSpotCreationOrUpdateArray.map((el) => el(newPageEntity, values, setSubmitting)));
+      }
 
       const urls = [
         avatarUpload?.blobUrl,
@@ -151,6 +174,7 @@ export const EntityPage: FC<LinkProps> = ({
         formValues?.backgroundUpload?.blobUrl,
       ];
       revokeObjectURLS(urls);
+      await clearCard();
       history.push(nextStepPath);
     },
     validationSchema: pageSchema,
@@ -209,6 +233,61 @@ export const EntityPage: FC<LinkProps> = ({
             <Flex mt={10}>
               <QuillEditor onChange={onEditorValueChange} initialValue={content} />
             </Flex>
+            <Flex mt={10}>
+              <UploadAssets
+                onAddFile={(file) => {
+                  setUserAssetsList({
+                    ...userAssetsList,
+                    [file.name]: {
+                      name: file.name,
+                      blob: file,
+                      metaData: { customMetadata: { assetType: AssetType.USER_ASSET } },
+                    },
+                  });
+                }}
+                onRemoveFile={(file) => {
+                  delete userAssetsList[file.name];
+                }}
+              />
+            </Flex>
+            <Flex mt={10}>
+              <UploadAssets
+                assetsList={[
+                  {
+                    uid: '-1',
+                    name: 'xxx.png',
+                    status: 'done',
+                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    size: 10000,
+                    type: 'image/png',
+                  },
+                ]}
+                asImageUpload
+                asPreview
+                onAddFile={(file) => {
+                  setUserAssetsList({
+                    ...userAssetsList,
+                    [file.name]: {
+                      name: file.name,
+                      blob: file,
+                      metaData: { customMetadata: { assetType: AssetType.USER_ASSET } },
+                    },
+                  });
+                }}
+                onRemoveFile={(file) => {
+                  delete userAssetsList[file.name];
+                }}
+              />
+            </Flex>
+            {isSpot && (
+              <ManagerListEditMode
+                uuid={uuid}
+                onSpotCreationOrUpdate={(callback) => {
+                  onSpotCreationOrUpdateArray.push(callback);
+                }}
+              />
+            )}
           </form>
         </div>
         <WideButton htmlType="submit" form="page-form" disabled={!isValid}>

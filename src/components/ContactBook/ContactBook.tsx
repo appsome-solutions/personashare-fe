@@ -29,7 +29,7 @@ export const ContactBook: FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
 
-  if (loading) {
+  if (loading || !data) {
     return (
       <Overlay>
         <Spinner />
@@ -51,6 +51,7 @@ export const ContactBook: FC = () => {
         isWithSearch={true}
         searchValue={searchValue}
         setSearchValue={setSearchValue}
+        card={data.persona.card}
       />
       <ContactBookStyled>
         <h6>Your Saved Persona</h6>
