@@ -15,10 +15,9 @@ import ShareQrCode from 'assets/ShareQrCode.svg';
 import isEmpty from 'lodash/isEmpty';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { Loader } from 'components/Loader/Loader';
+import { LoginOrHamburger } from '../QrScanner/LoginOrHamburger';
 
-const CaruouselItem = styled.div`
-  padding: 0 20px;
-`;
+const CaruouselItem = styled.div``;
 
 const Wrapper = styled.div`
   display: flex;
@@ -59,6 +58,14 @@ const StyledPageWrapper = styled(PageWrapper)`
   padding: 0px;
 `;
 
+const StyledCarousel = styled(Carousel)`
+  && {
+    .slick-track {
+      margin: auto;
+    }
+  }
+`;
+
 export const MySpots: FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { loading, data } = useQuery<GetSpotType>(GET_SPOTS);
@@ -71,11 +78,11 @@ export const MySpots: FC = () => {
 
   return (
     <div>
-      <TopNav isWithBackArrow />
+      <LoginOrHamburger />
       <StyledPageWrapper>
         <Loader loading={loading} data={data}>
           <PageWrapperSpaceBetween>
-            <Carousel afterChange={setCurrentSlide} ref={carousel}>
+            <StyledCarousel afterChange={setCurrentSlide} ref={carousel}>
               {data?.userSpots &&
                 data?.userSpots.map((spots: gqlEntity) => (
                   <CaruouselItem key={spots.uuid}>
@@ -90,7 +97,7 @@ export const MySpots: FC = () => {
                     </Wrapper>
                   </CaruouselItem>
                 ))}
-            </Carousel>
+            </StyledCarousel>
             <ShareQr>
               <img src={`${data?.userSpots[currentSlide].qrCodeLink}`} alt="QrCode" />
               <TextInShare>

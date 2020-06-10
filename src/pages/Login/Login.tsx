@@ -5,7 +5,7 @@ import { TopNav } from 'components/TopNav/TopNav';
 import LogoSvg from 'assets/logo_nobg.svg';
 import { Formik, Form } from 'formik';
 import { object, string, InferType } from 'yup';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { Button } from 'components/Button';
@@ -19,6 +19,10 @@ import { useUserContext } from 'global/UserContext/UserContext';
 import EmailIconSvg from 'assets/email.svg';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { signInWithGoogle } from 'helpers/signInWithGoogle';
+import { GET_SPOTS } from '../../global/graphqls/Spot';
+import { gqlUser } from '../../global/graphqls/schema';
+import { GET_USER } from '../../global/graphqls/User';
+import { PS_TOKEN_NAME, client } from '../../global/ApolloClient/ApolloClient';
 
 const Caption = styled.span((props) => props.theme.typography.caption);
 
@@ -108,6 +112,11 @@ export const Login: FunctionComponent = () => {
     const loggedUSer = data?.data?.loginUser.user || null;
     const defaultPersonaConst = data?.data?.loginUser.user.defaultPersona;
     setUser(loggedUSer);
+
+    client.writeQuery({
+      query: GET_USER,
+      data: { user: data?.data?.loginUser.user },
+    });
 
     if (loggedUSer && !defaultPersonaConst) {
       history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);

@@ -1,4 +1,4 @@
-import React, { useCallback, RefObject } from 'react';
+import React, { useCallback, RefObject, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Webcam from 'react-webcam';
 import { QRCode } from 'jsqr';
@@ -79,7 +79,7 @@ export const QrScanner = ({ onError, onUserMediaError, className, videoConstrain
     });
   }, [webcamRef, onError]);
 
-  webWorker = useWorkerDecode({ capture, interval, onCode: redirectToQr });
+  webWorker = useWorkerDecode({ capture, interval: interval, onCode: redirectToQr });
 
   return (
     <>

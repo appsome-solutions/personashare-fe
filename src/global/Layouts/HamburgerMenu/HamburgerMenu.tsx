@@ -13,11 +13,12 @@ import { DrawerMenu } from 'components/Drawer/Drawer';
 import { SearchPositionBox } from './SearchPositionBox';
 import { PersonaCircle } from 'components/PersonaCircle/PersonaCircle';
 import { EntityCard as EntityType } from 'global/graphqls/schema';
+import { useUserContext } from '../../UserContext/UserContext';
 
 type HamburgerMenuType = {
   isWithHamburger?: boolean;
   isWithSearch?: boolean;
-  card?: EntityType | null;
+  card: EntityType | null;
   uuid?: string;
   searchValue?: string;
   setSearchValue?: any;
@@ -48,14 +49,14 @@ const TextInHamburger = styled.div`
 const LinkRouterStyle = styled(NavLink)`
   display: flex;
   align-items: center;
-  color: ${(props) => props.theme.colors.main.primary}
+  color: ${(props) => props.theme.colors.main.primary};
   height: 50px;
-  width:100%;
+  width: 100%;
   border-radius: 4px;
   text-decoration: none;
   :hover {
     background-color: rgba(85, 133, 255, 0.2);
-    }
+  }
 `;
 
 const RightProfile = styled.div`
@@ -67,14 +68,15 @@ const RightProfile = styled.div`
 const LogoutButton = styled.div`
   display: flex;
   align-items: center;
-  color: ${(props) => props.theme.colors.main.primary}
+  color: ${(props) => props.theme.colors.main.primary};
   height: 50px;
-  width:100%;
+  width: 100%;
   border-radius: 4px;
   text-decoration: none;
   :hover {
     background-color: rgba(85, 133, 255, 0.2);
-    }`;
+  }
+`;
 
 const CircleStyled = styled.div`
   position: absolute;
@@ -96,6 +98,8 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
   const history = useHistory();
   const [logout] = useMutation<SignOutResponse>(SIGN_OUT);
 
+  const { setUser } = useUserContext();
+
   return (
     <>
       {isWithHamburger && (
@@ -115,6 +119,7 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
                 localStorage.removeItem(PS_TOKEN_NAME);
                 history.push(`.${APP_ROUTES.LOGIN}`);
                 client.cache.reset();
+                setUser(null);
               }}
             >
               <HamburgerIcon svgLink={LogoutSvg} />
@@ -122,10 +127,10 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
             </LogoutButton>
           </DrawerMenu>
           {isWithSearch && <SearchPositionBox searchValue={searchValue} setSearchValue={setSearchValue} />}
-          <Link to={`.${APP_ROUTES.MY_PERSONAS}`}>
+          <Link to={`${APP_ROUTES.MY_PERSONAS}`}>
             <RightProfile>
               <CircleStyled>
-                <PersonaCircleStyle avatar={card?.avatar} alt="Avatar card" />
+                <PersonaCircleStyle avatar={card?.avatar} alt="Avatar card" withFileInput={false} />
               </CircleStyled>
             </RightProfile>
           </Link>

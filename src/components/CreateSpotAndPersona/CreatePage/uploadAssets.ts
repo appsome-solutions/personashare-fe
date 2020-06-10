@@ -5,6 +5,7 @@ export enum AssetType {
   CARD_BACKGROUND = 'CARD_BACKGROUND',
   PAGE_AVATAR = 'PAGE_AVATAR',
   PAGE_BACKGROUND = 'PAGE_BACKGROUND',
+  USER_ASSET = 'USER_ASSET',
 }
 
 export type AssetWithBlob = {

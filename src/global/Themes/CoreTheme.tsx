@@ -1,6 +1,7 @@
 import 'antd/dist/antd.min.css';
 
 import 'cropperjs/dist/cropper.min.css';
+import { vh } from '../../helpers/styled';
 
 export const CoreTheme = {
   colors: {
@@ -71,7 +72,7 @@ export const CoreTheme = {
       letterSpacing: '0.015em',
     },
   },
-  contentHeight: 'calc(100vh - 110px)',
+  contentHeight: `calc(${vh(100)} - 110px)`,
 };
 
 export type CoreThemePropsType = {

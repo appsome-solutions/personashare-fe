@@ -47,3 +47,9 @@ export const UPDATE_CARD = gql`
     updateCard(card: $card) @client
   }
 `;
+
+export const CLEAR_CARD = gql`
+  mutation clearCard {
+    clearCard @client
+  }
+`;

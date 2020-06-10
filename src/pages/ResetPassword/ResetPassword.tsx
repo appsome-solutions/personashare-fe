@@ -39,15 +39,18 @@ export const ResetPassword: FC = () => {
   const { sendPasswordResetEmail } = useFirebase();
   const history = useHistory();
   const [apiError, setApiError] = useState('');
-  const handleSubmit = useCallback(async (values) => {
-    setApiError('');
-    try {
-      await sendPasswordResetEmail(values.email);
-      history.push(APP_ROUTES.LOGIN);
-    } catch (e) {
-      setApiError(e.message ? e.message : 'Error while sending an reset email');
-    }
-  }, []);
+  const handleSubmit = useCallback(
+    async (values) => {
+      setApiError('');
+      try {
+        await sendPasswordResetEmail(values.email);
+        history.push(APP_ROUTES.LOGIN);
+      } catch (e) {
+        setApiError(e.message ? e.message : 'Error while sending an reset email');
+      }
+    },
+    [history, sendPasswordResetEmail, setApiError]
+  );
 
   return (
     <div>

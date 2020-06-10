@@ -51,6 +51,26 @@ const entityResolvers: Resolvers = {
 
       return card;
     },
+    clearCard: (_, _obj, { cache }) => {
+      const previousState = cache.readQuery({ query: GET_CARD });
+
+      const data = {
+        entity: {
+          ...previousState?.entity,
+          card: {
+            ...previousState?.entity?.card,
+            card: cardDefaults,
+          },
+        },
+      };
+
+      cache.writeQuery({
+        query: GET_CARD,
+        data,
+      });
+
+      return cardDefaults;
+    },
     changePage: (_, { page }: Entity, { cache }) => {
       const previousState = cache.readQuery({ query: GET_PAGE });
 
