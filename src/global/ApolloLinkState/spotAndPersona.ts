@@ -1,7 +1,7 @@
 import { Resolvers } from 'apollo-boost';
 
 import { Entity, EntityCard, EntityPage } from 'global/graphqls/schema';
-import { GET_CARD, GET_PAGE } from '../graphqls/SpotAndPersona';
+import { GET_CARD, GET_PAGE } from 'global/graphqls/SpotAndPersona';
 
 const cardDefaults: EntityCard = {
   __typename: 'EntityCard',

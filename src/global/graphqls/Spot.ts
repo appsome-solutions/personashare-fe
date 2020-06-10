@@ -253,6 +253,11 @@ export const GET_SPOT = gql`
           avatar
           background
         }
+        page {
+          background
+          avatar
+          content
+        }
       }
     }
   }

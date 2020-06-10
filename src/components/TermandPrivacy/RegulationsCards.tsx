@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import LogoInTerms from 'assets/LogoInTerms.svg';
-import { TopNav } from '../TopNav/TopNav';
+import { TopNav } from 'components/TopNav/TopNav';
 
 export type RegulationsProps = {
   contentName: string;
@@ -18,8 +18,8 @@ const MainComponent = styled.div`
   padding: 16px 26px;
   ${(props) => props.theme.typography.subtitle2};
   text-align: center;
-  height: ${(props) => props.theme.contentHeight};
   overflow: auto;
+  height: 85vh;
 `;
 
 const RegulationText = styled.div`

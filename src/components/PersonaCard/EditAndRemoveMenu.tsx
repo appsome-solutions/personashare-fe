@@ -10,8 +10,8 @@ import { useMutation } from '@apollo/react-hooks';
 import { GET_SPOTS, REMOVE_SPOT } from 'global/graphqls/Spot';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import _ from 'lodash';
-import { Spinner } from '../Spinner/Spinner';
-import { Overlay } from '../Overlay/Overlay';
+import { Spinner } from 'components/Spinner/Spinner';
+import { Overlay } from 'components/Overlay/Overlay';
 
 const EditMenuBox = styled.div`
   position: relative;

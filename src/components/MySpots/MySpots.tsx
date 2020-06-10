@@ -89,7 +89,7 @@ export const MySpots: FC = () => {
                     <Wrapper
                       onClick={() =>
                         history.push({
-                          pathname: `${APP_ROUTES.SPOT_PREVIEW(spots.uuid)}`,
+                          pathname: `${APP_ROUTES.MY_SPOT_PREVIEW(spots.uuid)}`,
                         })
                       }
                     >

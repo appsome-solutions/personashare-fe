@@ -107,14 +107,17 @@ export const MyPersona: FC = () => {
       >
         {userPersonas.map((persona: gqlEntity) => (
           <CaruouselItem key={persona.uuid}>
-            <Wrapper
-              onClick={() =>
-                history.push({
-                  pathname: `${APP_ROUTES.PERSONA_PREVIEW(persona.uuid)}`,
-                })
-              }
-            >
-              <PersonaCard card={persona.card} uuid={persona.uuid} isWithEdit={true} />
+            <Wrapper>
+              <PersonaCard
+                card={persona.card}
+                uuid={persona.uuid}
+                isWithEdit={true}
+                onClick={() =>
+                  history.push({
+                    pathname: `${APP_ROUTES.MY_PERSONA_PREVIEW(persona.uuid)}`,
+                  })
+                }
+              />
               {persona.uuid === defaultPersonaUuid ? (
                 <DefaultBlock>DEFAULT</DefaultBlock>
               ) : (

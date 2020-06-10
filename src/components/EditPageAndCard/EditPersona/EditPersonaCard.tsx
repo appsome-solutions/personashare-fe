@@ -5,7 +5,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { CardType } from 'global/graphqls/schema';
 import { GET_PERSONA, GetCardType, UPDATE_PERSONA_CARD } from 'global/graphqls/Persona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
-import { Spinner } from '../../Spinner/Spinner';
+import { Spinner } from 'components/Spinner/Spinner';
 
 const cardInitialValues: CardType = {
   name: '',
