@@ -21,6 +21,7 @@ export type AssetBlob = Pick<AssetWithBlob, 'name' | 'metaData'> & {
 type UploadedAsset = {
   url: string;
   assetType: AssetType;
+  name: string;
 };
 
 export const uploadAssets = async (
@@ -40,11 +41,12 @@ export const uploadAssets = async (
             ({
               url,
               assetType: asset.metaData?.customMetadata?.assetType,
+              name: asset.name,
             } as UploadedAsset)
         )
     )
   );
 };
 
-export const getUrl = (assets: UploadedAsset[], assetType: AssetType): string =>
-  assets.filter((asset) => asset.assetType === assetType).map((entry) => entry.url)[0] || '';
+export const getUrls = (assets: UploadedAsset[], assetType: AssetType): string[] =>
+  assets.filter((asset) => asset.assetType === assetType).map((entry) => entry.url) || [];

@@ -1,8 +1,7 @@
 import React, { FC, useState } from 'react';
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { useFormik } from 'formik';
-import { useHistory } from 'react-router-dom';
 import { useFirebase } from 'global/Firebase';
 import { useStorage } from 'global/Storage';
 import { TopNav } from 'components/TopNav/TopNav';
@@ -21,17 +20,18 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { EditIndicator } from 'components/EditIndicator/EditIndicator';
 import QuillEditor from 'components/QuillEditor/QuillEditor';
 import {
+  formUploadMapper,
   onAvatarChangeHelper,
   onBgChangeHelper,
-  formUploadMapper,
   revokeObjectURLS,
 } from 'pages/CreatePersona/helpers';
-import { AssetBlob, AssetType, getUrl, uploadAssets } from './uploadAssets';
+import { AssetBlob, AssetType, getUrls, uploadAssets } from './uploadAssets';
 import { ExecutionResult } from 'graphql';
 import { UploadAssets } from '../../UploadAssets/UploadAssets';
 import { ManagerListEditMode } from '../../SpotBook/ManagerList/EditModeManager';
 import { useMutation } from '@apollo/react-hooks';
-import { CLEAR_CARD, GetCardType, UPDATE_CARD } from '../../../global/graphqls/SpotAndPersona';
+import { CLEAR_CARD, GetCardType } from '../../../global/graphqls/SpotAndPersona';
+import { UploadFile } from 'antd/es/upload/interface';
 
 export interface LinkProps {
   previousStepPath: string;
@@ -137,22 +137,40 @@ export const EntityPage: FC<LinkProps> = ({
         assetsBlobs.concat(Object.values(userAssetsList))
       );
 
+      const fileList = uploadedAssets
+        .filter((asset) => asset.assetType === AssetType.USER_ASSET)
+        .map((asset) => {
+          return {
+            uid: asset.url,
+            url: asset.url,
+            thumbUrl: asset.url,
+            name: asset.name,
+            size: userAssetsList[asset.name].blob?.size,
+            status: 'done',
+          } as UploadFile;
+        });
+
+      console.error(fileList);
+
       const payload = {
         card: {
           name,
           description,
-          avatar: getUrl(uploadedAssets, AssetType.CARD_AVATAR),
-          background: getUrl(uploadedAssets, AssetType.CARD_BACKGROUND),
+          avatar: getUrls(uploadedAssets, AssetType.CARD_AVATAR)[0],
+          background: getUrls(uploadedAssets, AssetType.CARD_BACKGROUND)[0],
         },
         page: {
-          avatar: getUrl(uploadedAssets, AssetType.PAGE_AVATAR),
-          background: getUrl(uploadedAssets, AssetType.PAGE_BACKGROUND),
+          avatar: getUrls(uploadedAssets, AssetType.PAGE_AVATAR)[0],
+          background: getUrls(uploadedAssets, AssetType.PAGE_BACKGROUND)[0],
           content: JSON.stringify(formValues.content),
+          fileList,
         },
       };
+
       if (!onPageSubmitCreateOrUpdate) {
         return null;
       }
+
       const newPageEntityData = await onPageSubmitCreateOrUpdate({
         variables: {
           payload,
@@ -173,6 +191,7 @@ export const EntityPage: FC<LinkProps> = ({
         formValues?.avatarUpload?.blobUrl,
         formValues?.backgroundUpload?.blobUrl,
       ];
+
       revokeObjectURLS(urls);
       await clearCard();
       history.push(nextStepPath);
@@ -235,6 +254,17 @@ export const EntityPage: FC<LinkProps> = ({
             </Flex>
             <Flex mt={10}>
               <UploadAssets
+                assetsList={[
+                  {
+                    uid: '-1',
+                    name: 'xxx.png',
+                    status: 'done',
+                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    size: 10000,
+                    type: 'image/png',
+                  },
+                ]}
                 onAddFile={(file) => {
                   setUserAssetsList({
                     ...userAssetsList,
@@ -252,17 +282,6 @@ export const EntityPage: FC<LinkProps> = ({
             </Flex>
             <Flex mt={10}>
               <UploadAssets
-                assetsList={[
-                  {
-                    uid: '-1',
-                    name: 'xxx.png',
-                    status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-                    thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-                    size: 10000,
-                    type: 'image/png',
-                  },
-                ]}
                 asImageUpload
                 asPreview
                 onAddFile={(file) => {
