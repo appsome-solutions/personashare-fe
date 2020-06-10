@@ -13,6 +13,7 @@ import { DrawerMenu } from 'components/Drawer/Drawer';
 import { SearchPositionBox } from './SearchPositionBox';
 import { PersonaCircle } from 'components/PersonaCircle/PersonaCircle';
 import { EntityCard as EntityType } from 'global/graphqls/schema';
+import { useUserContext } from '../../UserContext/UserContext';
 
 type HamburgerMenuType = {
   isWithHamburger?: boolean;
@@ -97,6 +98,8 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
   const history = useHistory();
   const [logout] = useMutation<SignOutResponse>(SIGN_OUT);
 
+  const { setUser } = useUserContext();
+
   return (
     <>
       {isWithHamburger && (
@@ -116,6 +119,7 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
                 localStorage.removeItem(PS_TOKEN_NAME);
                 history.push(`.${APP_ROUTES.LOGIN}`);
                 client.cache.reset();
+                setUser(null);
               }}
             >
               <HamburgerIcon svgLink={LogoutSvg} />
