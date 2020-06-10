@@ -1,7 +1,7 @@
 import styled, { ThemeContext } from 'styled-components';
 import React, { useContext, useState } from 'react';
 import { Drawer } from 'antd';
-import { Icon } from '../Icon';
+import { Icon } from 'components/Icon';
 import HamburgerMenuSvg from 'assets/HamburgerMenu.svg';
 import { CoreThemePropsType } from '../../global/Themes/CoreTheme';
 

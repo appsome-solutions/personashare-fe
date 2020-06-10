@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import LogoInTerms from 'assets/LogoInTerms.svg';
-import { TopNav } from '../TopNav/TopNav';
+import { TopNav } from 'components/TopNav/TopNav';
 
 export type RegulationsProps = {
   contentName: string;
