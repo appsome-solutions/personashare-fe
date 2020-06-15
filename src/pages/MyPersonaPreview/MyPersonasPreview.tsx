@@ -8,6 +8,13 @@ import { EntityPreview } from 'components/EntityPreview/EntityPreview';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { TopNav } from 'components/TopNav/TopNav';
 import { StatsNavigationPersona } from 'components/Statistics/StatsNavigationPersona';
+import { RecommendContactBook } from 'components/ContactBook/RecommendListContact';
+import { PageWrapper } from 'components/PageWrapper';
+import styled from 'styled-components';
+
+const StyledPageWrapper = styled(PageWrapper)`
+  height: auto;
+`;
 
 export const MyPersonaPreview: FC = () => {
   const { uuid } = useParams();
@@ -31,7 +38,10 @@ export const MyPersonaPreview: FC = () => {
     <>
       <TopNav isWithBackArrow />
       <StatsNavigationPersona />
-      <EntityPreview uuidQuery={data.persona.uuid} entityPage={data.persona.page} />;
+      <EntityPreview uuidQuery={data.persona.uuid} entityPage={data.persona.page} />
+      <StyledPageWrapper>
+        <RecommendContactBook persona={data.persona} />
+      </StyledPageWrapper>
     </>
   );
 };

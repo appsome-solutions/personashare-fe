@@ -11,6 +11,7 @@ export interface EntityPreviewPropsType {
 const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};
   overflow: auto;
+  background-color: ${(props) => props.theme.colors.utils.background.mid};
 `;
 
 const Wrapper = styled.div`
