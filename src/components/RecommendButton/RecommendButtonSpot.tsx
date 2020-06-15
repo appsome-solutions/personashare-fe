@@ -12,9 +12,10 @@ import { RECOMMEND_SPOT, RecommendSpotResponse } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 
 const RecommendEmpty = styled.img`
-  position: absolute;
+  align-self: flex-end;
+  position: relative;
   right: 20px;
-  top: 135px;
+  top: -21px;
 `;
 
 export const RecommendButtonSpot: FC = () => {
