@@ -57,7 +57,7 @@ export const PersonaPreview: FC = () => {
           </div>
         </Wrapper>
         <SecondPartPersona>
-          <RecommendContactBook />
+          <RecommendContactBook persona={data.persona} />
           <SavePersona uuid={uuid} />
         </SecondPartPersona>
       </PersonaPreviewWrapper>
