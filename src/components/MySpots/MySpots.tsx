@@ -15,6 +15,7 @@ import ShareQrCode from 'assets/ShareQrCode.svg';
 import isEmpty from 'lodash/isEmpty';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { Loader } from 'components/Loader/Loader';
+import { LoginOrHamburger } from '../QrScanner/LoginOrHamburger';
 
 const CaruouselItem = styled.div``;
 
@@ -77,7 +78,7 @@ export const MySpots: FC = () => {
 
   return (
     <div>
-      <TopNav isWithBackArrow />
+      <LoginOrHamburger />
       <StyledPageWrapper>
         <Loader loading={loading} data={data}>
           <PageWrapperSpaceBetween>
@@ -88,7 +89,7 @@ export const MySpots: FC = () => {
                     <Wrapper
                       onClick={() =>
                         history.push({
-                          pathname: `${APP_ROUTES.SPOT_PREVIEW(spots.uuid)}`,
+                          pathname: `${APP_ROUTES.MY_SPOT_PREVIEW(spots.uuid)}`,
                         })
                       }
                     >

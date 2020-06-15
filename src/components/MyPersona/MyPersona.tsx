@@ -17,6 +17,7 @@ import { APP_ROUTES } from 'global/AppRouter/routes';
 import { MySpotsWithoutSpots } from '../MySpots/MySpotsWithoutSpots';
 import { Loader } from '../Loader/Loader';
 import { ShareQrComponent } from './ShareQrComponent';
+import { LoginOrHamburger } from '../QrScanner/LoginOrHamburger';
 
 const StyledButton = styled(Button)`
   width: 80%;
@@ -106,14 +107,17 @@ export const MyPersona: FC = () => {
       >
         {userPersonas.map((persona: gqlEntity) => (
           <CaruouselItem key={persona.uuid}>
-            <Wrapper
-              onClick={() =>
-                history.push({
-                  pathname: `${APP_ROUTES.PERSONA_PREVIEW(persona.uuid)}`,
-                })
-              }
-            >
-              <PersonaCard card={persona.card} uuid={persona.uuid} isWithEdit={true} />
+            <Wrapper>
+              <PersonaCard
+                card={persona.card}
+                uuid={persona.uuid}
+                isWithEdit={true}
+                onClick={() =>
+                  history.push({
+                    pathname: `${APP_ROUTES.MY_PERSONA_PREVIEW(persona.uuid)}`,
+                  })
+                }
+              />
               {persona.uuid === defaultPersonaUuid ? (
                 <DefaultBlock>DEFAULT</DefaultBlock>
               ) : (
@@ -142,7 +146,7 @@ export const MyPersona: FC = () => {
 
   return (
     <div>
-      <TopNav isWithBackArrow />
+      <LoginOrHamburger />
       <StyledPageWrapper>
         <Loader loading={loading} data={data}>
           <PageWrapperSpaceBetween>

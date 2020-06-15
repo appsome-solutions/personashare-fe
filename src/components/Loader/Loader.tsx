@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { Overlay } from '../Overlay/Overlay';
-import { Spinner } from '../Spinner/Spinner';
+import { Overlay } from 'components/Overlay/Overlay';
+import { Spinner } from 'components/Spinner/Spinner';
 
 type LoaderType = {
   loading: boolean;

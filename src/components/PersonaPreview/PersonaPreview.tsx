@@ -9,10 +9,10 @@ import { EntityPageComp } from 'components/EntityPageComp/EntityPageComp';
 import { GET_PERSONA } from 'global/graphqls/Persona';
 import { useParams } from 'react-router-dom';
 import { RecommendButtonPersona } from 'components/RecommendButton/RecommendButtonPersona';
-import { SavePersona } from '../SaveEntity/SavePersona';
-import { RecommendContactBook } from '../ContactBook/RecommendListContact';
-import { TopNav } from '../TopNav/TopNav';
-import QuillEditor from '../QuillEditor/QuillEditor';
+import { SavePersona } from 'components/SaveEntity/SavePersona';
+import { RecommendContactBook } from 'components/ContactBook/RecommendListContact';
+import { TopNav } from 'components/TopNav/TopNav';
+import QuillEditor from 'components/QuillEditor/QuillEditor';
 
 const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};
@@ -59,7 +59,7 @@ export const PersonaPreview: FC = () => {
         </Wrapper>
         <SecondPartPersona>
           <QuillEditor editable={false} initialValue={data.persona.page.content} />
-          <RecommendContactBook />
+          <RecommendContactBook persona={data.persona} />
           <SavePersona uuid={uuid} />
         </SecondPartPersona>
       </PersonaPreviewWrapper>

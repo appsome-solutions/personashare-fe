@@ -15,6 +15,14 @@ export const CREATE_PERSONA = gql`
         background
         avatar
         content
+        fileList {
+          uid
+          url
+          thumbUrl
+          size
+          name
+          status
+        }
       }
     }
   }
@@ -38,6 +46,14 @@ export const GET_PERSONAS = gql`
         background
         avatar
         content
+        fileList {
+          uid
+          url
+          thumbUrl
+          size
+          name
+          status
+        }
       }
       personaUUIDs
       qrCodeLink
@@ -101,6 +117,14 @@ export const UPDATE_PERSONA = gql`
         background
         avatar
         content
+        fileList {
+          uid
+          url
+          thumbUrl
+          size
+          name
+          status
+        }
       }
       personaUUIDs
       qrCodeLink
@@ -154,6 +178,14 @@ export const GET_PERSONA = gql`
         background
         avatar
         content
+        fileList {
+          uid
+          url
+          thumbUrl
+          size
+          name
+          status
+        }
       }
       personaUUIDs
       qrCodeLink
@@ -173,6 +205,17 @@ export const GET_PERSONA = gql`
       }
       visibilityList {
         uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
       }
       spotRecommendList {
         uuid
@@ -195,6 +238,20 @@ export const GET_PERSONA = gql`
         }
       }
       spotBook {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      networkList {
         uuid
         card {
           name

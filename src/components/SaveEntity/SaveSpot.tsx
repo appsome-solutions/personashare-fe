@@ -1,4 +1,4 @@
-import { WideButton } from '../Button';
+import { WideButton } from 'components/Button';
 import React, { FC } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { gqlUser } from 'global/graphqls/schema';
