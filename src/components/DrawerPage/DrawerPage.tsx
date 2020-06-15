@@ -26,7 +26,9 @@ const TitleMenu = styled.div`
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   padding: 16px;
   font-weight: 500;
-
+  position: sticky;
+  top: 0;
+  z-index: 9999;
   background-color: ${(props) => props.theme.colors.main.primary};
   color: ${(props) => props.theme.colors.utils.text.light};
 

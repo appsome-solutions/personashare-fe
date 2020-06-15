@@ -24,6 +24,11 @@ const StyledQuillContainer = styled.div`
   &&& > div > div {
     border: none;
   }
+
+  .ql-editing {
+    // tooltip box used for URLs
+    z-index: 9999;
+  }
 `;
 
 export const EditorBarWrapper = styled.div`
@@ -56,6 +61,7 @@ export const BarIcon = styled(Icon)`
 `;
 
 const ToggleabbleContainer = styled.div<{ isVisible: boolean }>`
+  position: fixed;
   display: ${(props) => (props.isVisible ? 'flex' : 'none')};
 `;
 
@@ -71,7 +77,6 @@ const TurnInto = styled.span`
 
 const insertIntoEditor = (editor: Quill, value: string | boolean | number, type: string): void => {
   const cursor = editor.getSelection()?.index || 0;
-  console.warn(editor.getContents());
   editor.insertText(cursor + 1, '\n', type, value);
   editor.setSelection(cursor + 1, 0);
 };
@@ -206,7 +211,7 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '', editable = true }
           }}
           onChangeSelection={handleSelectionChange}
           modules={Editor.modules}
-          placeholder="Edit card..."
+          placeholder={editable ? 'Edit card...' : ''}
           ref={ref}
         />
       )}
@@ -258,6 +263,7 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '', editable = true }
             <InlineButton className={`ql-code`} svgLink={CodeSvg} />
             <InlineButton className={`ql-italic`} svgLink={ItalicSvg} />
             <InlineButton className={`ql-underline`} svgLink={UnderlineSvg} />
+            <InlineButton className={`ql-link`} svgLink={UnderlineSvg} />
           </ToggleabbleContainer>
         </EditorBarWrapper>
       ) : (

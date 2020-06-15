@@ -1,4 +1,4 @@
-import React, { useCallback, RefObject, useEffect, useState } from 'react';
+import React, { useCallback, RefObject, useRef } from 'react';
 import styled from 'styled-components';
 import Webcam from 'react-webcam';
 import { QRCode } from 'jsqr';
@@ -7,6 +7,8 @@ import VideoOverlay from './VideoOverlay';
 import { useWorkerDecode } from './hooks/useWorkerDecode';
 import { LoginOrHamburger } from './LoginOrHamburger';
 import { useHistory } from 'react-router-dom';
+/* eslint-disable-next-line */
+import Worker from 'worker-loader!./../decodeWorker.worker';
 
 const Wrapper = styled.div`
   display: flex;
@@ -56,14 +58,14 @@ export type ImagePixels = {
   stride: number[];
 };
 
-let webWorker: Worker | null = null;
-
 export const QrScanner = ({ onError, onUserMediaError, className, videoConstraints, interval, buttonMode }: Props) => {
+  const workerRef = useRef<Worker | null>(null);
   const history = useHistory();
   const redirectToQr = useCallback((decodedQr: QRCode): void => {
     history.push(new URL(decodedQr.data).pathname);
   }, []);
   const webcamRef = React.useRef<Webcam>(null);
+
   const capture = useCallback(() => {
     const imageSrc = webcamRef?.current?.getScreenshot();
 
@@ -75,11 +77,11 @@ export const QrScanner = ({ onError, onUserMediaError, className, videoConstrain
         onError(err);
         return;
       }
-      webWorker?.postMessage(image);
+      workerRef?.current?.postMessage(image);
     });
   }, [webcamRef, onError]);
 
-  webWorker = useWorkerDecode({ capture, interval: interval, onCode: redirectToQr });
+  useWorkerDecode({ capture, interval: interval, onCode: redirectToQr, workerRef });
 
   return (
     <>

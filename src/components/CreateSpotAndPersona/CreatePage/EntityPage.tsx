@@ -250,7 +250,8 @@ export const EntityPage: FC<LinkProps> = ({
             <Flex mt={10}>
               <QuillEditor onChange={onEditorValueChange} initialValue={content} />
             </Flex>
-            <Flex mt={10}>
+            {/* commented for UI testing */}
+            {/*    <Flex mt={10}>
               <UploadAssets
                 assetsList={[
                   {
@@ -297,6 +298,7 @@ export const EntityPage: FC<LinkProps> = ({
                 }}
               />
             </Flex>
+            */}
             {isSpot && (
               <ManagerListEditMode
                 uuid={uuid}
