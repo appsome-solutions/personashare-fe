@@ -12,6 +12,7 @@ import { RecommendButtonPersona } from 'components/RecommendButton/RecommendButt
 import { SavePersona } from '../SaveEntity/SavePersona';
 import { RecommendContactBook } from '../ContactBook/RecommendListContact';
 import { TopNav } from '../TopNav/TopNav';
+import QuillEditor from '../QuillEditor/QuillEditor';
 
 const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};
@@ -57,6 +58,7 @@ export const PersonaPreview: FC = () => {
           </div>
         </Wrapper>
         <SecondPartPersona>
+          <QuillEditor editable={false} initialValue={data.persona.page.content} />
           <RecommendContactBook />
           <SavePersona uuid={uuid} />
         </SecondPartPersona>

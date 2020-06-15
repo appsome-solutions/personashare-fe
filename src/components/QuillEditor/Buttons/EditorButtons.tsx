@@ -10,6 +10,8 @@ import BulletedListSvg from 'assets/editor_bulleted_list.svg';
 import CodeSvg from 'assets/code.svg';
 import UploadImg from 'assets/backup-24px.svg';
 import ManagerListSvg from 'assets/manager-list.svg';
+import ImageSvg from 'assets/insert_photo-24px.svg';
+import LinkSvg from 'assets/link-24px.svg';
 
 const DrawerContent = styled.div`
   margin: 16px 0;
@@ -30,6 +32,8 @@ const EditorButtons = memo(({ addInNewLine = false }: EditorButtonTypes) => {
       <BlockButton className={`ql-code-block${suffix}`} title="Code" svgLink={CodeSvg} />
       <BlockButton className={`ql-list${suffix}`} title="Numbered list" svgLink={NumberedListSvg} value="ordered" />
       <BlockButton className={`ql-list${suffix}`} title="Bulleted list" svgLink={BulletedListSvg} value="bullet" />
+      <BlockButton className="ql-image" title="Image" svgLink={ImageSvg} />
+      <BlockButton className="ql-link" title="URL" svgLink={LinkSvg} />
       <BlockButton className="ql-upload-asset" title="Upload assets" svgLink={UploadImg} value="true" />
       <BlockButton className="ql-manager-list" title="Manager List" svgLink={ManagerListSvg} value="true" />
     </DrawerContent>
