@@ -79,6 +79,14 @@ export const CREATE_SPOT = gql`
         background
         avatar
         content
+        fileList {
+          uid
+          url
+          thumbUrl
+          size
+          name
+          status
+        }
       }
     }
   }
@@ -123,6 +131,14 @@ export const UPDATE_SPOT = gql`
         background
         avatar
         content
+        fileList {
+          uid
+          url
+          thumbUrl
+          size
+          name
+          status
+        }
       }
       personaUUIDs
       qrCodeLink
@@ -186,6 +202,14 @@ export const GET_SPOT = gql`
         background
         avatar
         content
+        fileList {
+          uid
+          url
+          thumbUrl
+          size
+          name
+          status
+        }
       }
       invitedManagerEmails {
         email
