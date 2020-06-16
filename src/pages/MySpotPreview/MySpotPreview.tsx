@@ -8,13 +8,19 @@ import { GET_SPOT, GetCardType } from 'global/graphqls/Spot';
 import { EntityPreview } from 'components/EntityPreview/EntityPreview';
 import { TopNav } from 'components/TopNav/TopNav';
 import { StatsNavigationSpot } from 'components/Statistics/StatsNavigationSpot';
+import { RecommendContactBook } from 'components/ContactBook/RecommendListContact';
+import styled from 'styled-components';
+import { PageWrapper } from 'components/PageWrapper';
 
 export const MySpotPreview: FC = () => {
   const { uuid } = useParams();
   const { loading, data } = useQuery<GetCardType>(GET_SPOT, {
     variables: { uuid },
   });
-
+  const StyledPageWrapper = styled(PageWrapper)`
+    height: auto;
+    overflow: visible;
+  `;
   if (loading) {
     return (
       <Overlay>
@@ -32,6 +38,9 @@ export const MySpotPreview: FC = () => {
       <TopNav isWithBackArrow />
       <StatsNavigationSpot />
       <EntityPreview uuidQuery={data.spot.uuid} entityPage={data.spot.page} />
+      <StyledPageWrapper>
+        <RecommendContactBook entity={data.spot} />
+      </StyledPageWrapper>
     </>
   );
 };
