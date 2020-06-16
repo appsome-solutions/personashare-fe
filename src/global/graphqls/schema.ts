@@ -2,6 +2,7 @@ import { WithTypeName } from 'typings';
 import * as Yup from 'yup';
 
 import { ImageRef } from 'components/CropperWidget/CropperWidget';
+import { UploadFile } from 'antd/lib/upload/interface';
 
 export const cardSchema = Yup.object({
   name: Yup.string().required(),
@@ -13,8 +14,6 @@ export const cardSchema = Yup.object({
 });
 
 export const pageSchema = Yup.object({
-  // todo: uncomment when editor will be connected
-  // content: Yup.mixed().required().nullable(true),
   content: Yup.mixed().notRequired(),
   avatar: Yup.string().notRequired(),
   background: Yup.string().notRequired(),
@@ -28,7 +27,7 @@ export type EntityCard = WithTypeName & CardType;
 
 export type PageType = Yup.InferType<typeof pageSchema>;
 
-export type EntityPage = WithTypeName & PageType;
+export type EntityPage = WithTypeName & PageType & { fileList?: UploadFile[] };
 
 export type Entity = WithTypeName & {
   uuid: string;

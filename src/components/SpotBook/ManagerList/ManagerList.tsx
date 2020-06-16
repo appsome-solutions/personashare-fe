@@ -21,7 +21,7 @@ export const ManagerList: FC = () => {
   return (
     <>
       <Carousel ref={carousel}>
-        {data?.spot.managers.map((persona: AgregatedPersona) => (
+        {data?.spot?.managers?.map((persona: AgregatedPersona) => (
           <div key={persona.uuid}>
             <SpotPage
               card={persona.card}

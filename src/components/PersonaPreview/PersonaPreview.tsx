@@ -47,6 +47,8 @@ export const PersonaPreview: FC = () => {
     return <div>No personas...</div>;
   }
 
+  console.warn(data.persona.page.content);
+
   return (
     <>
       <TopNav isWithBackArrow />

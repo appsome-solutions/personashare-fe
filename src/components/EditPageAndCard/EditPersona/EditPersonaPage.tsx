@@ -42,8 +42,9 @@ export const EditPersonaPage: FC = () => {
     return null;
   }
   if (!uuid) return null;
+
   const initialValues = data?.persona?.page || pageInitialValues;
-  initialValues.content = JSON.parse(initialValues?.content);
+
   return (
     <EntityPage
       currentNumber={2}
