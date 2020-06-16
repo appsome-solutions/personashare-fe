@@ -22,10 +22,11 @@ const Wrapper = styled.div`
 
 export const EntityPreview: FC<EntityPreviewPropsType> = ({ uuidQuery, entityPage }) => {
   return (
-    <PersonaPreviewWrapper>
+    <>
       <Wrapper key={uuidQuery}>
         <EntityPageComp page={entityPage} />
       </Wrapper>
-    </PersonaPreviewWrapper>
+      <PersonaPreviewWrapper />
+    </>
   );
 };
