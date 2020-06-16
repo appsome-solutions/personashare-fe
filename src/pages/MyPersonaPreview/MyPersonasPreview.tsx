@@ -40,7 +40,7 @@ export const MyPersonaPreview: FC = () => {
       <StatsNavigationPersona />
       <EntityPreview uuidQuery={data.persona.uuid} entityPage={data.persona.page} />
       <StyledPageWrapper>
-        <RecommendContactBook persona={data.persona} />
+        <RecommendContactBook entity={data.persona} />
       </StyledPageWrapper>
     </>
   );

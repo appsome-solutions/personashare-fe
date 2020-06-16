@@ -59,7 +59,7 @@ export const PersonaPreview: FC = () => {
         </Wrapper>
         <SecondPartPersona>
           <QuillEditor editable={false} initialValue={data.persona.page.content} />
-          <RecommendContactBook persona={data.persona} />
+          <RecommendContactBook entity={data.persona} />
           <SavePersona uuid={uuid} />
         </SecondPartPersona>
       </PersonaPreviewWrapper>

@@ -14,6 +14,8 @@ import { ManagerList } from 'components/SpotBook/ManagerList/ManagerList';
 import { ManagerListEditMode } from 'components/SpotBook/ManagerList/EditModeManager';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { vh } from 'helpers/styled';
+import { RecommendContactBook } from '../ContactBook/RecommendListContact';
+import { PageWrapper } from '../PageWrapper';
 
 type SpotPreviewType = {
   isEditMode?: boolean;
@@ -36,6 +38,11 @@ const Wrapper = styled.div`
 
 const SecondPartSpot = styled.div`
   margin: 0 16px 28px 16px;
+`;
+
+const StyledPageWrapper = styled(PageWrapper)`
+  height: auto;
+  overflow: visible;
 `;
 
 export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
@@ -65,6 +72,9 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
           <RecommendButtonSpot />
         </Wrapper>
         {isEditMode && <ManagerList />}
+        <StyledPageWrapper>
+          <RecommendContactBook entity={data.spot} />
+        </StyledPageWrapper>
         <SecondPartSpot>
           <SaveSpotButton />
         </SecondPartSpot>

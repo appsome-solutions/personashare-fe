@@ -1,5 +1,5 @@
 import Carousel from 'components/Carousel/Carousel';
-import { AgregatedPersona } from 'global/graphqls/schema';
+import { AgregatedPersona, AgregatedSpot } from 'global/graphqls/schema';
 import { PersonaCard } from 'components/PersonaCard/PersonaCard';
 import React, { FC, useRef } from 'react';
 import { Carousel as AntCarousel } from 'antd';
@@ -14,17 +14,17 @@ const MainComponent = styled.div`
 `;
 
 type RecommendContactBookType = {
-  persona: AgregatedPersona;
+  entity: AgregatedPersona | AgregatedSpot;
 };
 
-export const RecommendContactBook: FC<RecommendContactBookType> = ({ persona }) => {
+export const RecommendContactBook: FC<RecommendContactBookType> = ({ entity }) => {
   const carousel = useRef<AntCarousel>(null);
 
   return (
     <MainComponent>
-      {!!persona.recommendList.length && <RecommendText>Recommend</RecommendText>}
+      {!!entity.networkList.length && <RecommendText>Recommend</RecommendText>}
       <Carousel ref={carousel}>
-        {persona.recommendList.map((persona: AgregatedPersona) => (
+        {entity.networkList.map((persona: AgregatedPersona) => (
           <PersonaCard card={persona.card} uuid={persona.uuid} key={persona.uuid} />
         ))}
       </Carousel>
