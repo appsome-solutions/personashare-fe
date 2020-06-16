@@ -3,9 +3,9 @@ import { TopNav } from 'components/TopNav/TopNav';
 import { StatsNavigationPersona } from 'components/Statistics/StatsNavigationPersona';
 import styled from 'styled-components';
 import { InfoCard } from 'components/InfoCard/InfoCard';
-import { GridCard } from 'components/EntityPreview/GridCard';
 import { useLocation } from 'react-router-dom';
 import { StatsNavigationSpot } from '../Statistics/StatsNavigationSpot';
+import { CardsGrid } from './CardsGrid';
 
 export interface PropsType {
   gridCardValue: any;
@@ -50,7 +50,7 @@ export const VisibilityOrNetwork: FC<PropsType> = ({
             In a {visibilityOrNetwork} tab you can see how many people {savedOrRecommend} your default persona.
           </TextInInfo>
         </InformationUnderText>
-        <GridCard
+        <CardsGrid
           gridCardValue={gridCardValue}
           savedOrRecommend={savedOrRecommend}
           spotsOrPersonsText={spotsOrPersonsText}

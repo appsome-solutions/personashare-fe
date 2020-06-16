@@ -39,25 +39,28 @@ const SeeMoreStyled = styled.div`
   margin-bottom: 20px;
 `;
 
-export const GridCard: FC<PropsType> = ({ gridCardValue, savedOrRecommend, spotsOrPersonsText, link }) => {
+export const CardsGrid: FC<PropsType> = ({ gridCardValue, savedOrRecommend, spotsOrPersonsText, link }) => {
   const [limit, setLimit] = useState(4);
 
   const handleClick = () => {
     const gridCardLength = gridCardValue.length;
-    const currentLimit = limit;
-    if (currentLimit < gridCardLength) {
-      setLimit(currentLimit + 4);
+    if (limit < gridCardLength) {
+      setLimit(limit + 4);
     }
   };
 
   const CheckEntityList = () => {
+    if (!gridCardValue) {
+      return (
+        <HowManyUsers>
+          0 {spotsOrPersonsText} {savedOrRecommend} your profile
+        </HowManyUsers>
+      );
+    }
+
     return (
       <>
-        {!gridCardValue ? (
-          <HowManyUsers>
-            0 {spotsOrPersonsText} {savedOrRecommend} your profile
-          </HowManyUsers>
-        ) : (
+        {gridCardValue && (
           <HowManyUsers>
             {gridCardValue.length} {spotsOrPersonsText} {savedOrRecommend} your profile
           </HowManyUsers>
@@ -73,11 +76,11 @@ export const GridCard: FC<PropsType> = ({ gridCardValue, savedOrRecommend, spots
               />
             ))}
           </ComponentWithTable>
-          {gridCardValue?.length > 4 && limit < gridCardValue?.length ? (
+          {gridCardValue.length > 4 && limit < gridCardValue.length && (
             <SeeMoreStyled>
               <SeeMoreText onClick={handleClick}>SEE MORE</SeeMoreText>
             </SeeMoreStyled>
-          ) : null}
+          )}
         </CardStyled>
       </>
     );
