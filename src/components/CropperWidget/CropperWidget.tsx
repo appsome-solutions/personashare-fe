@@ -34,7 +34,7 @@ const WidgetWrapper = styled.div`
   width: 100%;
   z-index: 90000000;
   transition: 400ms ease all;
-  max-height: 300px;
+  max-height: 265px;
 `;
 
 export const cropperDefaults: Cropper.Options = {
