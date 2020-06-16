@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { InfoCard } from 'components/InfoCard/InfoCard';
 import { TopNav } from 'components/TopNav/TopNav';
 import { StatsNavigationSpot } from 'components/Statistics/StatsNavigationSpot';
-import { CheckEntity } from 'components/EntityPreview/CheckEntity';
+import { GridCard } from 'components/EntityPreview/GridCard';
 import { useQuery } from '@apollo/react-hooks';
 import { gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
@@ -13,9 +13,10 @@ import { APP_ROUTES } from 'global/AppRouter/routes';
 const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};
   overflow: auto;
-  margin: 0 16px 28px 16px;
   display: flex;
   flex-direction: column;
+  background-color: ${(props) => props.theme.colors.utils.background.mid};
+  padding: 0 16px 28px 16px;
 `;
 
 const InformationUnderText = styled(InfoCard)`
@@ -40,8 +41,8 @@ export const NetworkTabSpot: FC = () => {
         <InformationUnderText title="">
           <TextInInfo>In a network tab you can see how many people recommend your spot.</TextInInfo>
         </InformationUnderText>
-        <CheckEntity
-          visibilityOrNetworkQuery={data?.spot?.networkList}
+        <GridCard
+          gridCardValue={data?.spot?.networkList}
           savedOrRecommend="recommend"
           spotsOrPersonsText="spot"
           link={APP_ROUTES.SPOT_PREVIEW}

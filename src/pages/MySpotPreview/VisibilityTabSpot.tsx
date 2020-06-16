@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { InfoCard } from 'components/InfoCard/InfoCard';
-import { CheckEntity } from 'components/EntityPreview/CheckEntity';
+import { GridCard } from 'components/EntityPreview/GridCard';
 import { TopNav } from 'components/TopNav/TopNav';
 import { StatsNavigationSpot } from 'components/Statistics/StatsNavigationSpot';
 import { useQuery } from '@apollo/react-hooks';
@@ -13,9 +13,11 @@ import { APP_ROUTES } from 'global/AppRouter/routes';
 const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};
   overflow: auto;
-  margin: 0 16px 28px 16px;
   display: flex;
   flex-direction: column;
+  background-color: ${(props) => props.theme.colors.utils.background.mid};
+  padding: 0 16px 28px 16px;
+  border-radius: 2px;
 `;
 
 const InformationUnderText = styled(InfoCard)`
@@ -40,8 +42,8 @@ export const VisibilityTabSpot: FC = () => {
         <InformationUnderText title="">
           <TextInInfo>In a visibility tab you can see how many people saved your spot.</TextInInfo>
         </InformationUnderText>
-        <CheckEntity
-          visibilityOrNetworkQuery={data?.spot?.networkList}
+        <GridCard
+          gridCardValue={data?.spot?.networkList}
           savedOrRecommend="saved"
           spotsOrPersonsText="spot"
           link={APP_ROUTES.SPOT_PREVIEW}
