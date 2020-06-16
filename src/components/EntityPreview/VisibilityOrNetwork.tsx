@@ -1,14 +1,19 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
 import { TopNav } from 'components/TopNav/TopNav';
 import { StatsNavigationPersona } from 'components/Statistics/StatsNavigationPersona';
+import styled from 'styled-components';
 import { InfoCard } from 'components/InfoCard/InfoCard';
-import { useQuery } from '@apollo/react-hooks';
-import { gqlUser } from 'global/graphqls/schema';
-import { GET_USER } from 'global/graphqls/User';
-import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { GridCard } from 'components/EntityPreview/GridCard';
-import { APP_ROUTES } from 'global/AppRouter/routes';
+import { useLocation } from 'react-router-dom';
+import { StatsNavigationSpot } from '../Statistics/StatsNavigationSpot';
+
+export interface PropsType {
+  gridCardValue: any;
+  savedOrRecommend: string;
+  spotsOrPersonsText: string;
+  link: any;
+  visibilityOrNetwork: string;
+}
 
 const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};
@@ -27,25 +32,29 @@ const TextInInfo = styled.div`
   ${(props) => props.theme.typography.subtitle2};
 `;
 
-export const NetworkTabPersona: FC = () => {
-  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
-  const { data } = useQuery<GetCardType>(GET_PERSONA, {
-    variables: { uuid: userPersona?.user?.defaultPersona },
-  });
-
+export const VisibilityOrNetwork: FC<PropsType> = ({
+  gridCardValue,
+  savedOrRecommend,
+  spotsOrPersonsText,
+  link,
+  visibilityOrNetwork,
+}) => {
+  const { pathname } = useLocation();
   return (
     <>
       <TopNav isWithBackArrow />
-      <StatsNavigationPersona />
+      {pathname.includes('persona') ? <StatsNavigationPersona /> : <StatsNavigationSpot />}
       <PersonaPreviewWrapper>
         <InformationUnderText title="">
-          <TextInInfo>In a network tab you can see how many people recommend your default persona.</TextInInfo>
+          <TextInInfo>
+            In a {visibilityOrNetwork} tab you can see how many people {savedOrRecommend} your default persona.
+          </TextInInfo>
         </InformationUnderText>
         <GridCard
-          gridCardValue={data?.persona.networkList}
-          savedOrRecommend="recommend"
-          spotsOrPersonsText="persona"
-          link={APP_ROUTES.PERSONA_PREVIEW}
+          gridCardValue={gridCardValue}
+          savedOrRecommend={savedOrRecommend}
+          spotsOrPersonsText={spotsOrPersonsText}
+          link={link}
         />
       </PersonaPreviewWrapper>
     </>

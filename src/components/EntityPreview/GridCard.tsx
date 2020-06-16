@@ -50,57 +50,37 @@ export const GridCard: FC<PropsType> = ({ gridCardValue, savedOrRecommend, spots
     }
   };
 
-  const SeeMoreButton = () => {
-    if (gridCardValue.length > 4 && limit < gridCardValue.length) {
-      return <SeeMoreText onClick={handleClick}>SEE MORE</SeeMoreText>;
-    } else return null;
-  };
-
   const CheckEntityList = () => {
-    if (!gridCardValue) {
-      return (
-        <>
+    return (
+      <>
+        {!gridCardValue ? (
           <HowManyUsers>
             0 {spotsOrPersonsText} {savedOrRecommend} your profile
           </HowManyUsers>
-          <CardStyled>
-            <ComponentWithTable>
-              {gridCardValue?.slice(0, limit).map((spotsOrPersonsText: AgregatedPersona) => (
-                <EntityPreviewWrapper
-                  visibilityOrNetworkQuery={gridCardValue}
-                  key={spotsOrPersonsText.uuid}
-                  spotOrPersona={spotsOrPersonsText}
-                  link={link}
-                />
-              ))}
-            </ComponentWithTable>
-          </CardStyled>
-        </>
-      );
-    } else {
-      return (
-        <>
+        ) : (
           <HowManyUsers>
             {gridCardValue.length} {spotsOrPersonsText} {savedOrRecommend} your profile
           </HowManyUsers>
-          <CardStyled>
-            <ComponentWithTable>
-              {gridCardValue?.slice(0, limit).map((spotsOrPersonsText: AgregatedPersona) => (
-                <EntityPreviewWrapper
-                  visibilityOrNetworkQuery={gridCardValue}
-                  key={spotsOrPersonsText.uuid}
-                  spotOrPersona={spotsOrPersonsText}
-                  link={link}
-                />
-              ))}
-            </ComponentWithTable>
+        )}
+        <CardStyled>
+          <ComponentWithTable>
+            {gridCardValue?.slice(0, limit).map((spotsOrPersonsText: AgregatedPersona) => (
+              <EntityPreviewWrapper
+                visibilityOrNetworkQuery={gridCardValue}
+                key={spotsOrPersonsText.uuid}
+                spotOrPersona={spotsOrPersonsText}
+                link={link}
+              />
+            ))}
+          </ComponentWithTable>
+          {gridCardValue?.length > 4 && limit < gridCardValue?.length ? (
             <SeeMoreStyled>
-              <SeeMoreButton />
+              <SeeMoreText onClick={handleClick}>SEE MORE</SeeMoreText>
             </SeeMoreStyled>
-          </CardStyled>
-        </>
-      );
-    }
+          ) : null}
+        </CardStyled>
+      </>
+    );
   };
 
   return <CheckEntityList />;

@@ -12,7 +12,6 @@ const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};
   overflow: auto;
   background-color: ${(props) => props.theme.colors.utils.background.mid};
-  margin: 0 16px 28px 16px;
 `;
 
 const Wrapper = styled.div`
@@ -23,10 +22,11 @@ const Wrapper = styled.div`
 
 export const EntityPreview: FC<EntityPreviewPropsType> = ({ uuidQuery, entityPage }) => {
   return (
-    <PersonaPreviewWrapper>
+    <>
       <Wrapper key={uuidQuery}>
         <EntityPageComp page={entityPage} />
       </Wrapper>
-    </PersonaPreviewWrapper>
+      <PersonaPreviewWrapper />
+    </>
   );
 };
