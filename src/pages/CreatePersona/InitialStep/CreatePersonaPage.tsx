@@ -6,6 +6,7 @@ import { CREATE_PERSONA, GET_PERSONAS } from 'global/graphqls/Persona';
 import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
 import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
+import { GET_USER } from '../../../global/graphqls/User';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -24,11 +25,32 @@ export const CreatePersonaPage: FC = () => {
         return;
       }
       const { createPersona } = data;
-      const { userPersonas } = cache.readQuery({ query: GET_PERSONAS }) as { userPersonas: any };
-      cache.writeQuery({
-        query: GET_PERSONAS,
-        data: { userPersonas: userPersonas.concat([createPersona]) },
-      });
+
+      const { user } = cache.readQuery({ query: GET_USER }) as { user: any };
+
+      // First persona Creation
+      if (!user.defaultPersona) {
+        cache.writeQuery({
+          query: GET_USER,
+          data: {
+            user: {
+              ...user,
+              photo: createPersona.card.avatar ? createPersona.card.avatar : '',
+              defaultPersona: createPersona.uuid,
+            },
+          },
+        });
+        cache.writeQuery({
+          query: GET_PERSONAS,
+          data: { userPersonas: [createPersona] },
+        });
+      } else {
+        const { userPersonas } = cache.readQuery({ query: GET_PERSONAS }) as { userPersonas: any };
+        cache.writeQuery({
+          query: GET_PERSONAS,
+          data: { userPersonas: userPersonas.concat([createPersona]) },
+        });
+      }
     },
   });
   const initialValues = data?.entity?.page || pageInitialValues;
