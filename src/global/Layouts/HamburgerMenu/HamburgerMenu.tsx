@@ -118,7 +118,7 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
                 await logout();
                 localStorage.removeItem(PS_TOKEN_NAME);
                 history.push(`.${APP_ROUTES.LOGIN}`);
-                client.cache.reset();
+                client.resetStore();
                 setUser(null);
               }}
             >

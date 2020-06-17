@@ -15,9 +15,12 @@ const cardInitialValues: CardType = {
 };
 
 export const CreatePersonaCard: FC = () => {
-  const { data } = useQuery<GetCardType>(GET_CARD);
-  const initialValues = data ? data.entity.card : cardInitialValues;
+  const { data, loading } = useQuery<GetCardType>(GET_CARD);
   const [updateCard] = useMutation<GetCardType>(UPDATE_CARD);
+  if (loading) {
+    return null;
+  }
+  const initialValues = data ? data.entity.card : cardInitialValues;
   return (
     <EntityCard
       nextPathName={APP_ROUTES.PERSONA_CREATION_STEP_3}
