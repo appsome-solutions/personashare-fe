@@ -22,9 +22,9 @@ export const RecommendContactBook: FC<RecommendContactBookType> = ({ entity }) =
 
   return (
     <MainComponent>
-      {!!entity.networkList.length && <RecommendText>Recommend</RecommendText>}
+      {!!entity.recommendList.length && <RecommendText>Recommend</RecommendText>}
       <Carousel ref={carousel}>
-        {entity.networkList.map((persona: AgregatedPersona) => (
+        {entity.recommendList.map((persona: AgregatedPersona) => (
           <PersonaCard card={persona.card} uuid={persona.uuid} key={persona.uuid} />
         ))}
       </Carousel>
