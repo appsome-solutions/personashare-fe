@@ -61,6 +61,17 @@ export const SAVE_SPOT = gql`
   mutation saveSpot($savedSpotUuid: String!) {
     saveSpot(savedSpotUuid: $savedSpotUuid) {
       uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+      }
     }
   }
 `;
@@ -246,6 +257,20 @@ export const GET_SPOT = gql`
         }
       }
       networkList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      participants {
         uuid
         card {
           name

@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 import { PersonaCardMini } from 'components/Statistics/PersonaCardMini';
 import { AgregatedPersona } from 'global/graphqls/schema';
 

@@ -25,10 +25,9 @@ const StyledCard = styled(Card)`
   && {
     width: 154px;
     height: 186px;
+    margin: 20px 0;
   }
 `;
-
-const BackgroundPlaceholderStyled = styled(BackgroundPlaceholderMini)``;
 
 const PersonaCircleWrapperStyled = styled(PersonaCircleWrapper)`
   && {
@@ -52,11 +51,11 @@ const PersonaCircleStyled = styled(PersonaCircle)`
 export const PersonaCardMini: FC<Props> = ({ card, onClick }) => {
   return (
     <StyledCard mt={31} mb={40} position="relative" onClick={onClick}>
-      <BackgroundPlaceholderStyled background={card.background} alt="Card background">
+      <BackgroundPlaceholderMini background={card.background} alt="Card background">
         <PersonaCircleWrapperStyled>
           <PersonaCircleStyled avatar={card.avatar} alt="Avatar card" />
         </PersonaCircleWrapperStyled>
-      </BackgroundPlaceholderStyled>
+      </BackgroundPlaceholderMini>
       <CardBodyStyled>
         <NameStyled>{card.name}</NameStyled>
         <DescriptionStyled>{card.description}</DescriptionStyled>

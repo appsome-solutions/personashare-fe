@@ -51,6 +51,8 @@ export const VisibilityOrNetwork: FC<PropsType> = ({
           </TextInInfo>
         </InformationUnderText>
         <CardsGrid
+          isWithAddParticipate={false}
+          isWithText={true}
           gridCardValue={gridCardValue}
           savedOrRecommend={savedOrRecommend}
           spotsOrPersonsText={spotsOrPersonsText}

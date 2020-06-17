@@ -11,11 +11,10 @@ import { RecommendButtonSpot } from 'components/RecommendButton/RecommendButtonS
 import { SaveSpotButton } from 'components/SaveEntity/SaveSpot';
 import { TopNav } from 'components/TopNav/TopNav';
 import { ManagerList } from 'components/SpotBook/ManagerList/ManagerList';
-import { ManagerListEditMode } from 'components/SpotBook/ManagerList/EditModeManager';
-import { APP_ROUTES } from 'global/AppRouter/routes';
 import { vh } from 'helpers/styled';
-import { RecommendContactBook } from '../ContactBook/RecommendListContact';
-import { PageWrapper } from '../PageWrapper';
+import { RecommendContactBook } from '../../components/ContactBook/RecommendListContact';
+import { PageWrapper } from '../../components/PageWrapper';
+import { ParticipantList } from '../ParticipantList/ParticipantList';
 
 type SpotPreviewType = {
   isEditMode?: boolean;
@@ -25,7 +24,6 @@ const MainComponent = styled.div`
   display: flex;
   flex-direction: column;
   max-height: ${(props) => props.theme.contentHeight};
-
   height: 100%;
   overflow: auto;
 `;
@@ -77,6 +75,7 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
         </StyledPageWrapper>
         <SecondPartSpot>
           <SaveSpotButton />
+          <ParticipantList />
         </SecondPartSpot>
       </MainComponent>
     </>
