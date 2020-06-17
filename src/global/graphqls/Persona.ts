@@ -219,6 +219,18 @@ export const GET_PERSONA = gql`
       }
       spotRecommendList {
         uuid
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
       }
       spotVisibilityList {
         uuid

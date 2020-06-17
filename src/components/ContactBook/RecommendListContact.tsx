@@ -14,17 +14,19 @@ const MainComponent = styled.div`
 `;
 
 type RecommendContactBookType = {
-  entity: AgregatedPersona | AgregatedSpot;
+  entity: AgregatedPersona;
 };
 
 export const RecommendContactBook: FC<RecommendContactBookType> = ({ entity }) => {
   const carousel = useRef<AntCarousel>(null);
 
+  const allRecommendation = [...entity.recommendList, ...entity.spotRecommendList];
+
   return (
     <MainComponent>
-      {!!entity.networkList.length && <RecommendText>Recommend</RecommendText>}
+      {!!allRecommendation.length && <RecommendText>Recommend</RecommendText>}
       <Carousel ref={carousel}>
-        {entity.networkList.map((persona: AgregatedPersona) => (
+        {allRecommendation.map((persona) => (
           <PersonaCard card={persona.card} uuid={persona.uuid} key={persona.uuid} />
         ))}
       </Carousel>
