@@ -10,7 +10,7 @@ import { PersonaCard } from 'components/PersonaCard/PersonaCard';
 import { Button } from 'components/Button';
 import Carousel from 'components/Carousel/Carousel';
 import { useUserContext } from 'global/UserContext/UserContext';
-import { gqlEntity } from 'global/graphqls/schema';
+import { AgregatedPersona, gqlEntity } from 'global/graphqls/schema';
 import { NavLink, useHistory } from 'react-router-dom';
 import AddIcon from 'assets/AddIcon.svg';
 import { APP_ROUTES } from 'global/AppRouter/routes';
@@ -18,6 +18,9 @@ import { MySpotsWithoutSpots } from '../MySpots/MySpotsWithoutSpots';
 import { Loader } from '../Loader/Loader';
 import { ShareQrComponent } from './ShareQrComponent';
 import { LoginOrHamburger } from '../QrScanner/LoginOrHamburger';
+import { GET_USER } from '../../global/graphqls/User';
+import { Overlay } from '../Overlay/Overlay';
+import { Spinner } from '../Spinner/Spinner';
 
 const StyledButton = styled(Button)`
   width: 80%;
@@ -72,17 +75,50 @@ const StyledPageWrapper = styled(PageWrapper)`
 
 export const MyPersona: FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { loading, data } = useQuery<GetPersonaType>(GET_PERSONAS);
-  const [setDefaultPersona] = useMutation<SetDefaultPersonaResponse>(SET_DEFAULT_PERSONA);
-  const { user } = useUserContext();
+  const { loading, data } = useQuery<{ userPersonas: Array<AgregatedPersona> }>(GET_PERSONAS);
+  const [setDefaultPersona, { loading: isSetDefaultPersonaLoading }] = useMutation<SetDefaultPersonaResponse>(
+    SET_DEFAULT_PERSONA
+  );
+  const { user, setUser } = useUserContext();
+  //todo: remove this unecessary state
   const [defaultPersonaUuid, setDefaultPersonaUuid] = useState(user?.defaultPersona);
   const carousel = useRef<AntCarousel>(null);
   const history = useHistory();
 
-  const handleSetDefault = async (uuid: string): Promise<void> => {
+  const handleSetDefault = async (persona: AgregatedPersona): Promise<void> => {
     try {
-      const { data } = await setDefaultPersona({ variables: { uuid: uuid } });
+      if (!user) {
+        return;
+      }
+
+      const { data } = await setDefaultPersona({
+        variables: { uuid: persona.uuid },
+        update(cache, { data }) {
+          if (!data) {
+            return;
+          }
+          const {
+            setDefaultPersona: { uuid },
+          } = data;
+          const { user } = cache.readQuery({ query: GET_USER }) as { user: any };
+          cache.writeQuery({
+            query: GET_USER,
+            data: {
+              user: {
+                ...user,
+                photo: persona.card.avatar ? persona.card.avatar : '',
+                defaultPersona: uuid,
+              },
+            },
+          });
+        },
+      });
       setDefaultPersonaUuid(data?.setDefaultPersona.uuid);
+      setUser({
+        ...user,
+        photo: persona.card.avatar ? persona.card.avatar : '',
+        defaultPersona: persona.uuid,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -90,12 +126,12 @@ export const MyPersona: FC = () => {
 
   useEffect(() => {
     if (data?.userPersonas) {
-      const defaultPersonaIndex = data.userPersonas.findIndex((persona) => persona.uuid === defaultPersonaUuid);
+      const defaultPersonaIndex = data.userPersonas.findIndex((persona) => persona.uuid === user?.defaultPersona);
       const goToIndex = defaultPersonaIndex === -1 ? 0 : defaultPersonaIndex;
       setCurrentSlide(goToIndex);
       carousel.current?.goTo(goToIndex);
     }
-  }, [data, defaultPersonaUuid]);
+  }, [data, defaultPersonaUuid, user?.defaultPersona]);
 
   const renderCarousel = useCallback(
     (userPersonas) => (
@@ -105,7 +141,7 @@ export const MyPersona: FC = () => {
           setCurrentSlide(currentIndex);
         }}
       >
-        {userPersonas.map((persona: gqlEntity) => (
+        {userPersonas.map((persona: AgregatedPersona) => (
           <CaruouselItem key={persona.uuid}>
             <Wrapper>
               <PersonaCard
@@ -118,17 +154,17 @@ export const MyPersona: FC = () => {
                   })
                 }
               />
-              {persona.uuid === defaultPersonaUuid ? (
+              {persona.uuid === user?.defaultPersona ? (
                 <DefaultBlock>DEFAULT</DefaultBlock>
               ) : (
-                <StyledButton onClick={() => handleSetDefault(persona.uuid)}>SET AS DEFAULT</StyledButton>
+                <StyledButton onClick={() => handleSetDefault(persona)}>SET AS DEFAULT</StyledButton>
               )}
             </Wrapper>
           </CaruouselItem>
         ))}
       </StyledCarousel>
     ),
-    [data?.userPersonas]
+    [data?.userPersonas, user?.defaultPersona]
   );
 
   // OR !data is used cause typescript doesn't know that data can no longer be undefined in return method
@@ -148,9 +184,9 @@ export const MyPersona: FC = () => {
     <div>
       <LoginOrHamburger />
       <StyledPageWrapper>
-        <Loader loading={loading} data={data}>
+        <Loader loading={loading || isSetDefaultPersonaLoading} data={data}>
           <PageWrapperSpaceBetween>
-            {data?.userPersonas && renderCarousel(data.userPersonas)}
+            {data?.userPersonas && renderCarousel(data?.userPersonas)}
             <ShareQrComponent qrCodeLink={data?.userPersonas[currentSlide].qrCodeLink} />
           </PageWrapperSpaceBetween>
           <NavLink to={APP_ROUTES.PERSONA_CREATION_STEP_1}>
