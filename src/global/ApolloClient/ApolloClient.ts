@@ -1,4 +1,4 @@
-import ApolloClient from 'apollo-boost';
+import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import { ErrorHandler } from 'apollo-link-error';
 import { GraphQLError } from 'graphql';
 import { merge } from 'lodash';
@@ -23,11 +23,16 @@ const logoutLink: ErrorHandler = (error) => {
   }
 };
 
-export const client = new ApolloClient({
+const cache = new InMemoryCache();
+
+const defaultData = {
+  entity: entityDefaults,
+};
+
+const client = new ApolloClient({
+  cache,
   clientState: {
-    defaults: {
-      entity: entityDefaults,
-    },
+    defaults: defaultData,
     resolvers: merge(entityResolvers),
   },
   uri: process.env.REACT_APP_GRAPHQL_API_URL || '',
@@ -43,3 +48,9 @@ export const client = new ApolloClient({
     });
   },
 });
+
+client.onResetStore(() => {
+  return new Promise(() => cache.writeData({ data: defaultData }));
+});
+
+export { client };

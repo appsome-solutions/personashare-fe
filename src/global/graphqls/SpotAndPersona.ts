@@ -9,7 +9,7 @@ export type GetPageType = {
 
 export const GET_PAGE = gql`
   {
-    entity {
+    entity @client {
       page {
         background
         avatar
@@ -29,7 +29,7 @@ export type GetCardType = {
 
 export const GET_CARD = gql`
   {
-    entity {
+    entity @client {
       card {
         name
         description
