@@ -34,10 +34,11 @@ const EditBgIcon = styled.img`
 type BackgroundPlaceholderProps = {
   alt: string;
   background?: string;
+  className?: any;
 };
 
-export const BackgroundPlaceholder: FC<BackgroundPlaceholderProps> = ({ background, children, alt }) => (
-  <Placeholder>
+export const BackgroundPlaceholder: FC<BackgroundPlaceholderProps> = ({ background, children, alt, className }) => (
+  <Placeholder className={className}>
     <BgWrapper>
       <BgImage src={background || BgPlaceholder} alt={alt} />
     </BgWrapper>
