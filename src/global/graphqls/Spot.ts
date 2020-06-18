@@ -30,8 +30,8 @@ export interface ParticipateResponse {
 }
 
 export const PARTICIPATE = gql`
-  mutation participate($personaId: String!, $spotId: String!) {
-    participate(personaId: $personaId, spotId: $spotId) {
+  mutation participate($spotId: String!) {
+    participate(spotId: $spotId) {
       uuid
     }
   }

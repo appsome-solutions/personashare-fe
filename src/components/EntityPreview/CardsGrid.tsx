@@ -71,9 +71,8 @@ export const CardsGrid: FC<PropsType> = ({
 }) => {
   const [limit, setLimit] = useState(4);
   const { uuid } = useParams();
-  const { user } = useUserContext();
   const [addParticipate] = useMutation<ParticipateResponse>(PARTICIPATE, {
-    variables: { spotId: uuid, personaId: user?.defaultPersona },
+    variables: { spotId: uuid },
   });
 
   const handleClick = () => {
