@@ -43,6 +43,7 @@ export interface LinkProps {
   CreateOrSave: string;
   stepperNumbers: number[];
   currentNumber: number;
+  fileList?: UploadFile[];
   onPageSubmitCreateOrUpdate?: (arg: {
     variables: {
       payload: {
@@ -79,6 +80,7 @@ export const EntityPage: FC<LinkProps> = ({
   onPageSubmitCreateOrUpdate,
   stepperNumbers,
   currentNumber,
+  fileList,
 }) => {
   const { getCurrentUser } = useFirebase();
   const { storageRef } = useStorage();
@@ -235,6 +237,7 @@ export const EntityPage: FC<LinkProps> = ({
     onRemoveFile: (file) => {
       delete userAssetsList[file.name];
     },
+    assetsList: fileList || [],
   };
 
   const managerListEditModeProps: InvitationsProps = {

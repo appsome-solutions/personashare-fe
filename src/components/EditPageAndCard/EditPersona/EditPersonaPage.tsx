@@ -54,6 +54,7 @@ export const EditPersonaPage: FC = () => {
       card={spotData.entity.card}
       onPageSubmitCreateOrUpdate={updatePersona}
       initialValues={initialValues}
+      fileList={data.persona?.page?.fileList}
       nextStepPath={APP_ROUTES.MY_PERSONAS}
       nameSpotOrPersona="Persona"
       previousStepPath={APP_ROUTES.EDIT_PERSONA_UUID_STEP_2(uuid)}
