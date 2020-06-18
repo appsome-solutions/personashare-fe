@@ -14,9 +14,7 @@ export const PrivateRoute = ({ component: Component, ...rest }: Props) => {
     <Route
       {...rest}
       render={(props) => {
-        if (user && user.defaultPersona) {
-          return <Component {...props} />;
-        } else if (user && !user.defaultPersona && pathname.match(/\/creation.*\/entity\/persona/)?.length) {
+        if (user && !user.defaultPersona && !pathname.match(/\/creation.*\/entity\/persona/)?.length) {
           return (
             <Redirect
               to={{
@@ -25,6 +23,8 @@ export const PrivateRoute = ({ component: Component, ...rest }: Props) => {
               }}
             />
           );
+        } else if (user) {
+          return <Component {...props} />;
         }
         return (
           <Redirect
