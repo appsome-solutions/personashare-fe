@@ -19,8 +19,6 @@ import { Loader } from '../Loader/Loader';
 import { ShareQrComponent } from './ShareQrComponent';
 import { LoginOrHamburger } from '../QrScanner/LoginOrHamburger';
 import { GET_USER } from '../../global/graphqls/User';
-import { Overlay } from '../Overlay/Overlay';
-import { Spinner } from '../Spinner/Spinner';
 
 const StyledButton = styled(Button)`
   width: 80%;

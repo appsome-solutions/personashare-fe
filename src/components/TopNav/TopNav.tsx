@@ -62,6 +62,7 @@ export const TopNav = ({ isWithBackArrow }: TopNavType) => {
   const history = useHistory();
   const { user } = useUserContext();
   const { loading: isPersonaLoading, data: personaData } = useQuery<GetCardType>(GET_PERSONA, {
+    skip: !user,
     variables: { uuid: user?.defaultPersona },
   });
 
@@ -77,7 +78,7 @@ export const TopNav = ({ isWithBackArrow }: TopNavType) => {
           <BackText>BACK</BackText>
         </BackWrapper>
       )}
-      {user && personaData && (
+      {user && personaData && user.defaultPersona && (
         <Link to={`${APP_ROUTES.MY_PERSONAS}`}>
           <RightProfile>
             <CircleStyled>
