@@ -10,6 +10,7 @@ export interface PageProps {
 
 const BackgroundPlaceholderStyle = styled(BackgroundPlaceholder)`
   width: 100%;
+  border-radius: 0px;
 `;
 
 const PersonaCircleWrapperStyle = styled(PersonaCircleWrapper)`
