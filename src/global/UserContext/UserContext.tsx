@@ -23,9 +23,9 @@ const shouldSkip = () => {
     const decodedToken = jwtDecode(localStorage.getItem(PS_TOKEN_NAME) as string) as any;
     // isTokenExpired:
     if (Date.now() >= decodedToken.exp * 1000) {
-      return false;
+      return true;
     }
-    return true;
+    return false;
   } catch (error) {
     // token is invalid
     return true;
