@@ -146,6 +146,7 @@ export const MyPersona: FC = () => {
                 card={persona.card}
                 uuid={persona.uuid}
                 isWithEdit={true}
+                isDefaultPersona={persona.uuid === user?.defaultPersona}
                 onClick={() =>
                   history.push({
                     pathname: `${APP_ROUTES.MY_PERSONA_PREVIEW(persona.uuid)}`,
@@ -185,7 +186,7 @@ export const MyPersona: FC = () => {
         <Loader loading={loading || isSetDefaultPersonaLoading} data={data}>
           <PageWrapperSpaceBetween>
             {data?.userPersonas && renderCarousel(data?.userPersonas)}
-            <ShareQrComponent qrCodeLink={data?.userPersonas[currentSlide].qrCodeLink} />
+            <ShareQrComponent qrCodeLink={data?.userPersonas[currentSlide]?.qrCodeLink} />
           </PageWrapperSpaceBetween>
           <NavLink to={APP_ROUTES.PERSONA_CREATION_STEP_1}>
             <CreatePersona>

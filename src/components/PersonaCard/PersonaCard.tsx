@@ -12,6 +12,7 @@ type Props = {
   uuid: string;
   isWithEdit?: boolean;
   onClick?: any;
+  isDefaultPersona?: boolean;
 };
 
 const NameStyled = styled.div`
@@ -26,14 +27,14 @@ const StyledCard = styled(Card)`
   width: 262px;
 `;
 
-export const PersonaCard: FC<Props> = ({ card, uuid, isWithEdit, onClick }) => {
+export const PersonaCard: FC<Props> = ({ card, uuid, isWithEdit, onClick, isDefaultPersona }) => {
   return (
     <StyledCard mt={31} mb={40} position="relative" onClick={onClick} className="PersonaCardMain">
       <BackgroundPlaceholder background={card.background} alt="Card background">
         <PersonaCircleWrapper>
           <PersonaCircle avatar={card.avatar} alt="Avatar card" />
         </PersonaCircleWrapper>
-        {isWithEdit && <EditRemoveMenu uuid={uuid} />}
+        {isWithEdit && <EditRemoveMenu uuid={uuid} isDefaultPersona={isDefaultPersona} />}
       </BackgroundPlaceholder>
       <CardBody>
         <NameStyled>{card.name}</NameStyled>
