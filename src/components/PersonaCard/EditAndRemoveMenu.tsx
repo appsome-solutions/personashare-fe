@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Dropdown, Menu } from 'antd';
+import { Dropdown, Menu, message } from 'antd';
 import styled from 'styled-components';
 import EditIcon from 'assets/EditIcon.svg';
 import RemoveIcon from 'assets/RemoveIcon.svg';
@@ -71,7 +71,6 @@ const StyledOverlay = styled(Overlay)`
 `;
 
 export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPersona }) => {
-  const { setUser } = useUserContext();
   const { pathname } = useLocation();
   const { user } = useUserContext();
   const { data: userPersonasData } = useQuery<{ userPersonas: Array<AgregatedPersona> }>(GET_PERSONAS);
@@ -86,8 +85,6 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
     variables: { personaUuid: uuid },
     update(cache) {
       const { userPersonas } = cache.readQuery({ query: GET_PERSONAS }) as { userPersonas: any };
-      console.log(userPersonas);
-      console.log(_.filter(userPersonas, (userPersona) => userPersona.uuid !== uuid));
       cache.writeQuery({
         query: GET_PERSONAS,
         data: { userPersonas: _.filter(userPersonas, (userPersona) => userPersona.uuid !== uuid) },
@@ -102,7 +99,8 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
           return persona.uuid !== uuid;
         });
 
-        // if removed last default persona:
+        // todo: when BE will support removing default persona
+        /*// if removed last default persona:
         if (userPersonasData.userPersonas.length <= 2) {
           const { user } = client.cache.readQuery({ query: GET_USER }) as { user: any };
           client.cache.writeQuery({
@@ -116,32 +114,31 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
             },
           });
           setUser(null);
-        } else {
-          setDefaultPersona({
-            variables: {
-              uuid: userPersonasIdWithoutRemoved[0].uuid,
-            },
-            update(cache, { data }) {
-              if (!data) {
-                return;
-              }
-              const {
-                setDefaultPersona: { uuid },
-              } = data;
-              const { user } = cache.readQuery({ query: GET_USER }) as { user: any };
-              cache.writeQuery({
-                query: GET_USER,
-                data: {
-                  user: {
-                    ...user,
-                    photo: personaData.persona.card.avatar ? personaData.persona.card.avatar : '',
-                    defaultPersona: uuid,
-                  },
+        } else {*/
+        setDefaultPersona({
+          variables: {
+            uuid: userPersonasIdWithoutRemoved[0].uuid,
+          },
+          update(cache, { data }) {
+            if (!data) {
+              return;
+            }
+            const {
+              setDefaultPersona: { uuid },
+            } = data;
+            const { user } = cache.readQuery({ query: GET_USER }) as { user: any };
+            cache.writeQuery({
+              query: GET_USER,
+              data: {
+                user: {
+                  ...user,
+                  photo: personaData.persona.card.avatar ? personaData.persona.card.avatar : '',
+                  defaultPersona: uuid,
                 },
-              });
-            },
-          });
-        }
+              },
+            });
+          },
+        });
       }
     },
   });
@@ -194,9 +191,19 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
     }
   };
 
+  const removePersonaIfNotLastOne = () => {
+    if (userPersonasData?.userPersonas.length === 1) {
+      message.error(
+        `You need to have at least one persona on your profile. We propose to create new persona before deleting actually selected.`
+      );
+    } else {
+      personaRemove();
+    }
+  };
+
   const RemoveFunctionality = () => (
     <MenuRemoveStyled>
-      <EditAndRemoveBox onClick={() => (pathname.includes('personas') ? personaRemove() : spotRemove())}>
+      <EditAndRemoveBox onClick={() => (pathname.includes('personas') ? removePersonaIfNotLastOne() : spotRemove())}>
         Remove
         <img src={RemoveIcon} alt="Remove Icon" />
       </EditAndRemoveBox>
