@@ -23,12 +23,12 @@ export const NetworkPersona: FC = () => {
       </Overlay>
     );
   }
+
   return (
     <VisibilityOrNetwork
       gridCardValue={data?.persona.networkList}
       savedOrRecommend="recommend"
       spotsOrPersonsText="persona"
-      link={APP_ROUTES.PERSONA_PREVIEW}
       visibilityOrNetwork="network"
     />
   );

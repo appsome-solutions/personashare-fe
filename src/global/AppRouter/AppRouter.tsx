@@ -30,13 +30,9 @@ import { SpotBook } from 'components/SpotBook/SpotBook';
 import { PersonaPreview } from 'components/PersonaPreview/PersonaPreview';
 import { SpotPreview } from 'components/SpotPreview/SpotPreview';
 import { SpotInvitation } from 'components/SpotBook/ManagerList/SpotInvitation';
-import { MyPersonaPreview } from 'pages/MyPersonaPreview/MyPersonasPreview';
-import { NetworkPersona } from 'pages/MyPersonaPreview/NetworkPersona';
-import { NetworkSpot } from 'pages/MySpotPreview/NetworkSpot';
-import { MySpotPreview } from 'pages/MySpotPreview/MySpotPreview';
-import { VisibilitySpot } from 'pages/MySpotPreview/VisibilitySpot';
-import { VisibilityPersona } from 'pages/MyPersonaPreview/VisibilityPersona';
 import QuillEditor from 'components/QuillEditor/QuillEditor';
+import { NavigationPersonaStats } from 'components/Statistics/NavigationPersonaStats';
+import { NavigationSpotStats } from 'components/Statistics/NavigationSpotStats';
 
 export const AppRouter: FunctionComponent = () => {
   return (
@@ -71,12 +67,8 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.PERSONA_PREVIEW(':uuid')} exact component={PersonaPreview} />
       <Route path={APP_ROUTES.SPOT_PREVIEW(':uuid')} exact component={SpotPreview} />
       <Route path={APP_ROUTES.SPOT_INVITATION(':uuid')} exact component={SpotInvitation} />
-      <Route path={APP_ROUTES.MY_PERSONA_PREVIEW(':uuid')} exact component={MyPersonaPreview} />
-      <Route path={APP_ROUTES.MY_PERSONA_PREVIEW_TAB(':uuid', 'visibility')} exact component={VisibilityPersona} />
-      <Route path={APP_ROUTES.MY_PERSONA_PREVIEW_TAB(':uuid', 'network')} exact component={NetworkPersona} />
-      <Route path={APP_ROUTES.MY_SPOT_PREVIEW(':uuid')} exact component={MySpotPreview} />
-      <Route path={APP_ROUTES.MY_SPOT_PREVIEW_TAB(':uuid', 'visibility')} exact component={VisibilitySpot} />
-      <Route path={APP_ROUTES.MY_SPOT_PREVIEW_TAB(':uuid', 'network')} exact component={NetworkSpot} />
+      <Route path={APP_ROUTES.MY_PERSONA_PREVIEW(':uuid')} exact component={NavigationPersonaStats} />
+      <Route path={APP_ROUTES.MY_SPOT_PREVIEW(':uuid')} exact component={NavigationSpotStats} />
     </Switch>
   );
 };

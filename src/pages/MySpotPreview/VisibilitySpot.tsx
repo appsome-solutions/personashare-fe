@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { APP_ROUTES } from 'global/AppRouter/routes';
 import { useQuery } from '@apollo/react-hooks';
 import { Overlay } from 'components/Overlay/Overlay';
 import { Spinner } from 'components/Spinner/Spinner';
@@ -27,7 +26,6 @@ export const VisibilitySpot: FC = () => {
       gridCardValue={data?.spot?.visibilityList}
       savedOrRecommend="saved"
       spotsOrPersonsText="persona"
-      link={APP_ROUTES.SPOT_PREVIEW}
       visibilityOrNetwork="visibility"
     />
   );

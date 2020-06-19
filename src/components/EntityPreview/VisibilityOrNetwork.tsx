@@ -1,17 +1,12 @@
 import React, { FC } from 'react';
-import { TopNav } from 'components/TopNav/TopNav';
-import { StatsNavigationPersona } from 'components/Statistics/StatsNavigationPersona';
 import styled from 'styled-components';
 import { InfoCard } from 'components/InfoCard/InfoCard';
-import { useLocation } from 'react-router-dom';
-import { StatsNavigationSpot } from '../Statistics/StatsNavigationSpot';
 import { CardsGrid } from './CardsGrid';
 
 export interface PropsType {
   gridCardValue: any;
   savedOrRecommend: string;
   spotsOrPersonsText: string;
-  link: any;
   visibilityOrNetwork: string;
 }
 
@@ -36,27 +31,20 @@ export const VisibilityOrNetwork: FC<PropsType> = ({
   gridCardValue,
   savedOrRecommend,
   spotsOrPersonsText,
-  link,
   visibilityOrNetwork,
 }) => {
-  const { pathname } = useLocation();
   return (
-    <>
-      <TopNav isWithBackArrow />
-      {pathname.includes('persona') ? <StatsNavigationPersona /> : <StatsNavigationSpot />}
-      <PersonaPreviewWrapper>
-        <InformationUnderText title="">
-          <TextInInfo>
-            In a {visibilityOrNetwork} tab you can see how many people {savedOrRecommend} your default persona.
-          </TextInInfo>
-        </InformationUnderText>
-        <CardsGrid
-          gridCardValue={gridCardValue}
-          savedOrRecommend={savedOrRecommend}
-          spotsOrPersonsText={spotsOrPersonsText}
-          link={link}
-        />
-      </PersonaPreviewWrapper>
-    </>
+    <PersonaPreviewWrapper>
+      <InformationUnderText title="">
+        <TextInInfo>
+          In a {visibilityOrNetwork} tab you can see how many people {savedOrRecommend} your default persona.
+        </TextInInfo>
+      </InformationUnderText>
+      <CardsGrid
+        gridCardValue={gridCardValue}
+        savedOrRecommend={savedOrRecommend}
+        spotsOrPersonsText={spotsOrPersonsText}
+      />
+    </PersonaPreviewWrapper>
   );
 };

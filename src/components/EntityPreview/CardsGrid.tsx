@@ -7,7 +7,6 @@ export interface PropsType {
   gridCardValue: any;
   savedOrRecommend: string;
   spotsOrPersonsText: string;
-  link: any;
 }
 
 const HowManyUsers = styled.div`
@@ -39,7 +38,7 @@ const SeeMoreStyled = styled.div`
   margin-bottom: 20px;
 `;
 
-export const CardsGrid: FC<PropsType> = ({ gridCardValue, savedOrRecommend, spotsOrPersonsText, link }) => {
+export const CardsGrid: FC<PropsType> = ({ gridCardValue, savedOrRecommend, spotsOrPersonsText }) => {
   const [limit, setLimit] = useState(4);
 
   const handleClick = () => {
@@ -72,7 +71,6 @@ export const CardsGrid: FC<PropsType> = ({ gridCardValue, savedOrRecommend, spot
                 visibilityOrNetworkQuery={gridCardValue}
                 key={spotsOrPersonsText.uuid}
                 spotOrPersona={spotsOrPersonsText}
-                link={link}
               />
             ))}
           </ComponentWithTable>
