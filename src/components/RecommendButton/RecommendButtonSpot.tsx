@@ -10,6 +10,7 @@ import { GET_USER } from 'global/graphqls/User';
 import _ from 'lodash';
 import { RECOMMEND_SPOT, RecommendSpotResponse } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
+import { useUserContext } from '../../global/UserContext/UserContext';
 
 const RecommendEmpty = styled.img`
   align-self: flex-end;
@@ -20,13 +21,14 @@ const RecommendEmpty = styled.img`
 
 export const RecommendButtonSpot: FC = () => {
   const { uuid } = useParams();
-  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
+  const { user } = useUserContext();
 
   const [recommendSpot] = useMutation<RecommendSpotResponse>(RECOMMEND_SPOT, {
     variables: { recommendedSpotUuid: uuid },
   });
   const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
-    variables: { uuid: userPersona?.user?.defaultPersona },
+    variables: { uuid: user?.defaultPersona },
+    skip: !user,
   });
 
   if (!uuid || !data) {

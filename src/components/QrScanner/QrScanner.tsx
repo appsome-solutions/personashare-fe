@@ -97,7 +97,7 @@ const Zoom = ({ webcamRef }: any) => {
     // todo: think about better way of doing it
     for (let time = 300; time <= 1500; time += 300) {
       setTimeout(() => {
-        if (isZoomSupported) {
+        if (isZoomSupported || !webcamRef.current) {
           return;
         }
         const track = webcamRef.current.stream.getVideoTracks()[0];
