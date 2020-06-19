@@ -161,8 +161,6 @@ export const QrScanner = ({ onError, onUserMediaError, className, videoConstrain
     });
   }, [webcamRef, onError]);
 
-  setTimeout(() => console.log(webcamRef), 1000);
-
   useWorkerDecode({ capture, interval: interval, onCode: redirectToQr, workerRef });
 
   return (
