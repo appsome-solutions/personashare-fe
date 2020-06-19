@@ -9,11 +9,16 @@ import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { TopNav } from 'components/TopNav/TopNav';
 import { StatsNavigationPersona } from 'components/Statistics/StatsNavigationPersona';
 import { RecommendContactBook } from 'components/ContactBook/RecommendListContact';
-import { PageWrapper } from 'components/PageWrapper';
 import styled from 'styled-components';
+import { PageWrapper } from '../../components/PageWrapper';
+
+const StyledRecommendContactBook = styled(RecommendContactBook)`
+  padding: 0 16px;
+`;
 
 const StyledPageWrapper = styled(PageWrapper)`
-  height: auto;
+  padding: 0px;
+  height: ;
 `;
 
 export const MyPersonaPreview: FC = () => {
@@ -38,9 +43,9 @@ export const MyPersonaPreview: FC = () => {
     <>
       <TopNav isWithBackArrow />
       <StatsNavigationPersona />
-      <EntityPreview uuidQuery={data.persona.uuid} entityPage={data.persona.page} />
       <StyledPageWrapper>
-        <RecommendContactBook entity={data.persona} />
+        <EntityPreview uuidQuery={data.persona.uuid} entityPage={data.persona.page} />
+        <StyledRecommendContactBook entity={data.persona} />
       </StyledPageWrapper>
     </>
   );
