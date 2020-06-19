@@ -2,7 +2,7 @@ import React, { ReactPortal } from 'react';
 import { createPortal } from 'react-dom';
 import { Quill } from 'react-quill';
 import { v4 } from 'uuid';
-import { UploadAssets } from '../../UploadAssets/UploadAssets';
+import { UploadAssets, UploadAssetsProps } from 'components/UploadAssets/UploadAssets';
 
 const BlockEmbed = Quill.import('blots/block/embed');
 
@@ -31,12 +31,9 @@ class EmbedUploadAssets extends BlockEmbed {
     return node;
   }
 
-  renderPortal(id: string | number): ReactPortal {
+  renderPortal(id: string | number, props: UploadAssetsProps, editable: boolean): ReactPortal {
     this.domNode.setAttribute('data-id', String(id));
-    return createPortal(
-      <UploadAssets onAddFile={() => console.log('file added')} onRemoveFile={() => console.log('file removed')} />,
-      this.domNode
-    );
+    return createPortal(<UploadAssets {...props} asPreview={!editable} />, this.domNode);
   }
   attach() {
     super.attach();

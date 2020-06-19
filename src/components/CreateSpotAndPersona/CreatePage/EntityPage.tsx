@@ -27,8 +27,8 @@ import {
 } from 'pages/CreatePersona/helpers';
 import { AssetBlob, AssetType, getUrls, uploadAssets } from './uploadAssets';
 import { ExecutionResult } from 'graphql';
-import { UploadAssets } from '../../UploadAssets/UploadAssets';
-import { ManagerListEditMode } from '../../SpotBook/ManagerList/EditModeManager';
+import { UploadAssets, UploadAssetsProps } from '../../UploadAssets/UploadAssets';
+import { InvitationsProps, ManagerListEditMode } from '../../SpotBook/ManagerList/EditModeManager';
 import { useMutation } from '@apollo/react-hooks';
 import { CLEAR_CARD, GetCardType } from '../../../global/graphqls/SpotAndPersona';
 import { UploadFile } from 'antd/es/upload/interface';
@@ -43,6 +43,7 @@ export interface LinkProps {
   CreateOrSave: string;
   stepperNumbers: number[];
   currentNumber: number;
+  fileList?: UploadFile[];
   onPageSubmitCreateOrUpdate?: (arg: {
     variables: {
       payload: {
@@ -79,6 +80,7 @@ export const EntityPage: FC<LinkProps> = ({
   onPageSubmitCreateOrUpdate,
   stepperNumbers,
   currentNumber,
+  fileList,
 }) => {
   const { getCurrentUser } = useFirebase();
   const { storageRef } = useStorage();
@@ -221,6 +223,30 @@ export const EntityPage: FC<LinkProps> = ({
 
   const { avatarUpload, backgroundUpload, content } = values;
 
+  const uploadAssetsProps: UploadAssetsProps = {
+    onAddFile: (file) => {
+      setUserAssetsList({
+        ...userAssetsList,
+        [file.name]: {
+          name: file.name,
+          blob: file,
+          metaData: { customMetadata: { assetType: AssetType.USER_ASSET } },
+        },
+      });
+    },
+    onRemoveFile: (file) => {
+      delete userAssetsList[file.name];
+    },
+    assetsList: fileList || [],
+  };
+
+  const managerListEditModeProps: InvitationsProps = {
+    uuid,
+    onSpotCreationOrUpdate: (callback) => {
+      onSpotCreationOrUpdateArray.push(callback);
+    },
+  };
+
   return (
     <div>
       <TopNav isWithBackArrow />
@@ -248,7 +274,12 @@ export const EntityPage: FC<LinkProps> = ({
               <EditIndicator alt="Edit card" />
             </Flex>
             <Flex mt={10}>
-              <QuillEditor onChange={onEditorValueChange} initialValue={content} />
+              <QuillEditor
+                onChange={onEditorValueChange}
+                initialValue={content}
+                uploadAssetsProps={uploadAssetsProps}
+                managerListProps={managerListEditModeProps}
+              />
             </Flex>
             {/* commented for UI testing */}
             {/*    <Flex mt={10}>

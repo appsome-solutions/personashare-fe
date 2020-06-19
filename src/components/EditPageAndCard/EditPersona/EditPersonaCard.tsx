@@ -32,7 +32,8 @@ export const EditPersonaCard: FC = () => {
   if (!data) {
     return null;
   }
-  const initialValues = data ? data.persona.card : cardInitialValues;
+
+  const initialValues = data.persona?.card || cardInitialValues;
 
   return (
     <EntityCard

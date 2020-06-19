@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import defer from 'lodash/defer';
 import isString from 'lodash/isString';
 import isEmpty from 'lodash/isEmpty';
+import isObject from 'lodash/isObject';
 import ReactQuill, { Quill as QuillClass } from 'react-quill';
 import { DrawerPage } from 'components/DrawerPage/DrawerPage';
 import 'react-quill/dist/quill.snow.css';
@@ -17,11 +18,17 @@ import Quill from 'quill';
 import { InlineButton } from './Buttons/InlineButton';
 import EmbedUploadAssets from './EmbedComponents/EmbedUploadAssets';
 import EmbedManagerList from './EmbedComponents/EmbedManagerList';
+import { UploadAssetsProps } from 'components/UploadAssets/UploadAssets';
+import { InvitationsProps } from 'components/SpotBook/ManagerList/EditModeManager';
 
 const StyledQuillContainer = styled.div`
   width: 100%;
 
   &&& > div > div {
+    border: none;
+  }
+
+  .ql-toolbar {
     border: none;
   }
 
@@ -83,10 +90,26 @@ const insertIntoEditor = (editor: Quill, value: string | boolean | number, type:
 
 const uploadAssetHandler = (editor: Quill): void => {
   const cursor = editor.getSelection()?.index || 0;
+  const delta = editor.getContents();
+  const isAlreadyInEditor = delta.ops
+    .map((el) => el.insert)
+    .some((item) => isObject(item) && Object.keys(item).includes('upload-asset'));
+  if (isAlreadyInEditor) {
+    insertIntoEditor(editor, '', 'h3');
+    return;
+  }
   editor.insertEmbed(cursor, 'upload-asset', {});
 };
 
 const managerListHandler = (editor: Quill): void => {
+  const delta = editor.getContents();
+  const isAlreadyInEditor = delta.ops
+    .map((el) => el.insert)
+    .some((item) => isObject(item) && Object.keys(item).includes('manager-list'));
+  if (isAlreadyInEditor) {
+    insertIntoEditor(editor, '', 'h3');
+    return;
+  }
   const cursor = editor.getSelection()?.index || 0;
   editor.insertEmbed(cursor, 'manager-list', {});
 };
@@ -100,6 +123,8 @@ type Props = {
   onChange?: (value: any) => void;
   initialValue?: string;
   editable?: boolean;
+  uploadAssetsProps?: UploadAssetsProps;
+  managerListProps?: InvitationsProps;
 };
 
 QuillClass.register(
@@ -110,7 +135,13 @@ QuillClass.register(
   true
 );
 
-const QuillEditor: FC<Props> = ({ onChange, initialValue = '', editable = true }) => {
+const QuillEditor: FC<Props> = ({
+  onChange,
+  initialValue = '',
+  editable = true,
+  uploadAssetsProps,
+  managerListProps,
+}) => {
   const [isRendered, setIsRendered] = useState(false);
   const [isRefAttached, setIsRefAttached] = useState(false);
   const [isTurnIntoVisible, setIsTurnIntoVisible] = useState(false);
@@ -119,6 +150,11 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '', editable = true }
   const [embedBlots, setEmbedBlots] = useState<any[]>([]);
   const ref = useRef<ReactQuill | null>(null);
   const turnIntoRef = useRef<boolean>(false);
+
+  const propsMapper: Record<string, UploadAssetsProps | InvitationsProps | undefined> = {
+    'upload-asset': uploadAssetsProps,
+    'manager-list': managerListProps,
+  };
 
   const editor = ref.current?.getEditor();
 
@@ -215,7 +251,11 @@ const QuillEditor: FC<Props> = ({ onChange, initialValue = '', editable = true }
           ref={ref}
         />
       )}
-      {isRendered && embedBlots?.map((embedBlot) => embedBlot.renderPortal(embedBlot.id))}
+      {isRendered &&
+        embedBlots?.map((embedBlot) => {
+          const componentProps = propsMapper[embedBlot.statics.blotName as string] || {};
+          return embedBlot.renderPortal(embedBlot.id, componentProps, editable);
+        })}
       {editable ? (
         <EditorBarWrapper id="toolbar">
           <ToggleabbleContainer isVisible={!isInlineVisible}>
