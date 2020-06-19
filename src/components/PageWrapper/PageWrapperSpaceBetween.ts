@@ -6,5 +6,5 @@ export const PageWrapperSpaceBetween = styled(PageWrapper)`
   position: relative;
   justify-content: space-between;
   padding-bottom: 36px;
-  padding-top: 31px;
+  padding-top: 32px;
 `;

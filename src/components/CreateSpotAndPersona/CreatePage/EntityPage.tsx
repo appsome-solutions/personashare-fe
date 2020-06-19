@@ -32,6 +32,7 @@ import { InvitationsProps, ManagerListEditMode } from '../../SpotBook/ManagerLis
 import { useMutation } from '@apollo/react-hooks';
 import { CLEAR_CARD, GetCardType } from '../../../global/graphqls/SpotAndPersona';
 import { UploadFile } from 'antd/es/upload/interface';
+import styled from 'styled-components';
 
 export interface LinkProps {
   previousStepPath: string;
@@ -68,6 +69,28 @@ const initialState: ImageRef = {
 type UploadAssetsState = {
   [name: string]: AssetBlob;
 };
+
+const StyledBackgroundPlaceholder = styled(BackgroundPlaceholder)`
+  margin: 36px 0 40px 0;
+  border-radius: 0;
+`;
+
+const StyledPageWrapper = styled(PageWrapperSpaceBetween)`
+  padding-left: 0;
+  padding-right: 0;
+`;
+
+const StyledStepper = styled(Stepper)`
+  margin: 0 16px 32px 16px;
+`;
+
+const StyledInfoCard = styled(InfoCard)`
+  padding 0 16px;
+`;
+
+const StyledWideButton = styled(WideButton)`
+  margin-top: 20px;
+`;
 
 export const EntityPage: FC<LinkProps> = ({
   previousStepPath,
@@ -255,24 +278,21 @@ export const EntityPage: FC<LinkProps> = ({
           <Spinner />
         </Overlay>
       )}
-      <PageWrapperSpaceBetween>
+      <StyledPageWrapper>
         <div>
-          <Stepper items={stepperNumbers} current={currentNumber} mb={31} />
-          <InfoCard title="Edit your page" mb={31}>
+          <StyledStepper items={stepperNumbers} current={currentNumber} mb={31} />
+          <StyledInfoCard title="Edit your page" mb={31}>
             Pages are fully predefined set of data you want to share with others. You can edit it however you want to.
-          </InfoCard>
+          </StyledInfoCard>
           <form id="page-form" onSubmit={handleSubmit}>
             <div>
-              <BackgroundPlaceholder background={backgroundUpload?.blobUrl || ''} alt="Card background">
+              <StyledBackgroundPlaceholder background={backgroundUpload?.blobUrl || ''} alt="Card background">
                 <FileInput onFileChange={onBgChange} name="backgroundUpload" id="background" accept="image/*" />
                 <PersonaCircleWrapper>
                   <PersonaCircle avatar={avatarUpload?.blobUrl || ''} alt="Avatar card" onAvatarSet={onAvatarChange} />
                 </PersonaCircleWrapper>
-              </BackgroundPlaceholder>
+              </StyledBackgroundPlaceholder>
             </div>
-            <Flex justifyContent="flex-end" mx={14} my={10}>
-              <EditIndicator alt="Edit card" />
-            </Flex>
             <Flex mt={10}>
               <QuillEditor
                 onChange={onEditorValueChange}
@@ -340,10 +360,10 @@ export const EntityPage: FC<LinkProps> = ({
             )}
           </form>
         </div>
-        <WideButton htmlType="submit" form="page-form" disabled={!isValid}>
+        <StyledWideButton htmlType="submit" form="page-form" disabled={!isValid}>
           {CreateOrSave} {nameSpotOrPersona}
-        </WideButton>
-      </PageWrapperSpaceBetween>
+        </StyledWideButton>
+      </StyledPageWrapper>
       <CropperWidget imageRef={imageRef} onCrop={onCrop} />
     </div>
   );

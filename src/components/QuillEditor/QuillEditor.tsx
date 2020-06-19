@@ -247,7 +247,7 @@ const QuillEditor: FC<Props> = ({
           }}
           onChangeSelection={handleSelectionChange}
           modules={Editor.modules}
-          placeholder={editable ? 'Edit card...' : ''}
+          placeholder={editable ? 'Tap here to use editor...' : ''}
           ref={ref}
         />
       )}

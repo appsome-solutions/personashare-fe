@@ -9,33 +9,25 @@ export interface EntityPreviewPropsType {
   entityPage: EntityPage;
 }
 
-const PersonaPreviewWrapper = styled.div`
-  height: ${(props) => props.theme.contentHeight};
-  overflow: auto;
-  background-color: ${(props) => props.theme.colors.utils.background.mid};
-`;
-
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: ${(props) => props.theme.colors.utils.background.mid};
 `;
 
 export const EntityPreview: FC<EntityPreviewPropsType> = ({ uuidQuery, entityPage }) => {
   return (
-    <>
-      <Wrapper key={uuidQuery}>
-        <EntityPageComp page={entityPage} />
-        <QuillEditor
-          editable={false}
-          initialValue={entityPage.content}
-          uploadAssetsProps={{
-            assetsList: entityPage.fileList,
-            asPreview: true,
-          }}
-        />
-      </Wrapper>
-      <PersonaPreviewWrapper />
-    </>
+    <Wrapper key={uuidQuery}>
+      <EntityPageComp page={entityPage} />
+      <QuillEditor
+        editable={false}
+        initialValue={entityPage.content}
+        uploadAssetsProps={{
+          assetsList: entityPage.fileList,
+          asPreview: true,
+        }}
+      />
+    </Wrapper>
   );
 };
