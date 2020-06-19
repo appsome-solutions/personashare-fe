@@ -8,6 +8,7 @@ import { Popconfirm } from 'antd';
 import { gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
 import _ from 'lodash';
+import { useUserContext } from '../../global/UserContext/UserContext';
 
 type RecommendPersona = {
   uuid: string;
@@ -20,12 +21,13 @@ const RecommendEmpty = styled.img`
 `;
 
 export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
-  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER, { fetchPolicy: 'network-only' });
+  const { user } = useUserContext();
   const [recommendPersona] = useMutation<RecommendPersonaResponse>(RECOMMEND_PERSONA, {
     variables: { recommendedPersonaUuid: uuid },
   });
   const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
-    variables: { uuid: userPersona?.user?.defaultPersona },
+    variables: { uuid: user?.defaultPersona },
+    skip: !user,
   });
 
   if (!uuid || !data) {

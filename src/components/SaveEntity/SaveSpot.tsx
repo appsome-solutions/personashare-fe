@@ -8,6 +8,7 @@ import _ from 'lodash';
 import { SAVE_SPOT, SaveSpotResponse } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import styled from 'styled-components';
+import { useUserContext } from '../../global/UserContext/UserContext';
 
 const ButtonSavedStyled = styled(WideButton)`
   && {
@@ -21,9 +22,10 @@ const ButtonSavedStyled = styled(WideButton)`
 
 export const SaveSpotButton: FC = () => {
   const { uuid } = useParams();
-  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
+  const { user } = useUserContext();
   const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
-    variables: { uuid: userPersona?.user?.defaultPersona },
+    variables: { uuid: user?.defaultPersona },
+    skip: !user,
   });
   const [saveSpot] = useMutation<SaveSpotResponse>(SAVE_SPOT, {
     variables: {

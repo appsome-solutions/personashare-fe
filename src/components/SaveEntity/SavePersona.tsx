@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
 import { WideButton } from 'components/Button';
+import { useUserContext } from '../../global/UserContext/UserContext';
 
 type SavePersonaUuid = {
   uuid: string;
@@ -22,9 +23,10 @@ const ButtonSavedStyled = styled(WideButton)`
 `;
 
 export const SavePersona: FC<SavePersonaUuid> = ({ uuid }) => {
-  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
+  const { user } = useUserContext();
   const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
-    variables: { uuid: userPersona?.user?.defaultPersona },
+    variables: { uuid: user?.defaultPersona },
+    skip: !user,
   });
   const [savePersona] = useMutation<SavePersonaResponse>(SAVE_PERSONA, {
     variables: {

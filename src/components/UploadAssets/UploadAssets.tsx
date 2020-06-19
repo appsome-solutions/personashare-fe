@@ -38,9 +38,9 @@ const UploadWrapper = styled.div`
   margin: 20px 0;
 `;
 
-type UploadAssetsProps = {
-  onAddFile(file: File): void;
-  onRemoveFile(file: UploadFile): void;
+export type UploadAssetsProps = {
+  onAddFile?: (file: File) => void;
+  onRemoveFile?: (file: UploadFile) => void;
   asImageUpload?: boolean;
   asPreview?: boolean;
   assetsList?: UploadFile[];
@@ -77,7 +77,7 @@ export const UploadAssets: FC<UploadAssetsProps> = ({
           return isLessThan10MB && !maximumFilesExceed;
         }}
         customRequest={(options) => {
-          onAddFile(options.file);
+          onAddFile?.(options.file);
           const url = URL.createObjectURL(options.file);
           const fileObj: UploadFile = {
             size: options.file.size,
@@ -95,7 +95,7 @@ export const UploadAssets: FC<UploadAssetsProps> = ({
         }}
         onRemove={(file) => {
           setFileList(fileList.filter((fileToRemove) => fileToRemove.uid !== file.uid));
-          onRemoveFile(file);
+          onRemoveFile?.(file);
           if (file.url) {
             URL.revokeObjectURL(file.url);
           }

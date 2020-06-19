@@ -57,7 +57,7 @@ const ClockIcon = styled(ClockCircleOutlined)`
   margin-right: 2px;
 `;
 
-type InvitationsProps = {
+export type InvitationsProps = {
   uuid: string;
   onSpotCreationOrUpdate: (arg: (arg0: any, values: SendInvitationPayload, arg2: any) => void) => void;
 };

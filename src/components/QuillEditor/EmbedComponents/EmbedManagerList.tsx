@@ -2,7 +2,8 @@ import React, { ReactPortal } from 'react';
 import { createPortal } from 'react-dom';
 import { Quill } from 'react-quill';
 import { v4 } from 'uuid';
-import { ManagerListEditMode } from '../../SpotBook/ManagerList/EditModeManager';
+import { InvitationsProps, ManagerListEditMode } from 'components/SpotBook/ManagerList/EditModeManager';
+import { ManagerList } from '../../SpotBook/ManagerList/ManagerList';
 
 const BlockEmbed = Quill.import('blots/block/embed');
 
@@ -31,12 +32,10 @@ class EmbedManagerList extends BlockEmbed {
     return node;
   }
 
-  renderPortal(id: string | number): ReactPortal {
+  renderPortal(id: string | number, props: InvitationsProps, editable: boolean): ReactPortal {
+    const ManagerListComponent = editable ? ManagerListEditMode : ManagerList;
     this.domNode.setAttribute('data-id', String(id));
-    return createPortal(
-      <ManagerListEditMode uuid={String(id)} onSpotCreationOrUpdate={() => console.log('spot created or updated')} />,
-      this.domNode
-    );
+    return createPortal(<ManagerListComponent {...props} />, this.domNode);
   }
   attach() {
     super.attach();

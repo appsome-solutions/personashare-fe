@@ -1,4 +1,4 @@
-import React, { useCallback, RefObject, useRef } from 'react';
+import React, { useCallback, RefObject, useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Webcam from 'react-webcam';
 import { QRCode } from 'jsqr';
@@ -7,8 +7,13 @@ import VideoOverlay from './VideoOverlay';
 import { useWorkerDecode } from './hooks/useWorkerDecode';
 import { LoginOrHamburger } from './LoginOrHamburger';
 import { useHistory } from 'react-router-dom';
+import { Slider } from 'antd';
 /* eslint-disable-next-line */
 import Worker from 'worker-loader!./../decodeWorker.worker';
+import { vh } from 'helpers/styled';
+import { Icon } from 'components/Icon';
+import AddSvg from 'assets/add-24px.svg';
+import RemoveSvg from 'assets/remove.svg';
 
 const Wrapper = styled.div`
   display: flex;
@@ -58,12 +63,87 @@ export type ImagePixels = {
   stride: number[];
 };
 
+const StyledSlider = styled(Slider)`
+  position: absolute;
+  z-index: 1000;
+  height: calc(${vh(100)} - 230px);
+  left: 8px;
+  top: 105px;
+`;
+
+const StyledAddIcon = styled(Icon)`
+  position: absolute;
+  left: 12px;
+  top: 75px;
+  z-index: 1000;
+  background-color: ${(props) => props.theme.colors.utils.text.light};
+`;
+
+const StyledRemoveIcon = styled(Icon)`
+  position: absolute;
+  left: 12px;
+  bottom: 75px;
+  z-index: 1000;
+  background-color: ${(props) => props.theme.colors.utils.text.light};
+`;
+
+const Zoom = ({ webcamRef }: any) => {
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(10);
+  const [step, setStep] = useState(1);
+  const [isZoomSupported, setIsZoomSupported] = useState(false);
+
+  useEffect(() => {
+    // todo: think about better way of doing it
+    for (let time = 300; time <= 1500; time += 300) {
+      setTimeout(() => {
+        if (isZoomSupported || !webcamRef.current) {
+          return;
+        }
+        const track = webcamRef.current.stream.getVideoTracks()[0];
+        const capabilities = track.getCapabilities();
+        // const settings = track.getSettings();
+
+        // not supported zoom
+        if (!('zoom' in capabilities)) {
+          return;
+        }
+        setIsZoomSupported(true);
+        setMin(capabilities.zoom.min);
+        setMax(capabilities.zoom.max);
+        setStep(capabilities.zoom.step);
+      }, time);
+    }
+  });
+
+  if (!webcamRef || !isZoomSupported) {
+    return null;
+  }
+
+  return (
+    <>
+      <StyledAddIcon svgLink={AddSvg} />
+      <StyledSlider
+        min={min}
+        max={max}
+        vertical
+        onChange={(value) =>
+          webcamRef.current.stream.getVideoTracks()[0].applyConstraints({ advanced: [{ zoom: value }] })
+        }
+        step={step}
+      />
+      <StyledRemoveIcon svgLink={RemoveSvg} />
+    </>
+  );
+};
+
 export const QrScanner = ({ onError, onUserMediaError, className, videoConstraints, interval, buttonMode }: Props) => {
   const workerRef = useRef<Worker | null>(null);
   const history = useHistory();
   const redirectToQr = useCallback((decodedQr: QRCode): void => {
     history.push(new URL(decodedQr.data).pathname);
   }, []);
+  const [isWebcamStreamVisible, setIsWebcamStreamVisible] = useState(false);
   const webcamRef = React.useRef<Webcam>(null);
 
   const capture = useCallback(() => {
@@ -88,13 +168,20 @@ export const QrScanner = ({ onError, onUserMediaError, className, videoConstrain
       <LoginOrHamburger />
       <Wrapper>
         <VideoOverlay />
+        {isWebcamStreamVisible && <Zoom webcamRef={webcamRef} />}
         <StyledWebcam
           className={className}
           audio={false}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
+          screenshotQuality={1}
           forceScreenshotSourceSize
           videoConstraints={videoConstraints}
+          onUserMedia={() => {
+            if (!isWebcamStreamVisible) {
+              setIsWebcamStreamVisible(true);
+            }
+          }}
           onUserMediaError={onUserMediaError}
         />
         {buttonMode ? <Button onClick={capture} /> : null}
