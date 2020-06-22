@@ -12,6 +12,7 @@ import { SaveSpotButton } from 'components/SaveEntity/SaveSpot';
 import { TopNav } from 'components/TopNav/TopNav';
 import { ManagerList } from 'components/SpotBook/ManagerList/ManagerList';
 import { vh } from 'helpers/styled';
+import { ParticipantList } from '../ParticipantList/ParticipantList';
 
 type SpotPreviewType = {
   isEditMode?: boolean;
@@ -21,7 +22,6 @@ const MainComponent = styled.div`
   display: flex;
   flex-direction: column;
   max-height: ${(props) => props.theme.contentHeight};
-
   height: 100%;
   overflow: auto;
 `;
@@ -65,6 +65,7 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
         {isEditMode && <ManagerList />}
         <SecondPartSpot>
           <SaveSpotButton />
+          <ParticipantList />
         </SecondPartSpot>
       </MainComponent>
     </>

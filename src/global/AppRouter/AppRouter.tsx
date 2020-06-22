@@ -28,7 +28,7 @@ import { ContactBook } from 'components/ContactBook/ContactBook';
 import { APP_ROUTES } from './routes';
 import { SpotBook } from 'components/SpotBook/SpotBook';
 import { PersonaPreview } from 'components/PersonaPreview/PersonaPreview';
-import { SpotPreview } from 'components/SpotPreview/SpotPreview';
+import { SpotPreview } from 'pages/SpotPreview/SpotPreview';
 import { SpotInvitation } from 'components/SpotBook/ManagerList/SpotInvitation';
 import QuillEditor from 'components/QuillEditor/QuillEditor';
 import { NavigationPersonaStats } from 'components/Statistics/NavigationPersonaStats';
