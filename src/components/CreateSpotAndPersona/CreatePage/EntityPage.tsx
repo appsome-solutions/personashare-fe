@@ -82,6 +82,7 @@ const StyledPageWrapper = styled(PageWrapperSpaceBetween)`
 
 const StyledStepper = styled(Stepper)`
   margin: 0 16px 32px 16px;
+  width: auto;
 `;
 
 const StyledInfoCard = styled(InfoCard)`

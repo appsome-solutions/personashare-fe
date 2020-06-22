@@ -34,10 +34,6 @@ export const SavePersona: FC<SavePersonaUuid> = ({ uuid }) => {
     },
   });
 
-  if (!uuid || !data) {
-    return null;
-  }
-
   const onClickFunctions = async () => {
     await savePersona();
     await refetch();

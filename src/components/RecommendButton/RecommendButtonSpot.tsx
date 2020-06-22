@@ -5,18 +5,16 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import recommendOn from 'assets/recommendOn.svg';
 import { useParams } from 'react-router-dom';
 import { Popconfirm } from 'antd';
-import { gqlUser } from 'global/graphqls/schema';
-import { GET_USER } from 'global/graphqls/User';
 import _ from 'lodash';
 import { RECOMMEND_SPOT, RecommendSpotResponse } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
-import { useUserContext } from '../../global/UserContext/UserContext';
+import { useUserContext } from 'global/UserContext/UserContext';
 
 const RecommendEmpty = styled.img`
   align-self: flex-end;
   position: relative;
   right: 20px;
-  top: -21px;
+  top: -60px;
 `;
 
 export const RecommendButtonSpot: FC = () => {
@@ -30,10 +28,6 @@ export const RecommendButtonSpot: FC = () => {
     variables: { uuid: user?.defaultPersona },
     skip: !user,
   });
-
-  if (!uuid || !data) {
-    return null;
-  }
 
   const onConfirmFunctions = async () => {
     await recommendSpot();
