@@ -12,6 +12,7 @@ import styled from 'styled-components';
 const StyledPageWrapper = styled(PageWrapper)`
   height: ${(props) => props.theme.contentHeightWithTabs};
   padding: 0;
+  padding-top: 96px;
 `;
 
 export const MySpotPreview: FC = () => {
