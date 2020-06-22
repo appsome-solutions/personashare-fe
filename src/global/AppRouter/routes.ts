@@ -29,7 +29,5 @@ export const APP_ROUTES = {
   SPOT_PREVIEW: (uuid: string) => `/spot/${uuid}`,
   SPOT_INVITATION: (uuid: string) => `/spot-invitation/${uuid}`,
   MY_PERSONA_PREVIEW: (uuid: string) => `/my-persona/${uuid}`,
-  MY_PERSONA_PREVIEW_TAB: (uuid: string, tab: string) => `/my-persona/${uuid}/${tab}`,
   MY_SPOT_PREVIEW: (uuid: string) => `/my-spot/${uuid}`,
-  MY_SPOT_PREVIEW_TAB: (uuid: string, tab: string) => `/my-spot/${uuid}/${tab}`,
 };

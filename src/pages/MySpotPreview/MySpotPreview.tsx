@@ -6,14 +6,13 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { useParams } from 'react-router-dom';
 import { GET_SPOT, GetCardType } from 'global/graphqls/Spot';
 import { EntityPreview } from 'components/EntityPreview/EntityPreview';
-import { TopNav } from 'components/TopNav/TopNav';
-import { StatsNavigationSpot } from 'components/Statistics/StatsNavigationSpot';
 
 export const MySpotPreview: FC = () => {
   const { uuid } = useParams();
   const { loading, data } = useQuery<GetCardType>(GET_SPOT, {
     variables: { uuid },
   });
+
   if (loading) {
     return (
       <Overlay>
@@ -26,11 +25,5 @@ export const MySpotPreview: FC = () => {
     return <div>No spots...</div>;
   }
 
-  return (
-    <>
-      <TopNav isWithBackArrow />
-      <StatsNavigationSpot />
-      <EntityPreview uuidQuery={data.spot.uuid} entityPage={data.spot.page} />
-    </>
-  );
+  return <EntityPreview uuidQuery={data.spot.uuid} entityPage={data.spot.page} />;
 };
