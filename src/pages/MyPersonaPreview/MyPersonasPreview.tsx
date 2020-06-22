@@ -6,8 +6,6 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { useParams } from 'react-router-dom';
 import { EntityPreview } from 'components/EntityPreview/EntityPreview';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
-import { TopNav } from 'components/TopNav/TopNav';
-import { StatsNavigationPersona } from 'components/Statistics/StatsNavigationPersona';
 import { RecommendContactBook } from 'components/ContactBook/RecommendListContact';
 import styled from 'styled-components';
 import { PageWrapper } from '../../components/PageWrapper';
@@ -21,7 +19,7 @@ const StyledPageWrapper = styled(PageWrapper)`
   height: ;
 `;
 
-export const MyPersonaPreview: FC = () => {
+export const MyPersonasPreview: FC = () => {
   const { uuid } = useParams();
   const { loading, data } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid },
@@ -41,8 +39,7 @@ export const MyPersonaPreview: FC = () => {
 
   return (
     <>
-      <TopNav isWithBackArrow />
-      <StatsNavigationPersona />
+      <EntityPreview uuidQuery={data.persona.uuid} entityPage={data.persona.page} />
       <StyledPageWrapper>
         <EntityPreview uuidQuery={data.persona.uuid} entityPage={data.persona.page} />
         <StyledRecommendContactBook entity={data.persona} />

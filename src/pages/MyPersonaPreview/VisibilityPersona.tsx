@@ -28,7 +28,6 @@ export const VisibilityPersona: FC = () => {
       gridCardValue={data?.persona.visibilityList}
       savedOrRecommend="saved"
       spotsOrPersonsText="persona"
-      link={APP_ROUTES.PERSONA_PREVIEW}
       visibilityOrNetwork="visibility"
     />
   );
