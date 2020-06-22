@@ -6,6 +6,13 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { useParams } from 'react-router-dom';
 import { GET_SPOT, GetCardType } from 'global/graphqls/Spot';
 import { EntityPreview } from 'components/EntityPreview/EntityPreview';
+import { PageWrapper } from '../../components/PageWrapper';
+import styled from 'styled-components';
+
+const StyledPageWrapper = styled(PageWrapper)`
+  height: ${(props) => props.theme.contentHeightWithTabs};
+  padding: 0;
+`;
 
 export const MySpotPreview: FC = () => {
   const { uuid } = useParams();
@@ -25,5 +32,9 @@ export const MySpotPreview: FC = () => {
     return <div>No spots...</div>;
   }
 
-  return <EntityPreview uuidQuery={data.spot.uuid} entityPage={data.spot.page} />;
+  return (
+    <StyledPageWrapper>
+      <EntityPreview uuidQuery={data.spot.uuid} entityPage={data.spot.page} />
+    </StyledPageWrapper>
+  );
 };
