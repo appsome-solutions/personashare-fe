@@ -5,8 +5,7 @@ import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { useParams } from 'react-router-dom';
 import { GET_SPOT, GetCardType } from 'global/graphqls/Spot';
-import { APP_ROUTES } from 'global/AppRouter/routes';
-import { CardsGrid } from '../../components/EntityPreview/CardsGrid';
+import { CardsGrid } from 'components/EntityPreview/CardsGrid';
 
 export const ParticipantList: FC = () => {
   const { uuid } = useParams();
@@ -28,12 +27,7 @@ export const ParticipantList: FC = () => {
 
   return (
     <>
-      <CardsGrid
-        isWithAddParticipate={true}
-        isWithText={false}
-        gridCardValue={data?.spot.participants}
-        link={APP_ROUTES.PERSONA_PREVIEW}
-      />
+      <CardsGrid isWithAddParticipate={true} isWithText={false} gridCardValue={data?.spot.participants} />
     </>
   );
 };

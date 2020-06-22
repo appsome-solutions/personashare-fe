@@ -13,9 +13,8 @@ export interface PropsType {
   gridCardValue: any;
   savedOrRecommend?: string;
   spotsOrPersonsText?: string;
-  link: any;
-  isWithText: boolean;
-  isWithAddParticipate: boolean;
+  isWithText?: boolean;
+  isWithAddParticipate?: boolean;
 }
 
 const SeeMoreText = styled.a`
@@ -65,7 +64,6 @@ export const CardsGrid: FC<PropsType> = ({
   gridCardValue,
   savedOrRecommend,
   spotsOrPersonsText,
-  link,
   isWithText,
   isWithAddParticipate,
 }) => {
@@ -109,7 +107,6 @@ export const CardsGrid: FC<PropsType> = ({
                   visibilityOrNetworkQuery={gridCardValue}
                   key={spotsOrPersonsText.uuid}
                   spotOrPersona={spotsOrPersonsText}
-                  link={link}
                 />
               ))}
           </ComponentWithTable>
