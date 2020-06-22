@@ -351,14 +351,14 @@ export const EntityPage: FC<LinkProps> = ({
               />
             </Flex>
             */}
-            {isSpot && (
+            {/*{isSpot && (
               <ManagerListEditMode
                 uuid={uuid}
                 onSpotCreationOrUpdate={(callback) => {
                   onSpotCreationOrUpdateArray.push(callback);
                 }}
               />
-            )}
+            )}*/}
           </form>
         </div>
         <StyledWideButton htmlType="submit" form="page-form" disabled={!isValid}>

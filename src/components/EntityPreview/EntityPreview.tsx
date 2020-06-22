@@ -27,6 +27,9 @@ export const EntityPreview: FC<EntityPreviewPropsType> = ({ uuidQuery, entityPag
           assetsList: entityPage.fileList,
           asPreview: true,
         }}
+        managerListProps={{
+          uuid: uuidQuery,
+        }}
       />
     </Wrapper>
   );

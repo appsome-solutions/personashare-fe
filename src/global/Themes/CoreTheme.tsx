@@ -73,6 +73,7 @@ export const CoreTheme = {
     },
   },
   contentHeight: `calc(${vh(100)} - 110px)`,
+  contentHeightWithTabs: `calc(${vh(100)} - 150px)`,
 };
 
 export type CoreThemePropsType = {

@@ -59,7 +59,7 @@ const ClockIcon = styled(ClockCircleOutlined)`
 
 export type InvitationsProps = {
   uuid: string;
-  onSpotCreationOrUpdate: (arg: (arg0: any, values: SendInvitationPayload, arg2: any) => void) => void;
+  onSpotCreationOrUpdate?: (arg: (arg0: any, values: SendInvitationPayload, arg2: any) => void) => void;
 };
 
 const sendInvitationSchema = Yup.object({
@@ -98,6 +98,7 @@ const withProvider = (Component: any) => {
     const { user } = useUserContext();
     const { loading: areSpotDataLoading, data: spotData } = useQuery<{ spot: AgregatedSpot }>(GET_SPOT, {
       variables: { uuid },
+      skip: !uuid,
     });
     const { data, loading } = useQuery<GetCardType>(GET_PERSONA, {
       variables: { uuid: user?.defaultPersona },
@@ -232,9 +233,9 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
               <Form id="spotInvitations">
                 {
                   // I know this is shitty code but this whole component needs to be refactored
-                  onSpotCreationOrUpdate((newSpot, _formikValues, setSubmitting) =>
-                    handleSubmit(newSpot, values, setSubmitting)
-                  )
+                  onSpotCreationOrUpdate((newSpot, _formikValues, setSubmitting) => {
+                    return handleSubmit(newSpot, values, setSubmitting);
+                  })
                 }
                 {invitedManagerEmails.map((EmailInvitation, index) => {
                   if (EmailInvitation.status === 'accepted') {
