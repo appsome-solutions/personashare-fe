@@ -5,8 +5,6 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { GET_PERSONA, GetCardType, RECOMMEND_PERSONA, RecommendPersonaResponse } from 'global/graphqls/Persona';
 import recommendOn from 'assets/recommendOn.svg';
 import { Popconfirm } from 'antd';
-import { gqlUser } from 'global/graphqls/schema';
-import { GET_USER } from 'global/graphqls/User';
 import _ from 'lodash';
 import { useUserContext } from '../../global/UserContext/UserContext';
 
@@ -16,7 +14,7 @@ type RecommendPersona = {
 
 const RecommendEmpty = styled.img`
   position: relative;
-  top: -21px;
+  top: -60px;
   left: calc(100% - 61px);
 `;
 
@@ -27,12 +25,7 @@ export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
   });
   const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: user?.defaultPersona },
-    skip: !user,
   });
-
-  if (!uuid || !data) {
-    return null;
-  }
 
   const onConfirmFunctions = async () => {
     await recommendPersona();

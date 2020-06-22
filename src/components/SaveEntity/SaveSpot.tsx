@@ -33,10 +33,6 @@ export const SaveSpotButton: FC = () => {
     },
   });
 
-  if (!uuid || !data) {
-    return null;
-  }
-
   const onClickFunctions = async () => {
     await saveSpot();
     await refetch();
