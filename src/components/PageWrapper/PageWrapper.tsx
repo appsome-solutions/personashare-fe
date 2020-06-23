@@ -8,6 +8,5 @@ export const PageWrapper = styled(Flex)<FlexboxProps>`
   padding: 0 16px;
   background-color: ${(props) => props.theme.colors.utils.background.mid};
 
-  height: ${(props) => props.theme.contentHeight};
   overflow: auto;
 `;
