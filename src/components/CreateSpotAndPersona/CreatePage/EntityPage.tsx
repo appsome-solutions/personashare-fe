@@ -78,6 +78,7 @@ const StyledBackgroundPlaceholder = styled(BackgroundPlaceholder)`
 const StyledPageWrapper = styled(PageWrapperSpaceBetween)`
   padding-left: 0;
   padding-right: 0;
+  width: auto;
 `;
 
 const StyledStepper = styled(Stepper)`
@@ -180,12 +181,12 @@ export const EntityPage: FC<LinkProps> = ({
         card: {
           name,
           description,
-          avatar: getUrls(uploadedAssets, AssetType.CARD_AVATAR)[0],
-          background: getUrls(uploadedAssets, AssetType.CARD_BACKGROUND)[0],
+          avatar: getUrls(uploadedAssets, AssetType.CARD_AVATAR)[0] || card.avatar,
+          background: getUrls(uploadedAssets, AssetType.CARD_BACKGROUND)[0] || card.background,
         },
         page: {
-          avatar: getUrls(uploadedAssets, AssetType.PAGE_AVATAR)[0],
-          background: getUrls(uploadedAssets, AssetType.PAGE_BACKGROUND)[0],
+          avatar: getUrls(uploadedAssets, AssetType.PAGE_AVATAR)[0] || formValues.avatar,
+          background: getUrls(uploadedAssets, AssetType.PAGE_BACKGROUND)[0] || formValues.background,
           content: JSON.stringify(formValues.content),
           fileList,
         },
@@ -287,10 +288,17 @@ export const EntityPage: FC<LinkProps> = ({
           </StyledInfoCard>
           <form id="page-form" onSubmit={handleSubmit}>
             <div>
-              <StyledBackgroundPlaceholder background={backgroundUpload?.blobUrl || ''} alt="Card background">
+              <StyledBackgroundPlaceholder
+                background={backgroundUpload?.blobUrl || initialValues.background || ''}
+                alt="Card background"
+              >
                 <FileInput onFileChange={onBgChange} name="backgroundUpload" id="background" accept="image/*" />
                 <PersonaCircleWrapper>
-                  <PersonaCircle avatar={avatarUpload?.blobUrl || ''} alt="Avatar card" onAvatarSet={onAvatarChange} />
+                  <PersonaCircle
+                    avatar={avatarUpload?.blobUrl || initialValues.avatar || ''}
+                    alt="Avatar card"
+                    onAvatarSet={onAvatarChange}
+                  />
                 </PersonaCircleWrapper>
               </StyledBackgroundPlaceholder>
             </div>

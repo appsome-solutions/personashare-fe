@@ -232,10 +232,35 @@ export const UPDATE_SPOT = gql`
       }
       personaUUIDs
       qrCodeLink
-      invitedManagerEmails {
-        email
-        status
+    }
+  }
+`;
+
+export const UPDATE_SPOT_PAYLOAD = gql`
+  mutation updateSpot($uuid: String!, $payload: UpdateSpotInput!) {
+    updateSpot(uuid: $uuid, spot: $payload) {
+      uuid
+      card {
+        name
+        description
+        avatar
+        background
       }
+      page {
+        background
+        avatar
+        content
+        fileList {
+          uid
+          url
+          thumbUrl
+          size
+          name
+          status
+        }
+      }
+      personaUUIDs
+      qrCodeLink
     }
   }
 `;

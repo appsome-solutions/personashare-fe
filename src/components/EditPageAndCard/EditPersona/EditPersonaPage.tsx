@@ -30,7 +30,23 @@ export const EditPersonaPage: FC = () => {
       const { userPersonas } = cache.readQuery({ query: GET_PERSONAS }) as { userPersonas: any };
       cache.writeQuery({
         query: GET_PERSONAS,
-        data: { userPersonas: userPersonas.concat([updatePersona]) },
+        data: {
+          userPersonas: userPersonas.map((persona: Entity) => {
+            if (persona.uuid === updatePersona.uuid) {
+              return updatePersona;
+            }
+            return persona;
+          }),
+        },
+      });
+      cache.writeQuery({
+        query: GET_PERSONA,
+        data: {
+          persona: updatePersona,
+        },
+        variables: {
+          uuid: updatePersona.uuid,
+        },
       });
     },
   });

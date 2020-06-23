@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { EntityCard } from 'components/CreateSpotAndPersona/CreateCard/EntityCard';
 import { useMutation, useQuery } from '@apollo/react-hooks';
@@ -33,7 +33,7 @@ export const EditPersonaCard: FC = () => {
     return null;
   }
 
-  const initialValues = data.persona?.card || cardInitialValues;
+  const initialValues = data.persona.card || cardInitialValues;
 
   return (
     <EntityCard

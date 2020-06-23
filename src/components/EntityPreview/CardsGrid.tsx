@@ -95,6 +95,8 @@ export const CardsGrid: FC<PropsType> = ({
     }
   };
 
+  if (gridCardValue.length === 0) return null;
+
   const CheckEntityList = () => {
     return (
       <>
@@ -105,28 +107,32 @@ export const CardsGrid: FC<PropsType> = ({
             gridCardValue={gridCardValue}
           />
         )}
-        <CardStyled>
-          {isWithAddParticipate && <ParticipateText>Participant List</ParticipateText>}
-          <ComponentWithTable>
-            {isWithAddParticipate && (
-              <AddParticipateStyle>
-                <img src={CheckIn} alt="check in svg" onClick={() => addParticipate()} />
-              </AddParticipateStyle>
+        {gridCardValue && (
+          <CardStyled>
+            {isWithAddParticipate && <ParticipateText>Participant List</ParticipateText>}
+            <ComponentWithTable>
+              {isWithAddParticipate && (
+                <AddParticipateStyle>
+                  <img src={CheckIn} alt="check in svg" onClick={() => addParticipate()} />
+                </AddParticipateStyle>
+              )}
+              {gridCardValue
+                ?.slice(isWithAddParticipate ? 1 : 0, limit)
+                .map((spotsOrPersonsText: AgregatedPersona) => (
+                  <EntityPreviewWrapper
+                    visibilityOrNetworkQuery={gridCardValue}
+                    key={spotsOrPersonsText.uuid}
+                    spotOrPersona={spotsOrPersonsText}
+                  />
+                ))}
+            </ComponentWithTable>
+            {gridCardValue.length > 4 && limit < gridCardValue.length && (
+              <SeeMoreStyled>
+                <SeeMoreText onClick={handleClick}>SEE MORE</SeeMoreText>
+              </SeeMoreStyled>
             )}
-            {gridCardValue?.slice(0, limit).map((spotsOrPersonsText: AgregatedPersona) => (
-              <EntityPreviewWrapper
-                visibilityOrNetworkQuery={gridCardValue}
-                key={spotsOrPersonsText.uuid}
-                spotOrPersona={spotsOrPersonsText}
-              />
-            ))}
-          </ComponentWithTable>
-          {gridCardValue && gridCardValue.length > 4 && limit < gridCardValue.length && (
-            <SeeMoreStyled>
-              <SeeMoreText onClick={handleClick}>SEE MORE</SeeMoreText>
-            </SeeMoreStyled>
-          )}
-        </CardStyled>
+          </CardStyled>
+        )}
       </>
     );
   };
