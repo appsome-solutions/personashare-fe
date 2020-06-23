@@ -17,10 +17,23 @@ type Props = {
 
 const NameStyled = styled.div`
   margin: 40px 0 16px 0;
+  padding-left: 12px;
+  padding-right: 12px;
+  width: 100%;
+  text-align: center;
+`;
+
+const TextStyled = styled.p`
+  word-wrap: break-word;
+  text-align: center;
 `;
 
 const DescriptionStyled = styled.div`
   margin-bottom: 16px;
+  text-align: center;
+  width: 100%;
+  padding-left: 12px;
+  padding-right: 12px;
 `;
 
 const StyledCard = styled(Card)`
@@ -28,6 +41,9 @@ const StyledCard = styled(Card)`
 `;
 
 export const PersonaCard: FC<Props> = ({ card, uuid, isWithEdit, onClick, isDefaultPersona }) => {
+  const isLongDescription = card.description.length > 69;
+  const isLongName = card.name.length > 69;
+
   return (
     <StyledCard mt={31} mb={40} position="relative" onClick={onClick} className="PersonaCardMain">
       <BackgroundPlaceholder background={card.background} alt="Card background">
@@ -37,8 +53,12 @@ export const PersonaCard: FC<Props> = ({ card, uuid, isWithEdit, onClick, isDefa
         {isWithEdit && <EditRemoveMenu uuid={uuid} isDefaultPersona={isDefaultPersona} />}
       </BackgroundPlaceholder>
       <CardBody>
-        <NameStyled>{card.name}</NameStyled>
-        <DescriptionStyled>{card.description}</DescriptionStyled>
+        <NameStyled>
+          <TextStyled>{isLongName ? `${card.name.slice(0, 69)}` : card.name}</TextStyled>
+        </NameStyled>
+        <DescriptionStyled>
+          <TextStyled> {isLongDescription ? `${card.description.slice(0, 69)}` : card.description}</TextStyled>
+        </DescriptionStyled>
       </CardBody>
     </StyledCard>
   );
