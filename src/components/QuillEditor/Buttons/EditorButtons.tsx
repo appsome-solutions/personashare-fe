@@ -10,6 +10,7 @@ import BulletedListSvg from 'assets/editor_bulleted_list.svg';
 import CodeSvg from 'assets/code.svg';
 import UploadImg from 'assets/backup-24px.svg';
 import ManagerListSvg from 'assets/manager-list.svg';
+import ParticipantListSvg from 'assets/participant_list.svg';
 import ImageSvg from 'assets/insert_photo-24px.svg';
 import LinkSvg from 'assets/link-24px.svg';
 
@@ -36,6 +37,7 @@ const EditorButtons = memo(({ addInNewLine = false }: EditorButtonTypes) => {
       <BlockButton className="ql-link" title="URL" svgLink={LinkSvg} />
       <BlockButton className="ql-upload-asset" title="Upload assets" svgLink={UploadImg} value="true" />
       <BlockButton className="ql-manager-list" title="Manager List" svgLink={ManagerListSvg} value="true" />
+      <BlockButton className="ql-participant-list" title="Participant List" svgLink={ParticipantListSvg} value="true" />
     </DrawerContent>
   );
 });

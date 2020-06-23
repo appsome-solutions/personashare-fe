@@ -18,6 +18,7 @@ import Quill from 'quill';
 import { InlineButton } from './Buttons/InlineButton';
 import EmbedUploadAssets from './EmbedComponents/EmbedUploadAssets';
 import EmbedManagerList from './EmbedComponents/EmbedManagerList';
+import EmbedParticipantList from './EmbedComponents/EmbedParticipantList';
 import { UploadAssetsProps } from 'components/UploadAssets/UploadAssets';
 import { InvitationsProps } from 'components/SpotBook/ManagerList/EditModeManager';
 
@@ -88,6 +89,21 @@ const insertIntoEditor = (editor: Quill, value: string | boolean | number, type:
   editor.setSelection(cursor + 1, 0);
 };
 
+const embedHandler = (editor: Quill, editorComponentName: string): void => {
+  const cursor = editor.getSelection()?.index || 0;
+  const delta = editor.getContents();
+  const isAlreadyInEditor = delta.ops
+    .map((el) => el.insert)
+    .some((item) => isObject(item) && Object.keys(item).includes(editorComponentName));
+  if (isAlreadyInEditor) {
+    insertIntoEditor(editor, '', 'h3');
+    return;
+  }
+  editor.insertEmbed(cursor, editorComponentName, {});
+};
+
+const participantListHandler = (editor: Quill) => embedHandler(editor, 'participant-list');
+
 const uploadAssetHandler = (editor: Quill): void => {
   const cursor = editor.getSelection()?.index || 0;
   const delta = editor.getContents();
@@ -125,12 +141,14 @@ type Props = {
   editable?: boolean;
   uploadAssetsProps?: UploadAssetsProps;
   managerListProps?: InvitationsProps;
+  participantListProps?: any;
 };
 
 QuillClass.register(
   {
     'formats/upload-asset': EmbedUploadAssets,
     'formats/manager-list': EmbedManagerList,
+    'formats/participant-list': EmbedParticipantList,
   },
   true
 );
@@ -141,6 +159,7 @@ const QuillEditor: FC<Props> = ({
   editable = true,
   uploadAssetsProps,
   managerListProps,
+  participantListProps,
 }) => {
   const [isRendered, setIsRendered] = useState(false);
   const [isRefAttached, setIsRefAttached] = useState(false);
@@ -154,6 +173,7 @@ const QuillEditor: FC<Props> = ({
   const propsMapper: Record<string, UploadAssetsProps | InvitationsProps | undefined> = {
     'upload-asset': uploadAssetsProps,
     'manager-list': managerListProps,
+    'participant-list': participantListProps,
   };
 
   const editor = ref.current?.getEditor();
@@ -186,6 +206,7 @@ const QuillEditor: FC<Props> = ({
               insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'code-block'),
             'upload-asset': () => uploadAssetHandler((ref.current?.getEditor() as unknown) as Quill),
             'manager-list': () => managerListHandler((ref.current?.getEditor() as unknown) as Quill),
+            'participant-list': () => participantListHandler((ref.current?.getEditor() as unknown) as Quill),
           },
         },
       },

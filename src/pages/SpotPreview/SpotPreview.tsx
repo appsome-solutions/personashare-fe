@@ -13,6 +13,7 @@ import { TopNav } from 'components/TopNav/TopNav';
 import { ManagerList } from 'components/SpotBook/ManagerList/ManagerList';
 import { vh } from 'helpers/styled';
 import { ParticipantList } from '../ParticipantList/ParticipantList';
+import QuillEditor from '../../components/QuillEditor/QuillEditor';
 
 type SpotPreviewType = {
   isEditMode?: boolean;
@@ -61,11 +62,21 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
         <Wrapper key={data.spot.uuid}>
           <EntityPageComp page={data.spot.page} />
           <RecommendButtonSpot />
+          <QuillEditor
+            editable={false}
+            initialValue={data.spot.page.content}
+            uploadAssetsProps={{
+              assetsList: data.spot.page.fileList,
+              asPreview: true,
+            }}
+            managerListProps={{
+              uuid: data.spot.uuid,
+            }}
+          />
         </Wrapper>
         {isEditMode && <ManagerList />}
         <SecondPartSpot>
           <SaveSpotButton />
-          <ParticipantList />
         </SecondPartSpot>
       </MainComponent>
     </>
