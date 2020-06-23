@@ -24,7 +24,6 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { useUserContext } from '../../global/UserContext/UserContext';
 import { GET_USER } from '../../global/graphqls/User';
 import { AgregatedPersona } from '../../global/graphqls/schema';
-import { client } from '../../global/ApolloClient/ApolloClient';
 
 const EditMenuBox = styled.div`
   position: relative;
