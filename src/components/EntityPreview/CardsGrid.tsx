@@ -6,8 +6,10 @@ import { HowMuchPerson } from './HowMuchPerson';
 import CheckIn from 'assets/CheckIn.svg';
 import { useUserContext } from '../../global/UserContext/UserContext';
 import { useMutation } from '@apollo/react-hooks';
-import { PARTICIPATE, ParticipateResponse } from '../../global/graphqls/Spot';
+import { GET_SPOT, PARTICIPATE, ParticipateResponse } from '../../global/graphqls/Spot';
 import { useParams } from 'react-router-dom';
+import { GET_USER } from '../../global/graphqls/User';
+import { GET_PERSONAS } from '../../global/graphqls/Persona';
 
 export interface PropsType {
   gridCardValue: any;
@@ -71,6 +73,19 @@ export const CardsGrid: FC<PropsType> = ({
   const { uuid } = useParams();
   const [addParticipate] = useMutation<ParticipateResponse>(PARTICIPATE, {
     variables: { spotId: uuid },
+    update(cache, { data }) {
+      if (!data) {
+        return;
+      }
+
+      cache.writeQuery({
+        query: GET_SPOT,
+        variables: {
+          uuid,
+        },
+        data: { spot: data.participate },
+      });
+    },
   });
 
   const handleClick = () => {
@@ -80,12 +95,10 @@ export const CardsGrid: FC<PropsType> = ({
     }
   };
 
-  if (!gridCardValue) return null;
-
   const CheckEntityList = () => {
     return (
       <>
-        {isWithText && (
+        {gridCardValue && isWithText && (
           <HowMuchPerson
             savedOrRecommend={savedOrRecommend}
             spotsOrPersonsText={spotsOrPersonsText}
@@ -100,17 +113,15 @@ export const CardsGrid: FC<PropsType> = ({
                 <img src={CheckIn} alt="check in svg" onClick={() => addParticipate()} />
               </AddParticipateStyle>
             )}
-            {gridCardValue
-              ?.slice(isWithAddParticipate ? 1 : 0, limit)
-              .map((spotsOrPersonsText: AgregatedPersona) => (
-                <EntityPreviewWrapper
-                  visibilityOrNetworkQuery={gridCardValue}
-                  key={spotsOrPersonsText.uuid}
-                  spotOrPersona={spotsOrPersonsText}
-                />
-              ))}
+            {gridCardValue?.slice(0, limit).map((spotsOrPersonsText: AgregatedPersona) => (
+              <EntityPreviewWrapper
+                visibilityOrNetworkQuery={gridCardValue}
+                key={spotsOrPersonsText.uuid}
+                spotOrPersona={spotsOrPersonsText}
+              />
+            ))}
           </ComponentWithTable>
-          {gridCardValue.length > 4 && limit < gridCardValue.length && (
+          {gridCardValue && gridCardValue.length > 4 && limit < gridCardValue.length && (
             <SeeMoreStyled>
               <SeeMoreText onClick={handleClick}>SEE MORE</SeeMoreText>
             </SeeMoreStyled>

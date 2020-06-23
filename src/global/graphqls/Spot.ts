@@ -24,15 +24,94 @@ export const RECOMMEND_SPOT = gql`
 `;
 
 export interface ParticipateResponse {
-  participate: {
-    uuid: string;
-  };
+  participate: AgregatedSpot;
 }
 
 export const PARTICIPATE = gql`
   mutation participate($spotId: String!) {
     participate(spotId: $spotId) {
       uuid
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+        fileList {
+          uid
+          url
+          thumbUrl
+          size
+          name
+          status
+        }
+      }
+      invitedManagerEmails {
+        email
+        status
+      }
+      personaUUIDs
+      qrCodeLink
+      managers {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      visibilityList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      networkList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      participants {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
     }
   }
 `;

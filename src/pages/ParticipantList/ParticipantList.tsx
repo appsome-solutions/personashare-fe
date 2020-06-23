@@ -11,6 +11,7 @@ export const ParticipantList: FC = () => {
   const { uuid } = useParams();
   const { loading, data } = useQuery<GetCardType>(GET_SPOT, {
     variables: { uuid },
+    skip: !uuid,
   });
 
   if (loading) {
@@ -21,9 +22,9 @@ export const ParticipantList: FC = () => {
     );
   }
   // OR !data is used cause typescript doesn't know that data can no longer be undefined in return method
-  if (isEmpty(data?.spot) || !data) {
+  /*if (isEmpty(data?.spot) || !data) {
     return <div>No Participants...</div>;
-  }
+  }*/
 
   return (
     <>

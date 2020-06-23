@@ -25,6 +25,14 @@ const Upload = styled(UploadAnt)`
       display: flex;
       align-items: center;
     }
+
+    .ant-upload-list-item-thumbnail img {
+      object-fit: contain;
+    }
+
+    .ant-upload-list-picture .ant-upload-list-item {
+      background-color: ${(props) => props.theme.colors.utils.background.light};
+    }
   }
 `;
 
@@ -101,10 +109,12 @@ export const UploadAssets: FC<UploadAssetsProps> = ({
           }
         }}
       >
-        <Button>
-          <Icon svgLink={asImageUpload ? UploadImageImg : UploadImg} />
-          <ButtonText>{asImageUpload ? 'Image' : 'File'} upload</ButtonText>
-        </Button>
+        {!asPreview && (
+          <Button>
+            <Icon svgLink={asImageUpload ? UploadImageImg : UploadImg} />
+            <ButtonText>{asImageUpload ? 'Image' : 'File'} upload</ButtonText>
+          </Button>
+        )}
       </Upload>
     </UploadWrapper>
   );
