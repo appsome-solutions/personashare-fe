@@ -27,7 +27,7 @@ import { PS_TOKEN_NAME, client } from '../../global/ApolloClient/ApolloClient';
 const Caption = styled.span((props) => props.theme.typography.caption);
 
 const StyledLogo = styled.img`
-  margin-top: 200px;
+  margin-top: 46px;
   margin-bottom: 36px;
 `;
 
