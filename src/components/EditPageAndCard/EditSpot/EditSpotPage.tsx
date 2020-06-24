@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import { EntityPage } from 'components/CreateSpotAndPersona/CreatePage/EntityPage';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { GET_SPOTS, UPDATE_SPOT } from 'global/graphqls/Spot';
+import { GET_SPOT, GET_SPOTS, UPDATE_SPOT_PAYLOAD } from 'global/graphqls/Spot';
 import { Entity, PageType } from 'global/graphqls/schema';
 import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
-import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
+import { GET_CARD, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
 import { useParams } from 'react-router-dom';
 import { APP_ROUTES } from 'global/AppRouter/routes';
+import { Spinner } from '../../Spinner/Spinner';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -17,9 +18,10 @@ const pageInitialValues: PageType = {
 };
 
 export const EditSpotPage: FC = () => {
-  const { data } = useQuery<GetPageType>(GET_PAGE);
-  const { data: spotData } = useQuery<GetCardType>(GET_CARD);
-  const [updateSpot] = useMutation<{ updateSpot: Entity }>(UPDATE_SPOT, {
+  const { uuid } = useParams();
+  const { data, loading } = useQuery(GET_SPOT, { variables: { uuid }, fetchPolicy: 'no-cache' });
+  const { data: spotData, loading: spotLoading } = useQuery<GetCardType>(GET_CARD);
+  const [updateSpot] = useMutation<{ updateSpot: Entity }>(UPDATE_SPOT_PAYLOAD, {
     update(cache, { data }) {
       if (!data) {
         return;
@@ -28,14 +30,33 @@ export const EditSpotPage: FC = () => {
       const { userSpots } = cache.readQuery({ query: GET_SPOTS }) as { userSpots: any };
       cache.writeQuery({
         query: GET_SPOTS,
-        data: { userSpots: userSpots.concat([updateSpot]) },
+        data: {
+          userSpots: userSpots.map((spot: Entity) => {
+            if (spot.uuid === updateSpot.uuid) {
+              return updateSpot;
+            }
+            return spot;
+          }),
+        },
+      });
+      cache.writeQuery({
+        query: GET_SPOT,
+        data: {
+          spot: updateSpot,
+        },
+        variables: {
+          uuid: updateSpot.uuid,
+        },
       });
     },
   });
-  const initialValues = data?.entity?.page || pageInitialValues;
-  const cardDefaultSpot = cardDefaults;
-  const { uuid } = useParams();
 
+  const initialValues = data?.spot?.page || pageInitialValues;
+  const cardDefaultSpot = cardDefaults;
+
+  if (loading || spotLoading) {
+    return <Spinner />;
+  }
   if (!spotData) {
     return null;
   }

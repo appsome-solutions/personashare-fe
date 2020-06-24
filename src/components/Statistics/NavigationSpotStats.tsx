@@ -61,7 +61,7 @@ export const NavigationSpotStats: FC = () => {
       <TopNav isWithBackArrow />
       <StyledRow justify="center">
         <CenteredCol defaultActiveKey="1" type="card">
-          <TabPane tab="PERSONA" key="1">
+          <TabPane tab="SPOT" key="1">
             <MySpotPreview />
           </TabPane>
           <TabPane tab="VISIBILITY" key="2">

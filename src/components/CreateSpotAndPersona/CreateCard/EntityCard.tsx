@@ -95,10 +95,17 @@ export const EntityCard: FC<PropsCard> = ({
             short description.
           </InfoCard>
           <Card mt={31} mb={40} position="relative">
-            <BackgroundPlaceholder background={backgroundUpload?.blobUrl || ''} alt="Card background">
+            <BackgroundPlaceholder
+              background={backgroundUpload?.blobUrl || initialValues.background || ''}
+              alt="Card background"
+            >
               <FileInput onFileChange={onBgChange} name="backgroundUpload" id="background" accept="image/*" />
               <PersonaCircleWrapper>
-                <PersonaCircle avatar={avatarUpload?.blobUrl || ''} alt="Avatar card" onAvatarSet={onAvatarChange} />
+                <PersonaCircle
+                  avatar={avatarUpload?.blobUrl || initialValues.avatar || ''}
+                  alt="Avatar card"
+                  onAvatarSet={onAvatarChange}
+                />
               </PersonaCircleWrapper>
             </BackgroundPlaceholder>
             <Flex justifyContent="flex-end" mx={14} my={10}>
