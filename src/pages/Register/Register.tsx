@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import { TopNav } from 'components/TopNav/TopNav';
-import LogoSvg from 'assets/logo.svg';
+import LogoRegister from 'assets/LogoRegister.svg';
 import styled from 'styled-components';
 import { Card } from 'components/Card/Card';
 import { InputWithSuffixIcon } from 'components/InputWithSuffixIcon/InputWithSuffixIcon';
@@ -157,7 +157,7 @@ export const Register: FC = () => {
           <div>
             <TopNav isWithBackArrow />
             <PageWrapper>
-              <StyledLogo src={LogoSvg} alt="logo" />
+              <StyledLogo src={LogoRegister} alt="logo" />
               <StyledCard>
                 <CreateAccountText> Create Account </CreateAccountText>
                 <InputWithSuffixIcon name="email" placeholder="Email" svgLink={EmailIconSvg} />
