@@ -92,7 +92,7 @@ export const EntityCard: FC<PropsCard> = ({
           <Stepper items={stepperNumbers} current={currentNumber} mb={31} />
           <InfoCard title="Edit Your card">
             Cards are small preview of your agregated set of data. It consists from background image, avatar, name and
-            short description.
+            brief message.
           </InfoCard>
           <Card mt={31} mb={40} position="relative">
             <BackgroundPlaceholder
@@ -126,7 +126,7 @@ export const EntityCard: FC<PropsCard> = ({
                 name="description"
                 value={description}
                 onChange={handleDescriptionChange}
-                placeholder="Your short description"
+                placeholder="Your brief message"
                 tabIndex={0}
                 hasError={!!errors.description}
               />

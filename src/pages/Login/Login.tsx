@@ -38,10 +38,6 @@ const StyledCard = styled(Card)`
   padding: 27px 24px 34px;
 `;
 
-const HeyText = styled.h4`
-  margin-bottom: 0;
-`;
-
 const LoginText = styled.h5`
   margin-bottom: 20px;
 `;
@@ -155,24 +151,23 @@ export const Login: FunctionComponent = () => {
             <PageWrapper>
               <StyledLogo src={LogoSvg} alt="logo" />
               <StyledCard>
-                <HeyText>Hey!</HeyText>
-                <LoginText>Sign into your Account</LoginText>
+                <LoginText>Sign into your account</LoginText>
                 <InputWithSuffixIcon name="email" placeholder="Email" svgLink={EmailIconSvg} />
                 <StyledPasswordInput name="password" placeholder="Password" />
                 <StyledErrorMessage>{apiError}</StyledErrorMessage>
                 <ResetPassword>
-                  Forgot your <Link to={APP_ROUTES.RESET_PASSWORD}>Password?</Link>
+                  Forgot your <Link to={APP_ROUTES.RESET_PASSWORD}>password?</Link>
                 </ResetPassword>
                 <LoginButton block htmlType="submit">
                   LOGIN
                 </LoginButton>
-                <OrLoginCaption>Or Login using social Media</OrLoginCaption>
+                <OrLoginCaption>or login using google account</OrLoginCaption>
                 <GoogleButton block onClick={handleGoogleLogin}>
                   GOOGLE
                 </GoogleButton>
               </StyledCard>
               <RegisterCaption>
-                Don’t have account? <Link to={APP_ROUTES.REGISTER}>Register Now</Link>
+                Don’t have an account? <Link to={APP_ROUTES.REGISTER}>Register Now</Link>
               </RegisterCaption>
             </PageWrapper>
           </div>

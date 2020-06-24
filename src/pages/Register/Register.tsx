@@ -159,7 +159,7 @@ export const Register: FC = () => {
             <PageWrapper>
               <StyledLogo src={LogoRegister} alt="logo" />
               <StyledCard>
-                <CreateAccountText> Create Account </CreateAccountText>
+                <CreateAccountText> Create account </CreateAccountText>
                 <InputWithSuffixIcon name="email" placeholder="Email" svgLink={EmailIconSvg} />
                 <StyledPasswordInput name="password" placeholder="Password" />
                 <StyledPasswordInput name="repeatPassword" placeholder="Repeat password" />
@@ -176,7 +176,7 @@ export const Register: FC = () => {
                 <RegisterButton htmlType="submit" block>
                   REGISTER NOW
                 </RegisterButton>
-                <OrRegisterCaption>Or Register using social Media</OrRegisterCaption>
+                <OrRegisterCaption>Or register using google account</OrRegisterCaption>
                 <GoogleButton block onClick={handleGoogleLogin}>
                   GOOGLE
                 </GoogleButton>

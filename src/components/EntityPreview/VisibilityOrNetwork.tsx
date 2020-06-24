@@ -37,7 +37,7 @@ export const VisibilityOrNetwork: FC<PropsType> = ({
     <PersonaPreviewWrapper>
       <InformationUnderText title="">
         <TextInInfo>
-          In a {visibilityOrNetwork} tab you can see how many people {savedOrRecommend} your default persona.
+          In a {visibilityOrNetwork} tab you can see how many people {savedOrRecommend} this persona.
         </TextInInfo>
       </InformationUnderText>
       <CardsGrid

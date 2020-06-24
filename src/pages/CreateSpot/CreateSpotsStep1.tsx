@@ -79,11 +79,7 @@ export const CreateSpotsStep1: FC = () => {
             You can use spots totally for free, but there are some limitations:
             <br /> - maximum 3 manager personas in spot
             <br /> - maximum 20 personas can join to spot
-            <br />
-            - your spot can be recommended up to 5 times
-            <br /> - editor limitations
-            <br />
-            If you would be interested in exceeding them
+            <br />- your spot can be recommended up to 5 times If you would be interested in exceeding them
             <ContactUs to={APP_ROUTES.CONTACT}>contact us</ContactUs>.
           </TextInInfo>
         </InformationUnderText>

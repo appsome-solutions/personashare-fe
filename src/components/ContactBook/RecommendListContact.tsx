@@ -25,7 +25,7 @@ export const RecommendContactBook: FC<RecommendContactBookType> = ({ entity, cla
 
   return (
     <MainComponent className={className}>
-      {!!allRecommendation.length && <RecommendText>Recommend</RecommendText>}
+      {!!allRecommendation.length && <RecommendText>Proudly recommend</RecommendText>}
       <Carousel ref={carousel}>
         {allRecommendation.map((persona) => (
           <PersonaCard card={persona.card} uuid={persona.uuid} key={persona.uuid} />

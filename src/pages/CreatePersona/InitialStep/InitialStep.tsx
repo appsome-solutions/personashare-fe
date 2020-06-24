@@ -62,9 +62,8 @@ comments, photos and medias. Use your creativity and make your brand be visible 
         />
         <SpotAndPersona
           svgLink={GpsImg}
-          title="Recommendations network"
-          content="Encourage your friends,
-partners and clients to recommend you. You are linked with your recommendators. Whenever they share persona you are visible there. Create you own recomendation net!"
+          title="User spots"
+          content="Spots are places where you can left your persona. It can be events, webinars, coffee bars, offices and any place where people meets together. You can join as spot participant, show persona and brief message to your viewers."
         />
         <SpotAndPersona
           svgLink={SchemeImg}

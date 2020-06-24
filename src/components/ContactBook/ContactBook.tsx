@@ -44,6 +44,7 @@ export const ContactBook: FC = () => {
           contactBook.card.name.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
           contactBook.card.description.toLowerCase().includes(searchValue.toLocaleLowerCase())
       );
+
   return (
     <>
       <HamburgerMenu
