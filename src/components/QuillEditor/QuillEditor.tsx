@@ -14,13 +14,18 @@ import BoldSvg from 'assets/format_bold.svg';
 import ItalicSvg from 'assets/format_italic.svg';
 import UnderlineSvg from 'assets/format_underlined.svg';
 import CodeSvg from 'assets/code.svg';
-import Quill from 'quill';
+import PureQuill from 'quill';
 import { InlineButton } from './Buttons/InlineButton';
 import EmbedUploadAssets from './EmbedComponents/EmbedUploadAssets';
 import EmbedManagerList from './EmbedComponents/EmbedManagerList';
 import EmbedParticipantList from './EmbedComponents/EmbedParticipantList';
 import { UploadAssetsProps } from 'components/UploadAssets/UploadAssets';
 import { InvitationsProps } from 'components/SpotBook/ManagerList/EditModeManager';
+// @ts-ignore
+import imageUpload from 'quill-plugin-image-upload';
+import { AssetType, AssetWithBlob, uploadAssets } from '../CreateSpotAndPersona/CreatePage/uploadAssets';
+import { useStorage } from '../../global/Storage';
+import { useUserContext } from '../../global/UserContext/UserContext';
 
 const StyledQuillContainer = styled.div`
   width: 100%;
@@ -36,6 +41,17 @@ const StyledQuillContainer = styled.div`
   .ql-editing {
     // tooltip box used for URLs
     z-index: 9999;
+  }
+
+  &&& {
+    .quill-plugin-image-upload-placeholder:not([id]) {
+      display: block;
+      width: auto;
+      height: auto;
+      animation: none;
+      border-radius: 0;
+      border: none;
+    }
   }
 `;
 
@@ -83,13 +99,13 @@ const TurnInto = styled.span`
   margin-left: 8px;
 `;
 
-const insertIntoEditor = (editor: Quill, value: string | boolean | number, type: string): void => {
+const insertIntoEditor = (editor: PureQuill, value: string | boolean | number, type: string): void => {
   const cursor = editor.getSelection()?.index || 0;
   editor.insertText(cursor + 1, '\n', type, value);
   editor.setSelection(cursor + 1, 0);
 };
 
-const embedHandler = (editor: Quill, editorComponentName: string): void => {
+const embedHandler = (editor: PureQuill, editorComponentName: string): void => {
   const cursor = editor.getSelection()?.index || 0;
   const delta = editor.getContents();
   const isAlreadyInEditor = delta.ops
@@ -102,9 +118,9 @@ const embedHandler = (editor: Quill, editorComponentName: string): void => {
   editor.insertEmbed(cursor, editorComponentName, {});
 };
 
-const participantListHandler = (editor: Quill) => embedHandler(editor, 'participant-list');
+const participantListHandler = (editor: PureQuill) => embedHandler(editor, 'participant-list');
 
-const uploadAssetHandler = (editor: Quill): void => {
+const uploadAssetHandler = (editor: PureQuill): void => {
   const cursor = editor.getSelection()?.index || 0;
   const delta = editor.getContents();
   const isAlreadyInEditor = delta.ops
@@ -117,7 +133,7 @@ const uploadAssetHandler = (editor: Quill): void => {
   editor.insertEmbed(cursor, 'upload-asset', {});
 };
 
-const managerListHandler = (editor: Quill): void => {
+const managerListHandler = (editor: PureQuill): void => {
   const delta = editor.getContents();
   const isAlreadyInEditor = delta.ops
     .map((el) => el.insert)
@@ -168,7 +184,13 @@ const QuillEditor: FC<Props> = ({
   const [isInlineVisible, setIsInlineVisible] = useState(false);
   const [embedBlots, setEmbedBlots] = useState<any[]>([]);
   const ref = useRef<ReactQuill | null>(null);
+  const { storageRef } = useStorage();
+  const { user } = useUserContext();
   const turnIntoRef = useRef<boolean>(false);
+
+  const { Quill } = ReactQuill;
+
+  Quill.register('modules/imageUpload', imageUpload);
 
   const propsMapper: Record<string, UploadAssetsProps | InvitationsProps | undefined> = {
     'upload-asset': uploadAssetsProps,
@@ -190,29 +212,46 @@ const QuillEditor: FC<Props> = ({
     setIsInlineVisible(true);
   };
 
-  const Editor = useMemo(
-    () => ({
+  const Editor = useMemo(() => {
+    if (!user || !storageRef) {
+      return null;
+    }
+
+    return {
       modules: {
         toolbar: {
+          image: 'image',
           container: '#toolbar',
           handlers: {
             'header-newLine': (value: number) =>
-              insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'header'),
+              insertIntoEditor((ref.current?.getEditor() as unknown) as PureQuill, value, 'header'),
             'list-newLine': (value: string) =>
-              insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'list'),
+              insertIntoEditor((ref.current?.getEditor() as unknown) as PureQuill, value, 'list'),
             'blockquote-newLine': (value: boolean) =>
-              insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'blockquote'),
+              insertIntoEditor((ref.current?.getEditor() as unknown) as PureQuill, value, 'blockquote'),
             'code-block-newLine': (value: boolean) =>
-              insertIntoEditor((ref.current?.getEditor() as unknown) as Quill, value, 'code-block'),
-            'upload-asset': () => uploadAssetHandler((ref.current?.getEditor() as unknown) as Quill),
-            'manager-list': () => managerListHandler((ref.current?.getEditor() as unknown) as Quill),
-            'participant-list': () => participantListHandler((ref.current?.getEditor() as unknown) as Quill),
+              insertIntoEditor((ref.current?.getEditor() as unknown) as PureQuill, value, 'code-block'),
+            'upload-asset': () => uploadAssetHandler((ref.current?.getEditor() as unknown) as PureQuill),
+            'manager-list': () => managerListHandler((ref.current?.getEditor() as unknown) as PureQuill),
+            'participant-list': () => participantListHandler((ref.current?.getEditor() as unknown) as PureQuill),
+          },
+        },
+        imageUpload: {
+          upload: async (file: File) => {
+            const uploadedAssets = await uploadAssets(storageRef, user.uuid, [
+              {
+                name: `editorImg_${Date.now()}_${file.name}.jpg`,
+                blob: file || null,
+                metaData: { customMetadata: { assetType: 'EDITOR_IMAGE' } },
+              },
+            ]);
+
+            return uploadedAssets[0].url;
           },
         },
       },
-    }),
-    []
-  );
+    };
+  }, []);
 
   const onMount = (blots: any): void => {
     setEmbedBlots((embedBlots) => [...embedBlots, ...blots]);
@@ -253,6 +292,10 @@ const QuillEditor: FC<Props> = ({
     // dependencies are missing on purpose, this hook should run only when ref got attached
   }, [isRefAttached]);
 
+  if (!user || !storageRef) {
+    return null;
+  }
+
   return (
     <StyledQuillContainer>
       {isRendered && (
@@ -267,7 +310,7 @@ const QuillEditor: FC<Props> = ({
             }
           }}
           onChangeSelection={handleSelectionChange}
-          modules={Editor.modules}
+          modules={Editor?.modules}
           placeholder={editable ? 'Tap here to use editor...' : ''}
           ref={ref}
         />
