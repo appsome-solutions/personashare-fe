@@ -25,7 +25,7 @@ type InfoCardProps = {
   title: ReactChild;
 };
 
-const IconStyle = styled(Icon)`
+const StyledIcon = styled(Icon)`
   border-radius: 50%;
 `;
 
@@ -34,7 +34,7 @@ const ChildrenWrapper = styled.span((props) => props.theme.typography.body1);
 export const InfoCard: FC<InfoCardProps & BoxProps> = ({ children, title, ...rest }) => (
   <Card {...rest}>
     <TopBar>
-      <IconStyle svgLink={InfoIcon} cursor="normal" color="white" />
+      <StyledIcon svgLink={InfoIcon} cursor="normal" color="white" />
     </TopBar>
     <CardBody className={CardBody}>
       <h6>{title}</h6>
