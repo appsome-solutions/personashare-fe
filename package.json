@@ -26,6 +26,7 @@
     "jsqr": "^1.2.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
+    "quill-plugin-image-upload": "^0.0.6",
     "rc-tween-one": "^2.6.8",
     "react": "^16.13.1",
     "react-apollo": "^3.1.3",
