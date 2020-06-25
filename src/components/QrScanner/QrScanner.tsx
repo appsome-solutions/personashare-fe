@@ -141,7 +141,12 @@ export const QrScanner = ({ onError, onUserMediaError, className, videoConstrain
   const workerRef = useRef<Worker | null>(null);
   const history = useHistory();
   const redirectToQr = useCallback((decodedQr: QRCode): void => {
-    history.push(new URL(decodedQr.data).pathname);
+    try {
+      history.push(new URL(decodedQr.data).pathname);
+    } catch (e) {
+      console.error('Got incorrect QR code');
+      console.error(decodedQr);
+    }
   }, []);
   const [isWebcamStreamVisible, setIsWebcamStreamVisible] = useState(false);
   const webcamRef = React.useRef<Webcam>(null);
