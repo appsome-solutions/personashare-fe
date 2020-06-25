@@ -4,6 +4,8 @@ import { PersonaCard } from 'components/PersonaCard/PersonaCard';
 import React, { FC, useRef } from 'react';
 import { Carousel as AntCarousel } from 'antd';
 import styled from 'styled-components';
+import { APP_ROUTES } from 'global/AppRouter/routes';
+import { useHistory } from 'react-router-dom';
 
 const RecommendText = styled.div`
   ${(props) => props.theme.typography.body2}
@@ -20,6 +22,7 @@ type RecommendContactBookType = {
 
 export const RecommendContactBook: FC<RecommendContactBookType> = ({ entity, className }) => {
   const carousel = useRef<AntCarousel>(null);
+  const history = useHistory();
 
   const allRecommendation = [...entity.recommendList, ...entity.spotRecommendList];
 
@@ -28,7 +31,16 @@ export const RecommendContactBook: FC<RecommendContactBookType> = ({ entity, cla
       {!!allRecommendation.length && <RecommendText>Recommend</RecommendText>}
       <Carousel ref={carousel}>
         {allRecommendation.map((persona) => (
-          <PersonaCard card={persona.card} uuid={persona.uuid} key={persona.uuid} />
+          <PersonaCard
+            card={persona.card}
+            uuid={persona.uuid}
+            key={persona.uuid}
+            onClick={() =>
+              history.push({
+                pathname: `${APP_ROUTES.PERSONA_PREVIEW(persona.uuid)}`,
+              })
+            }
+          />
         ))}
       </Carousel>
     </MainComponent>
