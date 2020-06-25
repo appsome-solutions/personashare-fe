@@ -27,11 +27,25 @@ const InvitationText = styled.div`
 
 const BackgroundBox = styled.div`
   background-color: ${(props) => props.theme.colors.utils.background.light};
-  padding: 28px 0 38px 0;
+  padding: 28px 12px 38px 12px;
+  background: #ffffff;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+`;
+
+const MarginInvitationText = styled.div`
+  text-align: left;
+`;
+
+const ButtonInvitation = styled.div`
+  margin: 0 12px;
 `;
 
 const WideButtonStyled = styled(WideButton as any)`
-  padding-bottom: 40px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const SpotInvitation: FC = () => {
@@ -45,14 +59,14 @@ export const SpotInvitation: FC = () => {
   });
   const [updateSpot] = useMutation<Entity>(UPDATE_SPOT, {
     variables: {
-      uuid: data?.spot.uuid,
+      uuid: data?.spot?.uuid,
       spot: {
         card: {
-          ...data?.spot.card,
+          ...data?.spot?.card,
           __typename: undefined,
         },
         page: {
-          ...data?.spot.page,
+          ...data?.spot?.page,
           __typename: undefined,
         },
         invitedManagerEmails: { email: user?.email, status: 'accepted' },
@@ -72,11 +86,15 @@ export const SpotInvitation: FC = () => {
         <img src={LogoInTerms} />
         <BackgroundBox>
           <img src={Hey} />
-          <InvitationText>
-            You got an invitation to a {data?.spot.card.name}. If you will accept it then your default persona will be
-            visible for others!
-          </InvitationText>
-          <WideButtonStyled onClick={onClickFunctions}>ACCEPT</WideButtonStyled>
+          <MarginInvitationText>
+            <InvitationText>
+              You got an invitation to a {data?.spot?.card.name}. If you will accept it then your default persona will
+              be visible for others!
+            </InvitationText>
+          </MarginInvitationText>
+          <ButtonInvitation>
+            <WideButtonStyled onClick={onClickFunctions}>ACCEPT</WideButtonStyled>
+          </ButtonInvitation>
         </BackgroundBox>
       </MainComponent>
     </>
