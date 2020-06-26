@@ -16,7 +16,7 @@ const StyledQlButton = styled.button`
     height: 56px;
     padding: 0px;
     display: flex;
-    color: darkblue;
+    color: ${(props) => props.theme.colors.utils.text.dark};
     justify-content: flex-start;
     align-items: center;
   }
