@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 export const VisibilitySpot: FC = () => {
   const { uuid } = useParams();
   const { data, loading } = useQuery<GetCardType>(GET_SPOT, {
-    variables: { uuid },
+    variables: { uuid: uuid },
   });
 
   if (!data) return null;
