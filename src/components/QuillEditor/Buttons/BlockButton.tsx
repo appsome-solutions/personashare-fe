@@ -10,13 +10,27 @@ export type BlockButtonType = {
   value?: number | string;
 };
 
-export const EditorButtonWrapper = styled.div`
-  border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
-  &:last-child {
-    border-bottom: 1px solid ${(props) => props.theme.colors.functional.disabled};
+const StyledQlButton = styled.button`
+  &&& {
+    width: 100%;
+    height: 56px;
+    padding: 0px;
+    display: flex;
+    color: darkblue;
+    justify-content: flex-start;
+    align-items: center;
   }
-  display: flex;
-  align-items: center;
+`;
+
+export const EditorButtonWrapper = styled.div`
+  &&& {
+    border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
+    &:last-child {
+      border-bottom: 1px solid ${(props) => props.theme.colors.functional.disabled};
+    }
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const EditorButtonIconWrapper = styled.span`
@@ -38,11 +52,13 @@ const StyledButton = styled(Button)`
 
 export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => (
   <EditorButtonWrapper>
-    <EditorButtonIconWrapper>
-      <StyledButton className={className} value={value}>
-        <Icon svgLink={svgLink ?? ''} />
-      </StyledButton>
-    </EditorButtonIconWrapper>
-    {title}
+    <StyledQlButton className={className} value={value}>
+      <EditorButtonIconWrapper>
+        <StyledButton>
+          <Icon svgLink={svgLink ?? ''} />
+        </StyledButton>
+      </EditorButtonIconWrapper>
+      {title}
+    </StyledQlButton>
   </EditorButtonWrapper>
 );
