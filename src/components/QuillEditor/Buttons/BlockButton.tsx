@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon';
 import { Button } from 'components/Button';
@@ -10,13 +10,27 @@ export type BlockButtonType = {
   value?: number | string;
 };
 
-export const EditorButtonWrapper = styled.div`
-  border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
-  &:last-child {
-    border-bottom: 1px solid ${(props) => props.theme.colors.functional.disabled};
+const StyledQlButton = styled.button`
+  &&& {
+    width: 100%;
+    height: 56px;
+    padding: 0px;
+    display: flex;
+    color: ${(props) => props.theme.colors.utils.text.dark};
+    justify-content: flex-start;
+    align-items: center;
   }
-  display: flex;
-  align-items: center;
+`;
+
+export const EditorButtonWrapper = styled.div`
+  &&& {
+    border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
+    &:last-child {
+      border-bottom: 1px solid ${(props) => props.theme.colors.functional.disabled};
+    }
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const EditorButtonIconWrapper = styled.span`
@@ -36,13 +50,22 @@ const StyledButton = styled(Button)`
   }
 `;
 
-export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => (
-  <EditorButtonWrapper>
-    <EditorButtonIconWrapper>
-      <StyledButton className={className} value={value}>
-        <Icon svgLink={svgLink ?? ''} />
-      </StyledButton>
-    </EditorButtonIconWrapper>
-    {title}
-  </EditorButtonWrapper>
-);
+export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => {
+  const quillButton = useRef(null);
+
+  return (
+    <EditorButtonWrapper
+      onClick={() => {
+        // @ts-ignore
+        quillButton.current.click();
+      }}
+    >
+      <EditorButtonIconWrapper>
+        <StyledButton className={className} value={value} ref={quillButton}>
+          <Icon svgLink={svgLink ?? ''} />
+        </StyledButton>
+      </EditorButtonIconWrapper>
+      {title}
+    </EditorButtonWrapper>
+  );
+};
