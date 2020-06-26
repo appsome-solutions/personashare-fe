@@ -21,9 +21,9 @@ import { APP_ROUTES } from 'global/AppRouter/routes';
 import _ from 'lodash';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
-import { useUserContext } from '../../global/UserContext/UserContext';
-import { GET_USER } from '../../global/graphqls/User';
-import { AgregatedPersona } from '../../global/graphqls/schema';
+import { useUserContext } from 'global/UserContext/UserContext';
+import { GET_USER } from 'global/graphqls/User';
+import { AgregatedPersona } from 'global/graphqls/schema';
 
 const EditMenuBox = styled.div`
   position: relative;
