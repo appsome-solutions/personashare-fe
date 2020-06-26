@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon';
 import { Button } from 'components/Button';
@@ -9,18 +9,6 @@ export type BlockButtonType = {
   className?: string;
   value?: number | string;
 };
-
-const StyledQlButton = styled.button`
-  &&& {
-    width: 100%;
-    height: 56px;
-    padding: 0px;
-    display: flex;
-    color: ${(props) => props.theme.colors.utils.text.dark};
-    justify-content: flex-start;
-    align-items: center;
-  }
-`;
 
 export const EditorButtonWrapper = styled.div`
   &&& {
@@ -51,17 +39,10 @@ const StyledButton = styled(Button)`
 `;
 
 export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => {
-  const quillButton = useRef(null);
-
   return (
-    <EditorButtonWrapper
-      onClick={() => {
-        // @ts-ignore
-        quillButton.current.click();
-      }}
-    >
+    <EditorButtonWrapper>
       <EditorButtonIconWrapper>
-        <StyledButton className={className} value={value} ref={quillButton}>
+        <StyledButton className={className} value={value}>
           <Icon svgLink={svgLink ?? ''} />
         </StyledButton>
       </EditorButtonIconWrapper>
