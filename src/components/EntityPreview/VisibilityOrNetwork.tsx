@@ -40,11 +40,13 @@ export const VisibilityOrNetwork: FC<PropsType> = ({
           In a {visibilityOrNetwork} tab you can see how many people {savedOrRecommend} your default persona.
         </TextInInfo>
       </InformationUnderText>
-      <CardsGrid
-        gridCardValue={gridCardValue}
-        savedOrRecommend={savedOrRecommend}
-        spotsOrPersonsText={spotsOrPersonsText}
-      />
+      {gridCardValue.length !== 0 && (
+        <CardsGrid
+          gridCardValue={gridCardValue}
+          savedOrRecommend={savedOrRecommend}
+          spotsOrPersonsText={spotsOrPersonsText}
+        />
+      )}
     </PersonaPreviewWrapper>
   );
 };

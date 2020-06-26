@@ -14,11 +14,15 @@ type Props = {
 };
 
 const NameStyled = styled.div`
-  margin: 24px 0 16px 0;
+  padding: 36px 12px 4px 12px;
+  width: 100%;
+  text-align: center;
 `;
 
 const DescriptionStyled = styled.div`
-  margin-bottom: 16px;
+  padding: 4px 12px 4px 12px;
+  width: 100%;
+  text-align: center;
 `;
 
 const StyledCard = styled(Card)`
@@ -48,7 +52,15 @@ const PersonaCircleStyled = styled(PersonaCircle)`
   }
 `;
 
+const TextStyled = styled.p`
+  word-wrap: break-word;
+  text-align: center;
+`;
+
 export const PersonaCardMini: FC<Props> = ({ card, onClick }) => {
+  const isLongDescription = card.description.length > 30;
+  const isLongName = card.name.length > 30;
+
   return (
     <StyledCard mt={31} mb={40} position="relative" onClick={onClick}>
       <BackgroundPlaceholderMini background={card.background} alt="Card background">
@@ -57,8 +69,12 @@ export const PersonaCardMini: FC<Props> = ({ card, onClick }) => {
         </PersonaCircleWrapperStyled>
       </BackgroundPlaceholderMini>
       <CardBodyStyled>
-        <NameStyled>{card.name}</NameStyled>
-        <DescriptionStyled>{card.description}</DescriptionStyled>
+        <NameStyled>
+          <TextStyled>{isLongName ? `${card.name.slice(0, 30)}` : card.name}</TextStyled>
+        </NameStyled>
+        <DescriptionStyled>
+          <TextStyled>{isLongDescription ? `${card.description.slice(0, 30)}` : card.description}</TextStyled>{' '}
+        </DescriptionStyled>
       </CardBodyStyled>
     </StyledCard>
   );
