@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import plTranslations from './pl';
+import enTranslations from './en';
 
 i18n
   .use(LanguageDetector)
@@ -9,9 +10,10 @@ i18n
   .init({
     resources: {
       ...plTranslations,
+      ...enTranslations,
     },
-    lng: 'pl',
-    fallbackLng: 'pl',
+    lng: window.navigator.language.slice(0, 2),
+    fallbackLng: 'en',
     debug: true,
     keySeparator: false,
     interpolation: {

@@ -2,7 +2,7 @@
 const plTranslations = {
   pl: {
     translation: {
-      HelloWorld: 'Hello world',
+      TOPNAV_LOGIN: 'Zaloguj się',
     },
   },
 };
