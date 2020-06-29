@@ -308,65 +308,9 @@ export const EntityPage: FC<LinkProps> = ({
                 initialValue={content}
                 uploadAssetsProps={uploadAssetsProps}
                 managerListProps={managerListEditModeProps}
+                disabledEmbedElements={isSpot ? [] : ['manager-list', 'participant-list']}
               />
             </Flex>
-            {/* commented for UI testing */}
-            {/*    <Flex mt={10}>
-              <UploadAssets
-                assetsList={[
-                  {
-                    uid: '-1',
-                    name: 'xxx.png',
-                    status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-                    thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-                    size: 10000,
-                    type: 'image/png',
-                  },
-                ]}
-                onAddFile={(file) => {
-                  setUserAssetsList({
-                    ...userAssetsList,
-                    [file.name]: {
-                      name: file.name,
-                      blob: file,
-                      metaData: { customMetadata: { assetType: AssetType.USER_ASSET } },
-                    },
-                  });
-                }}
-                onRemoveFile={(file) => {
-                  delete userAssetsList[file.name];
-                }}
-              />
-            </Flex>
-            <Flex mt={10}>
-              <UploadAssets
-                asImageUpload
-                asPreview
-                onAddFile={(file) => {
-                  setUserAssetsList({
-                    ...userAssetsList,
-                    [file.name]: {
-                      name: file.name,
-                      blob: file,
-                      metaData: { customMetadata: { assetType: AssetType.USER_ASSET } },
-                    },
-                  });
-                }}
-                onRemoveFile={(file) => {
-                  delete userAssetsList[file.name];
-                }}
-              />
-            </Flex>
-            */}
-            {/*{isSpot && (
-              <ManagerListEditMode
-                uuid={uuid}
-                onSpotCreationOrUpdate={(callback) => {
-                  onSpotCreationOrUpdateArray.push(callback);
-                }}
-              />
-            )}*/}
           </form>
         </div>
         <StyledWideButton htmlType="submit" form="page-form" disabled={!isValid}>

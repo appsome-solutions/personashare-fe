@@ -39,7 +39,10 @@ const TitleMenu = styled.div`
 const CancelLink = styled.a`
   position: absolute;
   right: 16px;
-  color: ${(props) => props.theme.colors.utils.text.light};
+  &&& {
+    color: ${(props) => props.theme.colors.utils.text.light};
+    text-decoration: none;
+  }
 `;
 
 const OnClickComponentWrapper = styled.div`
@@ -56,7 +59,7 @@ export const DrawerPage: FC<DrawerPageProps> = ({
   isVisible = true,
   ...rest
 }) => {
-  const [isOpened, setIsOpened] = useState(false);
+  const [isOpened, setIsOpened] = useState(true);
 
   return (
     <>
