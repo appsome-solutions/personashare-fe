@@ -18,8 +18,6 @@ export interface PropsType {
   spotsOrPersonsText?: string;
   isWithText?: boolean;
   isWithAddParticipate?: boolean;
-  limitOnFreeAccount?: number;
-  limitOnPremiumAccount?: number;
 }
 
 const SeeMoreText = styled.a`
@@ -71,8 +69,6 @@ export const CardsGrid: FC<PropsType> = ({
   spotsOrPersonsText,
   isWithText,
   isWithAddParticipate,
-  limitOnFreeAccount,
-  limitOnPremiumAccount,
 }) => {
   const [limit, setLimit] = useState(4);
   const { uuid } = useParams();
@@ -94,8 +90,6 @@ export const CardsGrid: FC<PropsType> = ({
     },
   });
 
-  if (!limitOnFreeAccount || !limitOnPremiumAccount) return null;
-
   const handleClick = () => {
     const gridCardLength = gridCardValue.length;
     if (limit < gridCardLength) {
@@ -104,17 +98,19 @@ export const CardsGrid: FC<PropsType> = ({
   };
 
   const messageErrorHandler = () => {
-    if (user?.kind === 'free' && gridCardValue?.length > limitOnFreeAccount) {
-      return message.info(`You can add max ${limitOnFreeAccount + 1} on free account`);
+    if (user?.kind === 'free' && gridCardValue?.length > 19) {
+      return message.info(
+        `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`
+      );
     } else {
-      return message.info(`You can add max ${limitOnPremiumAccount + 1} on premium account`);
+      return message.info(`You can add ${39 + 1} participants on premium account`);
     }
   };
 
   const checkInHandler = () => {
-    if (user?.kind === 'free' && gridCardValue?.length > limitOnFreeAccount) {
+    if (user?.kind === 'free' && gridCardValue?.length > 19) {
       return messageErrorHandler();
-    } else if (user?.kind === 'premium' && gridCardValue?.length > limitOnPremiumAccount) {
+    } else if (user?.kind === 'premium' && gridCardValue?.length > 39) {
       return messageErrorHandler();
     } else {
       return addParticipate();

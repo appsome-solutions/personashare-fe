@@ -9,8 +9,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { ADD_MANAGER, AddManagerResponse, GET_SPOT, GetCardType, UPDATE_SPOT } from 'global/graphqls/Spot';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { Entity } from 'global/graphqls/schema';
-import { APP_ROUTES } from '../../../global/AppRouter/routes';
-import { PersonaCardMini } from '../../Statistics/PersonaCardMini';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 
 const MainComponent = styled.div`
   display: flex;

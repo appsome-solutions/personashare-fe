@@ -28,13 +28,7 @@ export const ParticipantList: FC = () => {
 
   return (
     <>
-      <CardsGrid
-        isWithAddParticipate={true}
-        isWithText={false}
-        gridCardValue={data?.spot.participants}
-        limitOnFreeAccount={19}
-        limitOnPremiumAccount={39}
-      />
+      <CardsGrid isWithAddParticipate={true} isWithText={false} gridCardValue={data?.spot?.participants} />
     </>
   );
 };

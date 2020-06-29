@@ -227,13 +227,15 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
 
     const messageErrorHandler = (values: any) => {
       if (user?.kind === 'free' && values.emails?.length > 2) {
-        return message.info(`You can add max 3 on free account`);
+        return message.info(
+          `Adding managers is limited to maximum of 3 personas. If you want to exceed this limitation, contact us`
+        );
       } else {
-        return message.info(`You can add max 6 on premium account`);
+        return message.info(`You can add 6 managers on premium account`);
       }
     };
 
-    const addEmHandler = (values: any, setFieldValue: any, setFieldError: any, errors: any) => {
+    const addEmailHandler = (values: any, setFieldValue: any, setFieldError: any, errors: any) => {
       if (user?.kind === 'free' && values.emails?.length > 2) {
         return messageErrorHandler(values);
       } else if (user?.kind === 'premium' && values.emails?.length > 5) {
@@ -321,7 +323,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
                           svgLink={AddSvg}
                           width="32px"
                           height="32px"
-                          onClick={() => addEmHandler(values, setFieldValue, setFieldError, errors)}
+                          onClick={() => addEmailHandler(values, setFieldValue, setFieldError, errors)}
                         />
                       </IconBox>
                     </IconWrapper>
