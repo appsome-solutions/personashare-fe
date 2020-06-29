@@ -24,7 +24,6 @@ const PersonaPreviewWrapper = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
 `;
 
 const SecondPartPersona = styled.div`
