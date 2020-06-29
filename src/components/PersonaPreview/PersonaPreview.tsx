@@ -13,6 +13,7 @@ import { SavePersona } from 'components/SaveEntity/SavePersona';
 import { RecommendContactBook } from 'components/ContactBook/RecommendListContact';
 import { TopNav } from 'components/TopNav/TopNav';
 import QuillEditor from 'components/QuillEditor/QuillEditor';
+import _ from 'lodash';
 
 const PersonaPreviewWrapper = styled.div`
   height: ${(props) => props.theme.contentHeight};
@@ -35,6 +36,20 @@ export const PersonaPreview: FC = () => {
     variables: { uuid },
   });
 
+  const addPersonaToRecentlyViewed = () => {
+    let recentlyViewedPersonas = JSON.parse(localStorage.getItem('recentlyViewedPersonas') || '[]');
+
+    recentlyViewedPersonas.push(uuid);
+
+    recentlyViewedPersonas = _.uniq(recentlyViewedPersonas);
+
+    if (recentlyViewedPersonas.length > 5) {
+      recentlyViewedPersonas.shift();
+    }
+
+    localStorage.setItem('recentlyViewedPersonas', JSON.stringify(recentlyViewedPersonas));
+  };
+
   if (loading) {
     return (
       <Overlay>
@@ -47,7 +62,7 @@ export const PersonaPreview: FC = () => {
     return <div>No personas...</div>;
   }
 
-  console.warn(data.persona.page.content);
+  addPersonaToRecentlyViewed();
 
   return (
     <>

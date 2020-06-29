@@ -20,8 +20,11 @@ const ButtonSavedStyled = styled(WideButton)`
   }
 `;
 
-export const SaveSpotButton: FC = () => {
-  const { uuid } = useParams();
+type SaveSpotButtonProps = {
+  uuid: string;
+};
+
+export const SaveSpotButton: FC<SaveSpotButtonProps> = ({ uuid }) => {
   const { user } = useUserContext();
   const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: user?.defaultPersona },

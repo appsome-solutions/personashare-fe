@@ -56,8 +56,15 @@ const StyledIcon = styled(Icon)`
 `;
 
 export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => {
+  const quillButton = useRef(null);
+
   return (
-    <EditorButtonWrapper>
+    <EditorButtonWrapper
+      onClick={() => {
+        // @ts-ignore
+        quillButton.current.click();
+      }}
+    >
       <EditorButtonIconWrapper>
         <StyledButton className={className} value={value}>
           <StyledIcon svgLink={svgLink ?? ''} />

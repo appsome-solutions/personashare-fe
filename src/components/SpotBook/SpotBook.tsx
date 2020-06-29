@@ -10,6 +10,7 @@ import { APP_ROUTES } from 'global/AppRouter/routes';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { AgregatedSpot, gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
+import { RecentlyViewedSpots } from './RecentlyViewedSpots';
 
 const SpotBookStyled = styled.div`
   padding: 24px 16px 32px 16px;
@@ -55,6 +56,7 @@ export const SpotBook: FC = () => {
         card={data.persona.card}
       />
       <SpotBookStyled>
+        <RecentlyViewedSpots />
         {results?.map((spot: AgregatedSpot) => (
           <Wrapper
             key={spot.uuid}

@@ -9,11 +9,6 @@ import _ from 'lodash';
 import { RECOMMEND_SPOT, RecommendSpotResponse } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { useUserContext } from 'global/UserContext/UserContext';
-import { message } from 'antd';
-
-type RecommendSpot = {
-  entityUuid?: any;
-};
 
 const RecommendEmpty = styled.img`
   align-self: flex-end;
@@ -22,8 +17,13 @@ const RecommendEmpty = styled.img`
   top: -60px;
 `;
 
-export const RecommendButtonSpot: FC<RecommendSpot> = ({ entityUuid }) => {
-  const { uuid } = useParams();
+type RecommendButtonSpotType = {
+  uuid: string;
+  className?: string;
+  entityUuid?: any;
+};
+
+export const RecommendButtonSpot: FC<RecommendButtonSpotType> = ({ uuid, className }) => {
   const { user } = useUserContext();
 
   const [recommendSpot] = useMutation<RecommendSpotResponse>(RECOMMEND_SPOT, {
@@ -74,6 +74,7 @@ export const RecommendButtonSpot: FC<RecommendSpot> = ({ entityUuid }) => {
           onConfirm={() => checkInHandler()}
           okText="Yes"
           cancelText="No"
+          className={className}
         >
           <RecommendEmpty src={recommendOff} alt="Recommend Off" />
         </Popconfirm>

@@ -28,24 +28,22 @@ export const ManagerList: FC = () => {
   const history = useHistory();
 
   return (
-    <>
-      <Carousel ref={carousel}>
-        {data?.spot?.managers?.map((persona: AgregatedPersona) => (
-          <CardWrapper key={persona.uuid}>
-            <PersonaCard
-              card={persona.card}
-              uuid={persona.uuid}
-              onClick={() =>
-                history.push({
-                  pathname: `${APP_ROUTES.PERSONA_PREVIEW(persona.uuid)}`,
-                })
-              }
-            />
-            <RecommendButtonPersona uuid={persona.uuid} />
-            <SavePersona uuid={persona.uuid} />
-          </CardWrapper>
-        ))}
-      </Carousel>
-    </>
+    <Carousel ref={carousel}>
+      {data?.spot?.managers?.map((persona: AgregatedPersona) => (
+        <CardWrapper key={persona.uuid}>
+          <PersonaCard
+            card={persona.card}
+            uuid={persona.uuid}
+            onClick={() =>
+              history.push({
+                pathname: `${APP_ROUTES.PERSONA_PREVIEW(persona.uuid)}`,
+              })
+            }
+          />
+          <RecommendButtonPersona uuid={persona.uuid} />
+          <SavePersona uuid={persona.uuid} />
+        </CardWrapper>
+      ))}
+    </Carousel>
   );
 };
