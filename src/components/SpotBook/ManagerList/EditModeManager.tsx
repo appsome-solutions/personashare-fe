@@ -331,7 +331,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
                 )}
                 {!inputVisible && (
                   <Button size="small" type="dashed" onClick={showInput}>
-                    + New Tag
+                    + New Email
                   </Button>
                 )}
               </Form>
