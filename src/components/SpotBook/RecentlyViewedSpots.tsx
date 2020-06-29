@@ -10,6 +10,8 @@ import { client } from '../../global/ApolloClient/ApolloClient';
 import { GET_SPOT } from '../../global/graphqls/Spot';
 import { RecommendButtonSpot } from 'components/RecommendButton/RecommendButtonSpot';
 import { SaveSpotButton } from '../SaveEntity/SaveSpot';
+import { Overlay } from '../Overlay/Overlay';
+import { Spinner } from '../Spinner/Spinner';
 
 // todo: refactor it, Recommend button should be part of a Card
 const CardWrapper = styled.div`
@@ -55,6 +57,14 @@ export const RecentlyViewedSpots = () => {
   const recentlyViewedSpotUuids = JSON.parse(localStorage.getItem('recentlyViewedSpots') || '[]');
 
   const [loading, recentlyViewedSpots] = useRecentlyViewedSpots(recentlyViewedSpotUuids);
+
+  if (loading) {
+    return (
+      <Overlay>
+        <Spinner />
+      </Overlay>
+    );
+  }
 
   if (!recentlyViewedSpotUuids.length || loading) {
     return null;

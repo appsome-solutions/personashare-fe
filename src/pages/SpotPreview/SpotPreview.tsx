@@ -17,6 +17,7 @@ import QuillEditor from '../../components/QuillEditor/QuillEditor';
 import useLocalStorage from 'react-use-localstorage';
 import _ from 'lodash';
 import { receiveMessageOnPort } from 'worker_threads';
+import { message, notification } from 'antd';
 
 type SpotPreviewType = {
   isEditMode?: boolean;
@@ -50,6 +51,15 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
 
   const addSpotToRecentlyViewed = () => {
     let recentlyViewedSpots = JSON.parse(localStorage.getItem('recentlyViewedSpots') || '[]');
+
+    if (recentlyViewedSpots.length === 0) {
+      notification.info({
+        message: 'Recently viewed feature',
+        duration: 0,
+        description:
+          'If you don’t have a time to register now, don’t worry. We will store spots you scan on your device for a while. You can find them in spot book. If you want to save them pernamentely, after registration simply save them using “Save” button.',
+      });
+    }
 
     recentlyViewedSpots.push(uuid);
 

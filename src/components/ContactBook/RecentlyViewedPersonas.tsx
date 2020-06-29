@@ -10,6 +10,8 @@ import { Carousel as AntCarousel } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { client } from '../../global/ApolloClient/ApolloClient';
 import { GET_PERSONA } from '../../global/graphqls/Persona';
+import { Overlay } from '../Overlay/Overlay';
+import { Spinner } from '../Spinner/Spinner';
 
 // todo: refactor it, Recommend button should be part of a Card
 const CardWrapper = styled.div`
@@ -54,6 +56,14 @@ export const RecentlyViewedPersonas = () => {
   const recentlyViewedPersonaUuids = JSON.parse(localStorage.getItem('recentlyViewedPersonas') || '[]');
 
   const [loading, recentlyViewedPersonas] = useRecentlyViewedPersonas(recentlyViewedPersonaUuids);
+
+  if (loading) {
+    return (
+      <Overlay>
+        <Spinner />
+      </Overlay>
+    );
+  }
 
   if (!recentlyViewedPersonaUuids.length || loading) {
     return null;
