@@ -10,6 +10,7 @@ import { APP_ROUTES } from 'global/AppRouter/routes';
 import { useHistory } from 'react-router-dom';
 import { AgregatedPersona, gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
+import { RecentlyViewedPersonas } from './RecentlyViewedPersonas';
 
 const ContactBookStyled = styled.div`
   padding: 30px 16px 40px 16px;
@@ -19,6 +20,10 @@ const ContactBookStyled = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const StyledHeader = styled.h6`
+  margin-top: 16px;
 `;
 
 export const ContactBook: FC = () => {
@@ -54,7 +59,9 @@ export const ContactBook: FC = () => {
         card={data.persona.card}
       />
       <ContactBookStyled>
-        <h6>Your Saved Persona</h6>
+        <RecentlyViewedPersonas />
+        <StyledHeader>Your saved personas</StyledHeader>
+        {!results.length && <div> No saved personas... </div>}
         {results?.map((persona: AgregatedPersona) => (
           <Wrapper
             key={persona.uuid}

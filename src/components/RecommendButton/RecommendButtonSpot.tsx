@@ -17,8 +17,12 @@ const RecommendEmpty = styled.img`
   top: -60px;
 `;
 
-export const RecommendButtonSpot: FC = () => {
-  const { uuid } = useParams();
+type RecommendButtonSpotType = {
+  uuid: string;
+  className?: string;
+};
+
+export const RecommendButtonSpot: FC<RecommendButtonSpotType> = ({ uuid, className }) => {
   const { user } = useUserContext();
 
   const [recommendSpot] = useMutation<RecommendSpotResponse>(RECOMMEND_SPOT, {
@@ -44,6 +48,7 @@ export const RecommendButtonSpot: FC = () => {
           onConfirm={() => onConfirmFunctions()}
           okText="Yes"
           cancelText="No"
+          className={className}
         >
           <RecommendEmpty src={recommendOff} alt="Recommend Off" />
         </Popconfirm>
