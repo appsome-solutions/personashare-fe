@@ -8,17 +8,19 @@ import { NetworkPersona } from 'pages/MyPersonaPreview/NetworkPersona';
 import { TopNav } from 'components/TopNav/TopNav';
 const { TabPane } = Tabs;
 
-const StyledRow = styled(Row)`
+const CenteredCol = styled(Tabs)`
   .ant-tabs {
     width: 100%;
   }
   .ant-tabs-nav {
     height: 40px;
     width: 100%;
-  }
-`;
 
-const CenteredCol = styled(Tabs)`
+    position: fixed;
+    top: 56px;
+    z-index: 999;
+  }
+
   && {
     display: flex;
     justify-content: center;
@@ -45,6 +47,7 @@ const CenteredCol = styled(Tabs)`
     }
     .ant-tabs-content-holder {
       width: 100%;
+      padding-top: 40px;
     }
     .ant-tabs-nav {
       margin: 0px;
@@ -59,19 +62,17 @@ export const NavigationPersonaStats: FC = () => {
   return (
     <>
       <TopNav isWithBackArrow />
-      <StyledRow justify="center">
-        <CenteredCol defaultActiveKey="1" type="card">
-          <TabPane tab="PERSONA" key="1">
-            <MyPersonasPreview />
-          </TabPane>
-          <TabPane tab="VISIBILITY" key="2">
-            <VisibilityPersona />
-          </TabPane>
-          <TabPane tab="NETWORK" key="3">
-            <NetworkPersona />
-          </TabPane>
-        </CenteredCol>
-      </StyledRow>
+      <CenteredCol defaultActiveKey="1" type="card">
+        <TabPane tab="PERSONA" key="1">
+          <MyPersonasPreview />
+        </TabPane>
+        <TabPane tab="VISIBILITY" key="2">
+          <VisibilityPersona />
+        </TabPane>
+        <TabPane tab="NETWORK" key="3">
+          <NetworkPersona />
+        </TabPane>
+      </CenteredCol>
     </>
   );
 };

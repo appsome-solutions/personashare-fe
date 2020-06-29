@@ -11,13 +11,9 @@ import { RecommendButtonSpot } from 'components/RecommendButton/RecommendButtonS
 import { SaveSpotButton } from 'components/SaveEntity/SaveSpot';
 import { TopNav } from 'components/TopNav/TopNav';
 import { ManagerList } from 'components/SpotBook/ManagerList/ManagerList';
-import { vh } from 'helpers/styled';
-import { ParticipantList } from '../ParticipantList/ParticipantList';
 import QuillEditor from '../../components/QuillEditor/QuillEditor';
-import useLocalStorage from 'react-use-localstorage';
 import _ from 'lodash';
-import { receiveMessageOnPort } from 'worker_threads';
-import { message, notification } from 'antd';
+import { notification } from 'antd';
 
 type SpotPreviewType = {
   isEditMode?: boolean;
@@ -26,15 +22,13 @@ type SpotPreviewType = {
 const MainComponent = styled.div`
   display: flex;
   flex-direction: column;
-  max-height: ${(props) => props.theme.contentHeight};
-  height: 100%;
-  overflow: auto;
+  max-height: ${(props) => props.theme.contentHeightWithTabs};
+  height: auto;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: ${vh(100)};
 `;
 
 const SecondPartSpot = styled.div`
@@ -46,8 +40,6 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
   const { loading, data } = useQuery<GetCardType>(GET_SPOT, {
     variables: { uuid },
   });
-
-  const [setRecentlyViewedSpots] = useLocalStorage('recentlyViewedSpots', JSON.stringify([]));
 
   const addSpotToRecentlyViewed = () => {
     let recentlyViewedSpots = JSON.parse(localStorage.getItem('recentlyViewedSpots') || '[]');

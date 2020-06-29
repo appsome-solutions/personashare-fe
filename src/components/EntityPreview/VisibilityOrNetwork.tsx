@@ -11,7 +11,7 @@ export interface PropsType {
 }
 
 const PersonaPreviewWrapper = styled.div`
-  height: ${(props) => props.theme.contentHeightWithTabs};
+  min-height: ${(props) => props.theme.contentHeightWithTabs};
   overflow: auto;
   display: flex;
   flex-direction: column;
