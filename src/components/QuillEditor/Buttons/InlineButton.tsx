@@ -31,11 +31,15 @@ const StyledButton = styled(Button)`
   }
 `;
 
+const StyledIcon = styled(Icon)`
+  color: ${(props) => props.theme.colors.utils.text.dark};
+`;
+
 export const InlineButton: FC<Props> = ({ svgLink, className, value }) => (
   <EditorButtonWrapper>
     <EditorButtonIconWrapper>
       <StyledButton className={className} value={value}>
-        <Icon svgLink={svgLink ?? ''} />
+        <StyledIcon svgLink={svgLink ?? ''} />
       </StyledButton>
     </EditorButtonIconWrapper>
   </EditorButtonWrapper>

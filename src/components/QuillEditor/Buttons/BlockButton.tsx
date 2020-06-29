@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, SyntheticEvent, useRef } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon';
 import { Button } from 'components/Button';
@@ -17,6 +17,7 @@ export const EditorButtonWrapper = styled.div`
   }
   display: flex;
   align-items: center;
+  position: relative;
 `;
 
 export const EditorButtonIconWrapper = styled.span`
@@ -32,17 +33,37 @@ export const EditorButtonIconWrapper = styled.span`
 
 const StyledButton = styled(Button)`
   &&& {
-    display: contents;
+    height: 50px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    svg {
+      color: ${(props) => props.theme.colors.utils.text.dark};
+      height: 24px;
+      margin-left: 11px;
+      width: 24px;
+      float: left;
+    }
   }
 `;
 
-export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => (
-  <EditorButtonWrapper>
-    <EditorButtonIconWrapper>
-      <StyledButton className={className} value={value}>
-        <Icon svgLink={svgLink ?? ''} />
-      </StyledButton>
-    </EditorButtonIconWrapper>
-    {title}
-  </EditorButtonWrapper>
-);
+const StyledIcon = styled(Icon)`
+  color: ${(props) => props.theme.colors.utils.text.dark};
+  height: 24px;
+  margin-left: 11px;
+  width: 24px;
+  float: left;
+`;
+
+export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => {
+  return (
+    <EditorButtonWrapper>
+      <EditorButtonIconWrapper>
+        <StyledButton className={className} value={value}>
+          <StyledIcon svgLink={svgLink ?? ''} />
+        </StyledButton>
+      </EditorButtonIconWrapper>
+      {title}
+    </EditorButtonWrapper>
+  );
+};
