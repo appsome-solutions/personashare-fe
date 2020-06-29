@@ -71,7 +71,7 @@ export const PersonaPreview: FC = () => {
         <Wrapper key={data.persona.uuid}>
           <div>
             <EntityPageComp page={data.persona.page} />
-            <RecommendButtonPersona uuid={uuid} />
+            <RecommendButtonPersona uuid={uuid} entityUuid={data.persona.networkList} />
           </div>
         </Wrapper>
         <SecondPartPersona>

@@ -73,7 +73,7 @@ export const EditSpotPage: FC = () => {
       initialValues={initialValues}
       nextStepPath={APP_ROUTES.MY_SPOTS}
       nameSpotOrPersona="Spot"
-      previousStepPath={APP_ROUTES.EDIT_SPOT_UUID_STEP_2(uuid)}
+      previousStepPath={APP_ROUTES.EDIT_SPOT_UUID_STEP_1(uuid)}
     />
   );
 };

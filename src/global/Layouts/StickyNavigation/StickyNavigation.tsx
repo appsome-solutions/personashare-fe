@@ -15,6 +15,7 @@ const StyledRow = styled(Row)`
   width: 100%;
   position: sticky;
   bottom: 0;
+  z-index: 600;
 `;
 
 export const StickyNavigation = withRouter(({ location: { pathname } }) => {

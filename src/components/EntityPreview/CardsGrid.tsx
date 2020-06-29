@@ -10,6 +10,7 @@ import { GET_SPOT, PARTICIPATE, ParticipateResponse } from '../../global/graphql
 import { useParams } from 'react-router-dom';
 import { GET_USER } from '../../global/graphqls/User';
 import { GET_PERSONAS } from '../../global/graphqls/Persona';
+import { message } from 'antd';
 
 export interface PropsType {
   gridCardValue: any;
@@ -71,6 +72,7 @@ export const CardsGrid: FC<PropsType> = ({
 }) => {
   const [limit, setLimit] = useState(4);
   const { uuid } = useParams();
+  const { user } = useUserContext();
   const [addParticipate] = useMutation<ParticipateResponse>(PARTICIPATE, {
     variables: { spotId: uuid },
     update(cache, { data }) {
@@ -95,6 +97,28 @@ export const CardsGrid: FC<PropsType> = ({
     }
   };
 
+  const messageErrorHandler = () => {
+    if (user?.kind === 'free' && gridCardValue?.length > 19) {
+      return message.info(
+        `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`
+      );
+    } else {
+      return message.info(
+        `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`
+      );
+    }
+  };
+
+  const checkInHandler = () => {
+    if (user?.kind === 'free' && gridCardValue?.length > 19) {
+      return messageErrorHandler();
+    } else if (user?.kind === 'premium' && gridCardValue?.length > 39) {
+      return messageErrorHandler();
+    } else {
+      return addParticipate();
+    }
+  };
+
   const CheckEntityList = () => {
     return (
       <>
@@ -111,7 +135,7 @@ export const CardsGrid: FC<PropsType> = ({
             <ComponentWithTable>
               {isWithAddParticipate && (
                 <AddParticipateStyle>
-                  <img src={CheckIn} alt="check in svg" onClick={() => addParticipate()} />
+                  <img src={CheckIn} alt="check in svg" onClick={() => checkInHandler()} />
                 </AddParticipateStyle>
               )}
               {gridCardValue
