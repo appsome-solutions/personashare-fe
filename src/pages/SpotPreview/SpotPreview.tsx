@@ -14,6 +14,9 @@ import { ManagerList } from 'components/SpotBook/ManagerList/ManagerList';
 import { vh } from 'helpers/styled';
 import { ParticipantList } from '../ParticipantList/ParticipantList';
 import QuillEditor from '../../components/QuillEditor/QuillEditor';
+import useLocalStorage from 'react-use-localstorage';
+import _ from 'lodash';
+import { receiveMessageOnPort } from 'worker_threads';
 
 type SpotPreviewType = {
   isEditMode?: boolean;
@@ -43,6 +46,22 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
     variables: { uuid },
   });
 
+  const [setRecentlyViewedSpots] = useLocalStorage('recentlyViewedSpots', JSON.stringify([]));
+
+  const addSpotToRecentlyViewed = () => {
+    let recentlyViewedSpots = JSON.parse(localStorage.getItem('recentlyViewedSpots') || '[]');
+
+    recentlyViewedSpots.push(uuid);
+
+    recentlyViewedSpots = _.uniq(recentlyViewedSpots);
+
+    if (recentlyViewedSpots.length > 5) {
+      recentlyViewedSpots.shift();
+    }
+
+    localStorage.setItem('recentlyViewedSpots', JSON.stringify(recentlyViewedSpots));
+  };
+
   if (loading) {
     return (
       <Overlay>
@@ -55,13 +74,15 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
     return <div>No spots...</div>;
   }
 
+  addSpotToRecentlyViewed();
+
   return (
     <>
       <TopNav isWithBackArrow />
       <MainComponent>
         <Wrapper key={data.spot.uuid}>
           <EntityPageComp page={data.spot.page} />
-          <RecommendButtonSpot />
+          <RecommendButtonSpot uuid={uuid} />
           <QuillEditor
             editable={false}
             initialValue={data.spot.page.content}
@@ -76,7 +97,7 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
         </Wrapper>
         {isEditMode && <ManagerList />}
         <SecondPartSpot>
-          <SaveSpotButton />
+          <SaveSpotButton uuid={uuid} />
         </SecondPartSpot>
       </MainComponent>
     </>
