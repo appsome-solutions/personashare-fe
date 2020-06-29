@@ -62,8 +62,8 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.CONTACT} exact component={Contact} />
       <Route path={APP_ROUTES.RESET_PASSWORD} exact component={ResetPassword} />
       <Route path={APP_ROUTES.CHANGE_PASSWORD} exact component={ChangePassword} />
-      <PrivateRoute path={APP_ROUTES.SPOT_BOOK} exact component={SpotBook} />
-      <PrivateRoute path={APP_ROUTES.CONTACT_BOOK} exact component={ContactBook} />
+      <Route path={APP_ROUTES.SPOT_BOOK} exact component={SpotBook} />
+      <Route path={APP_ROUTES.CONTACT_BOOK} exact component={ContactBook} />
       <Route path={APP_ROUTES.PERSONA_PREVIEW(':uuid')} exact component={PersonaPreview} />
       <Route path={APP_ROUTES.SPOT_PREVIEW(':uuid')} exact component={SpotPreview} />
       <Route path={APP_ROUTES.SPOT_INVITATION(':uuid')} exact component={SpotInvitation} />
