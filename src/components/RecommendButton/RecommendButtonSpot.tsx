@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import recommendOn from 'assets/recommendOn.svg';
 import { useParams } from 'react-router-dom';
-import { Popconfirm } from 'antd';
+import { message, Popconfirm } from 'antd';
 import _ from 'lodash';
 import { RECOMMEND_SPOT, RecommendSpotResponse } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
@@ -23,7 +23,7 @@ type RecommendButtonSpotType = {
   entityUuid?: any;
 };
 
-export const RecommendButtonSpot: FC<RecommendButtonSpotType> = ({ uuid, className }) => {
+export const RecommendButtonSpot: FC<RecommendButtonSpotType> = ({ uuid, className, entityUuid }) => {
   const { user } = useUserContext();
 
   const [recommendSpot] = useMutation<RecommendSpotResponse>(RECOMMEND_SPOT, {
