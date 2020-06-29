@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react';
+import React, { FC, SyntheticEvent, useRef } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon';
 import { Button } from 'components/Button';
@@ -10,27 +10,14 @@ export type BlockButtonType = {
   value?: number | string;
 };
 
-const StyledQlButton = styled.button`
-  &&& {
-    width: 100%;
-    height: 56px;
-    padding: 0px;
-    display: flex;
-    color: ${(props) => props.theme.colors.utils.text.dark};
-    justify-content: flex-start;
-    align-items: center;
-  }
-`;
-
 export const EditorButtonWrapper = styled.div`
-  &&& {
-    border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
-    &:last-child {
-      border-bottom: 1px solid ${(props) => props.theme.colors.functional.disabled};
-    }
-    display: flex;
-    align-items: center;
+  border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
+  &:last-child {
+    border-bottom: 1px solid ${(props) => props.theme.colors.functional.disabled};
   }
+  display: flex;
+  align-items: center;
+  position: relative;
 `;
 
 export const EditorButtonIconWrapper = styled.span`
@@ -46,23 +33,34 @@ export const EditorButtonIconWrapper = styled.span`
 
 const StyledButton = styled(Button)`
   &&& {
-    display: contents;
+    height: 50px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    svg {
+      color: ${(props) => props.theme.colors.utils.text.dark};
+      height: 24px;
+      margin-left: 11px;
+      width: 24px;
+      float: left;
+    }
   }
 `;
 
-export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => {
-  const quillButton = useRef(null);
+const StyledIcon = styled(Icon)`
+  color: ${(props) => props.theme.colors.utils.text.dark};
+  height: 24px;
+  margin-left: 11px;
+  width: 24px;
+  float: left;
+`;
 
+export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => {
   return (
-    <EditorButtonWrapper
-      onClick={() => {
-        // @ts-ignore
-        quillButton.current.click();
-      }}
-    >
+    <EditorButtonWrapper>
       <EditorButtonIconWrapper>
-        <StyledButton className={className} value={value} ref={quillButton}>
-          <Icon svgLink={svgLink ?? ''} />
+        <StyledButton className={className} value={value}>
+          <StyledIcon svgLink={svgLink ?? ''} />
         </StyledButton>
       </EditorButtonIconWrapper>
       {title}
