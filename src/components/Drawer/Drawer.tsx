@@ -26,7 +26,7 @@ const DrawerWrapper = styled.div`
   flex-direction: column;
   padding: 12px 16px;
   font-size: 18px;
-  background-color: ${(props) => props.theme.colors.utils.background.mid.color};
+  background-color: ${(props) => props.theme.colors.utils.background.mid};
 `;
 
 const HamburgerMenuIcon = styled(Icon).attrs(() => ({

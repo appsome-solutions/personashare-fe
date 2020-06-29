@@ -95,8 +95,6 @@ export const CardsGrid: FC<PropsType> = ({
     }
   };
 
-  if (gridCardValue.length === 0) return null;
-
   const CheckEntityList = () => {
     return (
       <>

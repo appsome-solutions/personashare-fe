@@ -23,6 +23,9 @@ const NavWrapper = styled.div`
   height: 56px;
   background-color: ${(props) => props.theme.colors.main.primary};
   display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   justify-content: space-between;
   align-items: center;
 `;
