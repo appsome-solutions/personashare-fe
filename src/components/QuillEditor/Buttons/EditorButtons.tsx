@@ -15,14 +15,15 @@ import ImageSvg from 'assets/insert_photo-24px.svg';
 import LinkSvg from 'assets/link-24px.svg';
 
 const DrawerContent = styled.div`
-  margin: 16px 0;
+  margin: 0;
 `;
 
 type EditorButtonTypes = {
   addInNewLine?: boolean;
+  disabledEmbedElements?: ('upload-asset' | 'manager-list' | 'participant-list')[];
 };
 
-const EditorButtons = memo(({ addInNewLine = false }: EditorButtonTypes) => {
+const EditorButtons = memo(({ addInNewLine = false, disabledEmbedElements = [] }: EditorButtonTypes) => {
   const suffix = addInNewLine ? '-newLine' : '';
   return (
     <DrawerContent>
@@ -36,8 +37,17 @@ const EditorButtons = memo(({ addInNewLine = false }: EditorButtonTypes) => {
       <BlockButton className="ql-image" title="Image" svgLink={ImageSvg} />
       <BlockButton className="ql-link" title="URL" svgLink={LinkSvg} />
       <BlockButton className="ql-upload-asset" title="Upload assets" svgLink={UploadImg} value="true" />
-      <BlockButton className="ql-manager-list" title="Manager List" svgLink={ManagerListSvg} value="true" />
-      <BlockButton className="ql-participant-list" title="Participant List" svgLink={ParticipantListSvg} value="true" />
+      {!disabledEmbedElements.includes('manager-list') && (
+        <BlockButton className="ql-manager-list" title="Manager List" svgLink={ManagerListSvg} value="true" />
+      )}
+      {!disabledEmbedElements.includes('participant-list') && (
+        <BlockButton
+          className="ql-participant-list"
+          title="Participant List"
+          svgLink={ParticipantListSvg}
+          value="true"
+        />
+      )}
     </DrawerContent>
   );
 });

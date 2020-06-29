@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, SyntheticEvent, useRef } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon';
 import { Button } from 'components/Button';
@@ -11,14 +11,13 @@ export type BlockButtonType = {
 };
 
 export const EditorButtonWrapper = styled.div`
-  &&& {
-    border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
-    &:last-child {
-      border-bottom: 1px solid ${(props) => props.theme.colors.functional.disabled};
-    }
-    display: flex;
-    align-items: center;
+  border-top: 1px solid ${(props) => props.theme.colors.functional.disabled};
+  &:last-child {
+    border-bottom: 1px solid ${(props) => props.theme.colors.functional.disabled};
   }
+  display: flex;
+  align-items: center;
+  position: relative;
 `;
 
 export const EditorButtonIconWrapper = styled.span`
@@ -34,16 +33,41 @@ export const EditorButtonIconWrapper = styled.span`
 
 const StyledButton = styled(Button)`
   &&& {
-    display: contents;
+    height: 50px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    svg {
+      color: ${(props) => props.theme.colors.utils.text.dark};
+      height: 24px;
+      margin-left: 11px;
+      width: 24px;
+      float: left;
+    }
   }
 `;
 
+const StyledIcon = styled(Icon)`
+  color: ${(props) => props.theme.colors.utils.text.dark};
+  height: 24px;
+  margin-left: 11px;
+  width: 24px;
+  float: left;
+`;
+
 export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => {
+  const quillButton = useRef(null);
+
   return (
-    <EditorButtonWrapper>
+    <EditorButtonWrapper
+      onClick={() => {
+        // @ts-ignore
+        quillButton.current.click();
+      }}
+    >
       <EditorButtonIconWrapper>
         <StyledButton className={className} value={value}>
-          <Icon svgLink={svgLink ?? ''} />
+          <StyledIcon svgLink={svgLink ?? ''} />
         </StyledButton>
       </EditorButtonIconWrapper>
       {title}

@@ -14,6 +14,9 @@ import BoldSvg from 'assets/format_bold.svg';
 import ItalicSvg from 'assets/format_italic.svg';
 import UnderlineSvg from 'assets/format_underlined.svg';
 import CodeSvg from 'assets/code.svg';
+import AlignCenterSvg from 'assets/format_align_center-24px.svg';
+import AlignRightSvg from 'assets/format_align_right-24px.svg';
+import JustifySvg from 'assets/format_align_justify-24px.svg';
 import PureQuill from 'quill';
 import { InlineButton } from './Buttons/InlineButton';
 import EmbedUploadAssets from './EmbedComponents/EmbedUploadAssets';
@@ -158,6 +161,7 @@ type Props = {
   uploadAssetsProps?: UploadAssetsProps;
   managerListProps?: InvitationsProps;
   participantListProps?: any;
+  disabledEmbedElements?: ('upload-asset' | 'manager-list' | 'participant-list')[];
 };
 
 QuillClass.register(
@@ -176,6 +180,7 @@ const QuillEditor: FC<Props> = ({
   uploadAssetsProps,
   managerListProps,
   participantListProps,
+  disabledEmbedElements,
 }) => {
   const [isRendered, setIsRendered] = useState(false);
   const [isRefAttached, setIsRefAttached] = useState(false);
@@ -339,7 +344,7 @@ const QuillEditor: FC<Props> = ({
               isVisible={isTurnIntoVisible}
               getContainer="#toolbar"
             >
-              <EditorButtons addInNewLine={true} />
+              <EditorButtons addInNewLine={true} disabledEmbedElements={disabledEmbedElements} />
             </DrawerPage>
             <Separator />
             <DrawerPage
@@ -359,7 +364,7 @@ const QuillEditor: FC<Props> = ({
               title="Turn Into"
               getContainer="#toolbar"
             >
-              <EditorButtons />
+              <EditorButtons disabledEmbedElements={disabledEmbedElements} />
             </DrawerPage>
           </ToggleabbleContainer>
           <ToggleabbleContainer isVisible={isInlineVisible}>
@@ -368,6 +373,9 @@ const QuillEditor: FC<Props> = ({
             <InlineButton className={`ql-italic`} svgLink={ItalicSvg} />
             <InlineButton className={`ql-underline`} svgLink={UnderlineSvg} />
             <InlineButton className={`ql-link`} svgLink={UnderlineSvg} />
+            <InlineButton className={`ql-align`} svgLink={AlignCenterSvg} value="center" />
+            <InlineButton className={`ql-align`} svgLink={AlignRightSvg} value="right" />
+            <InlineButton className={`ql-align`} svgLink={JustifySvg} value="justify" />
           </ToggleabbleContainer>
         </EditorBarWrapper>
       ) : (
