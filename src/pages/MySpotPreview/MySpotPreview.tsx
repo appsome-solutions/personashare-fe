@@ -10,7 +10,7 @@ import { PageWrapper } from '../../components/PageWrapper';
 import styled from 'styled-components';
 
 const StyledPageWrapper = styled(PageWrapper)`
-  height: ${(props) => props.theme.contentHeightWithTabs};
+  min-height: ${(props) => props.theme.contentHeightWithTabs};
   padding: 0;
 `;
 

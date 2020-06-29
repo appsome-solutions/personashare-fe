@@ -16,7 +16,8 @@ const StyledRecommendContactBook = styled(RecommendContactBook)`
 
 const StyledPageWrapper = styled(PageWrapper)`
   padding: 0px;
-  height: ${(props) => props.theme.contentHeightWithTabs};
+  height: auto;
+  min-height: ${(props) => props.theme.contentHeightWithTabs};
 `;
 
 export const MyPersonasPreview: FC = () => {
@@ -38,7 +39,7 @@ export const MyPersonasPreview: FC = () => {
   }
 
   return (
-    <StyledPageWrapper>
+    <StyledPageWrapper justifyContent="end">
       <EntityPreview uuidQuery={data.persona.uuid} entityPage={data.persona.page} />
       <StyledRecommendContactBook entity={data.persona} />
     </StyledPageWrapper>

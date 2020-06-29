@@ -9,4 +9,5 @@ export const PageWrapper = styled(Flex)<FlexboxProps>`
   background-color: ${(props) => props.theme.colors.utils.background.mid};
   overflow: auto;
   min-height: ${(props) => props.theme.contentHeight};
+  margin-bottom: auto;
 `;
