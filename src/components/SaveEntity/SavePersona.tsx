@@ -3,10 +3,8 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { GET_PERSONA, GetCardType, SAVE_PERSONA, SavePersonaResponse } from 'global/graphqls/Persona';
 import _ from 'lodash';
 import styled from 'styled-components';
-import { gqlUser } from 'global/graphqls/schema';
-import { GET_USER } from 'global/graphqls/User';
 import { WideButton } from 'components/Button';
-import { useUserContext } from '../../global/UserContext/UserContext';
+import { useUserContext } from 'global/UserContext/UserContext';
 
 type SavePersonaUuid = {
   uuid: string;

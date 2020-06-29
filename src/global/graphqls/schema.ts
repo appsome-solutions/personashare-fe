@@ -42,6 +42,7 @@ export type gqlEntity = {
 
 export type gqlUser = {
   uuid: string;
+  kind: string;
   email: string;
   photo: string;
   personaUUIDs: string[];

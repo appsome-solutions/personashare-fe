@@ -10,7 +10,7 @@ import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { AgregatedSpot, Entity } from 'global/graphqls/schema';
 import { Overlay } from 'components/Overlay/Overlay';
 import { Spinner } from 'components/Spinner/Spinner';
-import { Button, Tag, Tooltip } from 'antd';
+import { Button, message, Tag, Tooltip } from 'antd';
 import { Icon } from 'components/Icon';
 import { InputWithSuffixIcon } from 'components/InputWithSuffixIcon/InputWithSuffixIcon';
 import AddSvg from 'assets/add-24px.svg';
@@ -134,7 +134,7 @@ type ManagerListEditModeType = {
 export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
   ({ spotData, data, updateSpot, onSpotCreationOrUpdate }: ManagerListEditModeType) => {
     const { sendMail } = useFirebase();
-
+    const { user } = useUserContext();
     const spot = spotData?.spot;
 
     const userName = data?.persona.card.name;
@@ -224,6 +224,29 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
     const showInput = () => {
       setInputVisible(true);
     };
+
+    const messageErrorHandler = (values: any) => {
+      if (user?.kind === 'free' && values.emails?.length > 2) {
+        return message.info(
+          `Adding managers is limited to maximum of 3 personas. If you want to exceed this limitation, contact us`
+        );
+      } else {
+        return message.info(
+          `Adding managers is limited to maximum of 6 personas. If you want to exceed this limitation, contact us`
+        );
+      }
+    };
+
+    const addEmailHandler = (values: any, setFieldValue: any, setFieldError: any, errors: any) => {
+      if (user?.kind === 'free' && values.emails?.length > 2) {
+        return messageErrorHandler(values);
+      } else if (user?.kind === 'premium' && values.emails?.length > 5) {
+        return messageErrorHandler(values);
+      } else {
+        return addEmail(values, setFieldValue, setFieldError, errors);
+      }
+    };
+
     return (
       <>
         <CardBody className={CardBody}>
@@ -302,7 +325,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
                           svgLink={AddSvg}
                           width="32px"
                           height="32px"
-                          onClick={() => addEmail(values, setFieldValue, setFieldError, errors)}
+                          onClick={() => addEmailHandler(values, setFieldValue, setFieldError, errors)}
                         />
                       </IconBox>
                     </IconWrapper>
@@ -310,7 +333,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
                 )}
                 {!inputVisible && (
                   <Button size="small" type="dashed" onClick={showInput}>
-                    + New Tag
+                    + New Email
                   </Button>
                 )}
               </Form>
