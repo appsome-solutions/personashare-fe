@@ -231,7 +231,9 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
           `Adding managers is limited to maximum of 3 personas. If you want to exceed this limitation, contact us`
         );
       } else {
-        return message.info(`You can add 6 managers on premium account`);
+        return message.info(
+          `Adding managers is limited to maximum of 6 personas. If you want to exceed this limitation, contact us`
+        );
       }
     };
 

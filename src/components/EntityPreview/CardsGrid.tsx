@@ -103,7 +103,9 @@ export const CardsGrid: FC<PropsType> = ({
         `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`
       );
     } else {
-      return message.info(`You can add ${39 + 1} participants on premium account`);
+      return message.info(
+        `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`
+      );
     }
   };
 

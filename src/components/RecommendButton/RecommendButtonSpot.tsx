@@ -47,7 +47,9 @@ export const RecommendButtonSpot: FC<RecommendSpot> = ({ entityUuid }) => {
         `This spot has reached maximum recommendation network size. You cannot recommend it at the moment."`
       );
     } else {
-      return message.info(`You can recommend max ${6} spot on premium account`);
+      return message.info(
+        `This spot has reached maximum recommendation network size. You cannot recommend it at the moment.`
+      );
     }
   };
 

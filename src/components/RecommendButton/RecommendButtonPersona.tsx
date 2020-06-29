@@ -42,7 +42,9 @@ export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid, entityUuid 
         `This persona has reached maximum recommendation network size. You cannot recommend it at the moment."`
       );
     } else {
-      return message.info(`You can recommend max ${6} on premium account`);
+      return message.info(
+        `This persona has reached maximum recommendation network size. You cannot recommend it at the moment.`
+      );
     }
   };
 
