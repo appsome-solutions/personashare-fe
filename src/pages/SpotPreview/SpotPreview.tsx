@@ -55,7 +55,7 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
 
     recentlyViewedSpots.push(uuid);
 
-    recentlyViewedSpots = _.uniq(recentlyViewedSpots);
+    recentlyViewedSpots = _.compact(_.uniq(recentlyViewedSpots));
 
     if (recentlyViewedSpots.length > 5) {
       recentlyViewedSpots.shift();

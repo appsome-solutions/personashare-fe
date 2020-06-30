@@ -50,7 +50,7 @@ export const PersonaPreview: FC = () => {
 
     recentlyViewedPersonas.push(uuid);
 
-    recentlyViewedPersonas = _.uniq(recentlyViewedPersonas);
+    recentlyViewedPersonas = _.compact(_.uniq(recentlyViewedPersonas));
 
     if (recentlyViewedPersonas.length > 5) {
       recentlyViewedPersonas.shift();
