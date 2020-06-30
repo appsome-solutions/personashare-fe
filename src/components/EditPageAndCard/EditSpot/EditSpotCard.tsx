@@ -6,6 +6,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { GET_SPOT, GetCardType, UPDATE_SPOT_CARD } from 'global/graphqls/Spot';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { Spinner } from '../../Spinner/Spinner';
+import { useTranslation } from 'react-i18next';
 
 const cardInitialValues: CardType = {
   name: '',
@@ -23,6 +24,7 @@ export const EditSpotCard: FC = () => {
   });
   const initialValues = data ? data.spot.card : cardInitialValues;
   const [updateCard] = useMutation<GetCardType>(UPDATE_SPOT_CARD);
+  const { t } = useTranslation();
 
   if (loading) {
     return <Spinner />;
@@ -37,6 +39,8 @@ export const EditSpotCard: FC = () => {
 
   return (
     <EntityCard
+      infoBody={t('CREATION_STEP_2_SPOT_INFO')}
+      titleCard={t('CREATION_STEP_2_SPOT_HEADING')}
       nextPathName={APP_ROUTES.EDIT_SPOT_UUID_STEP_2(uuid)}
       stepperNumbers={[1, 2]}
       currentNumber={1}

@@ -29,6 +29,7 @@ import imageUpload from 'quill-plugin-image-upload';
 import { AssetType, AssetWithBlob, uploadAssets } from '../CreateSpotAndPersona/CreatePage/uploadAssets';
 import { useStorage } from '../../global/Storage';
 import { useUserContext } from '../../global/UserContext/UserContext';
+import { useTranslation } from 'react-i18next';
 
 const StyledQuillContainer = styled.div`
   width: 100%;
@@ -182,6 +183,7 @@ const QuillEditor: FC<Props> = ({
   participantListProps,
   disabledEmbedElements,
 }) => {
+  const { t } = useTranslation();
   const [isRendered, setIsRendered] = useState(false);
   const [isRefAttached, setIsRefAttached] = useState(false);
   const [isTurnIntoVisible, setIsTurnIntoVisible] = useState(false);
@@ -316,7 +318,7 @@ const QuillEditor: FC<Props> = ({
           }}
           onChangeSelection={handleSelectionChange}
           modules={Editor?.modules}
-          placeholder={editable ? 'Tap here to use editor...' : ''}
+          placeholder={editable ? `${t('CREATION_STEP_3_INPUT_PLACEHOLDER')}` : ''}
           ref={ref}
         />
       )}
@@ -357,7 +359,7 @@ const QuillEditor: FC<Props> = ({
                     turnIntoRef.current = true;
                   }}
                 >
-                  Turn into
+                  {t('CREATION_STEP_3_INPUT_PLACEHOLDER')}
                 </TurnInto>
               )}
               onClose={() => setIsAddVisible(false)}

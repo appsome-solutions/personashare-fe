@@ -14,11 +14,13 @@ import TeamImg from 'assets/TeamImg.svg';
 import GpsImg from 'assets/GpsImg.svg';
 import SchemeImg from 'assets/SchemeImg.svg';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const WideButtonStyled = styled(WideButton)`
   margin-top: 46px;
 `;
 export const InitialStep: FC = () => {
+  const { t } = useTranslation();
   const history = useHistory();
 
   const onNextClick = useCallback((): void => {
@@ -33,46 +35,36 @@ export const InitialStep: FC = () => {
       <PageWrapperSpaceBetween>
         <div>
           <Stepper items={[1, 2, 3]} current={1} mb={31} />
-          <InfoCard title="Let's create your persona!">
-            Persona is any set of data connected with your person. You can create many personas to fit different
-            situations in your business, hobby or private life!
+          <InfoCard title={`${t('CREATION_STEP_1_PERSONA_TOP_TAB_HEADING')}`}>
+            {t('CREATION_STEP_1_PERSONA_TOP_TAB')}
           </InfoCard>
         </div>
         <SpotAndPersona
           svgLink={ContentImg}
-          title="Boosted business card"
-          content="It is always up to date.
-You can insert there not only contact details, but also
-links to surveys, your social media, groups, products,
-services, booking pages, blogs, tutorials, books,
-articles, actually.. Anything you want! Just take a look at our build-in editor! "
+          title={t('CREATION_STEP_1_PERSONA_TAB_1_TITLE')}
+          content={t('CREATION_STEP_1_PERSONA_TAB_1')}
         />
         <SpotAndPersona
           svgLink={QrImg}
-          title="Share it easily"
-          content="You can place your qr
-code anywhere: on events, conferences, in b2b
-relations. And also sign your articles, books, texts,
-comments, photos and medias. Use your creativity and make your brand be visible everywhere."
+          title={t('CREATION_STEP_1_PERSONA_TAB_2_TITLE')}
+          content={t('CREATION_STEP_1_PERSONA_TAB_2')}
         />
         <SpotAndPersona
           svgLink={TeamImg}
-          title="Use spots"
-          content="Spots are places where you can left your persona. It can be events, webinars, coffee bars, offices and any place where people meets together. You can join as spot participant, show persona and brief message to your viewers."
+          title={t('CREATION_STEP_1_PERSONA_TAB_3_TITLE')}
+          content={t('CREATION_STEP_1_PERSONA_TAB_3')}
         />
         <SpotAndPersona
           svgLink={GpsImg}
-          title="Recommendations network"
-          content="Encourage your friends,
-partners and clients to recommend you. You are linked with your recommendators. Whenever they share persona you are visible there. Create you own recomendation net!"
+          title={t('CREATION_STEP_1_PERSONA_TAB_4_TITLE')}
+          content={t('CREATION_STEP_1_PERSONA_TAB_4')}
         />
         <SpotAndPersona
           svgLink={SchemeImg}
-          title="Recommendations network"
-          content="Encourage your friends,
-partners and clients to recommend you. You are linked with your recommendators. Whenever they share persona you are visible there. Create you own recomendation net!"
+          title={t('CREATION_STEP_1_PERSONA_TAB_5_TITLE')}
+          content={t('CREATION_STEP_1_PERSONA_TAB_5')}
         />
-        <WideButtonStyled onClick={onNextClick}>Next Step</WideButtonStyled>
+        <WideButtonStyled onClick={onNextClick}>{t('CREATION_STEP_1_PERSONA_NEXT_STEP')}</WideButtonStyled>
       </PageWrapperSpaceBetween>
     </div>
   );

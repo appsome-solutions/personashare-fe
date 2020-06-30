@@ -14,6 +14,7 @@ import { StyledErrorMessage } from 'components/StyledErrorMessage/StyledErrorMes
 
 import LogoWithoutBG from 'assets/logo_nobg.svg';
 import EmailIconSvg from 'assets/email.svg';
+import { useTranslation } from 'react-i18next';
 
 const StyledLogo = styled.img`
   margin-top: 18px;
@@ -39,6 +40,7 @@ export const ResetPassword: FC = () => {
   const { sendPasswordResetEmail } = useFirebase();
   const history = useHistory();
   const [apiError, setApiError] = useState('');
+  const { t } = useTranslation();
   const handleSubmit = useCallback(
     async (values) => {
       setApiError('');
@@ -57,11 +59,15 @@ export const ResetPassword: FC = () => {
       <TopNav isWithBackArrow />
       <PageWrapper justifyContent="flex-start">
         <StyledLogo src={LogoWithoutBG} />
-        <FormComponent title="Reset password" buttonLabel="Send" formId="reset_password">
+        <FormComponent
+          title={t('RESET_PASSWORD_TITLE')}
+          buttonLabel={t('RESET_PASSWORD_BUTTON')}
+          formId="reset_password"
+        >
           <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
             {() => (
               <Form id="reset_password">
-                <InputField name="email" placeholder="Email" svgLink={EmailIconSvg} />
+                <InputField name="email" placeholder={t('RESET_PASSWORD_INPUT_1')} svgLink={EmailIconSvg} />
                 <StyledErrorMessage>{apiError}</StyledErrorMessage>
               </Form>
             )}

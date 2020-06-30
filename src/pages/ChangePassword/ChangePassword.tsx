@@ -13,6 +13,7 @@ import { PasswordInput } from 'components/PasswordInput';
 import { StyledErrorMessage } from 'components/StyledErrorMessage/StyledErrorMessage';
 
 import LogoWithoutBG from 'assets/logo_nobg.svg';
+import { useTranslation } from 'react-i18next';
 
 const StyledLogo = styled.img`
   margin-top: 18px;
@@ -42,6 +43,7 @@ export const ChangePassword: FC = () => {
   const [apiError, setApiError] = useState('');
   const { handleResetPassword } = useFirebase();
   const history = useHistory();
+  const { t } = useTranslation();
   const handleSubmit = useCallback(
     async ({ password }: ChangePasswordFormValues) => {
       const { oobCode, continueUrl } = getUrlsParams(['oobCode', 'continueUrl']);
@@ -61,12 +63,16 @@ export const ChangePassword: FC = () => {
       <TopNav isWithBackArrow />
       <PageWrapper justifyContent="flex-start">
         <StyledLogo src={LogoWithoutBG} />
-        <FormComponent title="Change your password" buttonLabel="Send" formId="change_password">
+        <FormComponent
+          title={t('CHANGE_PASSWORD_TITLE')}
+          buttonLabel={t('CHANGE_PASSWORD_BUTTON')}
+          formId="change_password"
+        >
           <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
             {() => (
               <Form id="change_password">
-                <StyledPasswordInput name="password" placeholder="New password" />
-                <StyledPasswordInput name="repeatPassword" placeholder="Repeat new password" />
+                <StyledPasswordInput name="password" placeholder={t('CHANGE_PASSWORD_INPUT_1')} />
+                <StyledPasswordInput name="repeatPassword" placeholder={t('CHANGE_PASSWORD_INPUT_2')} />
                 <StyledErrorMessage>{apiError}</StyledErrorMessage>
               </Form>
             )}

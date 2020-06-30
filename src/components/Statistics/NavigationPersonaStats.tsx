@@ -6,6 +6,7 @@ import { MyPersonasPreview } from 'pages/MyPersonaPreview/MyPersonasPreview';
 import { VisibilityPersona } from 'pages/MyPersonaPreview/VisibilityPersona';
 import { NetworkPersona } from 'pages/MyPersonaPreview/NetworkPersona';
 import { TopNav } from 'components/TopNav/TopNav';
+import { useTranslation } from 'react-i18next';
 const { TabPane } = Tabs;
 
 const StyledRow = styled(Row)`
@@ -56,6 +57,7 @@ const CenteredCol = styled(Tabs)`
 `;
 
 export const NavigationPersonaStats: FC = () => {
+  const { t } = useTranslation();
   return (
     <>
       <TopNav isWithBackArrow />
@@ -64,10 +66,10 @@ export const NavigationPersonaStats: FC = () => {
           <TabPane tab="PERSONA" key="1">
             <MyPersonasPreview />
           </TabPane>
-          <TabPane tab="VISIBILITY" key="2">
+          <TabPane tab={t('MY_PERSONA_UUID_VISIBILITY')} key="2">
             <VisibilityPersona />
           </TabPane>
-          <TabPane tab="NETWORK" key="3">
+          <TabPane tab={t('MY_PERSONA_UUID_NETWORK')} key="3">
             <NetworkPersona />
           </TabPane>
         </CenteredCol>

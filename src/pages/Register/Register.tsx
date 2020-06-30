@@ -20,6 +20,7 @@ import FormikCheckbox from 'components/FormikFields/FormikChecbox/FormikCheckbox
 import { signInWithGoogle } from 'helpers/signInWithGoogle';
 
 import EmailIconSvg from 'assets/email.svg';
+import { useTranslation } from 'react-i18next';
 
 const StyledLogo = styled.img`
   margin-top: 46px;
@@ -119,6 +120,7 @@ export const Register: FC = () => {
   const firebase = useFirebase();
   const [signIn] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
+  const { t } = useTranslation();
 
   const handleRegister = async ({ email, password }: FormValues): Promise<void> => {
     try {
@@ -159,30 +161,32 @@ export const Register: FC = () => {
             <PageWrapper>
               <StyledLogo src={LogoRegister} alt="logo" />
               <StyledCard>
-                <CreateAccountText> Create Account </CreateAccountText>
-                <InputWithSuffixIcon name="email" placeholder="Email" svgLink={EmailIconSvg} />
-                <StyledPasswordInput name="password" placeholder="Password" />
-                <StyledPasswordInput name="repeatPassword" placeholder="Repeat password" />
+                <CreateAccountText> {t('REGISTER_HEADING_1')} </CreateAccountText>
+                <InputWithSuffixIcon name="email" placeholder={t('REGISTER_EMAIL_INPUT')} svgLink={EmailIconSvg} />
+                <StyledPasswordInput name="password" placeholder={t('REGISTER_PASSWORD_INPUT')} />
+                <StyledPasswordInput name="repeatPassword" placeholder={t('REGISTER_PASSWORD_REPEAT')} />
                 <StyledErrorMessage>{apiError}</StyledErrorMessage>
                 <StyledCheckbox name="termsAccepted">
                   <Caption>
-                    I read and agree to
-                    <LinkStyle to={APP_ROUTES.TERM_OF_USE}> Terms of use,</LinkStyle>
-                    <LinkStyle to={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY}>privacy and cookies policy</LinkStyle>
-                    and
-                    <LinkStyleLeft to={APP_ROUTES.INFORMATIVE_CLAUSE}>informative clause</LinkStyleLeft>
+                    {t('REGISTER_REGULATIONS')}{' '}
+                    <LinkStyle to={APP_ROUTES.TERM_OF_USE}>{t('REGISTER_TOS_CONFIRM')}</LinkStyle>
+                    <LinkStyle to={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY}>{t('REGISTER_PRIVACY_POLICY')}</LinkStyle>
+                    {t('REGISTER_AND')}
+                    <LinkStyleLeft to={APP_ROUTES.INFORMATIVE_CLAUSE}>{t('REGISTER_INFORMATIVE_CLAUSE')}</LinkStyleLeft>
                   </Caption>
                 </StyledCheckbox>
                 <RegisterButton htmlType="submit" block>
-                  REGISTER NOW
+                  {t('REGISTER_REGISTER_BUTTON')}
                 </RegisterButton>
-                <OrRegisterCaption>Or Register using social Media</OrRegisterCaption>
+                <OrRegisterCaption> {t('REGISTER_TEXT_BETWEEN_BUTTONS')}</OrRegisterCaption>
                 <GoogleButton block onClick={handleGoogleLogin}>
-                  GOOGLE
+                  {t('REGISTER_GOOGLE_REGISTER_BUTTON')}
                 </GoogleButton>
               </StyledCard>
               <LogInCaption>
-                Already have an account? <Link to={APP_ROUTES.LOGIN}>Login</Link>
+                {t('REGISTER_ALREADY_HAVE_ACCOUNT')}
+                {` `}
+                <Link to={APP_ROUTES.LOGIN}> {t('REGISTER_ALREADY_HAVE_ACCOUNT_LOGIN')}</Link>
               </LogInCaption>
             </PageWrapper>
           </div>

@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { AgregatedPersona, gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
 import { RecentlyViewedPersonas } from './RecentlyViewedPersonas';
+import { useTranslation } from 'react-i18next';
 
 const ContactBookStyled = styled.div`
   padding: 30px 16px 40px 16px;
@@ -27,6 +28,7 @@ const StyledHeader = styled.h6`
 `;
 
 export const ContactBook: FC = () => {
+  const { t } = useTranslation();
   const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
   const { data, loading } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: userPersona?.user?.defaultPersona },
@@ -60,7 +62,7 @@ export const ContactBook: FC = () => {
       />
       <ContactBookStyled>
         <RecentlyViewedPersonas />
-        <StyledHeader>Your saved personas</StyledHeader>
+        <StyledHeader>{t('CONTACT_BOOK_HEADING_1')}</StyledHeader>
         {!results.length && <div> No saved personas... </div>}
         {results?.map((persona: AgregatedPersona) => (
           <Wrapper

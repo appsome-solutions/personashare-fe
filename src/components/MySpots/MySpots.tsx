@@ -16,6 +16,7 @@ import isEmpty from 'lodash/isEmpty';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { Loader } from 'components/Loader/Loader';
 import { LoginOrHamburger } from '../QrScanner/LoginOrHamburger';
+import { useTranslation } from 'react-i18next';
 
 const CaruouselItem = styled.div``;
 
@@ -71,6 +72,7 @@ export const MySpots: FC = () => {
   const { loading, data } = useQuery<GetSpotType>(GET_SPOTS);
   const carousel = useRef<AntCarousel>(null);
   const history = useHistory();
+  const { t } = useTranslation();
 
   if ((isEmpty(data?.userSpots) || !data) && !loading) {
     return <MySpotsWithoutSpots />;
@@ -102,7 +104,7 @@ export const MySpots: FC = () => {
               <img src={`${data?.userSpots[currentSlide].qrCodeLink}`} alt="QrCode" />
               <TextInShare>
                 <ShareQrIcon src={ShareQrCode} alt="Share Qr Code" />
-                <a href={`${data?.userSpots[currentSlide].qrCodeLink}`}>Share your QR</a>
+                <a href={`${data?.userSpots[currentSlide].qrCodeLink}`}>{t('MY_SPOTS_SHARE_QR')}</a>
               </TextInShare>
             </ShareQr>
           </PageWrapperSpaceBetween>

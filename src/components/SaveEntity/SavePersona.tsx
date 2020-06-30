@@ -7,6 +7,7 @@ import { gqlUser } from 'global/graphqls/schema';
 import { GET_USER } from 'global/graphqls/User';
 import { WideButton } from 'components/Button';
 import { useUserContext } from '../../global/UserContext/UserContext';
+import { useTranslation } from 'react-i18next';
 
 type SavePersonaUuid = {
   uuid: string;
@@ -33,6 +34,7 @@ export const SavePersona: FC<SavePersonaUuid> = ({ uuid }) => {
       savedPersonaUuid: uuid,
     },
   });
+  const { t } = useTranslation();
 
   const onClickFunctions = async () => {
     await savePersona();
@@ -41,8 +43,8 @@ export const SavePersona: FC<SavePersonaUuid> = ({ uuid }) => {
 
   const IsSaveFunction = () => {
     if (!_.find(data?.persona?.contactBook, { uuid })) {
-      return <WideButton onClick={() => onClickFunctions()}>SAVE</WideButton>;
-    } else return <ButtonSavedStyled>SAVED</ButtonSavedStyled>;
+      return <WideButton onClick={() => onClickFunctions()}>{t('SPOT_UUID_ENTITY_BUTTON')}</WideButton>;
+    } else return <ButtonSavedStyled>{t('SPOT_UUID_ENTITY_SAVED_BUTTON')}</ButtonSavedStyled>;
   };
   return <IsSaveFunction />;
 };

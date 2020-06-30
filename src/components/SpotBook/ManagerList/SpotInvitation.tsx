@@ -9,6 +9,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { ADD_MANAGER, AddManagerResponse, GET_SPOT, GetCardType, UPDATE_SPOT } from 'global/graphqls/Spot';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { Entity } from 'global/graphqls/schema';
+import { useTranslation } from 'react-i18next';
 
 const MainComponent = styled.div`
   display: flex;
@@ -57,6 +58,7 @@ export const SpotInvitation: FC = () => {
   const [addManager] = useMutation<AddManagerResponse>(ADD_MANAGER, {
     variables: { personaId: user?.defaultPersona, spotId: uuid },
   });
+  const { t } = useTranslation();
   const [updateSpot] = useMutation<Entity>(UPDATE_SPOT, {
     variables: {
       uuid: data?.spot?.uuid,
@@ -88,12 +90,11 @@ export const SpotInvitation: FC = () => {
           <img src={Hey} />
           <MarginInvitationText>
             <InvitationText>
-              You got an invitation to a {data?.spot?.card.name}. If you will accept it then your default persona will
-              be visible for others!
+              {t('SPOT_INVITATION_TEXT')} {data?.spot?.card.name}. {t('SPOT_INVITATION_TEXT_2')}
             </InvitationText>
           </MarginInvitationText>
           <ButtonInvitation>
-            <WideButtonStyled onClick={onClickFunctions}>ACCEPT</WideButtonStyled>
+            <WideButtonStyled onClick={onClickFunctions}>{t('SPOT_INVITATION_BUTTON')}</WideButtonStyled>
           </ButtonInvitation>
         </BackgroundBox>
       </MainComponent>

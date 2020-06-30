@@ -7,6 +7,7 @@ import recommendOn from 'assets/recommendOn.svg';
 import { Popconfirm } from 'antd';
 import _ from 'lodash';
 import { useUserContext } from '../../global/UserContext/UserContext';
+import { useTranslation } from 'react-i18next';
 
 type RecommendPersona = {
   uuid: string;
@@ -26,6 +27,7 @@ export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
   const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: user?.defaultPersona },
   });
+  const { t } = useTranslation();
 
   const onConfirmFunctions = async () => {
     await recommendPersona();
@@ -38,10 +40,10 @@ export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
     } else
       return (
         <Popconfirm
-          title="Are you sure you want to recommend this persona? It will be shared with your persona at least for the next month."
+          title={t('PERSONA_UUID_RECOMMEND_INFO')}
           onConfirm={() => onConfirmFunctions()}
-          okText="Yes"
-          cancelText="No"
+          okText={t('PERSONA_UUID_RECOMMEND_BUTTONS_YES')}
+          cancelText={t('PERSONA_UUID_RECOMMEND_BUTTONS_NO')}
           placement="bottomRight"
         >
           <RecommendEmpty src={recommendOff} alt="Recommend Off" />

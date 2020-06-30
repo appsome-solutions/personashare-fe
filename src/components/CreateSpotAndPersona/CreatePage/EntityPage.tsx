@@ -33,6 +33,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { CLEAR_CARD, GetCardType } from '../../../global/graphqls/SpotAndPersona';
 import { UploadFile } from 'antd/es/upload/interface';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 export interface LinkProps {
   previousStepPath: string;
@@ -44,6 +45,8 @@ export interface LinkProps {
   CreateOrSave: string;
   stepperNumbers: number[];
   currentNumber: number;
+  infoBody: string;
+  titleCard: string;
   fileList?: UploadFile[];
   onPageSubmitCreateOrUpdate?: (arg: {
     variables: {
@@ -106,9 +109,12 @@ export const EntityPage: FC<LinkProps> = ({
   stepperNumbers,
   currentNumber,
   fileList,
+  infoBody,
+  titleCard,
 }) => {
   const { getCurrentUser } = useFirebase();
   const { storageRef } = useStorage();
+  const { t } = useTranslation();
   const { uuid } = useParams();
   const history = useHistory();
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
@@ -283,9 +289,7 @@ export const EntityPage: FC<LinkProps> = ({
       <StyledPageWrapper>
         <div>
           <StyledStepper items={stepperNumbers} current={currentNumber} mb={31} />
-          <StyledInfoCard title="Edit your page" mb={31}>
-            Pages are fully predefined set of data you want to share with others. You can edit it however you want to.
-          </StyledInfoCard>
+          <StyledInfoCard title={`${titleCard}`}>{infoBody}</StyledInfoCard>
           <form id="page-form" onSubmit={handleSubmit}>
             <div>
               <StyledBackgroundPlaceholder
