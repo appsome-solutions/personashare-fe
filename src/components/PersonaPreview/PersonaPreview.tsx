@@ -14,10 +14,10 @@ import { RecommendContactBook } from 'components/ContactBook/RecommendListContac
 import { TopNav } from 'components/TopNav/TopNav';
 import QuillEditor from 'components/QuillEditor/QuillEditor';
 import _ from 'lodash';
-import { message, notification } from 'antd';
+import { notification } from 'antd';
 
 const PersonaPreviewWrapper = styled.div`
-  height: ${(props) => props.theme.contentHeight};
+  min-height: ${(props) => props.theme.contentHeight};
   overflow: auto;
 `;
 

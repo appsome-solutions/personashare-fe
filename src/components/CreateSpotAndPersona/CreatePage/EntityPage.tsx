@@ -298,6 +298,7 @@ export const EntityPage: FC<LinkProps> = ({
                     avatar={avatarUpload?.blobUrl || initialValues.avatar || ''}
                     alt="Avatar card"
                     onAvatarSet={onAvatarChange}
+                    withFileInput
                   />
                 </PersonaCircleWrapper>
               </StyledBackgroundPlaceholder>

@@ -22,8 +22,10 @@ type SpotPreviewType = {
 const MainComponent = styled.div`
   display: flex;
   flex-direction: column;
-  max-height: ${(props) => props.theme.contentHeightWithTabs};
+  // max-height: ${(props) => props.theme.contentHeightWithTabs}; is not working for /spot/:uuid
+  max-height: ${(props) => props.theme.contentHeight};
   height: auto;
+  overflow: auto;
 `;
 
 const Wrapper = styled.div`
