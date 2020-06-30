@@ -147,7 +147,14 @@ export const Register: FC = () => {
     }
   };
 
-  const handleGoogleLogin = async (): Promise<void> => {
+  const handleGoogleLogin = async (
+    formikValues: FormValues,
+    setFieldTouched: (fieldName: string, isTouched: boolean, shouldUpdate: boolean) => void
+  ): Promise<void> => {
+    if (!formikValues.termsAccepted) {
+      setFieldTouched('termsAccepted', true, true);
+      return;
+    }
     const idToken = await signInWithGoogle(firebase);
 
     if (idToken) {
@@ -163,8 +170,9 @@ export const Register: FC = () => {
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleRegister} validationSchema={validationSchema}>
-      {() => (
+      {({ values, setFieldTouched, errors }) => (
         <Form>
+          {console.log(errors)}
           <div>
             <TopNav isWithBackArrow />
             <PageWrapper>
@@ -188,7 +196,7 @@ export const Register: FC = () => {
                   REGISTER NOW
                 </RegisterButton>
                 <OrRegisterCaption>Or Register using social Media</OrRegisterCaption>
-                <GoogleButton block onClick={handleGoogleLogin}>
+                <GoogleButton block onClick={() => handleGoogleLogin(values, setFieldTouched)}>
                   GOOGLE
                 </GoogleButton>
               </StyledCard>
