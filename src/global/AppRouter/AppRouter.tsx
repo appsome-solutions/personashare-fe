@@ -33,6 +33,7 @@ import { SpotInvitation } from 'components/SpotBook/ManagerList/SpotInvitation';
 import QuillEditor from 'components/QuillEditor/QuillEditor';
 import { NavigationPersonaStats } from 'components/Statistics/NavigationPersonaStats';
 import { NavigationSpotStats } from 'components/Statistics/NavigationSpotStats';
+import { Action } from 'pages/Action/Action';
 
 export const AppRouter: FunctionComponent = () => {
   return (
@@ -69,6 +70,7 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.SPOT_INVITATION(':uuid')} exact component={SpotInvitation} />
       <Route path={APP_ROUTES.MY_PERSONA_PREVIEW(':uuid')} exact component={NavigationPersonaStats} />
       <Route path={APP_ROUTES.MY_SPOT_PREVIEW(':uuid')} exact component={NavigationSpotStats} />
+      <Route path={APP_ROUTES.ACTION} exact component={Action} />
     </Switch>
   );
 };

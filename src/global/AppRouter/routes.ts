@@ -15,6 +15,7 @@ export const APP_ROUTES = {
   CONTACT: '/contact',
   RESET_PASSWORD: '/resetpassword',
   CHANGE_PASSWORD: '/changepassword',
+  ACTION: '/action',
   INFORMATIVE_CLAUSE: '/informativeclause',
   PRIVACY_AND_COOKIES_POLICY: '/privacyandcookiespolicy',
   TERM_OF_USE: '/termofuse',
