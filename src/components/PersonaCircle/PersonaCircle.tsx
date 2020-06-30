@@ -44,7 +44,7 @@ export const PersonaCircle: FC<BoxProps & PersonaCircleProps> = ({
   alt,
   avatar,
   onAvatarSet,
-  withFileInput = true,
+  withFileInput = false,
   ...restProps
 }) => {
   return (
