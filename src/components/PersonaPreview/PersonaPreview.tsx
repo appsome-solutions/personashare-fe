@@ -84,7 +84,17 @@ export const PersonaPreview: FC = () => {
           </div>
         </Wrapper>
         <SecondPartPersona>
-          <QuillEditor editable={false} initialValue={data.persona.page.content} />
+          <QuillEditor
+            editable={false}
+            initialValue={data.persona.page.content}
+            uploadAssetsProps={{
+              assetsList: data.persona.page.fileList,
+              asPreview: true,
+            }}
+            managerListProps={{
+              uuid,
+            }}
+          />
           <RecommendContactBook entity={data.persona} />
           <SavePersona uuid={uuid} />
         </SecondPartPersona>

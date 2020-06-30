@@ -67,7 +67,7 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.CONTACT_BOOK} exact component={ContactBook} />
       <Route path={APP_ROUTES.PERSONA_PREVIEW(':uuid')} exact component={PersonaPreview} />
       <Route path={APP_ROUTES.SPOT_PREVIEW(':uuid')} exact component={SpotPreview} />
-      <Route path={APP_ROUTES.SPOT_INVITATION(':uuid')} exact component={SpotInvitation} />
+      <PrivateRoute path={APP_ROUTES.SPOT_INVITATION(':uuid')} exact component={SpotInvitation} />
       <Route path={APP_ROUTES.MY_PERSONA_PREVIEW(':uuid')} exact component={NavigationPersonaStats} />
       <Route path={APP_ROUTES.MY_SPOT_PREVIEW(':uuid')} exact component={NavigationSpotStats} />
       <Route path={APP_ROUTES.ACTION} exact component={Action} />
