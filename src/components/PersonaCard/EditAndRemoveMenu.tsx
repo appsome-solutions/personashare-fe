@@ -14,16 +14,17 @@ import {
   RemoveSpotResponse,
   SET_DEFAULT_PERSONA,
   SetDefaultPersonaResponse,
+  UPDATE_PERSONA,
 } from 'global/graphqls/Persona';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { GET_SPOTS, REMOVE_SPOT } from 'global/graphqls/Spot';
+import { GET_SPOT, GET_SPOTS, REMOVE_SPOT, UPDATE_SPOT_PAYLOAD } from 'global/graphqls/Spot';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import _ from 'lodash';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { GET_USER } from 'global/graphqls/User';
-import { AgregatedPersona } from 'global/graphqls/schema';
+import { AgregatedPersona, Entity } from 'global/graphqls/schema';
 
 const EditMenuBox = styled.div`
   position: relative;
@@ -80,6 +81,69 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
   const [setDefaultPersona, { loading: isSetDefaultPersonaLoading }] = useMutation<SetDefaultPersonaResponse>(
     SET_DEFAULT_PERSONA
   );
+
+  // todo: remove it when deletion of all elements will be on place [BE]
+  // it updates spot to removed data before removal
+  const [updateSpot] = useMutation<{ updateSpot: Entity }>(UPDATE_SPOT_PAYLOAD, {
+    update(cache, { data }) {
+      if (!data) {
+        return;
+      }
+      const { updateSpot } = data;
+      const { userSpots } = cache.readQuery({ query: GET_SPOTS }) as { userSpots: any };
+      cache.writeQuery({
+        query: GET_SPOTS,
+        data: {
+          userSpots: userSpots.map((spot: Entity) => {
+            if (spot.uuid === updateSpot.uuid) {
+              return updateSpot;
+            }
+            return spot;
+          }),
+        },
+      });
+      cache.writeQuery({
+        query: GET_SPOT,
+        data: {
+          spot: updateSpot,
+        },
+        variables: {
+          uuid: updateSpot.uuid,
+        },
+      });
+    },
+  });
+  // it updates persona to removed data before removal
+  const [updatePersona, { loading: updatePersonaLoading }] = useMutation<{ updatePersona: Entity }>(UPDATE_PERSONA, {
+    update(cache, { data }) {
+      if (!data) {
+        return;
+      }
+      const { updatePersona } = data;
+      const { userPersonas } = cache.readQuery({ query: GET_PERSONAS }) as { userPersonas: any };
+      cache.writeQuery({
+        query: GET_PERSONAS,
+        data: {
+          userPersonas: userPersonas.map((persona: Entity) => {
+            if (persona.uuid === updatePersona.uuid) {
+              return updatePersona;
+            }
+            return persona;
+          }),
+        },
+      });
+      cache.writeQuery({
+        query: GET_PERSONA,
+        data: {
+          persona: updatePersona,
+        },
+        variables: {
+          uuid: updatePersona.uuid,
+        },
+      });
+    },
+  });
+
   const [personaRemove, { loading: isPersonaRemovalLoading }] = useMutation<RemovePersonaResponse>(REMOVE_PERSONA, {
     variables: { personaUuid: uuid },
     update(cache) {
@@ -152,7 +216,7 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
     },
   });
 
-  if (isPersonaRemovalLoading || isSpotRemovalLoading || isSetDefaultPersonaLoading) {
+  if (isPersonaRemovalLoading || isSpotRemovalLoading || isSetDefaultPersonaLoading || updatePersonaLoading) {
     return (
       <StyledOverlay>
         <Spinner />
@@ -190,19 +254,52 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
     }
   };
 
-  const removePersonaIfNotLastOne = () => {
+  const removePersonaIfNotLastOne = async () => {
     if (userPersonasData?.userPersonas.length === 1) {
       message.error(
         `You need to have at least one persona on your profile. We propose to create new persona before deleting actually selected.`
       );
     } else {
+      await updatePersona({
+        variables: {
+          uuid,
+          payload: {
+            card: {
+              name: 'Removed Persona',
+              description: 'Removed Persona',
+              avatar: null,
+              background: null,
+            },
+          },
+        },
+      });
       personaRemove();
     }
   };
 
+  // todo: remove this when BE will handle chaning removal
+  const removeSpotHandler = async () => {
+    await updateSpot({
+      variables: {
+        uuid,
+        payload: {
+          card: {
+            name: 'Removed Spot',
+            description: 'Removed Spot',
+            avatar: null,
+            background: null,
+          },
+        },
+      },
+    });
+    spotRemove();
+  };
+
   const RemoveFunctionality = () => (
     <MenuRemoveStyled>
-      <EditAndRemoveBox onClick={() => (pathname.includes('personas') ? removePersonaIfNotLastOne() : spotRemove())}>
+      <EditAndRemoveBox
+        onClick={() => (pathname.includes('personas') ? removePersonaIfNotLastOne() : removeSpotHandler())}
+      >
         Remove
         <img src={RemoveIcon} alt="Remove Icon" />
       </EditAndRemoveBox>

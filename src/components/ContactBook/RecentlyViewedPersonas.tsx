@@ -42,7 +42,7 @@ const useRecentlyViewedPersonas = (recentlyViewedPersonaUuids: Array<string>) =>
   });
 
   Promise.all(getPersonasQueries).then((results) => {
-    setResults(results.map((result) => result.data.persona));
+    setResults(results.filter((result) => result.data.persona).map((result) => result.data.persona));
     setLoading(false);
   });
 
@@ -71,7 +71,7 @@ export const RecentlyViewedPersonas = () => {
 
   return (
     <>
-      <h6> Recently viewed personas </h6>
+      {!!recentlyViewedPersonas.length && <h6> Recently viewed personas </h6>}
       <Carousel ref={carousel}>
         {recentlyViewedPersonas.map((persona: AgregatedPersona) => (
           <CardWrapper key={persona.uuid}>

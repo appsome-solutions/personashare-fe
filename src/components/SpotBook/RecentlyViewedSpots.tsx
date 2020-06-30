@@ -37,7 +37,7 @@ const useRecentlyViewedSpots = (recentlyViewedSpotUuids: Array<string>) => {
   });
 
   Promise.all(getsSpotQueries).then((results) => {
-    setResults(results.map((result) => result.data.spot));
+    setResults(results.filter((result) => result.data.spot).map((result) => result.data.spot));
     setLoading(false);
   });
 
@@ -72,7 +72,7 @@ export const RecentlyViewedSpots = () => {
 
   return (
     <>
-      <h6> Recently viewed spots </h6>
+      {!!recentlyViewedSpots.length && <h6> Recently viewed spots </h6>}
       <Carousel ref={carousel}>
         {recentlyViewedSpots.map((spot: AgregatedSpot) => (
           <CardWrapper key={spot.uuid}>
