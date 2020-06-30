@@ -13,6 +13,7 @@ import { RecentlyViewedSpots } from './RecentlyViewedSpots';
 import { useUserContext } from '../../global/UserContext/UserContext';
 import { TopNav } from '../TopNav/TopNav';
 import { EmptyPlaceholder } from '../EmptyPlaceholder/EmptyPlaceholder';
+import { useTranslation } from 'react-i18next';
 
 const SpotBookStyled = styled.div`
   padding: 24px 16px 32px 16px;
@@ -34,6 +35,7 @@ export const SpotBook: FC = () => {
     variables: { uuid: user?.defaultPersona },
     skip: !user,
   });
+  const { t } = useTranslation();
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
 
@@ -68,7 +70,7 @@ export const SpotBook: FC = () => {
       )}
       <SpotBookStyled>
         <RecentlyViewedSpots />
-        <StyledHeader>Your saved spots</StyledHeader>
+        <StyledHeader>{t('SPOT_BOOK_HEADING_1')}</StyledHeader>
         {!results?.length && <EmptyPlaceholder text="no saved spots..." />}
         {results?.map((spot: AgregatedSpot) => (
           <Wrapper

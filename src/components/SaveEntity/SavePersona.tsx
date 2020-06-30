@@ -5,7 +5,6 @@ import _ from 'lodash';
 import styled from 'styled-components';
 import { WideButton } from 'components/Button';
 import { useUserContext } from 'global/UserContext/UserContext';
-import { useUserContext } from '../../global/UserContext/UserContext';
 import { useTranslation } from 'react-i18next';
 
 type SavePersonaUuid = {

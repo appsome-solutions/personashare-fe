@@ -70,7 +70,7 @@ export const EditSpotPage: FC = () => {
       infoBody={t('CREATION_STEP_3_SPOT_INFO')}
       currentNumber={2}
       stepperNumbers={[1, 2]}
-      CreateOrSave={t('SPOT_UUID_SAVE_BUTTON')}
+      CreateOrSave={t('SPOT_UUID_ENTITY_BUTTON_EDIT')}
       cardDefault={cardDefaultSpot}
       card={spotData.entity.card}
       onPageSubmitCreateOrUpdate={updateSpot}

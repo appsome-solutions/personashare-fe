@@ -46,6 +46,7 @@ const plTranslations = {
       REGISTER_ALREADY_HAVE_ACCOUNT_LOGIN: 'Login',
 
       SPOT_BOOK_NAVBAR: 'Szukaj...',
+      SPOT_BOOK_HEADING_1: 'Twoje zapisane spoty',
 
       CONTACT_BOOK_NAVBAR: 'Szukaj...',
       CONTACT_BOOK_HEADING_1: 'Twoje zapisane persony',
@@ -165,6 +166,7 @@ const plTranslations = {
       SPOT_UUID_RECOMMEND_BUTTONS_YES: 'Tak',
       SPOT_UUID_RECOMMEND_BUTTONS_NO: 'Nie',
 
+      SPOT_UUID_ENTITY_BUTTON_EDIT: 'Zapisz',
       SPOT_UUID_ENTITY_BUTTON: 'ZAPISZ',
       SPOT_UUID_ENTITY_SAVED_BUTTON: 'ZAPISANO',
 
@@ -195,6 +197,9 @@ const plTranslations = {
         'Korzystamy ze znanych wszystkim ciasteczek. Korzystając z serwisu akceptujesz naszą.',
       COOKIES_NOTIFICATION_TEXT_4: 'Politykę Prywatności i ciasteczek..',
       COOKIES_UNDERSTAND: 'ZGADZAM SIĘ',
+
+      SEE_MORE: 'Zobacz więcej',
+      PARTICIPANT_LIST_TEXT: 'Lista członków',
     },
   },
 };
