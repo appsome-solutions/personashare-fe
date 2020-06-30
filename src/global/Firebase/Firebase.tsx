@@ -61,6 +61,8 @@ class Firebase {
     auth().useDeviceLanguage();
   }
 
+  applyActionCode = (actionCode: string): Promise<void> => auth().applyActionCode(actionCode);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onAuthStateChanged = (observer: (user: User | null) => any): Unsubscribe => auth().onAuthStateChanged(observer);
 
@@ -75,6 +77,8 @@ class Firebase {
   };
 
   emailAndPasswordProvider = (): auth.EmailAuthProvider => new auth.EmailAuthProvider();
+
+  sendEmailVerification = async (): Promise<void> => await auth().currentUser?.sendEmailVerification();
 
   createUserWithEmailAndPassword = async (email: string, password: string): Promise<auth.UserCredential> =>
     await auth().createUserWithEmailAndPassword(email, password);

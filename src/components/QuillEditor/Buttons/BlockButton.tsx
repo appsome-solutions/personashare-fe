@@ -1,4 +1,4 @@
-import React, { FC, SyntheticEvent, useRef } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon';
 import { Button } from 'components/Button';
@@ -56,15 +56,8 @@ const StyledIcon = styled(Icon)`
 `;
 
 export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => {
-  const quillButton = useRef(null);
-
   return (
-    <EditorButtonWrapper
-      onClick={() => {
-        // @ts-ignore
-        quillButton.current.click();
-      }}
-    >
+    <EditorButtonWrapper>
       <EditorButtonIconWrapper>
         <StyledButton className={className} value={value}>
           <StyledIcon svgLink={svgLink ?? ''} />

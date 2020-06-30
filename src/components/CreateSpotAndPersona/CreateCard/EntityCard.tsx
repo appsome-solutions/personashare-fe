@@ -108,6 +108,7 @@ export const EntityCard: FC<PropsCard> = ({
                   avatar={avatarUpload?.blobUrl || initialValues.avatar || ''}
                   alt="Avatar card"
                   onAvatarSet={onAvatarChange}
+                  withFileInput
                 />
               </PersonaCircleWrapper>
             </BackgroundPlaceholder>

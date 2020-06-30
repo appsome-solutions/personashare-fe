@@ -30,14 +30,18 @@ export const RecommendContactBook: FC<RecommendContactBookType> = ({ entity, cla
     <MainComponent className={className}>
       {!!allRecommendation.length && <RecommendText>Recommend</RecommendText>}
       <Carousel ref={carousel}>
-        {allRecommendation.map((persona) => (
+        {allRecommendation.map((entity) => (
           <PersonaCard
-            card={persona.card}
-            uuid={persona.uuid}
-            key={persona.uuid}
+            card={entity.card}
+            uuid={entity.uuid}
+            key={entity.uuid}
             onClick={() =>
               history.push({
-                pathname: `${APP_ROUTES.PERSONA_PREVIEW(persona.uuid)}`,
+                pathname:
+                  // @ts-ignore
+                  entity.__typename === 'AgregatedSpot'
+                    ? `${APP_ROUTES.SPOT_PREVIEW(entity.uuid)}`
+                    : `${APP_ROUTES.PERSONA_PREVIEW(entity.uuid)}`,
               })
             }
           />

@@ -27,10 +27,10 @@ import {
 } from 'pages/CreatePersona/helpers';
 import { AssetBlob, AssetType, getUrls, uploadAssets } from './uploadAssets';
 import { ExecutionResult } from 'graphql';
-import { UploadAssets, UploadAssetsProps } from '../../UploadAssets/UploadAssets';
-import { InvitationsProps, ManagerListEditMode } from '../../SpotBook/ManagerList/EditModeManager';
+import { UploadAssets, UploadAssetsProps } from 'components/UploadAssets/UploadAssets';
+import { InvitationsProps, ManagerListEditMode } from 'components/SpotBook/ManagerList/EditModeManager';
 import { useMutation } from '@apollo/react-hooks';
-import { CLEAR_CARD, GetCardType } from '../../../global/graphqls/SpotAndPersona';
+import { CLEAR_CARD, GetCardType } from 'global/graphqls/SpotAndPersona';
 import { UploadFile } from 'antd/es/upload/interface';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
@@ -302,6 +302,7 @@ export const EntityPage: FC<LinkProps> = ({
                     avatar={avatarUpload?.blobUrl || initialValues.avatar || ''}
                     alt="Avatar card"
                     onAvatarSet={onAvatarChange}
+                    withFileInput
                   />
                 </PersonaCircleWrapper>
               </StyledBackgroundPlaceholder>

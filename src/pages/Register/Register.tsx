@@ -116,29 +116,47 @@ const LinkStyleLeft = styled(Link)`
 
 export const Register: FC = () => {
   const [apiError, setApiError] = useState('');
-  const { setUser } = useUserContext();
+  const { setUser, user } = useUserContext();
   const firebase = useFirebase();
   const [signIn] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
   const { t } = useTranslation();
 
+  if (user) {
+    history.push(APP_ROUTES.MY_PERSONAS);
+  }
+
   const handleRegister = async ({ email, password }: FormValues): Promise<void> => {
     try {
-      await firebase.createUserWithEmailAndPassword(email, password);
-      const idToken = await firebase?.getCurrentUser()?.getIdToken();
-      const data = await signIn({ variables: { idToken } });
-      const loggedUser = data?.data?.loginUser.user || null;
-      setUser(loggedUser);
+      const user = await firebase.createUserWithEmailAndPassword(email, password);
 
-      if (loggedUser) {
-        history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);
+      if (!user.user?.emailVerified) {
+        localStorage.setItem('emailForSignIn', email);
+        await firebase.sendEmailVerification();
+        history.push(`${APP_ROUTES.LOGIN}?action=verificationEmailSent`);
+      } else {
+        const idToken = await firebase?.getCurrentUser()?.getIdToken();
+        const data = await signIn({ variables: { idToken } });
+        const loggedUser = data?.data?.loginUser.user || null;
+        setUser(loggedUser);
+
+        if (loggedUser) {
+          history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);
+        }
       }
     } catch (error) {
       setApiError(error.message);
     }
   };
 
-  const handleGoogleLogin = async (): Promise<void> => {
+  const handleGoogleLogin = async (
+    formikValues: FormValues,
+    setFieldTouched: (fieldName: string, isTouched: boolean, shouldUpdate: boolean) => void
+  ): Promise<void> => {
+    if (!formikValues.termsAccepted) {
+      setFieldTouched('termsAccepted', true, true);
+      return;
+    }
     const idToken = await signInWithGoogle(firebase);
 
     if (idToken) {
@@ -154,8 +172,9 @@ export const Register: FC = () => {
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleRegister} validationSchema={validationSchema}>
-      {() => (
+      {({ values, setFieldTouched, errors }) => (
         <Form>
+          {console.log(errors)}
           <div>
             <TopNav isWithBackArrow />
             <PageWrapper>
@@ -179,7 +198,7 @@ export const Register: FC = () => {
                   {t('REGISTER_REGISTER_BUTTON')}
                 </RegisterButton>
                 <OrRegisterCaption> {t('REGISTER_TEXT_BETWEEN_BUTTONS')}</OrRegisterCaption>
-                <GoogleButton block onClick={handleGoogleLogin}>
+                <GoogleButton block onClick={() => handleGoogleLogin(values, setFieldTouched)}>
                   {t('REGISTER_GOOGLE_REGISTER_BUTTON')}
                 </GoogleButton>
               </StyledCard>

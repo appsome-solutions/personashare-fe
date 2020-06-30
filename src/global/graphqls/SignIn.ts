@@ -16,6 +16,7 @@ export const SIGN_IN = gql`
         photo
         personaUUIDs
         defaultPersona
+        kind
       }
     }
   }

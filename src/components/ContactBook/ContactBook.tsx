@@ -8,9 +8,11 @@ import { PersonaCard } from 'components/PersonaCard/PersonaCard';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { useHistory } from 'react-router-dom';
-import { AgregatedPersona, gqlUser } from 'global/graphqls/schema';
-import { GET_USER } from 'global/graphqls/User';
+import { AgregatedPersona } from 'global/graphqls/schema';
 import { RecentlyViewedPersonas } from './RecentlyViewedPersonas';
+import { useUserContext } from '../../global/UserContext/UserContext';
+import { TopNav } from '../TopNav/TopNav';
+import { EmptyPlaceholder } from '../EmptyPlaceholder/EmptyPlaceholder';
 import { useTranslation } from 'react-i18next';
 
 const ContactBookStyled = styled.div`
@@ -21,22 +23,25 @@ const ContactBookStyled = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StyledHeader = styled.h6`
-  margin-top: 16px;
+  margin-top: 32px;
 `;
 
 export const ContactBook: FC = () => {
   const { t } = useTranslation();
-  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
+  const { user } = useUserContext();
   const { data, loading } = useQuery<GetCardType>(GET_PERSONA, {
-    variables: { uuid: userPersona?.user?.defaultPersona },
+    variables: { uuid: user?.defaultPersona },
+    skip: !user,
   });
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
 
-  if (loading || !data) {
+  if (loading) {
     return (
       <Overlay>
         <Spinner />
@@ -53,17 +58,21 @@ export const ContactBook: FC = () => {
       );
   return (
     <>
-      <HamburgerMenu
-        isWithHamburger={true}
-        isWithSearch={true}
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-        card={data.persona.card}
-      />
+      {data ? (
+        <HamburgerMenu
+          isWithHamburger={true}
+          isWithSearch={true}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          card={data.persona.card}
+        />
+      ) : (
+        <TopNav isWithBackArrow />
+      )}
       <ContactBookStyled>
         <RecentlyViewedPersonas />
         <StyledHeader>{t('CONTACT_BOOK_HEADING_1')}</StyledHeader>
-        {!results.length && <div> No saved personas... </div>}
+        {!results?.length && <EmptyPlaceholder text="no saved personas..." />}
         {results?.map((persona: AgregatedPersona) => (
           <Wrapper
             key={persona.uuid}

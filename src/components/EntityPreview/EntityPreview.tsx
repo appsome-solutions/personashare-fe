@@ -12,8 +12,8 @@ export interface EntityPreviewPropsType {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
   background-color: ${(props) => props.theme.colors.utils.background.mid};
+  margin-bottom: auto;
 `;
 
 export const EntityPreview: FC<EntityPreviewPropsType> = ({ uuidQuery, entityPage }) => {

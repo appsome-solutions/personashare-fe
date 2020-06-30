@@ -1,11 +1,12 @@
 import React, { FunctionComponent, useState } from 'react';
+import { notification } from 'antd';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { TopNav } from 'components/TopNav/TopNav';
 import LogoSvg from 'assets/logo_nobg.svg';
 import { Formik, Form } from 'formik';
 import { object, string, InferType } from 'yup';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { useFirebase } from 'global/Firebase';
 import { SIGN_IN, SignInResponse } from 'global/graphqls/SignIn';
 import { Button } from 'components/Button';
@@ -19,10 +20,11 @@ import { useUserContext } from 'global/UserContext/UserContext';
 import EmailIconSvg from 'assets/email.svg';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { signInWithGoogle } from 'helpers/signInWithGoogle';
-import { GET_SPOTS } from '../../global/graphqls/Spot';
-import { gqlUser } from '../../global/graphqls/schema';
-import { GET_USER } from '../../global/graphqls/User';
-import { PS_TOKEN_NAME, client } from '../../global/ApolloClient/ApolloClient';
+import { GET_USER } from 'global/graphqls/User';
+import { client } from 'global/ApolloClient/ApolloClient';
+import { getUrlsParams } from '../../helpers/URLParams';
+import { ActionType } from '../Action/Action';
+import { PS_TOKEN_NAME } from '../../global/ApolloClient/ApolloClient';
 import { useTranslation } from 'react-i18next';
 
 const Caption = styled.span((props) => props.theme.typography.caption);
@@ -100,10 +102,12 @@ const initialValues: FormValues = {
 export const Login: FunctionComponent = () => {
   const { t } = useTranslation();
   const [apiError, setApiError] = useState('');
+  const [verified, setVerified] = useState(false);
   const { setUser } = useUserContext();
   const firebase = useFirebase();
   const [signIn] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
+  const { actionCode, action } = getUrlsParams(['actionCode', 'action']);
 
   if (!firebase) {
     return null;
@@ -147,6 +151,40 @@ export const Login: FunctionComponent = () => {
       setApiError(error.message);
     }
   };
+
+  if ((action as ActionType) === 'verify' && !verified) {
+    firebase
+      .applyActionCode(actionCode)
+      .then(async () => {
+        setVerified(true);
+        notification.success({
+          duration: 3,
+          message: 'Your email has been confirmed.',
+          description: 'You can now log in',
+        });
+
+        const idToken = await firebase?.getCurrentUser()?.getIdToken();
+
+        if (idToken) {
+          handleBEConnection(idToken);
+        }
+      })
+      .catch(() => {
+        notification.error({
+          duration: 3,
+          message: "Your email can't be confirmed.",
+          description: 'Please check verification link once more or contact to our team',
+        });
+      });
+  }
+
+  if ((action as ActionType) === 'verificationEmailSent') {
+    notification.info({
+      duration: 4.5,
+      message: 'We send you an email to verify your account.',
+      description: 'Please check your inbox and click in the verification link',
+    });
+  }
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleLogin} validationSchema={validationSchema}>

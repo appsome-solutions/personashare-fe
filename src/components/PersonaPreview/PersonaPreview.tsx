@@ -14,16 +14,16 @@ import { RecommendContactBook } from 'components/ContactBook/RecommendListContac
 import { TopNav } from 'components/TopNav/TopNav';
 import QuillEditor from 'components/QuillEditor/QuillEditor';
 import _ from 'lodash';
+import { notification } from 'antd';
 
 const PersonaPreviewWrapper = styled.div`
-  height: ${(props) => props.theme.contentHeight};
+  min-height: ${(props) => props.theme.contentHeight};
   overflow: auto;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
 `;
 
 const SecondPartPersona = styled.div`
@@ -39,9 +39,18 @@ export const PersonaPreview: FC = () => {
   const addPersonaToRecentlyViewed = () => {
     let recentlyViewedPersonas = JSON.parse(localStorage.getItem('recentlyViewedPersonas') || '[]');
 
+    if (recentlyViewedPersonas.length === 0) {
+      notification.info({
+        message: 'Recently viewed feature',
+        duration: 0,
+        description:
+          'If you don’t have a time to register now, don’t worry. We will store personas you scan on your device for a while. You can find them in contact book. If you want to save them pernamentely, after registration simply save them using “Save” button.',
+      });
+    }
+
     recentlyViewedPersonas.push(uuid);
 
-    recentlyViewedPersonas = _.uniq(recentlyViewedPersonas);
+    recentlyViewedPersonas = _.compact(_.uniq(recentlyViewedPersonas));
 
     if (recentlyViewedPersonas.length > 5) {
       recentlyViewedPersonas.shift();
@@ -71,11 +80,21 @@ export const PersonaPreview: FC = () => {
         <Wrapper key={data.persona.uuid}>
           <div>
             <EntityPageComp page={data.persona.page} />
-            <RecommendButtonPersona uuid={uuid} />
+            <RecommendButtonPersona uuid={uuid} entityUuid={data.persona.networkList} />
           </div>
         </Wrapper>
         <SecondPartPersona>
-          <QuillEditor editable={false} initialValue={data.persona.page.content} />
+          <QuillEditor
+            editable={false}
+            initialValue={data.persona.page.content}
+            uploadAssetsProps={{
+              assetsList: data.persona.page.fileList,
+              asPreview: true,
+            }}
+            managerListProps={{
+              uuid,
+            }}
+          />
           <RecommendContactBook entity={data.persona} />
           <SavePersona uuid={uuid} />
         </SecondPartPersona>

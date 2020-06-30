@@ -220,7 +220,7 @@ const QuillEditor: FC<Props> = ({
   };
 
   const Editor = useMemo(() => {
-    if (!user || !storageRef) {
+    if (!storageRef) {
       return null;
     }
 
@@ -245,6 +245,9 @@ const QuillEditor: FC<Props> = ({
         },
         imageUpload: {
           upload: async (file: File) => {
+            if (!user) {
+              return null;
+            }
             const uploadedAssets = await uploadAssets(storageRef, user.uuid, [
               {
                 name: `editorImg_${Date.now()}_${file.name}.jpg`,
@@ -299,7 +302,7 @@ const QuillEditor: FC<Props> = ({
     // dependencies are missing on purpose, this hook should run only when ref got attached
   }, [isRefAttached]);
 
-  if (!user || !storageRef) {
+  if (!storageRef) {
     return null;
   }
 

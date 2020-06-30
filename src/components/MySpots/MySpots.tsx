@@ -101,10 +101,10 @@ export const MySpots: FC = () => {
                 ))}
             </StyledCarousel>
             <ShareQr>
-              <img src={`${data?.userSpots[currentSlide].qrCodeLink}`} alt="QrCode" />
+              <img src={`${data?.userSpots[currentSlide]?.qrCodeLink}`} alt="QrCode" />
               <TextInShare>
                 <ShareQrIcon src={ShareQrCode} alt="Share Qr Code" />
-                <a href={`${data?.userSpots[currentSlide].qrCodeLink}`}>{t('MY_SPOTS_SHARE_QR')}</a>
+                <a href={`${data?.userSpots[currentSlide]?.qrCodeLink}`}>{t('MY_SPOTS_SHARE_QR')}</a>
               </TextInShare>
             </ShareQr>
           </PageWrapperSpaceBetween>

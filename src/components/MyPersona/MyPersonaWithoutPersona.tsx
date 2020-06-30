@@ -11,7 +11,6 @@ const Wrapper = styled.div`
   justify-content: center;
   padding-top: 32px;
   width: auto;
-  height: 100vh;
 `;
 
 const TextAndImg = styled.div`

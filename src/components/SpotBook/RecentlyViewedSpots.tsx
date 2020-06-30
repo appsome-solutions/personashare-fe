@@ -10,6 +10,8 @@ import { client } from '../../global/ApolloClient/ApolloClient';
 import { GET_SPOT } from '../../global/graphqls/Spot';
 import { RecommendButtonSpot } from 'components/RecommendButton/RecommendButtonSpot';
 import { SaveSpotButton } from '../SaveEntity/SaveSpot';
+import { Overlay } from '../Overlay/Overlay';
+import { Spinner } from '../Spinner/Spinner';
 
 // todo: refactor it, Recommend button should be part of a Card
 const CardWrapper = styled.div`
@@ -35,7 +37,7 @@ const useRecentlyViewedSpots = (recentlyViewedSpotUuids: Array<string>) => {
   });
 
   Promise.all(getsSpotQueries).then((results) => {
-    setResults(results.map((result) => result.data.spot));
+    setResults(results.filter((result) => result.data.spot).map((result) => result.data.spot));
     setLoading(false);
   });
 
@@ -56,13 +58,21 @@ export const RecentlyViewedSpots = () => {
 
   const [loading, recentlyViewedSpots] = useRecentlyViewedSpots(recentlyViewedSpotUuids);
 
+  if (loading) {
+    return (
+      <Overlay>
+        <Spinner />
+      </Overlay>
+    );
+  }
+
   if (!recentlyViewedSpotUuids.length || loading) {
     return null;
   }
 
   return (
     <>
-      <h6> Recently viewed spots </h6>
+      {!!recentlyViewedSpots.length && <h6> Recently viewed spots </h6>}
       <Carousel ref={carousel}>
         {recentlyViewedSpots.map((spot: AgregatedSpot) => (
           <CardWrapper key={spot.uuid}>

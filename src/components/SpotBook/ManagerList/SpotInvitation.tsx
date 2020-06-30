@@ -4,11 +4,12 @@ import LogoInTerms from 'assets/LogoInTerms.svg';
 import Hey from 'assets/Hey.svg';
 import { WideButton } from 'components/Button';
 import { TopNav } from 'components/TopNav/TopNav';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { ADD_MANAGER, AddManagerResponse, GET_SPOT, GetCardType, UPDATE_SPOT } from 'global/graphqls/Spot';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { Entity } from 'global/graphqls/schema';
+import { APP_ROUTES } from 'global/AppRouter/routes';
 import { useTranslation } from 'react-i18next';
 
 const MainComponent = styled.div`
@@ -51,6 +52,7 @@ const WideButtonStyled = styled(WideButton as any)`
 
 export const SpotInvitation: FC = () => {
   const { uuid } = useParams();
+  const history = useHistory();
   const { data } = useQuery<GetCardType>(GET_SPOT, {
     variables: { uuid: uuid },
   });
@@ -79,6 +81,7 @@ export const SpotInvitation: FC = () => {
   const onClickFunctions = async () => {
     await addManager();
     await updateSpot();
+    history.push(APP_ROUTES.SPOT_PREVIEW(uuid));
   };
 
   return (

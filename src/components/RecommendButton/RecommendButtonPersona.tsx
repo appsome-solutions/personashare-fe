@@ -6,11 +6,13 @@ import { GET_PERSONA, GetCardType, RECOMMEND_PERSONA, RecommendPersonaResponse }
 import recommendOn from 'assets/recommendOn.svg';
 import { Popconfirm } from 'antd';
 import _ from 'lodash';
-import { useUserContext } from '../../global/UserContext/UserContext';
+import { useUserContext } from 'global/UserContext/UserContext';
+import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 type RecommendPersona = {
   uuid: string;
+  entityUuid?: any;
 };
 
 const RecommendEmpty = styled.img`
@@ -19,7 +21,7 @@ const RecommendEmpty = styled.img`
   left: calc(100% - 61px);
 `;
 
-export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
+export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid, entityUuid }) => {
   const { user } = useUserContext();
   const [recommendPersona] = useMutation<RecommendPersonaResponse>(RECOMMEND_PERSONA, {
     variables: { recommendedPersonaUuid: uuid },
@@ -34,6 +36,32 @@ export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
     await refetch();
   };
 
+  const messageErrorHandler = () => {
+    if (!data) return null;
+
+    if (user?.kind === 'free' && entityUuid.length > 2) {
+      return message.info(
+        `This persona has reached maximum recommendation network size. You cannot recommend it at the moment."`
+      );
+    } else {
+      return message.info(
+        `This persona has reached maximum recommendation network size. You cannot recommend it at the moment.`
+      );
+    }
+  };
+
+  const checkInHandler = () => {
+    if (!data) return null;
+
+    if (user?.kind === 'free' && entityUuid.length > 2) {
+      return messageErrorHandler();
+    } else if (user?.kind === 'premium' && entityUuid.length > 5) {
+      return messageErrorHandler();
+    } else {
+      return onConfirmFunctions();
+    }
+  };
+
   const IsRecommendedFunction = () => {
     if (_.find(data?.persona.recommendList, { uuid })) {
       return <RecommendEmpty src={recommendOn} alt="Recommend On" />;
@@ -41,7 +69,7 @@ export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
       return (
         <Popconfirm
           title={t('PERSONA_UUID_RECOMMEND_INFO')}
-          onConfirm={() => onConfirmFunctions()}
+          onConfirm={() => checkInHandler()}
           okText={t('PERSONA_UUID_RECOMMEND_BUTTONS_YES')}
           cancelText={t('PERSONA_UUID_RECOMMEND_BUTTONS_NO')}
           placement="bottomRight"

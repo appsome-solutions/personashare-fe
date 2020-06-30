@@ -11,12 +11,9 @@ import { RecommendButtonSpot } from 'components/RecommendButton/RecommendButtonS
 import { SaveSpotButton } from 'components/SaveEntity/SaveSpot';
 import { TopNav } from 'components/TopNav/TopNav';
 import { ManagerList } from 'components/SpotBook/ManagerList/ManagerList';
-import { vh } from 'helpers/styled';
-import { ParticipantList } from '../ParticipantList/ParticipantList';
 import QuillEditor from '../../components/QuillEditor/QuillEditor';
-import useLocalStorage from 'react-use-localstorage';
 import _ from 'lodash';
-import { receiveMessageOnPort } from 'worker_threads';
+import { notification } from 'antd';
 
 type SpotPreviewType = {
   isEditMode?: boolean;
@@ -25,15 +22,15 @@ type SpotPreviewType = {
 const MainComponent = styled.div`
   display: flex;
   flex-direction: column;
-  max-height: ${(props) => props.theme.contentHeight};
-  height: 100%;
+  // min-height: ${(props) => props.theme.contentHeightWithTabs}; is not working for /spot/:uuid
+  min-height: ${(props) => props.theme.contentHeight};
+  height: auto;
   overflow: auto;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: ${vh(100)};
 `;
 
 const SecondPartSpot = styled.div`
@@ -46,14 +43,21 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
     variables: { uuid },
   });
 
-  const [setRecentlyViewedSpots] = useLocalStorage('recentlyViewedSpots', JSON.stringify([]));
-
   const addSpotToRecentlyViewed = () => {
     let recentlyViewedSpots = JSON.parse(localStorage.getItem('recentlyViewedSpots') || '[]');
 
+    if (recentlyViewedSpots.length === 0) {
+      notification.info({
+        message: 'Recently viewed feature',
+        duration: 0,
+        description:
+          'If you don’t have a time to register now, don’t worry. We will store spots you scan on your device for a while. You can find them in spot book. If you want to save them pernamentely, after registration simply save them using “Save” button.',
+      });
+    }
+
     recentlyViewedSpots.push(uuid);
 
-    recentlyViewedSpots = _.uniq(recentlyViewedSpots);
+    recentlyViewedSpots = _.compact(_.uniq(recentlyViewedSpots));
 
     if (recentlyViewedSpots.length > 5) {
       recentlyViewedSpots.shift();
@@ -82,7 +86,7 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
       <MainComponent>
         <Wrapper key={data.spot.uuid}>
           <EntityPageComp page={data.spot.page} />
-          <RecommendButtonSpot uuid={uuid} />
+          <RecommendButtonSpot uuid={uuid} entityUuid={data.spot.networkList} />
           <QuillEditor
             editable={false}
             initialValue={data.spot.page.content}

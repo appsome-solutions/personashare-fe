@@ -8,9 +8,11 @@ import { SpotPage } from 'components/SpotPage/SpotPage';
 import { useHistory } from 'react-router-dom';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
-import { AgregatedSpot, gqlUser } from 'global/graphqls/schema';
-import { GET_USER } from 'global/graphqls/User';
+import { AgregatedSpot } from 'global/graphqls/schema';
 import { RecentlyViewedSpots } from './RecentlyViewedSpots';
+import { useUserContext } from '../../global/UserContext/UserContext';
+import { TopNav } from '../TopNav/TopNav';
+import { EmptyPlaceholder } from '../EmptyPlaceholder/EmptyPlaceholder';
 
 const SpotBookStyled = styled.div`
   padding: 24px 16px 32px 16px;
@@ -22,15 +24,20 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
+const StyledHeader = styled.h6`
+  margin-top: 32px;
+`;
+
 export const SpotBook: FC = () => {
-  const { data: userPersona } = useQuery<{ user: gqlUser }>(GET_USER);
+  const { user } = useUserContext();
   const { data, loading } = useQuery<GetCardType>(GET_PERSONA, {
-    variables: { uuid: userPersona?.user?.defaultPersona },
+    variables: { uuid: user?.defaultPersona },
+    skip: !user,
   });
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
 
-  if (loading || !data) {
+  if (loading) {
     return (
       <Overlay>
         <Spinner />
@@ -48,15 +55,21 @@ export const SpotBook: FC = () => {
 
   return (
     <>
-      <HamburgerMenu
-        isWithHamburger={true}
-        isWithSearch={true}
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-        card={data.persona.card}
-      />
+      {data ? (
+        <HamburgerMenu
+          isWithHamburger={true}
+          isWithSearch={true}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          card={data.persona?.card}
+        />
+      ) : (
+        <TopNav isWithBackArrow />
+      )}
       <SpotBookStyled>
         <RecentlyViewedSpots />
+        <StyledHeader>Your saved spots</StyledHeader>
+        {!results?.length && <EmptyPlaceholder text="no saved spots..." />}
         {results?.map((spot: AgregatedSpot) => (
           <Wrapper
             key={spot.uuid}
