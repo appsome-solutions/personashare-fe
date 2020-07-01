@@ -13,6 +13,9 @@ const Placeholder = styled.div`
 const BgImage = styled.img`
   max-height: 154px;
   width: 100%;
+
+  object-fit: cover;
+  border-radius: 6px 6px 0 0;
 `;
 
 const BgWrapper = styled.div`
