@@ -10,7 +10,8 @@ interface IMessageToDecode extends MessageEvent {
 
 // eslint-disable-next-line
 ctx.addEventListener('message', ({ data }: IMessageToDecode) => {
-  const scannedQr = jsQr(data.data, data.shape[0], data.shape[1]);
+  // const scannedQr = jsQr(data.data, data.shape[0], data.shape[1]);
+  const scannedQr = jsQr(data.data, data.shape[0], data.shape[1], { inversionAttempts: 'dontInvert' });
   if (scannedQr) {
     // eslint-disable-next-line
     ctx.postMessage(scannedQr);
