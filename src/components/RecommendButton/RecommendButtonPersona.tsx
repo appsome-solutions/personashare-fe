@@ -12,9 +12,6 @@ import { useTranslation } from 'react-i18next';
 
 type RecommendPersona = {
   uuid: string;
-
-  recommendList?: any;
-  spotRecommendList?: any;
 };
 
 const RecommendEmpty = styled.img`
@@ -23,7 +20,7 @@ const RecommendEmpty = styled.img`
   left: calc(100% - 61px);
 `;
 
-export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid, recommendList, spotRecommendList }) => {
+export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
   const { user } = useUserContext();
   const [recommendPersona] = useMutation<RecommendPersonaResponse>(RECOMMEND_PERSONA, {
     variables: { recommendedPersonaUuid: uuid },
@@ -41,9 +38,15 @@ export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid, recommendLi
   const checkInHandler = () => {
     if (!data) return null;
 
-    if (user?.kind === 'premium' && (recommendList.length > 6 || spotRecommendList.length > 6)) {
+    if (
+      user?.kind === 'premium' &&
+      (data.persona.recommendList.length > 5 || data.persona.spotRecommendList.length > 5)
+    ) {
       return message.info(`You can recommend maximum 6 personas and 6 spots at one time on premium account.`);
-    } else if (user?.kind === 'free' && (recommendList.length > 3 || spotRecommendList.length > 3)) {
+    } else if (
+      user?.kind === 'free' &&
+      (data.persona.recommendList.length > 2 || data.persona.spotRecommendList.length > 2)
+    ) {
       return message.info(`You can recommend maximum 3 personas and 3 spots at one time on free account."`);
     } else {
       return onConfirmFunctions();

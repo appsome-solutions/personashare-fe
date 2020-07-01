@@ -36,10 +36,6 @@ export const RecommendButtonSpot: FC<RecommendButtonSpotType> = ({ uuid, classNa
   });
   const { t } = useTranslation();
 
-  const {
-    persona: { recommendList, spotRecommendList },
-  } = data as GetCardType;
-
   const onConfirmFunctions = async () => {
     await recommendSpot();
     await refetch();
@@ -48,13 +44,13 @@ export const RecommendButtonSpot: FC<RecommendButtonSpotType> = ({ uuid, classNa
   const checkInHandler = () => {
     if (!data) return null;
 
-    if (canBeRecommended) {
-      return onConfirmFunctions();
-    }
+    const {
+      persona: { recommendList, spotRecommendList },
+    } = data;
 
-    if (user?.kind === 'premium' && (recommendList.length > 6 || spotRecommendList.length > 6)) {
+    if (user?.kind === 'premium' && (recommendList.length > 5 || spotRecommendList.length > 5)) {
       return message.info(`You can recommend maximum 6 personas and 6 spots at one time on premium account.`);
-    } else if (user?.kind === 'free' && (recommendList.length > 3 || spotRecommendList.length > 3)) {
+    } else if (user?.kind === 'free' && (recommendList.length > 2 || spotRecommendList.length > 2)) {
       return message.info(`You can recommend maximum 3 personas and 3 spots at one time on free account."`);
     } else if (!canBeRecommended) {
       return message.info(
