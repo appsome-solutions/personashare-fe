@@ -8,13 +8,12 @@ import { useUserContext } from '../../global/UserContext/UserContext';
 import { useMutation } from '@apollo/react-hooks';
 import { GET_SPOT, PARTICIPATE, ParticipateResponse } from '../../global/graphqls/Spot';
 import { useParams } from 'react-router-dom';
-import { GET_USER } from '../../global/graphqls/User';
-import { GET_PERSONAS } from '../../global/graphqls/Persona';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 export interface PropsType {
   gridCardValue: any;
+  canPersonaParticipate?: boolean;
   savedOrRecommend?: string;
   spotsOrPersonsText?: string;
   isWithText?: boolean;
@@ -66,6 +65,7 @@ const ParticipateText = styled.div`
 
 export const CardsGrid: FC<PropsType> = ({
   gridCardValue,
+  canPersonaParticipate,
   savedOrRecommend,
   spotsOrPersonsText,
   isWithText,
@@ -73,7 +73,6 @@ export const CardsGrid: FC<PropsType> = ({
 }) => {
   const [limit, setLimit] = useState(4);
   const { uuid } = useParams();
-  const { user } = useUserContext();
   const { t } = useTranslation();
   const [addParticipate] = useMutation<ParticipateResponse>(PARTICIPATE, {
     variables: { spotId: uuid },
@@ -99,23 +98,11 @@ export const CardsGrid: FC<PropsType> = ({
     }
   };
 
-  const messageErrorHandler = () => {
-    if (user?.kind === 'free' && gridCardValue?.length > 19) {
-      return message.info(
-        `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`
-      );
-    } else {
-      return message.info(
-        `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`
-      );
-    }
-  };
-
   const checkInHandler = () => {
-    if (user?.kind === 'free' && gridCardValue?.length > 19) {
-      return messageErrorHandler();
-    } else if (user?.kind === 'premium' && gridCardValue?.length > 39) {
-      return messageErrorHandler();
+    if (!canPersonaParticipate) {
+      return message.info(
+        `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`
+      );
     } else {
       return addParticipate();
     }
@@ -131,7 +118,7 @@ export const CardsGrid: FC<PropsType> = ({
             gridCardValue={gridCardValue}
           />
         )}
-        {gridCardValue && (
+        {
           <CardStyled>
             {isWithAddParticipate && <ParticipateText>{t('PARTICIPANT_LIST_TEXT')}</ParticipateText>}
             <ComponentWithTable>
@@ -154,7 +141,7 @@ export const CardsGrid: FC<PropsType> = ({
               </SeeMoreStyled>
             )}
           </CardStyled>
-        )}
+        }
       </>
     );
   };

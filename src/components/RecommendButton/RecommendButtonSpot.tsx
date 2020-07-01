@@ -3,12 +3,12 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import recommendOn from 'assets/recommendOn.svg';
-import { useParams } from 'react-router-dom';
 import { message, Popconfirm } from 'antd';
 import _ from 'lodash';
 import { RECOMMEND_SPOT, RecommendSpotResponse } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { useUserContext } from 'global/UserContext/UserContext';
+import { AgregatedSpot } from '../../global/graphqls/schema';
 import { useTranslation } from 'react-i18next';
 
 const RecommendEmpty = styled.img`
@@ -21,10 +21,10 @@ const RecommendEmpty = styled.img`
 type RecommendButtonSpotType = {
   uuid: string;
   className?: string;
-  entityUuid?: any;
+  canBeRecommended: boolean;
 };
 
-export const RecommendButtonSpot: FC<RecommendButtonSpotType> = ({ uuid, className, entityUuid }) => {
+export const RecommendButtonSpot: FC<RecommendButtonSpotType> = ({ uuid, className, canBeRecommended }) => {
   const { user } = useUserContext();
 
   const [recommendSpot] = useMutation<RecommendSpotResponse>(RECOMMEND_SPOT, {
@@ -41,26 +41,21 @@ export const RecommendButtonSpot: FC<RecommendButtonSpotType> = ({ uuid, classNa
     await refetch();
   };
 
-  const messageErrorHandler = () => {
+  const checkInHandler = () => {
     if (!data) return null;
 
-    if (user?.kind === 'free' && entityUuid.length > 2) {
-      return message.info(
-        `This spot has reached maximum recommendation network size. You cannot recommend it at the moment."`
-      );
-    } else {
+    const {
+      persona: { recommendList, spotRecommendList },
+    } = data;
+
+    if (user?.kind === 'premium' && (recommendList.length > 5 || spotRecommendList.length > 5)) {
+      return message.info(`You can recommend maximum 6 personas and 6 spots at one time on premium account.`);
+    } else if (user?.kind === 'free' && (recommendList.length > 2 || spotRecommendList.length > 2)) {
+      return message.info(`You can recommend maximum 3 personas and 3 spots at one time on free account."`);
+    } else if (!canBeRecommended) {
       return message.info(
         `This spot has reached maximum recommendation network size. You cannot recommend it at the moment.`
       );
-    }
-  };
-
-  const checkInHandler = () => {
-    if (!data) return null;
-    if (user?.kind === 'free' && entityUuid.length > 2) {
-      return messageErrorHandler();
-    } else if (user?.kind === 'premium' && entityUuid.length > 5) {
-      return messageErrorHandler();
     } else {
       return onConfirmFunctions();
     }

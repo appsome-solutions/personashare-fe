@@ -84,6 +84,8 @@ export type AgregatedSpot = {
   owner: AgregatedPersona;
   participants: AgregatedPersona[];
   invitedManagerEmails: EmailInvitation[];
+  canPersonaParticipate: boolean;
+  canBeRecommended: boolean;
 };
 
 export type UpdateSpotInput = {

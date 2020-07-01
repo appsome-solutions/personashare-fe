@@ -307,6 +307,8 @@ export const GET_SPOT = gql`
   query spot($uuid: String!) {
     spot(uuid: $uuid) {
       uuid
+      canBeRecommended
+      canPersonaParticipate
       card {
         name
         description
