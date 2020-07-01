@@ -9,6 +9,7 @@ import { RECOMMEND_SPOT, RecommendSpotResponse } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { AgregatedSpot } from '../../global/graphqls/schema';
+import { useTranslation } from 'react-i18next';
 
 const RecommendEmpty = styled.img`
   align-self: flex-end;
@@ -33,6 +34,7 @@ export const RecommendButtonSpot: FC<RecommendButtonSpotType> = ({ uuid, classNa
     variables: { uuid: user?.defaultPersona },
     skip: !user,
   });
+  const { t } = useTranslation();
 
   const {
     persona: { recommendList, spotRecommendList },
@@ -69,10 +71,10 @@ export const RecommendButtonSpot: FC<RecommendButtonSpotType> = ({ uuid, classNa
     } else
       return (
         <Popconfirm
-          title="Are you sure you want to recommend this spot? It will be shared with your persona at least for the next month."
+          title={t('SPOT_UUID_RECOMMEND_INFO')}
           onConfirm={() => checkInHandler()}
-          okText="Yes"
-          cancelText="No"
+          okText={t('SPOT_UUID_RECOMMEND_BUTTONS_YES')}
+          cancelText={t('SPOT_UUID_RECOMMEND_BUTTONS_NO')}
           className={className}
         >
           <RecommendEmpty src={recommendOff} alt="Recommend Off" />

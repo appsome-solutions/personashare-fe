@@ -13,6 +13,7 @@ import ManagerListSvg from 'assets/manager-list.svg';
 import ParticipantListSvg from 'assets/participant_list.svg';
 import ImageSvg from 'assets/insert_photo-24px.svg';
 import LinkSvg from 'assets/link-24px.svg';
+import { useTranslation } from 'react-i18next';
 
 const DrawerContent = styled.div`
   margin: 0;
@@ -25,25 +26,62 @@ type EditorButtonTypes = {
 
 const EditorButtons = memo(({ addInNewLine = false, disabledEmbedElements = [] }: EditorButtonTypes) => {
   const suffix = addInNewLine ? '-newLine' : '';
+  const { t } = useTranslation();
+
   return (
     <DrawerContent>
-      <BlockButton className={`ql-header${suffix}`} title="Text" svgLink={TextSvg} value={3} />
-      <BlockButton className={`ql-header${suffix}`} title="Heading 1" svgLink={Heading1} value={1} />
-      <BlockButton className={`ql-header${suffix}`} title="Heading 2" svgLink={Heading2} value={2} />
-      <BlockButton className={`ql-blockquote${suffix}`} title="Quote" svgLink={QuoteSvg} />
-      <BlockButton className={`ql-code-block${suffix}`} title="Code" svgLink={CodeSvg} />
-      <BlockButton className={`ql-list${suffix}`} title="Numbered list" svgLink={NumberedListSvg} value="ordered" />
-      <BlockButton className={`ql-list${suffix}`} title="Bulleted list" svgLink={BulletedListSvg} value="bullet" />
-      <BlockButton className="ql-image" title="Image" svgLink={ImageSvg} />
-      <BlockButton className="ql-link" title="URL" svgLink={LinkSvg} />
-      <BlockButton className="ql-upload-asset" title="Upload assets" svgLink={UploadImg} value="true" />
+      <BlockButton
+        className={`ql-header${suffix}`}
+        title={t('CREATION_STEP_3_ELEMENT_1')}
+        svgLink={TextSvg}
+        value={3}
+      />
+      <BlockButton
+        className={`ql-header${suffix}`}
+        title={t('CREATION_STEP_3_ELEMENT_2')}
+        svgLink={Heading1}
+        value={1}
+      />
+      <BlockButton
+        className={`ql-header${suffix}`}
+        title={t('CREATION_STEP_3_ELEMENT_3')}
+        svgLink={Heading2}
+        value={2}
+      />
+      <BlockButton className={`ql-blockquote${suffix}`} title={t('CREATION_STEP_3_ELEMENT_4')} svgLink={QuoteSvg} />
+      <BlockButton className={`ql-code-block${suffix}`} title={t('CREATION_STEP_3_ELEMENT_5')} svgLink={CodeSvg} />
+      <BlockButton
+        className={`ql-list${suffix}`}
+        title={t('CREATION_STEP_3_ELEMENT_6')}
+        svgLink={NumberedListSvg}
+        value="ordered"
+      />
+      <BlockButton
+        className={`ql-list${suffix}`}
+        title={t('CREATION_STEP_3_ELEMENT_7')}
+        svgLink={BulletedListSvg}
+        value="bullet"
+      />
+      <BlockButton className="ql-image" title={t('CREATION_STEP_3_ELEMENT_8')} svgLink={ImageSvg} />
+      <BlockButton className="ql-link" title={t('CREATION_STEP_3_ELEMENT_9')} svgLink={LinkSvg} />
+      <BlockButton
+        className="ql-upload-asset"
+        title={t('CREATION_STEP_3_ELEMENT_10')}
+        svgLink={UploadImg}
+        value="true"
+      />
       {!disabledEmbedElements.includes('manager-list') && (
-        <BlockButton className="ql-manager-list" title="Manager List" svgLink={ManagerListSvg} value="true" />
+        <BlockButton
+          className="ql-manager-list"
+          title={t('CREATION_STEP_3_ELEMENT_11')}
+          svgLink={ManagerListSvg}
+          value="true"
+        />
       )}
       {!disabledEmbedElements.includes('participant-list') && (
         <BlockButton
           className="ql-participant-list"
-          title="Participant List"
+          title={t('CREATION_STEP_3_ELEMENT_12')}
           svgLink={ParticipantListSvg}
           value="true"
         />

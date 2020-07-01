@@ -9,6 +9,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { GET_SPOT, PARTICIPATE, ParticipateResponse } from '../../global/graphqls/Spot';
 import { useParams } from 'react-router-dom';
 import { message } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 export interface PropsType {
   gridCardValue: any;
@@ -73,6 +74,7 @@ export const CardsGrid: FC<PropsType> = ({
   const [limit, setLimit] = useState(4);
   const { uuid } = useParams();
   const { user } = useUserContext();
+  const { t } = useTranslation();
   const [addParticipate] = useMutation<ParticipateResponse>(PARTICIPATE, {
     variables: { spotId: uuid },
     update(cache, { data }) {
@@ -117,29 +119,30 @@ export const CardsGrid: FC<PropsType> = ({
             gridCardValue={gridCardValue}
           />
         )}
-        {/* It needs to display + card and empty participant list when we create it for the first time without gridCardValue */}
-        <CardStyled>
-          {isWithAddParticipate && <ParticipateText>Participant List</ParticipateText>}
-          <ComponentWithTable>
-            {isWithAddParticipate && (
-              <AddParticipateStyle>
-                <img src={CheckIn} alt="check in svg" onClick={() => checkInHandler()} />
-              </AddParticipateStyle>
+        {
+          <CardStyled>
+            {isWithAddParticipate && <ParticipateText>{t('PARTICIPANT_LIST_TEXT')}</ParticipateText>}
+            <ComponentWithTable>
+              {isWithAddParticipate && (
+                <AddParticipateStyle>
+                  <img src={CheckIn} alt="check in svg" onClick={() => checkInHandler()} />
+                </AddParticipateStyle>
+              )}
+              {gridCardValue?.slice(0, limit).map((spotsOrPersonsText: AgregatedPersona) => (
+                <EntityPreviewWrapper
+                  visibilityOrNetworkQuery={gridCardValue}
+                  key={spotsOrPersonsText.uuid}
+                  spotOrPersona={spotsOrPersonsText}
+                />
+              ))}
+            </ComponentWithTable>
+            {gridCardValue.length > 4 && limit < gridCardValue.length && (
+              <SeeMoreStyled>
+                <SeeMoreText onClick={handleClick}>{t('SEE_MORE')}</SeeMoreText>
+              </SeeMoreStyled>
             )}
-            {gridCardValue?.slice(0, limit).map((spotsOrPersonsText: AgregatedPersona) => (
-              <EntityPreviewWrapper
-                visibilityOrNetworkQuery={gridCardValue}
-                key={spotsOrPersonsText.uuid}
-                spotOrPersona={spotsOrPersonsText}
-              />
-            ))}
-          </ComponentWithTable>
-          {gridCardValue?.length > 4 && limit < gridCardValue?.length && (
-            <SeeMoreStyled>
-              <SeeMoreText onClick={handleClick}>SEE MORE</SeeMoreText>
-            </SeeMoreStyled>
-          )}
-        </CardStyled>
+          </CardStyled>
+        }
       </>
     );
   };

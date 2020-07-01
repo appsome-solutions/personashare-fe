@@ -16,6 +16,7 @@ import { StyledErrorMessage } from 'components/StyledErrorMessage/StyledErrorMes
 import LogoWithoutBG from 'assets/logo_nobg.svg';
 import EmailIconSvg from 'assets/email.svg';
 import PersonSvg from 'assets/person-24px.svg';
+import { useTranslation } from 'react-i18next';
 
 const StyledLogo = styled.img`
   margin-top: 18px;
@@ -49,6 +50,7 @@ export const Contact: FC = () => {
   const { sendMail } = useFirebase();
   const [apiError, setApiError] = useState('');
   const history = useHistory();
+  const { t } = useTranslation();
   const handleSubmit = useCallback(
     (values) => {
       setApiError('');
@@ -73,13 +75,13 @@ export const Contact: FC = () => {
       <TopNav isWithBackArrow />
       <PageWrapper justifyContent="flex-start">
         <StyledLogo src={LogoWithoutBG} />
-        <FormComponent title="Contact" buttonLabel="Send" formId="contact">
+        <FormComponent title={t('CONTACT_TITLE')} buttonLabel={t('CONTACT_BUTTON')} formId="contact">
           <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
             {() => (
               <Form id="contact">
-                <InputField name="name" placeholder="Name" svgLink={PersonSvg} />
-                <InputField name="email" placeholder="Email" svgLink={EmailIconSvg} />
-                <Message name="message" placeholder="Message" type="textarea" rows={4} />
+                <InputField name="name" placeholder={t('CONTACT_INPUT_1')} svgLink={PersonSvg} />
+                <InputField name="email" placeholder={t('CONTACT_INPUT_2')} svgLink={EmailIconSvg} />
+                <Message name="message" placeholder={t('CONTACT_INPUT_3')} type="textarea" rows={4} />
                 <StyledErrorMessage>{apiError}</StyledErrorMessage>
               </Form>
             )}

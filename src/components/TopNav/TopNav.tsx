@@ -8,6 +8,7 @@ import { APP_ROUTES } from '../../global/AppRouter/routes';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_PERSONA, GetCardType } from '../../global/graphqls/Persona';
 import { PersonaCircle } from '../PersonaCircle/PersonaCircle';
+import { useTranslation } from 'react-i18next';
 
 type TopNavType = {
   isWithBackArrow?: boolean;
@@ -63,6 +64,7 @@ const PersonaCircleStyle = styled(PersonaCircle)`
 // and refactor user data to return defatulPersona as object instead of id
 export const TopNav = ({ isWithBackArrow }: TopNavType) => {
   const history = useHistory();
+  const { t } = useTranslation();
   const { user } = useUserContext();
   const { loading: isPersonaLoading, data: personaData } = useQuery<GetCardType>(GET_PERSONA, {
     skip: !user,
@@ -78,7 +80,7 @@ export const TopNav = ({ isWithBackArrow }: TopNavType) => {
       {isWithBackArrow && (
         <BackWrapper onClick={() => history.goBack()}>
           <StyledIcon svgLink={LeftArrowIcon} />
-          <BackText>BACK</BackText>
+          <BackText>{t('TOPNAV_BACK')}</BackText>
         </BackWrapper>
       )}
       {user && personaData && user.defaultPersona && (

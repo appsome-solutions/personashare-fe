@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import LinkIn from 'assets/LinkIn.svg';
 import FbIcon from 'assets/FbIcon.svg';
+import { useTranslation } from 'react-i18next';
 
 const CookiesBarStyled = styled.div`
   display: flex;
@@ -56,6 +57,7 @@ const ImgHeight = styled.img`
 
 export const TermAndCookies: FunctionComponent = () => {
   const [isVisible, setIsVisible] = useLocalStorage('isVisible', 'true');
+  const { t } = useTranslation();
 
   if (isVisible === 'false') {
     return null;
@@ -65,16 +67,15 @@ export const TermAndCookies: FunctionComponent = () => {
     <CookiesBarStyled>
       <img alt="cookie icon" src={LogoWithoutBG} />
       <CookieText>
-        Welcome to PersonaShare!
+        {t('COOKIES_NOTIFICATION_TEXT')}
         <br />
-        By using this website you accept our{' '}
+        {t('COOKIES_NOTIFICATION_TEXT_2')}{' '}
         <NavLink to={APP_ROUTES.TERM_OF_USE}>
-          <TextHere>term of service</TextHere>.
+          <TextHere>{t('COOKIES_NOTIFICATION_TEXT_3')}</TextHere>.
         </NavLink>{' '}
-        We are all #PersonashareFamily so we care about your privacy. This website uses cookies. By using this website
-        you agree with our <br />
+        {t('COOKIES_NOTIFICATION_TEXT_4')} <br />
         <NavLink to={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY}>
-          <TextHere>privacy and cokies policy</TextHere>.
+          <TextHere>{t('COOKIES_NOTIFICATION_TEXT_5')}</TextHere>.
         </NavLink>
       </CookieText>
       <ImgAndButtonBox>
@@ -86,7 +87,7 @@ export const TermAndCookies: FunctionComponent = () => {
             <ImgHeight alt="LinkedIn icon" src={LinkIn} />
           </a>
         </LinkedInBox>
-        <ButtonAccept onClick={() => setIsVisible('false')}>I UNDERSTAND</ButtonAccept>
+        <ButtonAccept onClick={() => setIsVisible('false')}>{t('COOKIES_UNDERSTAND')}</ButtonAccept>
       </ImgAndButtonBox>
     </CookiesBarStyled>
   );

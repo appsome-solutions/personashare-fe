@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React, { FC } from 'react';
 import SearchIcon from 'assets/SearchIcon.svg';
+import { useTranslation } from 'react-i18next';
 
 export interface SearchProps {
   searchValue?: string;
@@ -40,13 +41,14 @@ const SearchImg = styled.img`
 `;
 
 export const SearchPositionBox: FC<SearchProps> = ({ searchValue, setSearchValue }) => {
+  const { t } = useTranslation();
   const handleChangeInput = (event: any) => {
     setSearchValue(event.target.value);
   };
 
   return (
     <SearchPositionBoxStyled>
-      <SearchInputStyled placeholder="Search..." value={searchValue} onChange={handleChangeInput} />
+      <SearchInputStyled placeholder={t('SPOT_BOOK_NAVBAR')} value={searchValue} onChange={handleChangeInput} />
       <SearchImg src={SearchIcon} alt="something " />
     </SearchPositionBoxStyled>
   );

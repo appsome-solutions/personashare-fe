@@ -24,6 +24,8 @@ import { GET_USER } from 'global/graphqls/User';
 import { client } from 'global/ApolloClient/ApolloClient';
 import { getUrlsParams } from '../../helpers/URLParams';
 import { ActionType } from '../Action/Action';
+import { PS_TOKEN_NAME } from '../../global/ApolloClient/ApolloClient';
+import { useTranslation } from 'react-i18next';
 
 const Caption = styled.span((props) => props.theme.typography.caption);
 
@@ -98,6 +100,7 @@ const initialValues: FormValues = {
 };
 
 export const Login: FunctionComponent = () => {
+  const { t } = useTranslation();
   const [apiError, setApiError] = useState('');
   const [verified, setVerified] = useState(false);
   const { setUser } = useUserContext();
@@ -192,24 +195,24 @@ export const Login: FunctionComponent = () => {
             <PageWrapper>
               <StyledLogo src={LogoSvg} alt="logo" />
               <StyledCard>
-                <HeyText>Hey!</HeyText>
-                <LoginText>Sign into your Account</LoginText>
-                <InputWithSuffixIcon name="email" placeholder="Email" svgLink={EmailIconSvg} />
-                <StyledPasswordInput name="password" placeholder="Password" />
+                <HeyText>{t('LOGIN_HEADING_1')}</HeyText>
+                <LoginText>{t('LOGIN_HEADING_2')}</LoginText>
+                <InputWithSuffixIcon name="email" placeholder={t('LOGIN_EMAIL_INPUT')} svgLink={EmailIconSvg} />
+                <StyledPasswordInput name="password" placeholder={t('LOGIN_FORGOT_PASSWORD')} />
                 <StyledErrorMessage>{apiError}</StyledErrorMessage>
                 <ResetPassword>
-                  Forgot your <Link to={APP_ROUTES.RESET_PASSWORD}>Password?</Link>
+                  {t('LOGIN_PASSWORD_INPUT')} <Link to={APP_ROUTES.RESET_PASSWORD}>{t('LOGIN_RESET_PASSWORD')}</Link>
                 </ResetPassword>
                 <LoginButton block htmlType="submit">
-                  LOGIN
+                  {t('LOGIN_BUTTON')}
                 </LoginButton>
-                <OrLoginCaption>Or Login using social Media</OrLoginCaption>
+                <OrLoginCaption>{t('LOGIN_TEXT_BETWEEN_BUTTON')}</OrLoginCaption>
                 <GoogleButton block onClick={handleGoogleLogin}>
-                  GOOGLE
+                  {t('LOGIN_GOOGLE')}
                 </GoogleButton>
               </StyledCard>
               <RegisterCaption>
-                Don’t have account? <Link to={APP_ROUTES.REGISTER}>Register Now</Link>
+                {t('LOGIN_NO_ACCOUNT')} <Link to={APP_ROUTES.REGISTER}> {t('LOGIN_NO_ACCOUNT_REGISTER')}</Link>
               </RegisterCaption>
             </PageWrapper>
           </div>

@@ -6,6 +6,7 @@ import { CardType } from 'global/graphqls/schema';
 import { GET_PERSONA, GetCardType, UPDATE_PERSONA_CARD } from 'global/graphqls/Persona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { Spinner } from 'components/Spinner/Spinner';
+import { useTranslation } from 'react-i18next';
 
 const cardInitialValues: CardType = {
   name: '',
@@ -22,6 +23,7 @@ export const EditPersonaCard: FC = () => {
     variables: { uuid },
   });
   const [updateCard] = useMutation<GetCardType>(UPDATE_PERSONA_CARD);
+  const { t } = useTranslation();
 
   if (loading) {
     return <Spinner />;
@@ -37,6 +39,8 @@ export const EditPersonaCard: FC = () => {
 
   return (
     <EntityCard
+      infoBody={t('CREATION_STEP_2_INFO')}
+      titleCard={t('CREATION_STEP_2_HEADING')}
       nextPathName={APP_ROUTES.EDIT_PERSONA_UUID_STEP_2(uuid)}
       stepperNumbers={[1, 2]}
       currentNumber={1}

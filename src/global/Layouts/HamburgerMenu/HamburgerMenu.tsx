@@ -14,6 +14,7 @@ import { SearchPositionBox } from './SearchPositionBox';
 import { PersonaCircle } from 'components/PersonaCircle/PersonaCircle';
 import { EntityCard as EntityType } from 'global/graphqls/schema';
 import { useUserContext } from '../../UserContext/UserContext';
+import { useTranslation } from 'react-i18next';
 
 type HamburgerMenuType = {
   isWithHamburger?: boolean;
@@ -100,7 +101,7 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
 }) => {
   const history = useHistory();
   const [logout] = useMutation<SignOutResponse>(SIGN_OUT);
-
+  const { t } = useTranslation();
   const { setUser } = useUserContext();
 
   return (
@@ -110,11 +111,11 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
           <DrawerMenu>
             <LinkRouterStyle to={APP_ROUTES.MY_PERSONAS}>
               <HamburgerIcon svgLink={MyPersonas} />
-              <TextInHamburger>My personas</TextInHamburger>
+              <TextInHamburger>{t('MENU_REDIRECT_MY_PERSONA')}</TextInHamburger>
             </LinkRouterStyle>
             <LinkRouterStyle to={APP_ROUTES.MY_SPOTS}>
               <HamburgerIcon svgLink={MySpots} />
-              <TextInHamburger>My spots</TextInHamburger>
+              <TextInHamburger>{t('MENU_REDIRECT_MY_SPOT')}</TextInHamburger>
             </LinkRouterStyle>
             <LogoutButton
               onClick={async () => {
@@ -126,7 +127,7 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
               }}
             >
               <HamburgerIcon svgLink={LogoutSvg} />
-              <TextInHamburger>Logout</TextInHamburger>
+              <TextInHamburger>{t('MENU_REDIRECT_LOGOUT')}</TextInHamburger>
             </LogoutButton>
           </DrawerMenu>
           {isWithSearch && <SearchPositionBox searchValue={searchValue} setSearchValue={setSearchValue} />}

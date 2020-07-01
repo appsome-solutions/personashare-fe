@@ -14,6 +14,7 @@ import TeamImg from 'assets/TeamImg.svg';
 import EyeImg from 'assets/EyeImg.svg';
 import SchemeImg from 'assets/SchemeImg.svg';
 import CustomImg from 'assets/CustomImg.svg';
+import { useTranslation } from 'react-i18next';
 
 const InformationUnderText = styled(InfoCard)`
   margin: 40px 0 46px 0;
@@ -31,7 +32,7 @@ const ContactUs = styled(NavLink)`
 
 export const CreateSpotsStep1: FC = () => {
   const history = useHistory();
-
+  const { t } = useTranslation();
   const onNextClick = (): void => {
     history.push({
       pathname: APP_ROUTES.SPOT_CREATION_STEP_2,
@@ -44,50 +45,42 @@ export const CreateSpotsStep1: FC = () => {
       <PageWrapperSpaceBetween>
         <div>
           <Stepper items={[1, 2, 3]} current={1} mb={31} />
-          <InfoCard title="Welcome in a Persona Share!">
-            The only application on the market where you decide which data you want share. Just create your first
-            predefined set of data you want to exchange with 3 simple steps.
+          <InfoCard title={`${t('CREATION_STEP_1_SPOT_TOP_TAB_HEADING')}`}>
+            {t('CREATION_STEP_1_SPOT_TOP_TAB')}
           </InfoCard>
         </div>
         <SpotAndPersona
           svgLink={ContentImg}
-          title="Boosted business page"
-          content="It is always up to date. You can insert there not only contact details, but also links to surveys, your social media, groups, products, services, booking pages, blogs, tutorials, books, articles, actually.. Anything you want! Just take a look at our build-in editor!"
+          title={t('CREATION_STEP_1_SPOT_TAB_1_TITLE')}
+          content={t('CREATION_STEP_1_SPOT_TAB_1')}
         />
         <SpotAndPersona
           svgLink={CustomImg}
-          title="Spot managers"
-          content="You can add important personas to your spot. With that you promote their brands and increase your spot value."
+          title={t('CREATION_STEP_1_SPOT_TAB_2_TITLE')}
+          content={t('CREATION_STEP_1_SPOT_TAB_2')}
         />
         <SpotAndPersona
           svgLink={TeamImg}
-          title="Participant list"
-          content="You can allow any persona to be visible on your spot. It will help integrate people and give them possibility to share brief message with others."
+          title={t('CREATION_STEP_1_SPOT_TAB_3_TITLE')}
+          content={t('CREATION_STEP_1_SPOT_TAB_3')}
         />
         <SpotAndPersona
           svgLink={EyeImg}
-          title="Make your brand visible"
-          content="By using qr codes you can encourage others to see your spot details. With that you can show them your services and products, redirect to social medias and give them access to anything they should know. It all depends on creative usage!"
+          title={t('CREATION_STEP_1_SPOT_TAB_4_TITLE')}
+          content={t('CREATION_STEP_1_SPOT_TAB_4')}
         />
         <SpotAndPersona
           svgLink={SchemeImg}
-          title="Recommendations network"
-          content="Get a recommendation from your friends, partners and clients. You are linked with your recommendators. Whenever they share persona you are visible there. Create you own recommendation net!"
+          title={t('CREATION_STEP_1_SPOT_TAB_5_TITLE')}
+          content={t('CREATION_STEP_1_SPOT_TAB_5')}
         />
         <InformationUnderText title="">
           <TextInInfo>
-            You can use spots totally for free, but there are some limitations:
-            <br /> - maximum 3 manager personas in spot
-            <br /> - maximum 20 personas can join to spot
-            <br />
-            - your spot can be recommended up to 5 times
-            <br /> - editor limitations
-            <br />
-            If you would be interested in exceeding them
-            <ContactUs to={APP_ROUTES.CONTACT}>contact us</ContactUs>.
+            {t('CREATION_STEP_1_SPOT_LIMITATIONS_TAB')}
+            <ContactUs to={APP_ROUTES.CONTACT}>{t('CREATION_STEP_1_SPOT_CONTACT_US')} </ContactUs>.
           </TextInInfo>
         </InformationUnderText>
-        <WideButton onClick={onNextClick}>CREATE FREE SPOT</WideButton>
+        <WideButton onClick={onNextClick}>{t('CREATION_STEP_1_SPOT_NEXT_STEP')}</WideButton>
       </PageWrapperSpaceBetween>
     </div>
   );
