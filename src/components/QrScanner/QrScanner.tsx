@@ -195,7 +195,7 @@ export const QrScanner = ({ onError, onUserMediaError, className, videoConstrain
   );
 };
 
-const defaultInterval = 500;
+const defaultInterval = 1250;
 
 QrScanner.defaultProps = {
   videoConstraints: { facingMode: 'environment' },
