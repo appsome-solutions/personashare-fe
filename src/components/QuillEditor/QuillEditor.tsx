@@ -173,6 +173,15 @@ QuillClass.register(
   true
 );
 
+const Link = QuillClass.import('formats/link');
+Link.sanitize = (url: string): string => {
+  const pattern = /^((http|https|ftp):\/\/)/;
+  if (!pattern.test(url)) {
+    return 'http://' + url;
+  }
+  return url;
+};
+
 const QuillEditor: FC<Props> = ({
   onChange,
   initialValue = '',
