@@ -70,6 +70,7 @@ export const CropperWidget: FC<CropperWidgetProps> = ({ imageRef, onCrop }) => {
         .crop()
         .getCroppedCanvas({
           imageSmoothingEnabled: false,
+          fillColor: '#fff',
         })
         .toBlob(
           (blob) => {
