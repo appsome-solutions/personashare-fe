@@ -127,13 +127,15 @@ export const CardsGrid: FC<PropsType> = ({
                   <img src={CheckIn} alt="check in svg" onClick={() => checkInHandler()} />
                 </AddParticipateStyle>
               )}
-              {gridCardValue?.slice(0, limit).map((spotsOrPersonsText: AgregatedPersona) => (
-                <EntityPreviewWrapper
-                  visibilityOrNetworkQuery={gridCardValue}
-                  key={spotsOrPersonsText.uuid}
-                  spotOrPersona={spotsOrPersonsText}
-                />
-              ))}
+              {gridCardValue
+                ?.slice(0, limit <= 4 && !isWithAddParticipate ? limit : limit - 1)
+                .map((spotsOrPersonsText: AgregatedPersona) => (
+                  <EntityPreviewWrapper
+                    visibilityOrNetworkQuery={gridCardValue}
+                    key={spotsOrPersonsText.uuid}
+                    spotOrPersona={spotsOrPersonsText}
+                  />
+                ))}
             </ComponentWithTable>
             {gridCardValue.length > 4 && limit < gridCardValue.length && (
               <SeeMoreStyled>
