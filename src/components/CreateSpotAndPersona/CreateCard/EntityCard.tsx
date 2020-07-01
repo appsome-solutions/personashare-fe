@@ -121,6 +121,7 @@ export const EntityCard: FC<PropsCard> = ({
                 placeholder="Your Name"
                 tabIndex={0}
                 hasError={!!errors.name}
+                maxLength={69}
               />
               <CardDescription
                 id="description"
@@ -130,6 +131,7 @@ export const EntityCard: FC<PropsCard> = ({
                 placeholder="Your short description"
                 tabIndex={0}
                 hasError={!!errors.description}
+                maxLength={69}
               />
             </CardBody>
           </Card>
