@@ -85,7 +85,7 @@ export const RecentlyViewedSpots = () => {
                 })
               }
             />
-            <StyledRecommendButtonSpot uuid={spot.uuid} />
+            <StyledRecommendButtonSpot uuid={spot.uuid} canBeRecommended={spot.canBeRecommended} />
             <SaveSpotButton uuid={spot.uuid} />
           </CardWrapper>
         ))}

@@ -25,5 +25,12 @@ export const ParticipantList: FC = () => {
     return <div>No Participants...</div>;
   }*/
 
-  return <CardsGrid isWithAddParticipate={true} isWithText={false} gridCardValue={data?.spot?.participants} />;
+  return (
+    <CardsGrid
+      isWithAddParticipate={true}
+      isWithText={false}
+      gridCardValue={data?.spot?.participants}
+      canPersonaParticipate={data?.spot?.canPersonaParticipate}
+    />
+  );
 };

@@ -11,7 +11,9 @@ import { message } from 'antd';
 
 type RecommendPersona = {
   uuid: string;
-  entityUuid?: any;
+
+  recommendList?: any;
+  spotRecommendList?: any;
 };
 
 const RecommendEmpty = styled.img`
@@ -20,7 +22,7 @@ const RecommendEmpty = styled.img`
   left: calc(100% - 61px);
 `;
 
-export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid, entityUuid }) => {
+export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid, recommendList, spotRecommendList }) => {
   const { user } = useUserContext();
   const [recommendPersona] = useMutation<RecommendPersonaResponse>(RECOMMEND_PERSONA, {
     variables: { recommendedPersonaUuid: uuid },
@@ -34,27 +36,13 @@ export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid, entityUuid 
     await refetch();
   };
 
-  const messageErrorHandler = () => {
-    if (!data) return null;
-
-    if (user?.kind === 'free' && entityUuid.length > 2) {
-      return message.info(
-        `This persona has reached maximum recommendation network size. You cannot recommend it at the moment."`
-      );
-    } else {
-      return message.info(
-        `This persona has reached maximum recommendation network size. You cannot recommend it at the moment.`
-      );
-    }
-  };
-
   const checkInHandler = () => {
     if (!data) return null;
 
-    if (user?.kind === 'free' && entityUuid.length > 2) {
-      return messageErrorHandler();
-    } else if (user?.kind === 'premium' && entityUuid.length > 5) {
-      return messageErrorHandler();
+    if (user?.kind === 'premium' && (recommendList.length > 6 || spotRecommendList.length > 6)) {
+      return message.info(`You can recommend maximum 6 personas and 6 spots at one time on premium account.`);
+    } else if (user?.kind === 'free' && (recommendList.length > 3 || spotRecommendList.length > 3)) {
+      return message.info(`You can recommend maximum 3 personas and 3 spots at one time on free account."`);
     } else {
       return onConfirmFunctions();
     }

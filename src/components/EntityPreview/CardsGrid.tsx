@@ -8,12 +8,11 @@ import { useUserContext } from '../../global/UserContext/UserContext';
 import { useMutation } from '@apollo/react-hooks';
 import { GET_SPOT, PARTICIPATE, ParticipateResponse } from '../../global/graphqls/Spot';
 import { useParams } from 'react-router-dom';
-import { GET_USER } from '../../global/graphqls/User';
-import { GET_PERSONAS } from '../../global/graphqls/Persona';
 import { message } from 'antd';
 
 export interface PropsType {
   gridCardValue: any;
+  canPersonaParticipate?: boolean;
   savedOrRecommend?: string;
   spotsOrPersonsText?: string;
   isWithText?: boolean;
@@ -65,6 +64,7 @@ const ParticipateText = styled.div`
 
 export const CardsGrid: FC<PropsType> = ({
   gridCardValue,
+  canPersonaParticipate,
   savedOrRecommend,
   spotsOrPersonsText,
   isWithText,
@@ -97,23 +97,11 @@ export const CardsGrid: FC<PropsType> = ({
     }
   };
 
-  const messageErrorHandler = () => {
-    if (user?.kind === 'free' && gridCardValue?.length > 19) {
-      return message.info(
-        `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`
-      );
-    } else {
-      return message.info(
-        `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`
-      );
-    }
-  };
-
   const checkInHandler = () => {
-    if (user?.kind === 'free' && gridCardValue?.length > 19) {
-      return messageErrorHandler();
-    } else if (user?.kind === 'premium' && gridCardValue?.length > 39) {
-      return messageErrorHandler();
+    if (!canPersonaParticipate) {
+      return message.info(
+        `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`
+      );
     } else {
       return addParticipate();
     }
