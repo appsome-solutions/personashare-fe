@@ -9,6 +9,7 @@ import { WideButton } from 'components/Button';
 import { TakeYourPhone } from './TakeYourPhone/TakeYourPhone';
 import { GoOn } from './GoOn/GoOn';
 import { QrCode } from './QrCode/QrCode';
+import { useTranslation } from 'react-i18next';
 
 const FlexCenterStyle = css`
   display: flex;
@@ -68,6 +69,7 @@ export const Guide: FC<GuideProps> = ({ onOutsideClick }: GuideProps) => {
   const [step, setStep] = useState(1);
   const cardFrontRef = useRef<HTMLDivElement>(null);
   const cardBackRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   const handleClickOutside = useCallback(
     (event: any): void => {
@@ -106,7 +108,7 @@ export const Guide: FC<GuideProps> = ({ onOutsideClick }: GuideProps) => {
             <Stepper items={steps} current={step} />
             <CurrentStep />
           </StepContentWrapper>
-          <GuideButton onClick={changeStep}>NEXT STEP</GuideButton>
+          <GuideButton onClick={changeStep}>{t('NEXT_STEP')}</GuideButton>
         </GuideCard>
 
         <GuideCard ref={cardBackRef}>
@@ -114,7 +116,7 @@ export const Guide: FC<GuideProps> = ({ onOutsideClick }: GuideProps) => {
             <Stepper items={steps} current={step} />
             <GoOn />
           </StepContentWrapper>
-          <GuideButton onClick={changeStep}>NEXT STEP</GuideButton>
+          <GuideButton onClick={changeStep}>{t('NEXT_STEP')}</GuideButton>
         </GuideCard>
       </ReactCardFlip>
     </FlexOverlay>

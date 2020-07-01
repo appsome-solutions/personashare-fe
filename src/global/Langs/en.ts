@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import React from 'react';
-
 const enTranslations = {
   en: {
     translation: {
