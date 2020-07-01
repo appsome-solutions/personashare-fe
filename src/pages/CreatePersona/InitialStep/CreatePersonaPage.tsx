@@ -7,6 +7,7 @@ import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
 import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { GET_USER } from '../../../global/graphqls/User';
+import { useTranslation } from 'react-i18next';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -18,6 +19,7 @@ const pageInitialValues: PageType = {
 
 export const CreatePersonaPage: FC = () => {
   const { data } = useQuery<GetPageType>(GET_PAGE);
+  const { t } = useTranslation();
   const { data: personaData } = useQuery<GetCardType>(GET_CARD);
   const [createPersona] = useMutation<{ createPersona: Entity }>(CREATE_PERSONA, {
     update(cache, { data }) {
@@ -62,15 +64,17 @@ export const CreatePersonaPage: FC = () => {
 
   return (
     <EntityPage
+      titleCard={t('CREATION_STEP_3_HEADING')}
+      infoBody={t('CREATION_STEP_3_INFO')}
       currentNumber={3}
       stepperNumbers={[1, 2, 3]}
       onPageSubmitCreateOrUpdate={createPersona}
-      CreateOrSave="Create"
+      CreateOrSave={t('CREATION_STEP_3_CREATE_BUTTON')}
       cardDefault={cardDefaultPersona}
       card={personaData.entity.card}
       initialValues={initialValues}
       nextStepPath={APP_ROUTES.MY_PERSONAS}
-      nameSpotOrPersona="Persona"
+      nameSpotOrPersona={t('CREATION_STEP_3_CREATE_PERSONA')}
       previousStepPath={APP_ROUTES.PERSONA_CREATION_STEP_2}
     />
   );

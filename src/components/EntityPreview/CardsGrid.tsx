@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 import { GET_USER } from '../../global/graphqls/User';
 import { GET_PERSONAS } from '../../global/graphqls/Persona';
 import { message } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 export interface PropsType {
   gridCardValue: any;
@@ -73,6 +74,7 @@ export const CardsGrid: FC<PropsType> = ({
   const [limit, setLimit] = useState(4);
   const { uuid } = useParams();
   const { user } = useUserContext();
+  const { t } = useTranslation();
   const [addParticipate] = useMutation<ParticipateResponse>(PARTICIPATE, {
     variables: { spotId: uuid },
     update(cache, { data }) {
@@ -131,7 +133,7 @@ export const CardsGrid: FC<PropsType> = ({
         )}
         {gridCardValue && (
           <CardStyled>
-            {isWithAddParticipate && <ParticipateText>Participant List</ParticipateText>}
+            {isWithAddParticipate && <ParticipateText>{t('PARTICIPANT_LIST_TEXT')}</ParticipateText>}
             <ComponentWithTable>
               {isWithAddParticipate && (
                 <AddParticipateStyle>
@@ -148,7 +150,7 @@ export const CardsGrid: FC<PropsType> = ({
             </ComponentWithTable>
             {gridCardValue.length > 4 && limit < gridCardValue.length && (
               <SeeMoreStyled>
-                <SeeMoreText onClick={handleClick}>SEE MORE</SeeMoreText>
+                <SeeMoreText onClick={handleClick}>{t('SEE_MORE')}</SeeMoreText>
               </SeeMoreStyled>
             )}
           </CardStyled>

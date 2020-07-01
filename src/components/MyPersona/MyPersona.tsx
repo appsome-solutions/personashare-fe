@@ -19,11 +19,15 @@ import { Loader } from '../Loader/Loader';
 import { ShareQrComponent } from './ShareQrComponent';
 import { LoginOrHamburger } from '../QrScanner/LoginOrHamburger';
 import { GET_USER } from '../../global/graphqls/User';
+import { useTranslation } from 'react-i18next';
 
 const StyledButton = styled(Button)`
   width: 80%;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const DefaultBlock = styled.div`
@@ -72,6 +76,7 @@ const StyledPageWrapper = styled(PageWrapper)`
 `;
 
 export const MyPersona: FC = () => {
+  const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
   const { loading, data } = useQuery<{ userPersonas: Array<AgregatedPersona> }>(GET_PERSONAS);
   const [setDefaultPersona, { loading: isSetDefaultPersonaLoading }] = useMutation<SetDefaultPersonaResponse>(
@@ -154,9 +159,11 @@ export const MyPersona: FC = () => {
                 }
               />
               {persona.uuid === user?.defaultPersona ? (
-                <DefaultBlock>DEFAULT</DefaultBlock>
+                <DefaultBlock>{t('MY_PERSONA_DEFAULT_BUTTON')}</DefaultBlock>
               ) : (
-                <StyledButton onClick={() => handleSetDefault(persona)}>SET AS DEFAULT</StyledButton>
+                <StyledButton onClick={() => handleSetDefault(persona)}>
+                  {t('MY_PERSONA_SET_AS_DEFAULT_BUTTON')}
+                </StyledButton>
               )}
             </Wrapper>
           </CaruouselItem>

@@ -6,6 +6,7 @@ import { PageType, Entity } from 'global/graphqls/schema';
 import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
 import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
+import { useTranslation } from 'react-i18next';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -17,6 +18,7 @@ const pageInitialValues: PageType = {
 
 export const CreateSpotsPage: FC = () => {
   const { data } = useQuery<GetPageType>(GET_PAGE);
+  const { t } = useTranslation();
   const { data: spotData } = useQuery<GetCardType>(GET_CARD);
   const [createSpot] = useMutation<{ createSpot: Entity }>(CREATE_SPOT, {
     update(cache, { data }) {
@@ -41,15 +43,17 @@ export const CreateSpotsPage: FC = () => {
   return (
     <div>
       <EntityPage
+        titleCard={t('CREATION_STEP_3_SPOT_HEADING')}
+        infoBody={t('CREATION_STEP_3_SPOT_INFO')}
         currentNumber={3}
         stepperNumbers={[1, 2, 3]}
-        CreateOrSave="Create"
+        CreateOrSave={t('CREATION_STEP_3_CREATE_BUTTON')}
         cardDefault={cardDefaultSpot}
         card={spotData.entity.card}
         onPageSubmitCreateOrUpdate={createSpot}
         initialValues={initialValues}
         nextStepPath={APP_ROUTES.MY_SPOTS}
-        nameSpotOrPersona="Spot"
+        nameSpotOrPersona={t('SPOT_TEXT')}
         previousStepPath={APP_ROUTES.SPOT_CREATION_STEP_2}
       />
     </div>

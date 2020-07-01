@@ -1,6 +1,7 @@
 import React, { FC, memo } from 'react';
 import ShareQrCode from 'assets/ShareQrCode.svg';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const ShareQr = styled.div`
   margin-top: 46px;
@@ -30,17 +31,21 @@ type ShareQrComponentProps = {
   qrCodeLink?: string;
 };
 
-const ShareQrComponent: FC<ShareQrComponentProps> = memo<ShareQrComponentProps>(({ qrCodeLink }) => (
-  <ShareQr>
-    <img src={qrCodeLink} alt="QrCode Icon" />
-    <TextInShare>
-      <ShareQrIcon src={ShareQrCode} alt="Share Qr Code" />
-      <LinkStyled href={qrCodeLink} download="output.png">
-        Share your QR
-      </LinkStyled>
-    </TextInShare>
-  </ShareQr>
-));
+const ShareQrComponent: FC<ShareQrComponentProps> = memo<ShareQrComponentProps>(({ qrCodeLink }) => {
+  const { t } = useTranslation();
+
+  return (
+    <ShareQr>
+      <img src={qrCodeLink} alt="QrCode Icon" />
+      <TextInShare>
+        <ShareQrIcon src={ShareQrCode} alt="Share Qr Code" />
+        <LinkStyled href={qrCodeLink} download="output.png">
+          {t('MY_PERSONA_SHARE_QR')}
+        </LinkStyled>
+      </TextInShare>
+    </ShareQr>
+  );
+});
 
 ShareQrComponent.displayName = 'ShareQrComponent';
 

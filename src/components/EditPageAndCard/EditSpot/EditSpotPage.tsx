@@ -8,6 +8,7 @@ import { GET_CARD, GetCardType, GetPageType } from 'global/graphqls/SpotAndPerso
 import { useParams } from 'react-router-dom';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { Spinner } from '../../Spinner/Spinner';
+import { useTranslation } from 'react-i18next';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -19,6 +20,7 @@ const pageInitialValues: PageType = {
 
 export const EditSpotPage: FC = () => {
   const { uuid } = useParams();
+  const { t } = useTranslation();
   const { data, loading } = useQuery(GET_SPOT, { variables: { uuid }, fetchPolicy: 'no-cache' });
   const { data: spotData, loading: spotLoading } = useQuery<GetCardType>(GET_CARD);
   const [updateSpot] = useMutation<{ updateSpot: Entity }>(UPDATE_SPOT_PAYLOAD, {
@@ -64,16 +66,18 @@ export const EditSpotPage: FC = () => {
   if (!uuid) return null;
   return (
     <EntityPage
+      titleCard={t('CREATION_STEP_3_SPOT_HEADING')}
+      infoBody={t('CREATION_STEP_3_SPOT_INFO')}
       currentNumber={2}
       stepperNumbers={[1, 2]}
-      CreateOrSave="Save"
+      CreateOrSave={t('SPOT_UUID_ENTITY_BUTTON_EDIT')}
       cardDefault={cardDefaultSpot}
       card={spotData.entity.card}
       onPageSubmitCreateOrUpdate={updateSpot}
       initialValues={initialValues}
       nextStepPath={APP_ROUTES.MY_SPOTS}
-      nameSpotOrPersona="Spot"
       previousStepPath={APP_ROUTES.EDIT_SPOT_UUID_STEP_1(uuid)}
+      nameSpotOrPersona={t('SPOT_TEXT')}
     />
   );
 };

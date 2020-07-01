@@ -13,6 +13,7 @@ import { RecentlyViewedPersonas } from './RecentlyViewedPersonas';
 import { useUserContext } from '../../global/UserContext/UserContext';
 import { TopNav } from '../TopNav/TopNav';
 import { EmptyPlaceholder } from '../EmptyPlaceholder/EmptyPlaceholder';
+import { useTranslation } from 'react-i18next';
 
 const ContactBookStyled = styled.div`
   padding: 30px 16px 40px 16px;
@@ -31,6 +32,7 @@ const StyledHeader = styled.h6`
 `;
 
 export const ContactBook: FC = () => {
+  const { t } = useTranslation();
   const { user } = useUserContext();
   const { data, loading } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: user?.defaultPersona },
@@ -69,7 +71,7 @@ export const ContactBook: FC = () => {
       )}
       <ContactBookStyled>
         <RecentlyViewedPersonas />
-        <StyledHeader>Your saved personas</StyledHeader>
+        <StyledHeader>{t('CONTACT_BOOK_HEADING_1')}</StyledHeader>
         {!results?.length && <EmptyPlaceholder text="no saved personas..." />}
         {results?.map((persona: AgregatedPersona) => (
           <Wrapper

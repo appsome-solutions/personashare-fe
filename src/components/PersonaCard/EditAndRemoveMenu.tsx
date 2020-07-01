@@ -25,6 +25,7 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { GET_USER } from 'global/graphqls/User';
 import { AgregatedPersona, Entity } from 'global/graphqls/schema';
+import { useTranslation } from 'react-i18next';
 
 const EditMenuBox = styled.div`
   position: relative;
@@ -72,6 +73,7 @@ const StyledOverlay = styled(Overlay)`
 
 export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPersona }) => {
   const { pathname } = useLocation();
+  const { t } = useTranslation();
   const { user } = useUserContext();
   const { data: userPersonasData } = useQuery<{ userPersonas: Array<AgregatedPersona> }>(GET_PERSONAS);
   const { data: personaData } = useQuery<GetCardType>(GET_PERSONA, {
@@ -231,7 +233,7 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
           <NavLinkStyled to={`/edit/persona/${uuid}/step/1`}>
             <MenuEditStyled>
               <EditAndRemoveBox>
-                Edit
+                {t('MY_PERSONA_CARD_MENU_EDIT')}
                 <img src={EditIcon} alt="Edit Icon" />
               </EditAndRemoveBox>
             </MenuEditStyled>
@@ -244,7 +246,7 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
           <NavLinkStyled to={APP_ROUTES.EDIT_SPOT_UUID_STEP_1(uuid)}>
             <MenuEditStyled>
               <EditAndRemoveBox>
-                Edit
+                {t('MY_PERSONA_CARD_MENU_EDIT')}
                 <img src={EditIcon} alt="Edit Icon" />
               </EditAndRemoveBox>
             </MenuEditStyled>
@@ -300,7 +302,7 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
       <EditAndRemoveBox
         onClick={() => (pathname.includes('personas') ? removePersonaIfNotLastOne() : removeSpotHandler())}
       >
-        Remove
+        {t('MY_PERSONA_CARD_MENU_REMOVE')}
         <img src={RemoveIcon} alt="Remove Icon" />
       </EditAndRemoveBox>
     </MenuRemoveStyled>

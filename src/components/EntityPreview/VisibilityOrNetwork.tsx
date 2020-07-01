@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { InfoCard } from 'components/InfoCard/InfoCard';
 import { CardsGrid } from './CardsGrid';
+import { useTranslation } from 'react-i18next';
 
 export interface PropsType {
   gridCardValue: any;
@@ -33,11 +34,12 @@ export const VisibilityOrNetwork: FC<PropsType> = ({
   spotsOrPersonsText,
   visibilityOrNetwork,
 }) => {
+  const { t } = useTranslation();
   return (
     <PersonaPreviewWrapper>
       <InformationUnderText title="">
         <TextInInfo>
-          In a {visibilityOrNetwork} tab you can see how many people {savedOrRecommend} your default persona.
+          {t('MY_PERSONA_UUID_ENTITY_TAB')} {visibilityOrNetwork} {t('MY_PERSONA_UUID_ENTITY_TAB_2')} {savedOrRecommend}
         </TextInInfo>
       </InformationUnderText>
       {gridCardValue.length !== 0 && (

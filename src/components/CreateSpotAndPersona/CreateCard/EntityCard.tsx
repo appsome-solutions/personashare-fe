@@ -18,6 +18,7 @@ import { EditIndicator } from 'components/EditIndicator/EditIndicator';
 import { CardBody, CardDescription, CardName } from './CreateCard.styles';
 import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper } from 'pages/CreatePersona/helpers';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 type PropsCard = {
   initialValues: CardType;
@@ -25,6 +26,8 @@ type PropsCard = {
   nextPathName: string;
   stepperNumbers: number[];
   currentNumber: number;
+  titleCard: string;
+  infoBody: string;
 };
 
 const initialState: ImageRef = {
@@ -39,9 +42,12 @@ export const EntityCard: FC<PropsCard> = ({
   currentNumber,
   updateCard,
   initialValues,
+  infoBody,
+  titleCard,
 }) => {
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
   const history = useHistory();
+  const { t } = useTranslation();
 
   const { values, setFieldValue, handleSubmit, errors, isValid } = useFormik<CardType>({
     enableReinitialize: true,
@@ -90,10 +96,7 @@ export const EntityCard: FC<PropsCard> = ({
       <PageWrapperSpaceBetween>
         <form onSubmit={handleSubmit}>
           <Stepper items={stepperNumbers} current={currentNumber} mb={31} />
-          <InfoCard title="Edit Your card">
-            Cards are small preview of your agregated set of data. It consists from background image, avatar, name and
-            short description.
-          </InfoCard>
+          <InfoCard title={`${titleCard}`}>{infoBody}</InfoCard>
           <Card mt={31} mb={40} position="relative">
             <BackgroundPlaceholder
               background={backgroundUpload?.blobUrl || initialValues.background || ''}
@@ -118,7 +121,7 @@ export const EntityCard: FC<PropsCard> = ({
                 name="name"
                 value={name}
                 onChange={handleNameChange}
-                placeholder="Your Name"
+                placeholder={t('CREATION_STEP_2_INPUT_1_PLACEHOLDER')}
                 tabIndex={0}
                 hasError={!!errors.name}
                 maxLength={69}
@@ -128,7 +131,7 @@ export const EntityCard: FC<PropsCard> = ({
                 name="description"
                 value={description}
                 onChange={handleDescriptionChange}
-                placeholder="Your short description"
+                placeholder={t('CREATION_STEP_2_INPUT_2_PLACEHOLDER')}
                 tabIndex={0}
                 hasError={!!errors.description}
                 maxLength={69}
@@ -136,7 +139,7 @@ export const EntityCard: FC<PropsCard> = ({
             </CardBody>
           </Card>
           <WideButton htmlType="submit" disabled={!isValid}>
-            Next Step
+            {t('CREATION_STEP_2_NEXT_STEP')}
           </WideButton>
         </form>
       </PageWrapperSpaceBetween>

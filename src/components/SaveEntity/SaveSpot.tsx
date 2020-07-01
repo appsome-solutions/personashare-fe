@@ -9,6 +9,7 @@ import { SAVE_SPOT, SaveSpotResponse } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import styled from 'styled-components';
 import { useUserContext } from '../../global/UserContext/UserContext';
+import { useTranslation } from 'react-i18next';
 
 const ButtonSavedStyled = styled(WideButton)`
   && {
@@ -35,6 +36,7 @@ export const SaveSpotButton: FC<SaveSpotButtonProps> = ({ uuid }) => {
       savedSpotUuid: uuid,
     },
   });
+  const { t } = useTranslation();
 
   const onClickFunctions = async () => {
     await saveSpot();
@@ -43,8 +45,8 @@ export const SaveSpotButton: FC<SaveSpotButtonProps> = ({ uuid }) => {
 
   const IsSaveFunction = () => {
     if (!_.find(data?.persona.spotBook, { uuid })) {
-      return <WideButton onClick={() => onClickFunctions()}>SAVE</WideButton>;
-    } else return <ButtonSavedStyled>SAVED</ButtonSavedStyled>;
+      return <WideButton onClick={() => onClickFunctions()}>{t('SPOT_UUID_ENTITY_BUTTON')}</WideButton>;
+    } else return <ButtonSavedStyled>{t('SPOT_UUID_ENTITY_SAVED_BUTTON')}</ButtonSavedStyled>;
   };
 
   return <IsSaveFunction />;
