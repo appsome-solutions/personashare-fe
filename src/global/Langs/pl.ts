@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 const plTranslations = {
   pl: {
     translation: {
@@ -200,6 +199,18 @@ const plTranslations = {
 
       SEE_MORE: 'Zobacz więcej',
       PARTICIPANT_LIST_TEXT: 'Lista członków',
+
+      I_WANT_TO_READ_ABOUT_USAGE_EXAMPLES: 'Chciałbym zobaczyć przykłady użycia',
+      I_WANT_TO_CREATE_MY_FIRST_PERSONA: 'Chciałbym stworzyć pierwszą personę',
+      NEXT_STEP: 'Następny krok',
+      TAKE_YOUR_PHONE: 'Weź swój telefon',
+      GO_ON: 'Wejdź na www.personashare.com',
+      AIM_THE_CAMERA: 'Zeskanuj powyższy kod i dołącz do naszej unikalnej społeczności!',
+      INSERT_ANYTHING: 'Umieść co zechcesz',
+      SHARE_EASILY: 'Podziel się łatwo i szybko z kim chcesz',
+      CREATE_YOUR_OWN: 'Stwórz swoją własną sieć rekomendacji',
+      BE_PREPARED: 'Bądź gotowy w każdej sytuacji',
+      ACHIEVE_YOUR: 'Osiągnij swoje cele biznesowe i osobiste',
     },
   },
 };
