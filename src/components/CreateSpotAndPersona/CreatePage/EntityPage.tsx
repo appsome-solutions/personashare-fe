@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
-import { isEqual } from 'lodash';
+import { isEqual, omit } from 'lodash';
 import { useFormik } from 'formik';
 import { useFirebase } from 'global/Firebase';
 import { useStorage } from 'global/Storage';
@@ -170,7 +170,7 @@ export const EntityPage: FC<LinkProps> = ({
         assetsBlobs.concat(Object.values(userAssetsList))
       );
 
-      const fileList = uploadedAssets
+      const assetsList = uploadedAssets
         .filter((asset) => asset.assetType === AssetType.USER_ASSET)
         .map((asset) => {
           return {
@@ -181,7 +181,8 @@ export const EntityPage: FC<LinkProps> = ({
             size: userAssetsList[asset.name].blob?.size,
             status: 'done',
           } as UploadFile;
-        });
+        })
+        .concat((fileList || []).map((file) => omit(file, '__typename')));
 
       const payload = {
         card: {
@@ -194,7 +195,7 @@ export const EntityPage: FC<LinkProps> = ({
           avatar: getUrls(uploadedAssets, AssetType.PAGE_AVATAR)[0] || formValues.avatar,
           background: getUrls(uploadedAssets, AssetType.PAGE_BACKGROUND)[0] || formValues.background,
           content: JSON.stringify(formValues.content),
-          fileList,
+          fileList: assetsList,
         },
       };
 
