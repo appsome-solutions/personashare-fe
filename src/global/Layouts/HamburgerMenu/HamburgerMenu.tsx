@@ -117,6 +117,14 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
               <HamburgerIcon svgLink={MySpots} />
               <TextInHamburger>{t('MENU_REDIRECT_MY_SPOT')}</TextInHamburger>
             </LinkRouterStyle>
+            <LinkRouterStyle to={APP_ROUTES.MY_PERSONAS}>
+              <HamburgerIcon svgLink={MyPersonas} />
+              <TextInHamburger>{t('GUIDING_SPOT')}</TextInHamburger>
+            </LinkRouterStyle>{' '}
+            <LinkRouterStyle to={APP_ROUTES.MY_PERSONAS}>
+              <HamburgerIcon svgLink={MyPersonas} />
+              <TextInHamburger>{t('PERSONA_FAMILY')}</TextInHamburger>
+            </LinkRouterStyle>
             <LogoutButton
               onClick={async () => {
                 await logout();

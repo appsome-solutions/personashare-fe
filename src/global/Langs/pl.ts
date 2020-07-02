@@ -250,6 +250,9 @@ const plTranslations = {
 
       EMAIL_ON_EMAIL_CONFIRM_MESSAGE: 'Wysyłamy Ci wiadomość e-mail w celu weryfikacji konta.',
       EMAIL_ON_EMAIL_CANT_CONFIRM_DESCRIPTION: 'Sprawdź swoją skrzynkę odbiorczą i kliknij link weryfikacyjny.',
+
+      GUIDING_SPOT: 'Jak to działa',
+      PERSONA_FAMILY: 'Persona Family',
     },
   },
 };

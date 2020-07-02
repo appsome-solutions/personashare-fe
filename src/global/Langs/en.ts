@@ -237,6 +237,9 @@ const enTranslations = {
 
       EMAIL_ON_EMAIL_CONFIRM_MESSAGE: 'We send you an email to verify your account.',
       EMAIL_ON_EMAIL_CANT_CONFIRM_DESCRIPTION: 'Please check your inbox and click in the verification link',
+
+      GUIDING_SPOT: 'Guiding spo',
+      PERSONA_FAMILY: 'Persona Family',
     },
   },
 };
