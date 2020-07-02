@@ -375,7 +375,7 @@ const QuillEditor: FC<Props> = ({
                 </TurnInto>
               )}
               onClose={() => setIsAddVisible(false)}
-              title="Turn Into"
+              title={t('TURN_INTO_BUTTON')}
               getContainer="#toolbar"
             >
               <EditorButtons disabledEmbedElements={disabledEmbedElements} />

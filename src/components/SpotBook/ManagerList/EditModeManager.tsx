@@ -18,6 +18,7 @@ import EmailIconSvg from 'assets/email.svg';
 import 'antd/dist/antd.css';
 import { CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { APP_ROUTES } from '../../../global/AppRouter/routes';
+import { useTranslation } from 'react-i18next';
 
 const InputField = styled(InputWithSuffixIcon)`
   && {
@@ -139,6 +140,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
     const userName = data?.persona.card.name;
     const invitedManagerEmails = spot ? spot?.invitedManagerEmails : [];
     const [inputVisible, setInputVisible] = useState(true);
+    const { t } = useTranslation();
 
     const handleSubmit = useCallback(
       (spot, values: SendInvitationPayload, setSubmitting) => {
@@ -226,13 +228,9 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
 
     const messageErrorHandler = (values: any) => {
       if (user?.kind === 'free' && values.emails?.length > 2) {
-        return message.info(
-          `Adding managers is limited to maximum of 3 personas. If you want to exceed this limitation, contact us`
-        );
+        return message.info(`${t('EDIT_MANAGER_LIMIT_FREE')}`);
       } else {
-        return message.info(
-          `Adding managers is limited to maximum of 6 personas. If you want to exceed this limitation, contact us`
-        );
+        return message.info(`${t('EDIT_MANAGER_LIMIT_PREMIUM')}`);
       }
     };
 

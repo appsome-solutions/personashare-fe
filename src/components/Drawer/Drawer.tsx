@@ -1,9 +1,8 @@
 import styled, { ThemeContext } from 'styled-components';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, Children, isValidElement, cloneElement, FC, HTMLAttributes } from 'react';
 import { Drawer } from 'antd';
 import { Icon } from 'components/Icon';
 import HamburgerMenuSvg from 'assets/HamburgerMenu.svg';
-import { CoreThemePropsType } from '../../global/Themes/CoreTheme';
 
 const StyledDrawer = styled(Drawer).attrs(() => ({
   width: 'calc(100% - 56px)',
@@ -38,7 +37,7 @@ const HamburgerMenuIcon = styled(Icon).attrs(() => ({
   width: 30px;
 `;
 
-export const DrawerMenu = ({ children }: any) => {
+export const DrawerMenu: FC = ({ children }) => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const themeContext = useContext(ThemeContext);
 
@@ -47,7 +46,15 @@ export const DrawerMenu = ({ children }: any) => {
       <HamburgerMenuIcon color={themeContext.colors.main.tetiary} onClick={() => setIsMenuOpened(true)} />
       <StyledDrawer placement="left" closable={false} onClose={() => setIsMenuOpened(false)} visible={isMenuOpened}>
         <HeaderDivider />
-        <DrawerWrapper>{children}</DrawerWrapper>
+        <DrawerWrapper>
+          {Children.map(children, (child) => {
+            if (isValidElement(child)) {
+              return cloneElement<HTMLAttributes<any>>(child, { onClick: () => setIsMenuOpened(false) });
+            }
+
+            return child;
+          })}
+        </DrawerWrapper>
       </StyledDrawer>
     </>
   );

@@ -49,9 +49,9 @@ export const RecommendButtonSpot: FC<RecommendButtonSpotType> = ({ uuid, classNa
     } = data;
 
     if (user?.kind === 'premium' && (recommendList.length > 5 || spotRecommendList.length > 5)) {
-      return message.info(`You can recommend maximum 6 personas and 6 spots at one time on premium account.`);
+      return message.info(`${t('PERSONA_UUID_RECOMMEND_PREMIUM')}}`);
     } else if (user?.kind === 'free' && (recommendList.length > 2 || spotRecommendList.length > 2)) {
-      return message.info(`You can recommend maximum 3 personas and 3 spots at one time on free account."`);
+      return message.info(`${t('PERSONA_UUID_RECOMMEND_FREE')}}`);
     } else if (!canBeRecommended) {
       return message.info(
         `This spot has reached maximum recommendation network size. You cannot recommend it at the moment.`
