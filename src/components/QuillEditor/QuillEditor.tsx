@@ -309,7 +309,7 @@ const QuillEditor: FC<Props> = ({
       }
     }
     // dependencies are missing on purpose, this hook should run only when ref got attached
-  }, [isRefAttached]);
+  }, [isRefAttached, initialValue]);
 
   if (!storageRef) {
     return null;
