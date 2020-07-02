@@ -229,6 +229,15 @@ const enTranslations = {
         'This spot has reached maximum participant list size. You cannot join to this spot at the moment.',
       CARDS_GRID_LIMIT_PREMIUM: `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`,
 
+      EMAIL_CONFIRM_MESSAGE: 'Your email has been confirmed.',
+      EMAIL_CONFIRM_DESCRIPTION: 'You can now log in',
+
+      EMAIL_CANT_CONFIRM_MESSAGE: "Your email can't be confirmed.",
+      EMAIL_CANT_CONFIRM_DESCRIPTION: 'Please check verification link once more or contact to our team',
+
+      EMAIL_ON_EMAIL_CONFIRM_MESSAGE: 'We send you an email to verify your account.',
+      EMAIL_ON_EMAIL_CANT_CONFIRM_DESCRIPTION: 'Please check your inbox and click in the verification link',
+
       I_WANT_TO_READ_ABOUT_USAGE_EXAMPLES: 'I want to read about usage examples',
       I_WANT_TO_CREATE_MY_FIRST_PERSONA: 'I want to create my first persona',
       NEXT_STEP: 'Next step',

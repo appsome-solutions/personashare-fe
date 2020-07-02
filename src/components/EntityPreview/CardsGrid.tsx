@@ -134,7 +134,7 @@ export const CardsGrid: FC<PropsType> = ({
                   />
                 ))}
             </ComponentWithTable>
-            {gridCardValue.length > 4 && limit < gridCardValue.length && (
+            {gridCardValue?.length > 4 && limit < gridCardValue?.length && (
               <SeeMoreStyled>
                 <SeeMoreText onClick={handleClick}>{t('SEE_MORE')}</SeeMoreText>
               </SeeMoreStyled>
