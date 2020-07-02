@@ -8,13 +8,12 @@ import { useUserContext } from '../../global/UserContext/UserContext';
 import { useMutation } from '@apollo/react-hooks';
 import { GET_SPOT, PARTICIPATE, ParticipateResponse } from '../../global/graphqls/Spot';
 import { useParams } from 'react-router-dom';
-import { GET_USER } from '../../global/graphqls/User';
-import { GET_PERSONAS } from '../../global/graphqls/Persona';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 export interface PropsType {
   gridCardValue: any;
+  canPersonaParticipate?: boolean;
   savedOrRecommend?: string;
   spotsOrPersonsText?: string;
   isWithText?: boolean;
@@ -66,6 +65,7 @@ const ParticipateText = styled.div`
 
 export const CardsGrid: FC<PropsType> = ({
   gridCardValue,
+  canPersonaParticipate,
   savedOrRecommend,
   spotsOrPersonsText,
   isWithText,
@@ -73,7 +73,6 @@ export const CardsGrid: FC<PropsType> = ({
 }) => {
   const [limit, setLimit] = useState(4);
   const { uuid } = useParams();
-  const { user } = useUserContext();
   const { t } = useTranslation();
   const [addParticipate] = useMutation<ParticipateResponse>(PARTICIPATE, {
     variables: { spotId: uuid },
@@ -98,20 +97,9 @@ export const CardsGrid: FC<PropsType> = ({
       setLimit(limit + 4);
     }
   };
-
-  const messageErrorHandler = () => {
-    if (user?.kind === 'free' && gridCardValue?.length > 19) {
-      return message.info(`${t('CARDS_GRID_LIMIT_FREE')}`);
-    } else {
-      return message.info(`${t('CARDS_GRID_LIMIT_PREMIUM')}`);
-    }
-  };
-
   const checkInHandler = () => {
-    if (user?.kind === 'free' && gridCardValue?.length > 19) {
-      return messageErrorHandler();
-    } else if (user?.kind === 'premium' && gridCardValue?.length > 39) {
-      return messageErrorHandler();
+    if (!canPersonaParticipate) {
+      return message.info(`${t('CARDS_GRID_LIMIT_FREE')}`);
     } else {
       return addParticipate();
     }
@@ -127,7 +115,7 @@ export const CardsGrid: FC<PropsType> = ({
             gridCardValue={gridCardValue}
           />
         )}
-        {gridCardValue && (
+        {
           <CardStyled>
             {isWithAddParticipate && <ParticipateText>{t('PARTICIPANT_LIST_TEXT')}</ParticipateText>}
             <ComponentWithTable>
@@ -136,13 +124,15 @@ export const CardsGrid: FC<PropsType> = ({
                   <img src={CheckIn} alt="check in svg" onClick={() => checkInHandler()} />
                 </AddParticipateStyle>
               )}
-              {gridCardValue?.slice(0, limit).map((spotsOrPersonsText: AgregatedPersona) => (
-                <EntityPreviewWrapper
-                  visibilityOrNetworkQuery={gridCardValue}
-                  key={spotsOrPersonsText.uuid}
-                  spotOrPersona={spotsOrPersonsText}
-                />
-              ))}
+              {gridCardValue
+                ?.slice(0, limit <= 4 && !isWithAddParticipate ? limit : limit - 1)
+                .map((spotsOrPersonsText: AgregatedPersona) => (
+                  <EntityPreviewWrapper
+                    visibilityOrNetworkQuery={gridCardValue}
+                    key={spotsOrPersonsText.uuid}
+                    spotOrPersona={spotsOrPersonsText}
+                  />
+                ))}
             </ComponentWithTable>
             {gridCardValue.length > 4 && limit < gridCardValue.length && (
               <SeeMoreStyled>
@@ -150,7 +140,7 @@ export const CardsGrid: FC<PropsType> = ({
               </SeeMoreStyled>
             )}
           </CardStyled>
-        )}
+        }
       </>
     );
   };

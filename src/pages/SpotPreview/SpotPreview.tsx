@@ -86,7 +86,7 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
       <MainComponent>
         <Wrapper key={data.spot.uuid}>
           <EntityPageComp page={data.spot.page} />
-          <RecommendButtonSpot uuid={uuid} entityUuid={data.spot.networkList} />
+          <RecommendButtonSpot uuid={uuid} canBeRecommended={data.spot.canBeRecommended} />
           <QuillEditor
             editable={false}
             initialValue={data.spot.page.content}

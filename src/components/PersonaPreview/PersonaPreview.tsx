@@ -80,7 +80,7 @@ export const PersonaPreview: FC = () => {
         <Wrapper key={data.persona.uuid}>
           <div>
             <EntityPageComp page={data.persona.page} />
-            <RecommendButtonPersona uuid={uuid} entityUuid={data.persona.networkList} />
+            <RecommendButtonPersona uuid={uuid} />
           </div>
         </Wrapper>
         <SecondPartPersona>

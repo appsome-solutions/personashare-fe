@@ -7,6 +7,7 @@ import { media } from 'global/RWD';
 import RoadMap from './RoadMap/RoadMap';
 import { TextUppercase } from './TextUppercase';
 import { Guide } from './Guide/Guide';
+import { useTranslation } from 'react-i18next';
 
 export const PSDesktopLogo = styled.img.attrs(() => ({
   src: PSLogo,
@@ -95,6 +96,7 @@ const CardButton = styled.button`
 
 const DesktopPreview: FC = () => {
   const [overlay, setOverlay] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -114,7 +116,7 @@ const DesktopPreview: FC = () => {
                 setOverlay(true);
               }}
             >
-              <TextUppercase>I want to read about usage examples</TextUppercase>
+              <TextUppercase>{t('I_WANT_TO_READ_ABOUT_USAGE_EXAMPLES')}</TextUppercase>
               <Study />
             </CardButton>
             <CardButton
@@ -122,7 +124,7 @@ const DesktopPreview: FC = () => {
                 setOverlay(true);
               }}
             >
-              <TextUppercase>I want to create my first persona</TextUppercase>
+              <TextUppercase>{t('I_WANT_TO_CREATE_MY_FIRST_PERSONA')}</TextUppercase>
               <Create />
             </CardButton>
           </CardHolder>
