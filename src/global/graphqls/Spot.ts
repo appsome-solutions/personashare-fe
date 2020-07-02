@@ -123,8 +123,8 @@ export interface AddManagerResponse {
 }
 
 export const ADD_MANAGER = gql`
-  mutation addManager($personaId: String!, $spotId: String!) {
-    addManager(personaId: $personaId, spotId: $spotId) {
+  mutation addManager($personaId: String!, $spotId: String!, $email: String!) {
+    addManager(personaId: $personaId, spotId: $spotId, email: $email) {
       uuid
     }
   }

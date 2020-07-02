@@ -51,14 +51,14 @@ const WideButtonStyled = styled(WideButton as any)`
 `;
 
 export const SpotInvitation: FC = () => {
-  const { uuid } = useParams();
+  const { uuid, email } = useParams();
   const history = useHistory();
   const { data } = useQuery<GetCardType>(GET_SPOT, {
     variables: { uuid: uuid },
   });
   const { user } = useUserContext();
   const [addManager] = useMutation<AddManagerResponse>(ADD_MANAGER, {
-    variables: { personaId: user?.defaultPersona, spotId: uuid },
+    variables: { personaId: user?.defaultPersona, spotId: uuid, email },
   });
   const { t } = useTranslation();
   const [updateSpot] = useMutation<Entity>(UPDATE_SPOT, {
