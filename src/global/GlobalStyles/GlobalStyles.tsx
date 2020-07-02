@@ -1,6 +1,7 @@
 import { normalize } from 'styled-normalize';
 import { createGlobalStyle } from 'styled-components';
 import { ThemeInterface } from 'typings';
+import { vh } from '../../helpers/styled';
 
 export const GlobalStyles = createGlobalStyle<ThemeInterface>`
   ${normalize}
@@ -71,4 +72,12 @@ export const GlobalStyles = createGlobalStyle<ThemeInterface>`
     line-height: 23px;
     color: ${(props) => props.theme.colors.utils.text.dark};
   }
+  
+  .regulation-modal {
+    .ant-modal-confirm-content {
+      max-height: ${vh(70)};
+      overflow: auto;
+    }
+  }
+  
 `;
