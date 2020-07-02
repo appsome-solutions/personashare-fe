@@ -144,14 +144,14 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
 
     const handleSubmit = useCallback(
       (spot, values: SendInvitationPayload, setSubmitting) => {
-        const invitationLink = `${baseUrl}${APP_ROUTES.SPOT_INVITATION(spot.uuid)}`;
         if (!userName) {
           return;
         }
 
         setSubmitting(true);
-        const result = values.emails.map((email) =>
-          sendMail({
+        const result = values.emails.map((email) => {
+          const invitationLink = `${baseUrl}${APP_ROUTES.SPOT_INVITATION(spot.uuid)}/${email}`;
+          return sendMail({
             to: email,
             template: {
               name: 'spot_invitation',
@@ -163,8 +163,8 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
                 userName,
               },
             },
-          })
-        );
+          });
+        });
 
         return Promise.all(result)
           .then(() => {
