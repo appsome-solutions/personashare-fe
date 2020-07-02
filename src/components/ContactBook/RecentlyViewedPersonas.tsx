@@ -12,6 +12,7 @@ import { client } from '../../global/ApolloClient/ApolloClient';
 import { GET_PERSONA } from '../../global/graphqls/Persona';
 import { Overlay } from '../Overlay/Overlay';
 import { Spinner } from '../Spinner/Spinner';
+import { useTranslation } from 'react-i18next';
 
 // todo: refactor it, Recommend button should be part of a Card
 const CardWrapper = styled.div`
@@ -52,6 +53,7 @@ const useRecentlyViewedPersonas = (recentlyViewedPersonaUuids: Array<string>) =>
 export const RecentlyViewedPersonas = () => {
   const carousel = useRef<AntCarousel>(null);
   const history = useHistory();
+  const { t } = useTranslation();
 
   const recentlyViewedPersonaUuids = JSON.parse(localStorage.getItem('recentlyViewedPersonas') || '[]');
 
@@ -71,7 +73,7 @@ export const RecentlyViewedPersonas = () => {
 
   return (
     <>
-      {!!recentlyViewedPersonas.length && <h6> Recently viewed personas </h6>}
+      {!!recentlyViewedPersonas.length && <h6>{t('RECENTLY_VIEWED_PERSONA')}</h6>}
       <Carousel ref={carousel}>
         {recentlyViewedPersonas.map((persona: AgregatedPersona) => (
           <CardWrapper key={persona.uuid}>

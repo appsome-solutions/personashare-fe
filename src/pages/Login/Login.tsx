@@ -47,6 +47,9 @@ const HeyText = styled.h4`
 
 const LoginText = styled.h5`
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StyledPasswordInput = styled(PasswordInput)`
@@ -60,10 +63,16 @@ const ResetPassword = styled(Caption)`
 
 const LoginButton = styled(Button)`
   margin-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const GoogleButton = styled(Button)`
   && {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #e62b33;
     &&:active,
     &&:hover {

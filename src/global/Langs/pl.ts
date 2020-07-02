@@ -43,7 +43,7 @@ const plTranslations = {
       REGISTER_TEXT_BETWEEN_BUTTONS: 'lub zarejestruj się używając konta Google',
       REGISTER_GOOGLE_REGISTER_BUTTON: 'Google',
       REGISTER_ALREADY_HAVE_ACCOUNT: 'Posiadasz już konto?',
-      REGISTER_ALREADY_HAVE_ACCOUNT_LOGIN: 'Login',
+      REGISTER_ALREADY_HAVE_ACCOUNT_LOGIN: 'Zaloguj się',
 
       SPOT_BOOK_NAVBAR: 'Szukaj...',
       SPOT_BOOK_HEADING_1: 'Twoje zapisane spoty',
@@ -142,8 +142,17 @@ const plTranslations = {
       CREATION_STEP_1_SPOT_TAB_5:
         'Twój spot może być rekomendowany przez inne persony. Dzięki temu jesteś w stanie osiągnąć wartościowy zasięg i zbudować potężną sieć rekomendacyjną. Pozwól, aby Twój spot dotarł do zainteresowanych!',
       CREATION_STEP_1_SPOT_LIMITATIONS_TAB:
-        'Dbamy o naszą społeczność i udostępniamy tworzenie spotów dla każdego całkowicie za darmo. Pamiętaj jednak, że są pewne ograniczenia: 1. Możesz dodać maksymalnie 3 managerów, 2. Do listy partycypantów może dołączyć maksymalnie 20 osób, 3. Twój spot może być rekomendowany przez maksymalnie 5 osób. Jeżeli chciałbyś stworzyć większego spota, skontaktuj się z nami - chętnie porozmawiamy o współpracy!',
+        'Dbamy o naszą społeczność i udostępniamy tworzenie spotów dla każdego całkowicie za darmo. Pamiętaj jednak, że są pewne ograniczenia:' +
+        '\n' +
+        '1. Możesz dodać maksymalnie 3 managerów' +
+        '\n' +
+        '2. Do listy partycypantów może dołączyć maksymalnie 20 osób, ' +
+        '\n' +
+        '3. Twój spot może być rekomendowany przez maksymalnie 5 osób.' +
+        '\n' +
+        'Jeżeli chciałbyś stworzyć większego spota, skontaktuj się z nami - chętnie porozmawiamy o współpracy!',
       CREATION_STEP_1_SPOT_NEXT_STEP: 'Dalej',
+      CREATION_STEP_1_SPOT_CONTACT_US: 'Skontaktuj się z nami.',
 
       CREATION_STEP_2_SPOT_HEADING: 'Edytuj kartę spota',
       CREATION_STEP_2_SPOT_INFO:
@@ -165,6 +174,10 @@ const plTranslations = {
         'Czy na pewno chcesz rekomendować ten spot? Będzie on widoczny w Twojej obecnie domyślnej personie przez następny miesiąc.',
       SPOT_UUID_RECOMMEND_BUTTONS_YES: 'Tak',
       SPOT_UUID_RECOMMEND_BUTTONS_NO: 'Nie',
+      PERSONA_UUID_RECOMMEND_FREE:
+        'Ta persona osiągnęła maksymalny zalecany rozmiar sieci. W tej chwili nie możesz go polecić.',
+      PERSONA_UUID_RECOMMEND_PREMIUM:
+        'Ta persona osiągnęła maksymalny zalecany rozmiar sieci. W tej chwili nie możesz go polecić.',
 
       SPOT_UUID_ENTITY_BUTTON_EDIT: 'Zapisz',
       SPOT_UUID_ENTITY_BUTTON: 'ZAPISZ',
@@ -172,8 +185,13 @@ const plTranslations = {
 
       PERSONA_UUID_RECOMMEND_INFO:
         'Czy na pewno chcesz rekomendować tę personę? Będzie ona widoczna w Twojej obecnie domyślnej personie przez następny miesiąc.',
-      PERSONA_UUID_RECOMMEND_BUTTONS: 'Tak / Nie',
+      PERSONA_UUID_RECOMMEND_BUTTONS_YES: 'Tak',
+      PERSONA_UUID_RECOMMEND_BUTTONS_NO: 'Nie',
       PERSONA_UUID_RECOMMEND_CAROUSEL: 'Rekomenduję',
+      SPOT_UUID_RECOMMEND_FREE:
+        'Ten spot osiągnął maksymalny zalecany rozmiar sieci. W tej chwili nie możesz go polecić.',
+      SPOT_UUID_RECOMMEND_PREMIUM:
+        'Ten spot osiągnął maksymalny zalecany rozmiar sieci. W tej chwili nie możesz go polecić.',
 
       CONTACT_TITLE: 'Formularz kontaktowy',
       CONTACT_INPUT_1: 'Imię',
@@ -200,6 +218,18 @@ const plTranslations = {
 
       SEE_MORE: 'Zobacz więcej',
       PARTICIPANT_LIST_TEXT: 'Lista członków',
+
+      RECENTLY_VIEWED_PERSONA: 'Ostatnio przeglądane persony',
+      RECENTLY_VIEWED_SPOT: 'Ostatnio przeglądane spoty',
+
+      TURN_INTO_BUTTON: 'Zamień element na...',
+
+      EDIT_MANAGER_LIMIT_FREE: `Dodawanie menedżerów jest ograniczone do maksymalnie 3 osób. Jeśli chcesz przekroczyć to ograniczenie, skontaktuj się z nami`,
+      EDIT_MANAGER_LIMIT_PREMIUM: `Dodawanie menedżerów jest ograniczone dos maksymalnie 6 osób. Jeśli chcesz przekroczyć to ograniczenie, skontaktuj się z nami`,
+
+      CARDS_GRID_LIMIT_FREE:
+        'To miejsce osiągnęło maksymalny rozmiar listy uczestników. W tej chwili nie możesz dołączyć do tego miejsca.',
+      CARDS_GRID_LIMIT_PREMIUM: `To miejsce osiągnęło maksymalny rozmiar listy uczestników. W tej chwili nie możesz dołączyć do tego miejsca.`,
     },
   },
 };

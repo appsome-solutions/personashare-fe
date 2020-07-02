@@ -101,13 +101,9 @@ export const CardsGrid: FC<PropsType> = ({
 
   const messageErrorHandler = () => {
     if (user?.kind === 'free' && gridCardValue?.length > 19) {
-      return message.info(
-        `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`
-      );
+      return message.info(`${t('CARDS_GRID_LIMIT_FREE')}`);
     } else {
-      return message.info(
-        `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`
-      );
+      return message.info(`${t('CARDS_GRID_LIMIT_PREMIUM')}`);
     }
   };
 

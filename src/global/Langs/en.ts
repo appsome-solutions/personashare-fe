@@ -158,7 +158,7 @@ const enTranslations = {
       CREATION_STEP_1_SPOT_LIMITATIONS_TAB:
         'You can use spots totally for free, but there are some limitations: 1. You can add max 3 managers, 2. To participant list can join max 20 people, 3.Your spot can be recommended by up to 5 people. If you would like to create a bigger spot, please contact us - we will gladly talk about cooperation!',
       CREATION_STEP_1_SPOT_NEXT_STEP: 'CREATE FREE SPOT',
-      CREATION_STEP_1_SPOT_CONTACT_US: 'contact us',
+      CREATION_STEP_1_SPOT_CONTACT_US: 'Contact us.',
 
       CREATION_STEP_2_SPOT_HEADING: 'Edit your spot',
       CREATION_STEP_2_SPOT_INFO:
@@ -176,6 +176,9 @@ const enTranslations = {
         'Are you sure you want to recommend this spot? It will be shared with your persona at least for the next month.',
       SPOT_UUID_RECOMMEND_BUTTONS_YES: 'Yes',
       SPOT_UUID_RECOMMEND_BUTTONS_NO: 'No',
+      SPOT_UUID_RECOMMEND_FREE:
+        'This spot has reached maximum recommendation network size. You cannot recommend it at the moment.',
+      SPOT_UUID_RECOMMEND_PREMIUM: `This spot has reached maximum recommendation network size. You cannot recommend it at the moment.`,
 
       SPOT_UUID_ENTITY_BUTTON_EDIT: 'Save',
       SPOT_UUID_ENTITY_BUTTON: 'SAVE',
@@ -186,6 +189,10 @@ const enTranslations = {
       PERSONA_UUID_RECOMMEND_BUTTONS_YES: 'Yes',
       PERSONA_UUID_RECOMMEND_BUTTONS_NO: 'No',
       PERSONA_UUID_RECOMMEND_CAROUSEL: 'Recommend',
+      PERSONA_UUID_RECOMMEND_FREE:
+        'This persona has reached maximum recommendation network size. You cannot recommend it at the moment.',
+      PERSONA_UUID_RECOMMEND_PREMIUM:
+        'This persona has reached maximum recommendation network size. You cannot recommend it at the moment.',
 
       CONTACT_TITLE: 'Contact Form',
       CONTACT_INPUT_1: 'Name',
@@ -202,16 +209,28 @@ const enTranslations = {
       CHANGE_PASSWORD_INPUT_2: 'Repeat new password',
       CHANGE_PASSWORD_BUTTON: 'Change',
 
-      COOKIES_NOTIFICATION_TEXT: 'Witaj w PersonaShare!',
-      COOKIES_NOTIFICATION_TEXT_1: 'Korzystając z serwisu akceptujesz nasz',
-      COOKIES_NOTIFICATION_TEXT_2: 'Regulamin.',
+      COOKIES_NOTIFICATION_TEXT: 'Welcome to PersonaShare!',
+      COOKIES_NOTIFICATION_TEXT_1: ' By using this website you accept our',
+      COOKIES_NOTIFICATION_TEXT_2: 'term of service.',
       COOKIES_NOTIFICATION_TEXT_3:
-        'Korzystamy ze znanych wszystkim ciasteczek. Korzystając z serwisu akceptujesz naszą.',
-      COOKIES_NOTIFICATION_TEXT_4: 'Politykę Prywatności i ciasteczek.',
+        'We are all #PersonashareFamily so we care about your privacy. This website uses cookies. By using this website you agree with our',
+      COOKIES_NOTIFICATION_TEXT_4: 'privacy and cookies policy.',
       COOKIES_UNDERSTAND: 'I UNDERSTAND',
 
       SEE_MORE: 'SEE MORE',
       PARTICIPANT_LIST_TEXT: 'Participant List',
+
+      RECENTLY_VIEWED_PERSONA: 'Recently viewed persona',
+      RECENTLY_VIEWED_SPOT: 'Recently viewed spots',
+
+      TURN_INTO_BUTTON: 'Turn into',
+
+      EDIT_MANAGER_LIMIT_FREE: `Adding managers is limited to maximum of 3 personas. If you want to exceed this limitation, contact us`,
+      EDIT_MANAGER_LIMIT_PREMIUM: `Adding managers is limited to maximum of 6 personas. If you want to exceed this limitation, contact us`,
+
+      CARDS_GRID_LIMIT_FREE:
+        'This spot has reached maximum participant list size. You cannot join to this spot at the moment.',
+      CARDS_GRID_LIMIT_PREMIUM: `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`,
     },
   },
 };

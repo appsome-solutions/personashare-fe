@@ -40,13 +40,9 @@ export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid, entityUuid 
     if (!data) return null;
 
     if (user?.kind === 'free' && entityUuid.length > 2) {
-      return message.info(
-        `This persona has reached maximum recommendation network size. You cannot recommend it at the moment."`
-      );
+      return message.info(`${t('PERSONA_UUID_RECOMMEND_FREE')}}`);
     } else {
-      return message.info(
-        `This persona has reached maximum recommendation network size. You cannot recommend it at the moment.`
-      );
+      return message.info(`${t('PERSONA_UUID_RECOMMEND_PREMIUM')}`);
     }
   };
 
