@@ -63,7 +63,6 @@ const EditorButtons = memo(({ addInNewLine = false, disabledEmbedElements = [] }
         value="bullet"
       />
       <BlockButton className="ql-image" title={t('CREATION_STEP_3_ELEMENT_8')} svgLink={ImageSvg} />
-      <BlockButton className="ql-link" title={t('CREATION_STEP_3_ELEMENT_9')} svgLink={LinkSvg} />
       <BlockButton
         className="ql-upload-asset"
         title={t('CREATION_STEP_3_ELEMENT_10')}
