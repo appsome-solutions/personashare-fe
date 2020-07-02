@@ -12,6 +12,29 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="manifest.json" />
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: 'AIzaSyACZINrjTCYc-KqrB_0v2nsr5dRPU3uq_g',
+        authDomain: 'personashare-c1889.firebaseapp.com',
+        databaseURL: 'https://personashare-c1889.firebaseio.com',
+        projectId: 'personashare-c1889',
+        storageBucket: 'personashare-c1889.appspot.com',
+        messagingSenderId: '133143374435',
+        appId: '1:133143374435:web:9a60a15268423fb0e1e656',
+        measurementId: 'G-6DMJN5P6Y2',
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
