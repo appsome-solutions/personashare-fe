@@ -49,7 +49,12 @@ export const DrawerMenu: FC = ({ children }) => {
         <DrawerWrapper>
           {Children.map(children, (child) => {
             if (isValidElement(child)) {
-              return cloneElement<HTMLAttributes<any>>(child, { onClick: () => setIsMenuOpened(false) });
+              return cloneElement<HTMLAttributes<any>>(child, {
+                onClick: () => {
+                  setIsMenuOpened(false);
+                  child.props.onClick && child.props.onClick();
+                },
+              });
             }
 
             return child;
