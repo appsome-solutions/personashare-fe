@@ -20,9 +20,11 @@ const InformationUnderText = styled(InfoCard)`
   margin: 40px 0 46px 0;
 `;
 
-const TextInInfo = styled.div`
+const TextInInfo = styled.p`
   ${(props) => props.theme.typography.subtitle2};
+  white-space: pre-wrap;
 `;
+
 const ContactUs = styled(NavLink)`
   ${(props) => props.theme.typography.subtitle2};
   margin-left: 4px;
@@ -77,7 +79,7 @@ export const CreateSpotsStep1: FC = () => {
         <InformationUnderText title="">
           <TextInInfo>
             {t('CREATION_STEP_1_SPOT_LIMITATIONS_TAB')}
-            <ContactUs to={APP_ROUTES.CONTACT}>{t('CREATION_STEP_1_SPOT_CONTACT_US')} </ContactUs>.
+            <ContactUs to={APP_ROUTES.CONTACT}>{t('CREATION_STEP_1_SPOT_CONTACT_US')}</ContactUs>
           </TextInInfo>
         </InformationUnderText>
         <WideButton onClick={onNextClick}>{t('CREATION_STEP_1_SPOT_NEXT_STEP')}</WideButton>

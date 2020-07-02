@@ -42,12 +42,12 @@ export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
       user?.kind === 'premium' &&
       (data.persona.recommendList.length > 5 || data.persona.spotRecommendList.length > 5)
     ) {
-      return message.info(`You can recommend maximum 6 personas and 6 spots at one time on premium account.`);
+      return message.info(`${t('PERSONA_UUID_RECOMMEND_PREMIUM')}}`);
     } else if (
       user?.kind === 'free' &&
       (data.persona.recommendList.length > 2 || data.persona.spotRecommendList.length > 2)
     ) {
-      return message.info(`You can recommend maximum 3 personas and 3 spots at one time on free account."`);
+      return message.info(`${t('PERSONA_UUID_RECOMMEND_FREE')}}`);
     } else {
       return onConfirmFunctions();
     }

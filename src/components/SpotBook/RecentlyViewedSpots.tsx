@@ -12,6 +12,7 @@ import { RecommendButtonSpot } from 'components/RecommendButton/RecommendButtonS
 import { SaveSpotButton } from '../SaveEntity/SaveSpot';
 import { Overlay } from '../Overlay/Overlay';
 import { Spinner } from '../Spinner/Spinner';
+import { useTranslation } from 'react-i18next';
 
 // todo: refactor it, Recommend button should be part of a Card
 const CardWrapper = styled.div`
@@ -53,6 +54,7 @@ const StyledRecommendButtonSpot = styled(RecommendButtonSpot)`
 export const RecentlyViewedSpots = () => {
   const carousel = useRef<AntCarousel>(null);
   const history = useHistory();
+  const { t } = useTranslation();
 
   const recentlyViewedSpotUuids = JSON.parse(localStorage.getItem('recentlyViewedSpots') || '[]');
 
@@ -72,7 +74,7 @@ export const RecentlyViewedSpots = () => {
 
   return (
     <>
-      {!!recentlyViewedSpots.length && <h6> Recently viewed spots </h6>}
+      {!!recentlyViewedSpots.length && <h6>{t('RECENTLY_VIEWED_SPOT')}</h6>}
       <Carousel ref={carousel}>
         {recentlyViewedSpots.map((spot: AgregatedSpot) => (
           <CardWrapper key={spot.uuid}>
