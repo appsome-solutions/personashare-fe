@@ -150,7 +150,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
 
         setSubmitting(true);
         const result = values.emails.map((email) => {
-          const invitationLink = `${baseUrl}${APP_ROUTES.SPOT_INVITATION(spot.uuid)}/${email}`;
+          const invitationLink = `${baseUrl}${APP_ROUTES.SPOT_INVITATION(spot.uuid)}`.replace(':email', email);
           return sendMail({
             to: email,
             template: {
