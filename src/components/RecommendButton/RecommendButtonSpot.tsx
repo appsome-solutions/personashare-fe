@@ -63,7 +63,7 @@ export const RecommendButtonSpot: FC<RecommendButtonSpotType> = ({ uuid, classNa
 
   const IsRecommendedFunction = () => {
     if (_.find(data?.persona.spotRecommendList, { uuid })) {
-      return <RecommendEmpty src={recommendOn} alt="Recommend On" />;
+      return <RecommendEmpty src={recommendOn} alt="Recommend On" className={className} />;
     } else
       return (
         <Popconfirm

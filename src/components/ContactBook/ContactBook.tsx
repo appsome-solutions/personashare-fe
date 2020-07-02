@@ -36,10 +36,15 @@ export const ContactBook: FC = () => {
   const { user } = useUserContext();
   const { data, loading } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: user?.defaultPersona },
-    skip: !user,
+    skip: !user || !user.defaultPersona,
   });
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
+
+  // todo: think about better solution
+  if (user && !user.defaultPersona) {
+    history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);
+  }
 
   if (loading) {
     return (

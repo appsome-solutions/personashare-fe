@@ -39,6 +39,11 @@ export const SpotBook: FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
 
+  // todo: think about better solution
+  if (user && !user.defaultPersona) {
+    history.push(APP_ROUTES.PERSONA_CREATION_STEP_1);
+  }
+
   if (loading) {
     return (
       <Overlay>
