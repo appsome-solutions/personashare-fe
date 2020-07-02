@@ -25,9 +25,9 @@ const App: FunctionComponent = () => (
         <StorageProvider value={new Storage(firebase.getStorageRef())}>
           <UserProvider>
             <RWDProvider>
+              <GlobalStyles />
               <ResponsiveContentReplacer>
                 <Router history={history}>
-                  <GlobalStyles />
                   <ErrorHandler>
                     <AppRouter />
                   </ErrorHandler>

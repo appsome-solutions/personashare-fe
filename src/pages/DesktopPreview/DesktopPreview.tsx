@@ -8,6 +8,7 @@ import RoadMap from './RoadMap/RoadMap';
 import { TextUppercase } from './TextUppercase';
 import { Guide } from './Guide/Guide';
 import { useTranslation } from 'react-i18next';
+import { CookieBar } from './TermsAndCookies/CookieBar';
 
 export const PSDesktopLogo = styled.img.attrs(() => ({
   src: PSLogo,
@@ -132,6 +133,7 @@ const DesktopPreview: FC = () => {
         <Column flex={1}>
           <RoadMap />
         </Column>
+        <CookieBar />
       </PreviewWrapper>
     </>
   );
