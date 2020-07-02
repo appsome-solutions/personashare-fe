@@ -148,6 +148,16 @@ export const Login: FunctionComponent = () => {
     }
   };
 
+  const errorMessage = (error: any) => {
+    if (error.message.includes('There is no user record ')) {
+      return setApiError(
+        error.message + ` There is no such a user in our database or an account hasn't been activated yet.`
+      );
+    } else {
+      return setApiError(error.message);
+    }
+  };
+
   const handleLogin = async ({ email, password }: FormValues): Promise<void> => {
     try {
       await firebase.auth.signInWithEmailAndPassword(email, password);
@@ -157,7 +167,7 @@ export const Login: FunctionComponent = () => {
         handleBEConnection(idToken);
       }
     } catch (error) {
-      setApiError(error.message);
+      errorMessage(error);
     }
   };
 
