@@ -45,7 +45,7 @@ const HeyText = styled.h4`
   margin-bottom: 0;
 `;
 
-const LoginText = styled.h5`
+const LoginText = styled.h6`
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -148,6 +148,16 @@ export const Login: FunctionComponent = () => {
     }
   };
 
+  const errorMessage = (error: any) => {
+    if (error.message.includes('There is no user record ')) {
+      return setApiError(
+        error.message + ` There is no such a user in our database or an account hasn't been activated yet.`
+      );
+    } else {
+      return setApiError(error.message);
+    }
+  };
+
   const handleLogin = async ({ email, password }: FormValues): Promise<void> => {
     try {
       await firebase.auth.signInWithEmailAndPassword(email, password);
@@ -157,7 +167,7 @@ export const Login: FunctionComponent = () => {
         handleBEConnection(idToken);
       }
     } catch (error) {
-      setApiError(error.message);
+      errorMessage(error);
     }
   };
 
@@ -168,8 +178,8 @@ export const Login: FunctionComponent = () => {
         setVerified(true);
         notification.success({
           duration: 3,
-          message: 'Your email has been confirmed.',
-          description: 'You can now log in',
+          message: `${t('EMAIL_CONFIRM_MESSAGE')}`,
+          description: `${t('EMAIL_CONFIRM_DESCRIPTION')}`,
         });
 
         const idToken = await firebase?.getCurrentUser()?.getIdToken();
@@ -181,8 +191,8 @@ export const Login: FunctionComponent = () => {
       .catch(() => {
         notification.error({
           duration: 3,
-          message: "Your email can't be confirmed.",
-          description: 'Please check verification link once more or contact to our team',
+          message: `${t('EMAIL_CANT_CONFIRM_MESSAGE')}`,
+          description: `${t('EMAIL_CANT_CONFIRM_DESCRIPTION')}`,
         });
       });
   }
@@ -190,8 +200,8 @@ export const Login: FunctionComponent = () => {
   if ((action as ActionType) === 'verificationEmailSent') {
     notification.info({
       duration: 4.5,
-      message: 'We send you an email to verify your account.',
-      description: 'Please check your inbox and click in the verification link',
+      message: `${t('EMAIL_ON_EMAIL_CONFIRM_MESSAGE')}`,
+      description: `${t('EMAIL_ON_EMAIL_CANT_CONFIRM_DESCRIPTION')}`,
     });
   }
 

@@ -35,9 +35,9 @@ const plTranslations = {
       REGISTER_PASSWORD_REPEAT: 'Powtórz hasło',
       REGISTER_REGULATIONS: 'Zapoznałem się i akceptuję,',
       REGISTER_TOS_CONFIRM: 'Regulamin,',
-      REGISTER_PRIVACY_POLICY: 'polityke prywatności i ciasteczek',
+      REGISTER_PRIVACY_POLICY: 'politykę prywatności i ciasteczek',
       REGISTER_AND: 'oraz',
-      REGISTER_INFORMATIVE_CLAUSE: 'klauzule informacyjną',
+      REGISTER_INFORMATIVE_CLAUSE: 'klauzulę informacyjną',
       REGISTER_REGISTER_BUTTON: 'Zarejestruj się',
       REGISTER_TEXT_BETWEEN_BUTTONS: 'lub zarejestruj się używając konta Google',
       REGISTER_GOOGLE_REGISTER_BUTTON: 'Google',
@@ -241,6 +241,15 @@ const plTranslations = {
       CREATE_YOUR_OWN: 'Stwórz swoją własną sieć rekomendacji',
       BE_PREPARED: 'Bądź gotowy w każdej sytuacji',
       ACHIEVE_YOUR: 'Osiągnij swoje cele biznesowe i osobiste',
+
+      EMAIL_CONFIRM_MESSAGE: 'Twój email został potwierdzony.',
+      EMAIL_CONFIRM_DESCRIPTION: 'Możesz się teraz zalogować',
+
+      EMAIL_CANT_CONFIRM_MESSAGE: 'Twój email nie może zostać potwierdzony.',
+      EMAIL_CANT_CONFIRM_DESCRIPTION: 'Sprawdź link weryfikacyjny jeszcze raz lub skontaktuj się z naszym zespołem.',
+
+      EMAIL_ON_EMAIL_CONFIRM_MESSAGE: 'Wysyłamy Ci wiadomość e-mail w celu weryfikacji konta.',
+      EMAIL_ON_EMAIL_CANT_CONFIRM_DESCRIPTION: 'Sprawdź swoją skrzynkę odbiorczą i kliknij link weryfikacyjny.',
     },
   },
 };
