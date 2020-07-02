@@ -182,7 +182,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
                   },
                   invitedManagerEmails: values.emails.map((el) => ({
                     email: el,
-                    status: 'waiting',
+                    status: 'pending',
                   })),
                 },
               },
