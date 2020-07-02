@@ -228,6 +228,18 @@ const enTranslations = {
       CARDS_GRID_LIMIT_FREE:
         'This spot has reached maximum participant list size. You cannot join to this spot at the moment.',
       CARDS_GRID_LIMIT_PREMIUM: `This spot has reached maximum participant list size. You cannot join to this spot at the moment.`,
+
+      I_WANT_TO_READ_ABOUT_USAGE_EXAMPLES: 'I want to read about usage examples',
+      I_WANT_TO_CREATE_MY_FIRST_PERSONA: 'I want to create my first persona',
+      NEXT_STEP: 'Next step',
+      TAKE_YOUR_PHONE: 'Take your phone',
+      GO_ON: 'Go to www.personashare.com',
+      AIM_THE_CAMERA: 'Aim the camera at qr code above and join to our unique community!',
+      INSERT_ANYTHING: 'Insert anything you want',
+      SHARE_EASILY: 'Share easily and rapidly with anyone',
+      CREATE_YOUR_OWN: 'Create your own recommendation net',
+      BE_PREPARED: 'Be prepared for any situation',
+      ACHIEVE_YOUR: 'Achieve your business and personal goals',
     },
   },
 };
