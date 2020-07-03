@@ -33,20 +33,20 @@ export const TermAndCookies: FunctionComponent = () => {
       title: t('COOKIES_NOTIFICATION_TEXT'),
       content: (
         <CookieText>
-          {t('COOKIES_NOTIFICATION_TEXT_2')}{' '}
+          {t('COOKIES_NOTIFICATION_TEXT_1')}{' '}
           <NavLink to={APP_ROUTES.TERM_OF_USE}>
-            <TextHere>{t('COOKIES_NOTIFICATION_TEXT_3')}</TextHere>.
+            <TextHere>{t('COOKIES_NOTIFICATION_TEXT_2')}</TextHere>.
           </NavLink>{' '}
-          {t('COOKIES_NOTIFICATION_TEXT_4')} <br />
+          {t('COOKIES_NOTIFICATION_TEXT_3')} <br />
           <NavLink to={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY}>
-            <TextHere>{t('COOKIES_NOTIFICATION_TEXT_5')}</TextHere>.
+            <TextHere>{t('COOKIES_NOTIFICATION_TEXT_4')}</TextHere>.
           </NavLink>
         </CookieText>
       ),
       onOk: () => {
         setIsVisible('false');
       },
-      okText: 'Accept',
+      okText: t('COOKIES_NOTIFICATION_BUTTON'),
     });
   }
 

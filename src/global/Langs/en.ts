@@ -212,6 +212,7 @@ const enTranslations = {
       COOKIES_NOTIFICATION_TEXT_3:
         'We are all #PersonashareFamily so we care about your privacy. This website uses cookies. By using this website you agree with our',
       COOKIES_NOTIFICATION_TEXT_4: 'privacy and cookies policy.',
+      COOKIES_NOTIFICATION_BUTTON: 'Accept',
       COOKIES_UNDERSTAND: 'I UNDERSTAND',
 
       SEE_MORE: 'SEE MORE',
