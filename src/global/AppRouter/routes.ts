@@ -28,7 +28,7 @@ export const APP_ROUTES = {
   CONTACT_BOOK: '/contact-book',
   PERSONA_PREVIEW: (uuid: string) => `/persona/${uuid}`,
   SPOT_PREVIEW: (uuid: string) => `/spot/${uuid}`,
-  SPOT_INVITATION: (uuid: string) => `/spot-invitation/${uuid}`,
+  SPOT_INVITATION: (uuid: string) => `/spot-invitation/${uuid}/:email`,
   MY_PERSONA_PREVIEW: (uuid: string) => `/my-persona/${uuid}`,
   MY_SPOT_PREVIEW: (uuid: string) => `/my-spot/${uuid}`,
 };

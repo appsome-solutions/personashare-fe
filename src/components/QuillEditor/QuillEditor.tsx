@@ -4,6 +4,8 @@ import defer from 'lodash/defer';
 import isString from 'lodash/isString';
 import isEmpty from 'lodash/isEmpty';
 import isObject from 'lodash/isObject';
+import map from 'lodash/map';
+import omit from 'lodash/omit';
 import ReactQuill, { Quill as QuillClass } from 'react-quill';
 import { DrawerPage } from 'components/DrawerPage/DrawerPage';
 import 'react-quill/dist/quill.snow.css';
@@ -26,7 +28,7 @@ import { UploadAssetsProps } from 'components/UploadAssets/UploadAssets';
 import { InvitationsProps } from 'components/SpotBook/ManagerList/EditModeManager';
 // @ts-ignore
 import imageUpload from 'quill-plugin-image-upload';
-import { AssetType, AssetWithBlob, uploadAssets } from '../CreateSpotAndPersona/CreatePage/uploadAssets';
+import { uploadAssets } from '../CreateSpotAndPersona/CreatePage/uploadAssets';
 import { useStorage } from '../../global/Storage';
 import { useUserContext } from '../../global/UserContext/UserContext';
 import { useTranslation } from 'react-i18next';
@@ -198,7 +200,7 @@ const QuillEditor: FC<Props> = ({
   const [isTurnIntoVisible, setIsTurnIntoVisible] = useState(false);
   const [isAddVisible, setIsAddVisible] = useState(false);
   const [isInlineVisible, setIsInlineVisible] = useState(false);
-  const [embedBlots, setEmbedBlots] = useState<any[]>([]);
+  const [embedBlots, setEmbedBlots] = useState<Record<string, any>>({});
   const ref = useRef<ReactQuill | null>(null);
   const { storageRef } = useStorage();
   const { user } = useUserContext();
@@ -273,11 +275,19 @@ const QuillEditor: FC<Props> = ({
   }, []);
 
   const onMount = (blots: any): void => {
-    setEmbedBlots((embedBlots) => [...embedBlots, ...blots]);
+    const embeds = blots.reduce(
+      (memo: any, blot: any) => {
+        memo[blot.id] = blot;
+        return memo;
+      },
+      { ...embedBlots }
+    );
+    setEmbedBlots(embeds);
   };
 
   const onUnmount = (unmountedBlot: any): void => {
-    setEmbedBlots((embedBlots) => embedBlots.filter((blot) => blot.id !== unmountedBlot.id));
+    const filteredBlots = omit(embedBlots, unmountedBlot.id);
+    setEmbedBlots(filteredBlots);
   };
 
   useEffect(() => {
@@ -335,7 +345,7 @@ const QuillEditor: FC<Props> = ({
         />
       )}
       {isRendered &&
-        embedBlots?.map((embedBlot) => {
+        map(embedBlots, (embedBlot) => {
           const componentProps = propsMapper[embedBlot.statics.blotName as string] || {};
           return embedBlot.renderPortal(embedBlot.id, componentProps, editable);
         })}
@@ -371,7 +381,7 @@ const QuillEditor: FC<Props> = ({
                     turnIntoRef.current = true;
                   }}
                 >
-                  {t('CREATION_STEP_3_INPUT_PLACEHOLDER')}
+                  {t('TURN_INTO_BUTTON')}
                 </TurnInto>
               )}
               onClose={() => setIsAddVisible(false)}

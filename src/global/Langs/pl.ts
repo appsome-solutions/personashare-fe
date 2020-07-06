@@ -209,10 +209,11 @@ const plTranslations = {
 
       COOKIES_NOTIFICATION_TEXT: 'Witaj w PersonaShare!',
       COOKIES_NOTIFICATION_TEXT_1: 'Korzystając z serwisu akceptujesz nasz',
-      COOKIES_NOTIFICATION_TEXT_2: 'Regulamin.',
+      COOKIES_NOTIFICATION_TEXT_2: 'Regulamin',
       COOKIES_NOTIFICATION_TEXT_3:
-        'Korzystamy ze znanych wszystkim ciasteczek. Korzystając z serwisu akceptujesz naszą.',
-      COOKIES_NOTIFICATION_TEXT_4: 'Politykę Prywatności i ciasteczek..',
+        'Korzystamy ze znanych wszystkim ciasteczek. Korzystając z serwisu akceptujesz naszą',
+      COOKIES_NOTIFICATION_TEXT_4: 'Politykę Prywatności i ciasteczek',
+      COOKIES_NOTIFICATION_BUTTON: 'Rozumiem',
       COOKIES_UNDERSTAND: 'ZGADZAM SIĘ',
 
       SEE_MORE: 'Zobacz więcej',

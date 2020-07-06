@@ -51,36 +51,19 @@ const WideButtonStyled = styled(WideButton as any)`
 `;
 
 export const SpotInvitation: FC = () => {
-  const { uuid } = useParams();
+  const { uuid, email } = useParams();
   const history = useHistory();
   const { data } = useQuery<GetCardType>(GET_SPOT, {
     variables: { uuid: uuid },
   });
   const { user } = useUserContext();
   const [addManager] = useMutation<AddManagerResponse>(ADD_MANAGER, {
-    variables: { personaId: user?.defaultPersona, spotId: uuid },
+    variables: { personaId: user?.defaultPersona, spotId: uuid, email },
   });
   const { t } = useTranslation();
-  const [updateSpot] = useMutation<Entity>(UPDATE_SPOT, {
-    variables: {
-      uuid: data?.spot?.uuid,
-      spot: {
-        card: {
-          ...data?.spot?.card,
-          __typename: undefined,
-        },
-        page: {
-          ...data?.spot?.page,
-          __typename: undefined,
-        },
-        invitedManagerEmails: { email: user?.email, status: 'accepted' },
-      },
-    },
-  });
 
   const onClickFunctions = async () => {
     await addManager();
-    await updateSpot();
     history.push(APP_ROUTES.SPOT_PREVIEW(uuid));
   };
 

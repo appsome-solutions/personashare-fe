@@ -212,6 +212,7 @@ const enTranslations = {
       COOKIES_NOTIFICATION_TEXT_3:
         'We are all #PersonashareFamily so we care about your privacy. This website uses cookies. By using this website you agree with our',
       COOKIES_NOTIFICATION_TEXT_4: 'privacy and cookies policy.',
+      COOKIES_NOTIFICATION_BUTTON: 'Accept',
       COOKIES_UNDERSTAND: 'I UNDERSTAND',
 
       SEE_MORE: 'SEE MORE',
@@ -240,6 +241,18 @@ const enTranslations = {
 
       GUIDING_SPOT: 'Guiding spo',
       PERSONA_FAMILY: 'Persona Family',
+
+      I_WANT_TO_READ_ABOUT_USAGE_EXAMPLES: 'I want to read about usage examples',
+      I_WANT_TO_CREATE_MY_FIRST_PERSONA: 'I want to create my first persona',
+      NEXT_STEP: 'Next step',
+      TAKE_YOUR_PHONE: 'Take your phone',
+      GO_ON: 'Go to www.personashare.com',
+      AIM_THE_CAMERA: 'Aim the camera at qr code above and join to our unique community!',
+      INSERT_ANYTHING: 'Insert anything you want',
+      SHARE_EASILY: 'Share easily and rapidly with anyone',
+      CREATE_YOUR_OWN: 'Create your own recommendation net',
+      BE_PREPARED: 'Be prepared for any situation',
+      ACHIEVE_YOUR: 'Achieve your business and personal goals',
     },
   },
 };
