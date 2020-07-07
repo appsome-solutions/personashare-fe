@@ -254,6 +254,31 @@ const plTranslations = {
 
       GUIDING_SPOT: 'Jak to działa',
       PERSONA_FAMILY: 'Persona Family',
+
+      PERSONA_SHARE_FAMILY: 'Rodzina PersonaShare trzyma się razem!',
+      PERSONA_SHARE_FAMILY_TEXT_1:
+        'Wspieramy całą społeczność PersonaShare i dlatego stworzymy wyjątkowy biuletyn i fanpage tam, gdzie możemy',
+      PERSONA_SHARE_FAMILY_TEXT_2: 'wypromuj swoją personę lub spot całkowicie za darmo,',
+      PERSONA_SHARE_FAMILY_TEXT_3:
+        'przedyskutuj podane tematy i daj ci szansę zdecydować o naszych dalszych funkcjach i rozwoju.',
+      PERSONA_SHARE_FAMILY_TEXT_4: 'Czekamy na Ciebie i Twoją markę!',
+      PERSONA_SHARE_BUTTON_PLACEHOLDER: 'Po prostu napisz swój e-mail tutaj ..',
+      PERSONA_SHARE_REGULATIONS_TEXT_1:
+        'Wyrażam zgodę na otrzymywanie newslettera i informacji handlowych od PersonaShare Mateusz Żukowski. Przeczytałem ',
+      PERSONA_SHARE_REGULATIONS_TEXT_2: 'Politykę prywatności ',
+      PERSONA_SHARE_REGULATIONS_TEXT_3: ' i zgadzam się z nią.',
+      JOIN_TO_NEWSLETTER: 'DOŁĄCZ DO NEWSLETTERA',
+      WHAT_MORE: 'CO WIĘCEJ?',
+
+      PERSONA_SHARE_FAMILY_STEP_2:
+        'Nasz fanpage na Facebooku to miejsce, w którym można znaleźć wiele informacji o PersonaShare, ale także o naszej społeczności: dyskusje, promowane persony lub spoty, wywiady i wiele, wiele więcej!',
+
+      PERSONA_SHARE_FAMILY_STEP_3:
+        'Nasza grupa LinkedIn jest otwarta dla wszystkich! Chcemy budować społeczność, która będzie dzielić się wiedzą, wsparciem i zawsze bądź przygotowany na PersonaShare!',
+
+      PERSONA_SHARE_FAMILY_STEP_4:
+        'Możesz również przekazać nam swoją opinię, wypełniając tę ​​krótką ankietę. Jest to dla nas bardzo ważne, ponieważ dzięki temu możemy razem ulepszyć PersonaShare! ',
+      CONTACT_US: 'SKONTAKTUJ SIĘ',
     },
   },
 };

@@ -253,6 +253,31 @@ const enTranslations = {
       CREATE_YOUR_OWN: 'Create your own recommendation net',
       BE_PREPARED: 'Be prepared for any situation',
       ACHIEVE_YOUR: 'Achieve your business and personal goals',
+
+      PERSONA_SHARE_FAMILY: 'PersonaShare Family stick together!',
+      PERSONA_SHARE_FAMILY_TEXT_1:
+        'We support whole PersonaShare community and that’s why we are going to create unique newsletter and fanpage, where we could',
+      PERSONA_SHARE_FAMILY_TEXT_2: 'promote Your persona or spot totally for free,',
+      PERSONA_SHARE_FAMILY_TEXT_3:
+        'discuss given subjects and give you an opportunity to decide about our further features and development.',
+      PERSONA_SHARE_FAMILY_TEXT_4: 'We are waiting for you and your brand!',
+      PERSONA_SHARE_BUTTON_PLACEHOLDER: 'Simply write your email here..',
+      PERSONA_SHARE_REGULATIONS_TEXT_1:
+        'I agree to receive the newsletter and commercial information from PersonaShare Mateusz Żukowski. I have read the',
+      PERSONA_SHARE_REGULATIONS_TEXT_2: 'Privacy Policy',
+      PERSONA_SHARE_REGULATIONS_TEXT_3: 'and agree with it',
+      JOIN_TO_NEWSLETTER: 'JOIN TO NEWSLETTER',
+      WHAT_MORE: 'WHAT MORE?',
+
+      PERSONA_SHARE_FAMILY_STEP_2:
+        'Our Facebook fanpage is the place, where you can find a lot of information about PersonaShare, but also about our community: discussions, promoted personas or spots, interviews and many, many more!',
+
+      PERSONA_SHARE_FAMILY_STEP_3:
+        'Our LinkedIn group is open for everyone! We want to build a community, that will be sharing knowledge, support each other and always stay prepared with PersonaShare!',
+
+      PERSONA_SHARE_FAMILY_STEP_4:
+        'You can also give us a feedback, by filling this short survey. This is very important for us, because thanks to this, we can improve PersonaShare together!',
+      CONTACT_US: 'CONTACT US',
     },
   },
 };
