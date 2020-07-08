@@ -258,9 +258,7 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
 
   const removePersonaIfNotLastOne = async () => {
     if (userPersonasData?.userPersonas.length === 1) {
-      message.error(
-        `You need to have at least one persona on your profile. We propose to create new persona before deleting actually selected.`
-      );
+      message.error(`${t('MY_PERSONA_REMOVING_LAST_PERSONA_NOTIFICATION')}`);
     } else {
       await updatePersona({
         variables: {

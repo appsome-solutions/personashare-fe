@@ -55,8 +55,7 @@ const plTranslations = {
       MY_PERSONA_DEFAULT_BUTTON: 'Domyślna',
       MY_PERSONA_SET_AS_DEFAULT_BUTTON: 'Ustaw jako domyślną',
       MY_PERSONA_SHARE_QR: 'Pobierz QR kod',
-      MY_PERSONA_REMOVING_LAST_PERSONA_NOTIFICATION:
-        'Na koncie musi być stworzona przynajmniej jedna Persona. Jeśli chcesz ją usunąć, stwórz nową i ponownie usuń tę',
+      MY_PERSONA_REMOVING_LAST_PERSONA_NOTIFICATION: `Musisz mieć co najmniej jedną osobę w swoim profilu. Proponujemy utworzenie nowej osoby przed usunięciem faktycznie wybranej.`,
 
       MY_SPOTS_CARD_MENU_EDIT: 'Edytuj',
       MY_SPOTS_CARD_MENU_REMOVE: 'Usuń',
@@ -294,6 +293,7 @@ const plTranslations = {
       INVITATION_TO_THE: 'Zaproszenie do',
 
       NEW_EMAIL: '+ Nowy Email',
+      EMAIL_MUST_BE_VALID: 'Adres e-mail musi być prawidłowy',
 
       NO_SPOTS: 'Brak spota...',
       NO_SPOTS_CREATED: 'brak stworzonych spotów',
@@ -306,6 +306,14 @@ const plTranslations = {
       PASSWORD_CONFIRM_IS_REQUIRED: 'Potwierdzenie hasła jest wymagane',
 
       THE_TERMS_AND_CONDITION_MUST_BE_ACCEPTED: 'Warunki muszą zostać zaakceptowane.',
+      GOT_INCORRECT_QR: 'Niepoprawny QR',
+
+      FILE_MUST_BE_SMALLER_THAN: 'Plik musi być mniejszy niż',
+      YOU_CANT_UPLOAD_MORE_THAN: 'Nie możesz załadować więcej niż',
+      FILES: 'plików',
+      IMAGE: 'Zdjęcie',
+      FILE: 'Plik',
+      UPLOAD: 'załaduj',
     },
   },
 };

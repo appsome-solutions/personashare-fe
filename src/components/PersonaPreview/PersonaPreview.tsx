@@ -43,7 +43,7 @@ export const PersonaPreview: FC = () => {
 
     if (recentlyViewedPersonas.length === 0) {
       notification.info({
-        message: 'Recently viewed feature',
+        message: `${t('RECENTLY_VIEWED_FEATURE')}`,
         duration: 0,
         description: `${t('RECENTLY_VIEWED_NOTIFICATIONS')}`,
       });
@@ -69,7 +69,7 @@ export const PersonaPreview: FC = () => {
   }
   // OR !data is used cause typescript doesn't know that data can no longer be undefined in return method
   if (isEmpty(data?.persona) || !data) {
-    return <div>No personas...</div>;
+    return <div>{t('NO_PERSONA')}</div>;
   }
 
   addPersonaToRecentlyViewed();

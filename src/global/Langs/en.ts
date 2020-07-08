@@ -56,7 +56,7 @@ const enTranslations = {
       MY_PERSONA_SET_AS_DEFAULT_BUTTON: 'Set As Default',
       MY_PERSONA_SHARE_QR: 'Share your QR',
       MY_PERSONA_REMOVING_LAST_PERSONA_NOTIFICATION:
-        'At least one Persona must be created on the account. If you want to delete it, create a new one and delete it again',
+        'You need to have at least one persona on your profile. We propose to create new persona before deleting actually selected.',
 
       MY_SPOTS_CARD_MENU_EDIT: 'Edit',
       MY_SPOTS_CARD_MENU_REMOVE: 'Remove',
@@ -294,6 +294,7 @@ const enTranslations = {
       INVITATION_TO_THE: 'Invitation to the',
 
       NEW_EMAIL: '+ New Email',
+      EMAIL_MUST_BE_VALID: 'Email must be valid',
 
       NO_SPOTS: 'No spots...',
       NO_SPOTS_CREATED: 'no spots created',
@@ -306,6 +307,14 @@ const enTranslations = {
       PASSWORD_CONFIRM_IS_REQUIRED: 'Password confirm is required',
 
       THE_TERMS_AND_CONDITION_MUST_BE_ACCEPTED: 'The terms and conditions must be accepted.',
+      GOT_INCORRECT_QR: 'Got incorrect qr',
+
+      FILE_MUST_BE_SMALLER_THAN: 'File must be smaller than',
+      YOU_CANT_UPLOAD_MORE_THAN: 'You cant upload more than',
+      FILES: 'files',
+      IMAGE: 'Image',
+      FILE: 'File',
+      UPLOAD: 'upload',
     },
   },
 };
