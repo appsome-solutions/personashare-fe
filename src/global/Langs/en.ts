@@ -278,6 +278,34 @@ const enTranslations = {
       PERSONA_SHARE_FAMILY_STEP_4:
         'You can also give us a feedback, by filling this short survey. This is very important for us, because thanks to this, we can improve PersonaShare together!',
       CONTACT_US: 'CONTACT US',
+
+      NO_SAVED_SPOT: 'no saved spot...',
+
+      ERROR_WHILE_SENDING_EMAIL: 'Error while sending an email',
+
+      RECENTLY_VIEWED_NOTIFICATIONS:
+        'If you don’t have a time to register now, don’t worry. We will store personas you scan on your device for a while. You can find them in contact book. If you want to save them pernamentely, after registration simply save them using “Save” button.',
+      RECENTLY_VIEWED_FEATURE: 'Recently viewed feature',
+      RECENTLY_VIEWED_NOTIFICATIONS_SPOT:
+        'If you don’t have a time to register now, don’t worry. We will store spots you scan on your device for a while. You can find them in spot book. If you want to save them pernamentely, after registration simply save them using “Save” button.',
+
+      EMAIL_INCLUDED: 'Email already included!',
+
+      INVITATION_TO_THE: 'Invitation to the',
+
+      NEW_EMAIL: '+ New Email',
+
+      NO_SPOTS: 'No spots...',
+      NO_SPOTS_CREATED: 'no spots created',
+
+      NO_PERSONA: 'No persona...',
+      NO_PERSONA_CREATED: 'no persona created',
+
+      PASSWORD_IS_REQUIRED: 'Password is required',
+      PASSWORD_DONT_MATCH: `Passwords don't match`,
+      PASSWORD_CONFIRM_IS_REQUIRED: 'Password confirm is required',
+
+      THE_TERMS_AND_CONDITION_MUST_BE_ACCEPTED: 'The terms and conditions must be accepted.',
     },
   },
 };

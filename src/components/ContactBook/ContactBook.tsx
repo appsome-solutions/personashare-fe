@@ -77,7 +77,7 @@ export const ContactBook: FC = () => {
       <ContactBookStyled>
         <RecentlyViewedPersonas />
         <StyledHeader>{t('CONTACT_BOOK_HEADING_1')}</StyledHeader>
-        {!results?.length && <EmptyPlaceholder text="no saved personas..." />}
+        {!results?.length && <EmptyPlaceholder text={t('NO_SAVED_SPOT')} />}
         {results?.map((persona: AgregatedPersona) => (
           <Wrapper
             key={persona.uuid}

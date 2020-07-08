@@ -48,7 +48,7 @@ export const ResetPassword: FC = () => {
         await sendPasswordResetEmail(values.email);
         history.push(APP_ROUTES.LOGIN);
       } catch (e) {
-        setApiError(e.message ? e.message : 'Error while sending an reset email');
+        setApiError(e.message ? e.message : `${t('ERROR_WHILE_SENDING_EMAIL')}`);
       }
     },
     [history, sendPasswordResetEmail, setApiError]

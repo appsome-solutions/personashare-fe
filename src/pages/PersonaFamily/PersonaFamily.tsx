@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { TopNav } from 'components/TopNav/TopNav';
 import { WideButton } from 'components/Button/WideButton';
 import { Stepper } from 'components/Stepper';
@@ -12,7 +12,7 @@ import EmailIconSvg from 'assets/email.svg';
 const MainComponent = styled.div`
   background-color: ${(props) => props.theme.colors.utils.background.mid};
   min-height: ${(props) => props.theme.contentHeight};
-  padding: 32px 24px 0 24px;
+  padding: 32px 24px;
 `;
 
 const TextAndButtonsComponent = styled.div`
@@ -26,14 +26,11 @@ const TextComponent = styled.div`
   text-align: left;
   font-size: 13px;
   line-height: 15px;
+  margin-bottom: 32px;
 `;
 
 const TextWithMargin = styled.div`
   margin-top: 16px;
-`;
-
-const TextWithRightMargin = styled.div`
-  margin-right: 2px;
 `;
 
 const StepperStyled = styled.div`
@@ -48,18 +45,37 @@ const WideButtonStyled = styled(WideButton)`
 `;
 
 const InputField = styled.input`
-  margin-top: 32px;
   width: 100%;
   height: 36px;
   ${(props) => props.theme.typography.caption}
   padding:12px;
+  background: ${(props) => props.theme.colors.utils.background.light};
+  border: 1px solid ${(props) => props.theme.colors.utils.border.mid};
+  box-sizing: border-box;
+  border-radius: 4px;
 `;
 
-const CheckBoxStyledWithText = styled.div`
+const CheckBoxComponent = styled.div`
   display: flex;
+  flex-direction: column;
   text-align: left;
   padding-top: 14px;
   margin-bottom: 36px;
+  .ant-checkbox {
+    margin: 8px 8px 8px 0;
+  }
+  .mce_inline_error {
+    background-color: ${(props) => props.theme.colors.utils.background.mid} !important;
+    color: red !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    font-weight: normal !important;
+  }
+`;
+
+const CheckboxWithText = styled.div`
+  flex-direction: row;
+  display: flex;
 `;
 
 const TextInCheckBoxDiv = styled.div`
@@ -68,17 +84,13 @@ const TextInCheckBoxDiv = styled.div`
 
 const CheckBoxStyled = styled.input`
   && {
+    flex-direction: column;
     align-self: start;
     margin-top: 8px;
-
-    .ant-checkbox {
-      margin: 8px 8px 8px 0;
-    }
   }
 `;
 
 const InputButtonStyled = styled.input`
-  width: 100%;
   && {
     color: ${(props) => props.theme.colors.utils.text.light};
     background-color: ${(props) => props.theme.colors.main.primary};
@@ -87,21 +99,70 @@ const InputButtonStyled = styled.input`
     border-radius: 4px;
     padding: 8px 0;
     border-width: 0;
-
+    width: 100%;
     &&:disabled {
       cursor: not-allowed;
       background-color: ${(props) => props.theme.colors.functional.disabled};
+      border: 1px solid ${(props) => props.theme.colors.utils.border.mid};
     }
-    &&:active,
-    &&:hover {
-      color: ${(props) => props.theme.colors.utils.text.light};
+    :hover,
+    :active {
+      border: 1px solid ${(props) => props.theme.colors.utils.border.mid} !important;
     }
+  }
+`;
+
+const InputWrapper = styled.div`
+  &&& {
+    #mc_embed_signup,
+    #mc-embedded-subscribe-form,
+    div.mce_inline_error {
+      background-color: ${(props) => props.theme.colors.utils.background.mid} !important;
+      color: red !important;
+      margin: 0 !important;
+      padding-left: 0 !important;
+      font-weight: normal !important;
+    }
+    input.mce_inline_error {
+      border: 1px solid red !important;
+    }
+  }
+  position: relative;
+`;
+
+const ResponseDisplayNone = styled.div`
+  display: none;
+`;
+
+const EmailIconStyled = styled.img`
+  position: absolute;
+  top: 13px;
+  right: 16px;
+`;
+
+const MceResponseStyled = styled.div`
+  #mce-error-response {
+    margin-bottom: 8px;
   }
 `;
 
 export const PersonaFamily: FC = () => {
   const { t } = useTranslation();
   const history = useHistory();
+
+  useEffect(() => {
+    const script = document.createElement('script');
+
+    script.src = '//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js';
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   const onNextClick = (): void => {
     history.push({
       pathname: APP_ROUTES.PERSONA_FAMILY_STEP_2,
@@ -129,44 +190,44 @@ export const PersonaFamily: FC = () => {
             <form
               action="https://personashare.us19.list-manage.com/subscribe/post?u=01f2d8ab4101619d0906d8e99&amp;id=040e730107"
               method="post"
-              id="mc-embedded-subscribe-form"
               name="mc-embedded-subscribe-form"
               className="validate"
+              id="mc-embedded-subscribe-form"
               target="_blank"
               noValidate
             >
               <div id="mc_embed_signup_scroll">
-                <div className="mc-field-group">
+                <InputWrapper className="mc-field-group">
                   <InputField
                     type="email"
-                    value=""
                     name="EMAIL"
                     className="required email"
                     id="mce-EMAIL"
                     placeholder={t('PERSONA_SHARE_BUTTON_PLACEHOLDER')}
                   />
-                </div>
-                <CheckBoxStyledWithText className="mc-field-group input-group">
-                  <CheckBoxStyled type="checkbox" value="1" placeholder="email" />
-                  <TextInCheckBoxDiv>
-                    {t('PERSONA_SHARE_REGULATIONS_TEXT_1')}
-                    {t('PERSONA_SHARE_REGULATIONS_TEXT_2')}
-                    {t('PERSONA_SHARE_REGULATIONS_TEXT_3')}
-                  </TextInCheckBoxDiv>
-                </CheckBoxStyledWithText>
-                <div id="mce-responses" className="clear">
-                  <div className="response" id="mce-error-response" />
-                  <div className="response" id="mce-success-response" />
-                </div>
-                <div className="clear">
-                  <InputButtonStyled
-                    type="submit"
-                    value={`${t('JOIN_TO_NEWSLETTER')}`}
-                    name="subscribe"
-                    id="mc-embedded-subscribe"
-                    className="button"
-                  />
-                </div>
+                  <EmailIconStyled src={EmailIconSvg} />
+                </InputWrapper>
+                <CheckBoxComponent className="mc-field-group input-group">
+                  <CheckboxWithText>
+                    <CheckBoxStyled
+                      className="required"
+                      type="checkbox"
+                      value="1"
+                      name="group[13404][1]"
+                      id="mce-group[13404]-13404-0"
+                    />
+                    <TextInCheckBoxDiv>
+                      {t('PERSONA_SHARE_REGULATIONS_TEXT_1')}
+                      {t('PERSONA_SHARE_REGULATIONS_TEXT_2')}
+                      {t('PERSONA_SHARE_REGULATIONS_TEXT_3')}
+                    </TextInCheckBoxDiv>
+                  </CheckboxWithText>
+                </CheckBoxComponent>
+                <MceResponseStyled id="mce-responses" className="clear">
+                  <ResponseDisplayNone className="response" id="mce-error-response" />
+                  <ResponseDisplayNone className="response" id="mce-success-response" />
+                </MceResponseStyled>
+                <InputButtonStyled type="submit" value={`${t('JOIN_TO_NEWSLETTER')}`} name="subscribe" />
               </div>
             </form>
           </div>

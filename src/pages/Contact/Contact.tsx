@@ -64,7 +64,7 @@ export const Contact: FC = () => {
           history.push(APP_ROUTES.SPOT_CREATION_STEP_1);
         })
         .catch((e) => {
-          setApiError(e.message ? e.message : 'Error while sending an email');
+          setApiError(e.message ? e.message : `${t('ERROR_WHILE_SENDING_EMAIL')}`);
         });
     },
     [setApiError, sendMail, history]

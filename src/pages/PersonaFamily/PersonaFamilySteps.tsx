@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { TopNav } from 'components/TopNav/TopNav';
 import { WideButton } from 'components/Button/WideButton';
 import { Stepper } from 'components/Stepper';
-import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 

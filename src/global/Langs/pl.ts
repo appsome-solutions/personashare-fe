@@ -279,6 +279,33 @@ const plTranslations = {
       PERSONA_SHARE_FAMILY_STEP_4:
         'Możesz również przekazać nam swoją opinię, wypełniając tę ​​krótką ankietę. Jest to dla nas bardzo ważne, ponieważ dzięki temu możemy razem ulepszyć PersonaShare! ',
       CONTACT_US: 'SKONTAKTUJ SIĘ',
+
+      NO_SAVED_SPOT: 'brak zapisanych spotów...',
+
+      ERROR_WHILE_SENDING_EMAIL: 'Błąd podczas wysyłania email',
+
+      RECENTLY_VIEWED_NOTIFICATIONS:
+        'eśli nie masz teraz czasu na rejestrację, nie martw się. Przez jakiś czas będziemy przechowywać dane, które skanujesz na swoim urządzeniu. Można je znaleźć w książce adresowej. Jeśli chcesz je zapisać na stałe, po rejestracji po prostu zapisz je za pomocą przycisku „Zapisz”.',
+      RECENTLY_VIEWED_FEATURE: 'Ostatnio oglądana funkcja',
+      RECENTLY_VIEWED_NOTIFICATIONS_SPOT:
+        'Jeśli nie masz teraz czasu na rejestrację, nie martw się. Przez pewien czas będziemy przechowywać miejsca, które skanujesz. Można je znaleźć w książce spotowej. Jeśli chcesz je zapisać na stałe, po rejestracji zapisz je za pomocą przycisku „Zapisz”.',
+      EMAIL_INCLUDED: 'dres e-mail już zawarty!',
+
+      INVITATION_TO_THE: 'Zaproszenie do',
+
+      NEW_EMAIL: '+ Nowy Email',
+
+      NO_SPOTS: 'Brak spota...',
+      NO_SPOTS_CREATED: 'brak stworzonych spotów',
+
+      NO_PERSONA: 'Brak person...',
+      NO_PERSONA_CREATED: 'brak stworzonych person',
+
+      PASSWORD_IS_REQUIRED: 'Hasło jest wymagane',
+      PASSWORD_DONT_MATCH: `Hasło jest nieprawidłowe`,
+      PASSWORD_CONFIRM_IS_REQUIRED: 'Potwierdzenie hasła jest wymagane',
+
+      THE_TERMS_AND_CONDITION_MUST_BE_ACCEPTED: 'Warunki muszą zostać zaakceptowane.',
     },
   },
 };

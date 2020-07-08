@@ -6,8 +6,9 @@ import { Overlay } from 'components/Overlay/Overlay';
 import { useParams } from 'react-router-dom';
 import { GET_SPOT, GetCardType } from 'global/graphqls/Spot';
 import { EntityPreview } from 'components/EntityPreview/EntityPreview';
-import { PageWrapper } from '../../components/PageWrapper';
+import { PageWrapper } from 'components/PageWrapper';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const StyledPageWrapper = styled(PageWrapper)`
   min-height: ${(props) => props.theme.contentHeightWithTabs};
@@ -16,6 +17,7 @@ const StyledPageWrapper = styled(PageWrapper)`
 
 export const MySpotPreview: FC = () => {
   const { uuid } = useParams();
+  const { t } = useTranslation();
   const { loading, data } = useQuery<GetCardType>(GET_SPOT, {
     variables: { uuid },
   });
@@ -29,7 +31,7 @@ export const MySpotPreview: FC = () => {
   }
   // OR !data is used cause typescript doesn't know that data can no longer be undefined in return method
   if (isEmpty(data?.spot) || !data) {
-    return <div>No spots...</div>;
+    return <div>{t('NO_SPOTS')}</div>;
   }
 
   return (

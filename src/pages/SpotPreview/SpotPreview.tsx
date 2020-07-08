@@ -14,6 +14,7 @@ import { ManagerList } from 'components/SpotBook/ManagerList/ManagerList';
 import QuillEditor from '../../components/QuillEditor/QuillEditor';
 import _ from 'lodash';
 import { notification } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 type SpotPreviewType = {
   isEditMode?: boolean;
@@ -39,6 +40,7 @@ const SecondPartSpot = styled.div`
 
 export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
   const { uuid } = useParams();
+  const { t } = useTranslation();
   const { loading, data } = useQuery<GetCardType>(GET_SPOT, {
     variables: { uuid },
   });
@@ -48,10 +50,9 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
 
     if (recentlyViewedSpots.length === 0) {
       notification.info({
-        message: 'Recently viewed feature',
+        message: `${t('RECENTLY_VIEWED_FEATURE')}`,
         duration: 0,
-        description:
-          'If you don’t have a time to register now, don’t worry. We will store spots you scan on your device for a while. You can find them in spot book. If you want to save them pernamentely, after registration simply save them using “Save” button.',
+        description: `${t('RECENTLY_VIEWED_NOTIFICATIONS_SPOT')}`,
       });
     }
 
@@ -75,7 +76,7 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
   }
   // OR !data is used cause typescript doesn't know that data can no longer be undefined in return method
   if (isEmpty(data?.spot) || !data) {
-    return <div>No spots...</div>;
+    return <div>{t('NO_SPOTS')}</div>;
   }
 
   addSpotToRecentlyViewed();
