@@ -98,7 +98,7 @@ const plTranslations = {
       CREATION_STEP_2_HEADING: 'Edytuj kartę persony',
       CREATION_STEP_2_INFO:
         'Karta persony to zwięzły opis Twojego zestawu danych dotyczącego danej persony. Zawiera zdjęcie profilowe, zdjęcie w tle, imię i nazwisko oraz krótką wiadomość. Możesz w niej napisać cokolwiek chcesz: krótko opisać personę, napisać kogo szukasz, czym się zajmujesz, gdzie Cię można znaleźć itp.',
-      CREATION_STEP_2_INPUT_1_PLACEHOLDER: 'Imię i nazwisko',
+      CREATION_STEP_2_INPUT_1_PLACEHOLDER: 'Nazwa',
       CREATION_STEP_2_INPUT_2_PLACEHOLDER: 'Krótka wiadomość',
       CREATION_STEP_2_NEXT_STEP: 'Dalej',
 

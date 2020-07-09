@@ -19,7 +19,6 @@ import 'antd/dist/antd.css';
 import { CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { APP_ROUTES } from '../../../global/AppRouter/routes';
 import { useTranslation } from 'react-i18next';
-const { t } = useTranslation();
 
 const InputField = styled(InputWithSuffixIcon)`
   && {
@@ -66,8 +65,8 @@ export type InvitationsProps = {
 const sendInvitationSchema = Yup.object({
   emails: Yup.array()
     .required()
-    .of(Yup.string().email(`${t('EMAIL_MUST_BE_VALID')}`)),
-  currentEmail: Yup.string().email(`${t('EMAIL_MUST_BE_VALID')}`),
+    .of(Yup.string().email('Email must be valid')),
+  currentEmail: Yup.string().email(`Email must be valid`),
 });
 
 type SendInvitationPayload = Yup.InferType<typeof sendInvitationSchema>;
