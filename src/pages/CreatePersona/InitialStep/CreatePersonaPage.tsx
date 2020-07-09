@@ -6,7 +6,7 @@ import { CREATE_PERSONA, GET_PERSONAS } from 'global/graphqls/Persona';
 import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
 import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
-import { GET_USER } from '../../../global/graphqls/User';
+import { GET_USER } from 'global/graphqls/User';
 import { useTranslation } from 'react-i18next';
 
 const pageInitialValues: PageType = {

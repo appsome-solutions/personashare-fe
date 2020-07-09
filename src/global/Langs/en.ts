@@ -56,7 +56,7 @@ const enTranslations = {
       MY_PERSONA_SET_AS_DEFAULT_BUTTON: 'Set As Default',
       MY_PERSONA_SHARE_QR: 'Share your QR',
       MY_PERSONA_REMOVING_LAST_PERSONA_NOTIFICATION:
-        'At least one Persona must be created on the account. If you want to delete it, create a new one and delete it again',
+        'You need to have at least one persona on your profile. We propose to create new persona before deleting actually selected.',
 
       MY_SPOTS_CARD_MENU_EDIT: 'Edit',
       MY_SPOTS_CARD_MENU_REMOVE: 'Remove',
@@ -240,6 +240,9 @@ const enTranslations = {
       EMAIL_ON_EMAIL_CONFIRM_MESSAGE: 'We send you an email to verify your account.',
       EMAIL_ON_EMAIL_CANT_CONFIRM_DESCRIPTION: 'Please check your inbox and click in the verification link',
 
+      GUIDING_SPOT: 'Guiding spo',
+      PERSONA_FAMILY: 'Persona Family',
+
       I_WANT_TO_READ_ABOUT_USAGE_EXAMPLES: 'I want to read about usage examples',
       I_WANT_TO_CREATE_MY_FIRST_PERSONA: 'I want to create my first persona',
       NEXT_STEP: 'Next step',
@@ -251,6 +254,68 @@ const enTranslations = {
       CREATE_YOUR_OWN: 'Create your own recommendation net',
       BE_PREPARED: 'Be prepared for any situation',
       ACHIEVE_YOUR: 'Achieve your business and personal goals',
+
+      PERSONA_SHARE_FAMILY: 'PersonaShare Family stick together!',
+      PERSONA_SHARE_FAMILY_TEXT_1:
+        'We support whole PersonaShare community and that’s why we are going to create unique newsletter and fanpage, where we could',
+      PERSONA_SHARE_FAMILY_TEXT_2: 'promote Your persona or spot totally for free,',
+      PERSONA_SHARE_FAMILY_TEXT_3:
+        'discuss given subjects and give you an opportunity to decide about our further features and development.',
+      PERSONA_SHARE_FAMILY_TEXT_4: 'We are waiting for you and your brand!',
+      PERSONA_SHARE_BUTTON_PLACEHOLDER: 'Simply write your email here..',
+      PERSONA_SHARE_REGULATIONS_TEXT_1:
+        'I agree to receive the newsletter and commercial information from PersonaShare Mateusz Żukowski. I have read the',
+      PERSONA_SHARE_REGULATIONS_TEXT_2: 'Privacy Policy',
+      PERSONA_SHARE_REGULATIONS_TEXT_3: 'and agree with it',
+      JOIN_TO_NEWSLETTER: 'JOIN TO NEWSLETTER',
+      WHAT_MORE: 'WHAT MORE?',
+
+      PERSONA_SHARE_FAMILY_STEP_2:
+        'Our Facebook fanpage is the place, where you can find a lot of information about PersonaShare, but also about our community: discussions, promoted personas or spots, interviews and many, many more!',
+
+      PERSONA_SHARE_FAMILY_STEP_3:
+        'Our LinkedIn group is open for everyone! We want to build a community, that will be sharing knowledge, support each other and always stay prepared with PersonaShare!',
+
+      PERSONA_SHARE_FAMILY_STEP_4:
+        'You can also give us a feedback, by filling this short survey. This is very important for us, because thanks to this, we can improve PersonaShare together!',
+      CONTACT_US: 'CONTACT US',
+
+      NO_SAVED_SPOT: 'no saved spot...',
+
+      ERROR_WHILE_SENDING_EMAIL: 'Error while sending an email',
+
+      RECENTLY_VIEWED_NOTIFICATIONS:
+        'If you don’t have a time to register now, don’t worry. We will store personas you scan on your device for a while. You can find them in contact book. If you want to save them pernamentely, after registration simply save them using “Save” button.',
+      RECENTLY_VIEWED_FEATURE: 'Recently viewed feature',
+      RECENTLY_VIEWED_NOTIFICATIONS_SPOT:
+        'If you don’t have a time to register now, don’t worry. We will store spots you scan on your device for a while. You can find them in spot book. If you want to save them pernamentely, after registration simply save them using “Save” button.',
+
+      EMAIL_INCLUDED: 'Email already included!',
+
+      INVITATION_TO_THE: 'Invitation to the',
+
+      NEW_EMAIL: '+ New Email',
+      EMAIL_MUST_BE_VALID: 'Email must be valid',
+
+      NO_SPOTS: 'No spots...',
+      NO_SPOTS_CREATED: 'no spots created',
+
+      NO_PERSONA: 'No persona...',
+      NO_PERSONA_CREATED: 'no persona created',
+
+      PASSWORD_IS_REQUIRED: 'Password is required',
+      PASSWORD_DONT_MATCH: `Passwords don't match`,
+      PASSWORD_CONFIRM_IS_REQUIRED: 'Password confirm is required',
+
+      THE_TERMS_AND_CONDITION_MUST_BE_ACCEPTED: 'The terms and conditions must be accepted.',
+      GOT_INCORRECT_QR: 'Got incorrect qr',
+
+      FILE_MUST_BE_SMALLER_THAN: 'File must be smaller than',
+      YOU_CANT_UPLOAD_MORE_THAN: 'You cant upload more than',
+      FILES: 'files',
+      IMAGE: 'Image',
+      FILE: 'File',
+      UPLOAD: 'upload',
     },
   },
 };

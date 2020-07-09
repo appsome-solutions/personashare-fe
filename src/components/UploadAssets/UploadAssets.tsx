@@ -7,6 +7,7 @@ import UploadImg from 'assets/backup-24px.svg';
 import UploadImageImg from 'assets/upload-img.svg';
 
 import { Icon } from '../Icon';
+import { useTranslation } from 'react-i18next';
 
 const MAXIMUM_FILE_SIZE = 10; //in MBs
 const MAXIMUM_FILES = 5;
@@ -62,7 +63,7 @@ export const UploadAssets: FC<UploadAssetsProps> = ({
   assetsList = [],
 }: UploadAssetsProps) => {
   const [fileList, setFileList] = useState<UploadFile[]>(assetsList);
-
+  const { t } = useTranslation();
   return (
     <UploadWrapper>
       <Upload
@@ -75,11 +76,11 @@ export const UploadAssets: FC<UploadAssetsProps> = ({
           const maximumFilesExceed = fileList.length + 1 > MAXIMUM_FILES;
 
           if (!isLessThan10MB) {
-            message.error(`File must smaller than ${MAXIMUM_FILE_SIZE}MB!`);
+            message.error(`${t('FILE_MUST_BE_SMALLER_THAN')} ${MAXIMUM_FILE_SIZE}MB!`);
           }
 
           if (maximumFilesExceed) {
-            message.error(`You cant upload more than ${MAXIMUM_FILES} files!`);
+            message.error(`${t('YOU_CANT_UPLOAD_MORE_THAN')} ${MAXIMUM_FILES} ${t('FILES')}!`);
           }
 
           return isLessThan10MB && !maximumFilesExceed;
@@ -112,7 +113,9 @@ export const UploadAssets: FC<UploadAssetsProps> = ({
         {!asPreview && (
           <Button>
             <Icon svgLink={asImageUpload ? UploadImageImg : UploadImg} />
-            <ButtonText>{asImageUpload ? 'Image' : 'File'} upload</ButtonText>
+            <ButtonText>
+              {asImageUpload ? `${t('IMAGE')}` : `${t('FILE')}`} {t('UPLOAD')}
+            </ButtonText>
           </Button>
         )}
       </Upload>

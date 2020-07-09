@@ -31,4 +31,8 @@ export const APP_ROUTES = {
   SPOT_INVITATION: (uuid: string) => `/spot-invitation/${uuid}/:email`,
   MY_PERSONA_PREVIEW: (uuid: string) => `/my-persona/${uuid}`,
   MY_SPOT_PREVIEW: (uuid: string) => `/my-spot/${uuid}`,
+  PERSONA_FAMILY: '/persona_family',
+  PERSONA_FAMILY_STEP_2: '/persona_family_step_2',
+  PERSONA_FAMILY_STEP_3: '/persona_family_step_3',
+  PERSONA_FAMILY_STEP_4: '/persona_family_step_4',
 };

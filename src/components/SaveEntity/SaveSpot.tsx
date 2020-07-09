@@ -1,14 +1,11 @@
 import { WideButton } from 'components/Button';
 import React, { FC } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { gqlUser } from 'global/graphqls/schema';
-import { GET_USER } from 'global/graphqls/User';
-import { useParams } from 'react-router-dom';
 import _ from 'lodash';
 import { SAVE_SPOT, SaveSpotResponse } from 'global/graphqls/Spot';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import styled from 'styled-components';
-import { useUserContext } from '../../global/UserContext/UserContext';
+import { useUserContext } from 'global/UserContext/UserContext';
 import { useTranslation } from 'react-i18next';
 
 const ButtonSavedStyled = styled(WideButton)`

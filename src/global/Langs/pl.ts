@@ -55,8 +55,7 @@ const plTranslations = {
       MY_PERSONA_DEFAULT_BUTTON: 'Domyślna',
       MY_PERSONA_SET_AS_DEFAULT_BUTTON: 'Ustaw jako domyślną',
       MY_PERSONA_SHARE_QR: 'Pobierz QR kod',
-      MY_PERSONA_REMOVING_LAST_PERSONA_NOTIFICATION:
-        'Na koncie musi być stworzona przynajmniej jedna Persona. Jeśli chcesz ją usunąć, stwórz nową i ponownie usuń tę',
+      MY_PERSONA_REMOVING_LAST_PERSONA_NOTIFICATION: `Musisz mieć co najmniej jedną osobę w swoim profilu. Proponujemy utworzenie nowej osoby przed usunięciem faktycznie wybranej.`,
 
       MY_SPOTS_CARD_MENU_EDIT: 'Edytuj',
       MY_SPOTS_CARD_MENU_REMOVE: 'Usuń',
@@ -99,7 +98,7 @@ const plTranslations = {
       CREATION_STEP_2_HEADING: 'Edytuj kartę persony',
       CREATION_STEP_2_INFO:
         'Karta persony to zwięzły opis Twojego zestawu danych dotyczącego danej persony. Zawiera zdjęcie profilowe, zdjęcie w tle, imię i nazwisko oraz krótką wiadomość. Możesz w niej napisać cokolwiek chcesz: krótko opisać personę, napisać kogo szukasz, czym się zajmujesz, gdzie Cię można znaleźć itp.',
-      CREATION_STEP_2_INPUT_1_PLACEHOLDER: 'Imię i nazwisko',
+      CREATION_STEP_2_INPUT_1_PLACEHOLDER: 'Nazwa',
       CREATION_STEP_2_INPUT_2_PLACEHOLDER: 'Krótka wiadomość',
       CREATION_STEP_2_NEXT_STEP: 'Dalej',
 
@@ -252,6 +251,70 @@ const plTranslations = {
 
       EMAIL_ON_EMAIL_CONFIRM_MESSAGE: 'Wysyłamy Ci wiadomość e-mail w celu weryfikacji konta.',
       EMAIL_ON_EMAIL_CANT_CONFIRM_DESCRIPTION: 'Sprawdź swoją skrzynkę odbiorczą i kliknij link weryfikacyjny.',
+
+      GUIDING_SPOT: 'Jak to działa',
+      PERSONA_FAMILY: 'Persona Family',
+
+      PERSONA_SHARE_FAMILY: 'Rodzina PersonaShare trzyma się razem!',
+      PERSONA_SHARE_FAMILY_TEXT_1:
+        'Wspieramy całą społeczność PersonaShare i dlatego stworzymy wyjątkowy biuletyn i fanpage tam, gdzie możemy',
+      PERSONA_SHARE_FAMILY_TEXT_2: 'wypromuj swoją personę lub spot całkowicie za darmo,',
+      PERSONA_SHARE_FAMILY_TEXT_3:
+        'przedyskutuj podane tematy i daj ci szansę zdecydować o naszych dalszych funkcjach i rozwoju.',
+      PERSONA_SHARE_FAMILY_TEXT_4: 'Czekamy na Ciebie i Twoją markę!',
+      PERSONA_SHARE_BUTTON_PLACEHOLDER: 'Po prostu napisz swój e-mail tutaj ..',
+      PERSONA_SHARE_REGULATIONS_TEXT_1:
+        'Wyrażam zgodę na otrzymywanie newslettera i informacji handlowych od PersonaShare Mateusz Żukowski. Przeczytałem ',
+      PERSONA_SHARE_REGULATIONS_TEXT_2: 'Politykę prywatności ',
+      PERSONA_SHARE_REGULATIONS_TEXT_3: ' i zgadzam się z nią.',
+      JOIN_TO_NEWSLETTER: 'DOŁĄCZ DO NEWSLETTERA',
+      WHAT_MORE: 'CO WIĘCEJ?',
+
+      PERSONA_SHARE_FAMILY_STEP_2:
+        'Nasz fanpage na Facebooku to miejsce, w którym można znaleźć wiele informacji o PersonaShare, ale także o naszej społeczności: dyskusje, promowane persony lub spoty, wywiady i wiele, wiele więcej!',
+
+      PERSONA_SHARE_FAMILY_STEP_3:
+        'Nasza grupa LinkedIn jest otwarta dla wszystkich! Chcemy budować społeczność, która będzie dzielić się wiedzą, wsparciem i zawsze bądź przygotowany na PersonaShare!',
+
+      PERSONA_SHARE_FAMILY_STEP_4:
+        'Możesz również przekazać nam swoją opinię, wypełniając tę ​​krótką ankietę. Jest to dla nas bardzo ważne, ponieważ dzięki temu możemy razem ulepszyć PersonaShare! ',
+      CONTACT_US: 'SKONTAKTUJ SIĘ',
+
+      NO_SAVED_SPOT: 'brak zapisanych spotów...',
+
+      ERROR_WHILE_SENDING_EMAIL: 'Błąd podczas wysyłania email',
+
+      RECENTLY_VIEWED_NOTIFICATIONS:
+        'eśli nie masz teraz czasu na rejestrację, nie martw się. Przez jakiś czas będziemy przechowywać dane, które skanujesz na swoim urządzeniu. Można je znaleźć w książce adresowej. Jeśli chcesz je zapisać na stałe, po rejestracji po prostu zapisz je za pomocą przycisku „Zapisz”.',
+      RECENTLY_VIEWED_FEATURE: 'Ostatnio oglądana funkcja',
+      RECENTLY_VIEWED_NOTIFICATIONS_SPOT:
+        'Jeśli nie masz teraz czasu na rejestrację, nie martw się. Przez pewien czas będziemy przechowywać miejsca, które skanujesz. Można je znaleźć w książce spotowej. Jeśli chcesz je zapisać na stałe, po rejestracji zapisz je za pomocą przycisku „Zapisz”.',
+      EMAIL_INCLUDED: 'dres e-mail już zawarty!',
+
+      INVITATION_TO_THE: 'Zaproszenie do',
+
+      NEW_EMAIL: '+ Nowy Email',
+      EMAIL_MUST_BE_VALID: 'Adres e-mail musi być prawidłowy',
+
+      NO_SPOTS: 'Brak spota...',
+      NO_SPOTS_CREATED: 'brak stworzonych spotów',
+
+      NO_PERSONA: 'Brak person...',
+      NO_PERSONA_CREATED: 'brak stworzonych person',
+
+      PASSWORD_IS_REQUIRED: 'Hasło jest wymagane',
+      PASSWORD_DONT_MATCH: `Hasło jest nieprawidłowe`,
+      PASSWORD_CONFIRM_IS_REQUIRED: 'Potwierdzenie hasła jest wymagane',
+
+      THE_TERMS_AND_CONDITION_MUST_BE_ACCEPTED: 'Warunki muszą zostać zaakceptowane.',
+      GOT_INCORRECT_QR: 'Niepoprawny QR',
+
+      FILE_MUST_BE_SMALLER_THAN: 'Plik musi być mniejszy niż',
+      YOU_CANT_UPLOAD_MORE_THAN: 'Nie możesz załadować więcej niż',
+      FILES: 'plików',
+      IMAGE: 'Zdjęcie',
+      FILE: 'Plik',
+      UPLOAD: 'załaduj',
     },
   },
 };

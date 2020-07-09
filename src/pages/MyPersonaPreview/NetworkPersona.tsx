@@ -1,9 +1,6 @@
 import React, { FC } from 'react';
-import { VisibilityOrNetwork } from '../../components/EntityPreview/VisibilityOrNetwork';
-import { APP_ROUTES } from 'global/AppRouter/routes';
+import { VisibilityOrNetwork } from 'components/EntityPreview/VisibilityOrNetwork';
 import { useQuery } from '@apollo/react-hooks';
-import { gqlUser } from 'global/graphqls/schema';
-import { GET_USER } from 'global/graphqls/User';
 import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { Overlay } from 'components/Overlay/Overlay';
 import { Spinner } from 'components/Spinner/Spinner';

@@ -86,26 +86,6 @@ const StyledErrorMessage = styled.div`
   color: ${(props) => props.theme.colors.functional.error};
 `;
 
-const validationSchema = object({
-  email: string().email(),
-  password: string().required('Password is required'),
-  repeatPassword: string()
-    .oneOf([ref('password'), null], "Passwords don't match")
-    .required('Password confirm is required'),
-  termsAccepted: boolean()
-    .required('The terms and conditions must be accepted.')
-    .oneOf([true], 'The terms and conditions must be accepted.'),
-});
-
-type FormValues = InferType<typeof validationSchema>;
-
-const initialValues: FormValues = {
-  email: '',
-  password: '',
-  repeatPassword: '',
-  termsAccepted: false,
-};
-
 const LinkStyle = styled(Link)`
   margin-right: 2px;
 `;
@@ -121,6 +101,26 @@ export const Register: FC = () => {
   const [signIn] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
   const { t } = useTranslation();
+
+  const validationSchema = object({
+    email: string().email(),
+    password: string().required(`${t('PASSWORD_IS_REQUIRED')}`),
+    repeatPassword: string()
+      .oneOf([ref('password'), null], `${t('PASSWORD_DONT_MATCH')}`)
+      .required(`${t('PASSWORD_CONFIRM_IS_REQUIRED')}`),
+    termsAccepted: boolean()
+      .required(`${t('THE_TERMS_AND_CONDITION_MUST_BE_ACCEPTED')}`)
+      .oneOf([true], `${t('THE_TERMS_AND_CONDITION_MUST_BE_ACCEPTED')}`),
+  });
+
+  type FormValues = InferType<typeof validationSchema>;
+
+  const initialValues: FormValues = {
+    email: '',
+    password: '',
+    repeatPassword: '',
+    termsAccepted: false,
+  };
 
   if (user) {
     history.push(APP_ROUTES.MY_PERSONAS);

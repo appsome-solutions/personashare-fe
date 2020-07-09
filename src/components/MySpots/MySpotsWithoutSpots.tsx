@@ -5,6 +5,7 @@ import { APP_ROUTES } from 'global/AppRouter/routes';
 import { TopNav } from 'components/TopNav/TopNav';
 import BoxInSpots from 'assets/BoxInSpots.svg';
 import AddIcon from 'assets/AddIcon.svg';
+import { useTranslation } from 'react-i18next';
 
 const Wrapper = styled.div`
   display: flex;
@@ -39,13 +40,15 @@ const CreateSpot = styled.div`
 `;
 
 export const MySpotsWithoutSpots: FC = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <TopNav isWithBackArrow />
       <Wrapper>
         <TextAndImg>
           <img src={BoxInSpots} alt="Box In Spots" />
-          <TextUnderImg>no spots created</TextUnderImg>
+          <TextUnderImg>{t('NO_SPOTS_CREATED')}</TextUnderImg>
         </TextAndImg>
         <NavLink to={APP_ROUTES.SPOT_CREATION_STEP_1}>
           <CreateSpot>

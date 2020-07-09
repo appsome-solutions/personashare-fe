@@ -12,12 +12,6 @@ import styled from 'styled-components';
 import { PersonaCard } from '../../PersonaCard/PersonaCard';
 
 // todo: refactor it, Recommend button should be part of a Card
-const CardWrapper = styled.div`
-  && img:nth-child(2) {
-    position: absolute;
-    top: 165px;
-  }
-`;
 
 export const ManagerList: FC = () => {
   const carousel = useRef<AntCarousel>(null);
@@ -30,7 +24,7 @@ export const ManagerList: FC = () => {
   return (
     <Carousel ref={carousel}>
       {data?.spot?.managers?.map((persona: AgregatedPersona) => (
-        <CardWrapper key={persona.uuid}>
+        <div key={persona.uuid}>
           <PersonaCard
             card={persona.card}
             uuid={persona.uuid}
@@ -42,7 +36,7 @@ export const ManagerList: FC = () => {
           />
           <RecommendButtonPersona uuid={persona.uuid} />
           <SavePersona uuid={persona.uuid} />
-        </CardWrapper>
+        </div>
       ))}
     </Carousel>
   );

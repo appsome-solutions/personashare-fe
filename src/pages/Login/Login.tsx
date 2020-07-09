@@ -24,7 +24,6 @@ import { GET_USER } from 'global/graphqls/User';
 import { client } from 'global/ApolloClient/ApolloClient';
 import { getUrlsParams } from '../../helpers/URLParams';
 import { ActionType } from '../Action/Action';
-import { PS_TOKEN_NAME } from '../../global/ApolloClient/ApolloClient';
 import { useTranslation } from 'react-i18next';
 
 const Caption = styled.span((props) => props.theme.typography.caption);
@@ -96,18 +95,6 @@ const StyledErrorMessage = styled.div`
   color: ${(props) => props.theme.colors.functional.error};
 `;
 
-const validationSchema = object({
-  email: string().email(),
-  password: string().required('Password is required'),
-});
-
-type FormValues = InferType<typeof validationSchema>;
-
-const initialValues: FormValues = {
-  email: '',
-  password: '',
-};
-
 export const Login: FunctionComponent = () => {
   const { t } = useTranslation();
   const [apiError, setApiError] = useState('');
@@ -117,6 +104,18 @@ export const Login: FunctionComponent = () => {
   const [signIn] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
   const { actionCode, action } = getUrlsParams(['actionCode', 'action']);
+
+  const validationSchema = object({
+    email: string().email(),
+    password: string().required(`${t('PASSWORD_IS_REQUIRED')}`),
+  });
+
+  type FormValues = InferType<typeof validationSchema>;
+
+  const initialValues: FormValues = {
+    email: '',
+    password: '',
+  };
 
   if (!firebase) {
     return null;

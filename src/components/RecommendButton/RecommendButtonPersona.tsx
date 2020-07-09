@@ -16,7 +16,7 @@ type RecommendPersona = {
 
 const RecommendEmpty = styled.img`
   position: relative;
-  top: -60px;
+  top: -150px;
   left: calc(100% - 61px);
 `;
 
