@@ -21,9 +21,11 @@ const DrawerContent = styled.div`
 type EditorButtonTypes = {
   addInNewLine?: boolean;
   disabledEmbedElements?: ('upload-asset' | 'manager-list' | 'participant-list')[];
+  openDrawer?: () => void;
+  closeDrawer?: () => void;
 };
 
-const EditorButtons = memo(({ addInNewLine = false, disabledEmbedElements = [] }: EditorButtonTypes) => {
+const EditorButtons = memo(({ addInNewLine = false, disabledEmbedElements = [], closeDrawer }: EditorButtonTypes) => {
   const suffix = addInNewLine ? '-newLine' : '';
   const { t } = useTranslation();
 
@@ -61,7 +63,7 @@ const EditorButtons = memo(({ addInNewLine = false, disabledEmbedElements = [] }
         svgLink={BulletedListSvg}
         value="bullet"
       />
-      <BlockButton className="ql-video" title={t('QUILL_VIDEO')} />
+      <BlockButton className="ql-video" title={t('QUILL_VIDEO')} onClick={closeDrawer} />
       <BlockButton className="ql-image" title={t('CREATION_STEP_3_ELEMENT_8')} svgLink={ImageSvg} />
       <BlockButton
         className="ql-upload-asset"

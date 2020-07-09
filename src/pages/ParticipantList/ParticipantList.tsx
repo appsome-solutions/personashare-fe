@@ -25,12 +25,20 @@ export const ParticipantList: FC = () => {
     return <div>No Participants...</div>;
   }*/
 
+  const canPersonaParticipate = () => {
+    // this is during spot creation
+    if (!data) {
+      return true;
+    }
+    return data?.spot?.canPersonaParticipate;
+  };
+
   return (
     <CardsGrid
       isWithAddParticipate={true}
       isWithText={false}
       gridCardValue={data?.spot?.participants}
-      canPersonaParticipate={data?.spot?.canPersonaParticipate}
+      canPersonaParticipate={canPersonaParticipate()}
     />
   );
 };
