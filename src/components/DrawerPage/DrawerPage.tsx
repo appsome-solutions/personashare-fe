@@ -28,7 +28,7 @@ const TitleMenu = styled.div`
   font-weight: 500;
   position: sticky;
   top: 0;
-  z-index: 9999;
+  z-index: 1002;
   background-color: ${(props) => props.theme.colors.main.primary};
   color: ${(props) => props.theme.colors.utils.text.light};
 

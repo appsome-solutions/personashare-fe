@@ -118,6 +118,7 @@ const plTranslations = {
       CREATION_STEP_3_ELEMENT_6: 'Lista numeryczna',
       CREATION_STEP_3_ELEMENT_7: 'Lista punktowana',
       CREATION_STEP_3_ELEMENT_8: 'Obraz',
+      QUILL_VIDEO: 'Video',
       CREATION_STEP_3_ELEMENT_9: 'Pliki',
       CREATION_STEP_3_ELEMENT_10: 'Prześlij zasoby',
       CREATION_STEP_3_ELEMENT_11: 'Lista managerów',

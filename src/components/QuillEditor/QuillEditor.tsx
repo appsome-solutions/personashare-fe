@@ -50,7 +50,7 @@ const StyledQuillContainer = styled.div`
 
   .ql-editing {
     // tooltip box used for URLs
-    z-index: 9999;
+    z-index: 99999;
   }
 
   &&& {

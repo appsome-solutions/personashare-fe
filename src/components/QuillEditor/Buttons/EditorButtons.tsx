@@ -12,7 +12,6 @@ import UploadImg from 'assets/backup-24px.svg';
 import ManagerListSvg from 'assets/manager-list.svg';
 import ParticipantListSvg from 'assets/participant_list.svg';
 import ImageSvg from 'assets/insert_photo-24px.svg';
-import LinkSvg from 'assets/link-24px.svg';
 import { useTranslation } from 'react-i18next';
 
 const DrawerContent = styled.div`
@@ -62,6 +61,7 @@ const EditorButtons = memo(({ addInNewLine = false, disabledEmbedElements = [] }
         svgLink={BulletedListSvg}
         value="bullet"
       />
+      <BlockButton className="ql-video" title={t('QUILL_VIDEO')} />
       <BlockButton className="ql-image" title={t('CREATION_STEP_3_ELEMENT_8')} svgLink={ImageSvg} />
       <BlockButton
         className="ql-upload-asset"
