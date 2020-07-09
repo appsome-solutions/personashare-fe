@@ -121,7 +121,7 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
               <HamburgerIcon svgLink={MyPersonas} />
               <TextInHamburger>{t('GUIDING_SPOT')}</TextInHamburger>
             </LinkRouterStyle>{' '}
-            <LinkRouterStyle to={APP_ROUTES.MY_PERSONAS}>
+            <LinkRouterStyle to={APP_ROUTES.PERSONA_FAMILY}>
               <HamburgerIcon svgLink={MyPersonas} />
               <TextInHamburger>{t('PERSONA_FAMILY')}</TextInHamburger>
             </LinkRouterStyle>
