@@ -9,6 +9,7 @@ import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { RecommendContactBook } from 'components/ContactBook/RecommendListContact';
 import styled from 'styled-components';
 import { PageWrapper } from '../../components/PageWrapper';
+import { useTranslation } from 'react-i18next';
 
 const StyledRecommendContactBook = styled(RecommendContactBook)`
   padding: 0 16px;
@@ -22,6 +23,7 @@ const StyledPageWrapper = styled(PageWrapper)`
 
 export const MyPersonasPreview: FC = () => {
   const { uuid } = useParams();
+  const { t } = useTranslation();
   const { loading, data } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid },
   });
@@ -35,7 +37,7 @@ export const MyPersonasPreview: FC = () => {
   }
   // OR !data is used cause typescript doesn't know that data can no longer be undefined in return method
   if (isEmpty(data?.persona) || !data) {
-    return <div>No personas...</div>;
+    return <div>{t('NO_PERSONA')}</div>;
   }
 
   return (

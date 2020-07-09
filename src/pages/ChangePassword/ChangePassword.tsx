@@ -25,25 +25,26 @@ const StyledPasswordInput = styled(PasswordInput)`
   margin-top: 24px;
 `;
 
-const validationSchema = object({
-  password: string().required('Password is required'),
-  repeatPassword: string()
-    .oneOf([ref('password'), null], "Passwords don't match")
-    .required('Password confirm is required'),
-});
-
-type ChangePasswordFormValues = InferType<typeof validationSchema>;
-
-const initialValues: ChangePasswordFormValues = {
-  password: '',
-  repeatPassword: '',
-};
-
 export const ChangePassword: FC = () => {
   const [apiError, setApiError] = useState('');
   const { handleResetPassword } = useFirebase();
   const history = useHistory();
   const { t } = useTranslation();
+
+  const validationSchema = object({
+    password: string().required(`${t('PASSWORD_IS_REQUIRED')}`),
+    repeatPassword: string()
+      .oneOf([ref('password'), null], `${t('PASSWORD_DONT_MATCH')}`)
+      .required(`${t('PASSWORD_CONFIRM_IS_REQUIRED')}`),
+  });
+
+  type ChangePasswordFormValues = InferType<typeof validationSchema>;
+
+  const initialValues: ChangePasswordFormValues = {
+    password: '',
+    repeatPassword: '',
+  };
+
   const handleSubmit = useCallback(
     async ({ password }: ChangePasswordFormValues) => {
       const { oobCode, continueUrl } = getUrlsParams(['oobCode', 'continueUrl']);

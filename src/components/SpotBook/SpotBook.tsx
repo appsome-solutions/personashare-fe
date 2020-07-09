@@ -76,7 +76,7 @@ export const SpotBook: FC = () => {
       <SpotBookStyled>
         <RecentlyViewedSpots />
         <StyledHeader>{t('SPOT_BOOK_HEADING_1')}</StyledHeader>
-        {!results?.length && <EmptyPlaceholder text="no saved spots..." />}
+        {!results?.length && <EmptyPlaceholder text={t('NO_SAVED_SPOT')} />}
         {results?.map((spot: AgregatedSpot) => (
           <Wrapper
             key={spot.uuid}

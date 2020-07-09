@@ -14,6 +14,7 @@ import { vh } from 'helpers/styled';
 import { Icon } from 'components/Icon';
 import AddSvg from 'assets/add-24px.svg';
 import RemoveSvg from 'assets/remove.svg';
+import { useTranslation } from 'react-i18next';
 
 const Wrapper = styled.div`
   display: flex;
@@ -140,11 +141,12 @@ const Zoom = ({ webcamRef }: any) => {
 export const QrScanner = ({ onError, onUserMediaError, className, videoConstraints, interval, buttonMode }: Props) => {
   const workerRef = useRef<Worker | null>(null);
   const history = useHistory();
+  const { t } = useTranslation();
   const redirectToQr = useCallback((decodedQr: QRCode): void => {
     try {
       history.push(new URL(decodedQr.data).pathname);
     } catch (e) {
-      console.error('Got incorrect QR code');
+      console.error(`${t('GOT_INCORRECT_QR')}`);
       console.error(decodedQr);
     }
   }, []);

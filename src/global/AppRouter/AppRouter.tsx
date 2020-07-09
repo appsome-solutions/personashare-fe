@@ -34,6 +34,10 @@ import QuillEditor from 'components/QuillEditor/QuillEditor';
 import { NavigationPersonaStats } from 'components/Statistics/NavigationPersonaStats';
 import { NavigationSpotStats } from 'components/Statistics/NavigationSpotStats';
 import { Action } from 'pages/Action/Action';
+import { PersonaFamily } from 'pages/PersonaFamily/PersonaFamily';
+import { PersonaFamilyStep2 } from 'pages/PersonaFamily/PersonaFamilyStep2';
+import { PersonaFamilyStep4 } from 'pages/PersonaFamily/PersonaFamilyStep4';
+import { PersonaFamilyStep3 } from 'pages/PersonaFamily/PersonaFamilyStep3';
 
 export const AppRouter: FunctionComponent = () => {
   return (
@@ -71,6 +75,10 @@ export const AppRouter: FunctionComponent = () => {
       <Route path={APP_ROUTES.MY_PERSONA_PREVIEW(':uuid')} exact component={NavigationPersonaStats} />
       <Route path={APP_ROUTES.MY_SPOT_PREVIEW(':uuid')} exact component={NavigationSpotStats} />
       <Route path={APP_ROUTES.ACTION} exact component={Action} />
+      <Route path={APP_ROUTES.PERSONA_FAMILY} exact component={PersonaFamily} />
+      <Route path={APP_ROUTES.PERSONA_FAMILY_STEP_2} exact component={PersonaFamilyStep2} />
+      <Route path={APP_ROUTES.PERSONA_FAMILY_STEP_3} exact component={PersonaFamilyStep3} />
+      <Route path={APP_ROUTES.PERSONA_FAMILY_STEP_4} exact component={PersonaFamilyStep4} />
     </Switch>
   );
 };

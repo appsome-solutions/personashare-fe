@@ -66,7 +66,7 @@ const sendInvitationSchema = Yup.object({
   emails: Yup.array()
     .required()
     .of(Yup.string().email('Email must be valid')),
-  currentEmail: Yup.string().email('Email must be valid'),
+  currentEmail: Yup.string().email(`Email must be valid`),
 });
 
 type SendInvitationPayload = Yup.InferType<typeof sendInvitationSchema>;
@@ -156,7 +156,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
             template: {
               name: 'spot_invitation',
               data: {
-                subject: `Invitation to the ${spot.card.name}`,
+                subject: `${t('INVITATION_TO_THE')} ${spot.card.name}`,
                 spotName: spot.card.name,
                 invitationLink,
                 currentYear,
@@ -201,7 +201,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
       const { currentEmail, emails } = values;
 
       if (emails.includes(currentEmail)) {
-        setFieldError('currentEmail', 'Email already included!');
+        setFieldError('currentEmail', `${t('EMAIL_INCLUDED')}`);
         return;
       }
 
@@ -330,7 +330,7 @@ export const ManagerListEditMode: FC<InvitationsProps> = withProvider(
                 )}
                 {!inputVisible && (
                   <Button size="small" type="dashed" onClick={showInput}>
-                    + New Email
+                    {t('NEW_EMAIL')}
                   </Button>
                 )}
               </Form>
