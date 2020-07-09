@@ -92,6 +92,20 @@ const PersonaCircleStyle = styled(PersonaCircle)`
   border: none;
 `;
 
+const GuidingSpotStyled = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${(props) => props.theme.colors.main.primary};
+  height: 50px;
+  width: 100%;
+  border-radius: 4px;
+  text-decoration: none;
+`;
+
+const GuidingHrefStyle = styled.a`
+  text-decoration: none;
+`;
+
 export const HamburgerMenu: FC<HamburgerMenuType> = ({
   isWithHamburger,
   isWithSearch,
@@ -117,10 +131,12 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
               <HamburgerIcon svgLink={MySpots} />
               <TextInHamburger>{t('MENU_REDIRECT_MY_SPOT')}</TextInHamburger>
             </LinkRouterStyle>
-            <LinkRouterStyle to={APP_ROUTES.MY_PERSONAS}>
-              <HamburgerIcon svgLink={MyPersonas} />
-              <TextInHamburger>{t('GUIDING_SPOT')}</TextInHamburger>
-            </LinkRouterStyle>{' '}
+            <GuidingHrefStyle href="https://www.personashare.com/spot/25b235bd-98db-4353-93f0-53fb091fc72a">
+              <GuidingSpotStyled>
+                <HamburgerIcon svgLink={MyPersonas} />
+                <TextInHamburger>{t('GUIDING_SPOT')}</TextInHamburger>
+              </GuidingSpotStyled>
+            </GuidingHrefStyle>{' '}
             <LinkRouterStyle to={APP_ROUTES.PERSONA_FAMILY}>
               <HamburgerIcon svgLink={MyPersonas} />
               <TextInHamburger>{t('PERSONA_FAMILY')}</TextInHamburger>
