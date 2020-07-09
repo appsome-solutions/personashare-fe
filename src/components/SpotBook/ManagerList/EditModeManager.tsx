@@ -91,7 +91,7 @@ const initialValues: SendInvitationPayload = {
 
 const currentYear = new Date().getFullYear();
 
-const baseUrl = process.env.REACT_APP_BASE_URL || 'https://persona-share.netlify.app';
+const baseUrl = process.env.REACT_APP_BASE_URL || 'https://personashare.com';
 
 const withProvider = (Component: any) => {
   return ({ uuid, onSpotCreationOrUpdate }: InvitationsProps) => {
