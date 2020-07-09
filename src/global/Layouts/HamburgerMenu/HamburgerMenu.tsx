@@ -15,6 +15,8 @@ import { PersonaCircle } from 'components/PersonaCircle/PersonaCircle';
 import { EntityCard as EntityType } from 'global/graphqls/schema';
 import { useUserContext } from '../../UserContext/UserContext';
 import { useTranslation } from 'react-i18next';
+import GuidingSpot from 'assets/GuidingSpot.svg';
+import personaFamilyIcon from 'assets/personaFamilyIcon.svg';
 
 type HamburgerMenuType = {
   isWithHamburger?: boolean;
@@ -133,12 +135,12 @@ export const HamburgerMenu: FC<HamburgerMenuType> = ({
             </LinkRouterStyle>
             <GuidingHrefStyle href="https://www.personashare.com/spot/25b235bd-98db-4353-93f0-53fb091fc72a">
               <GuidingSpotStyled>
-                <HamburgerIcon svgLink={MyPersonas} />
+                <HamburgerIcon svgLink={GuidingSpot} />
                 <TextInHamburger>{t('GUIDING_SPOT')}</TextInHamburger>
               </GuidingSpotStyled>
             </GuidingHrefStyle>{' '}
             <LinkRouterStyle to={APP_ROUTES.PERSONA_FAMILY}>
-              <HamburgerIcon svgLink={MyPersonas} />
+              <HamburgerIcon svgLink={personaFamilyIcon} />
               <TextInHamburger>{t('PERSONA_FAMILY')}</TextInHamburger>
             </LinkRouterStyle>
             <LogoutButton

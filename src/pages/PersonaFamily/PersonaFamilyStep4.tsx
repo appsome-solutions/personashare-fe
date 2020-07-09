@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import contactUsLogo from 'assets/linkedInLogo.svg';
+import contactUsLogo from 'assets/contactUsLogo.svg';
 import { PersonaFamilySteps } from './PersonaFamilySteps';
 import { APP_ROUTES } from '../../global/AppRouter/routes';
 import { useTranslation } from 'react-i18next';
