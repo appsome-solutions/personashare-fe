@@ -49,6 +49,7 @@ export const AppRouter: FunctionComponent = () => {
 
     return null;
   };
+
   return (
     <>
       <ScrollToTop />
