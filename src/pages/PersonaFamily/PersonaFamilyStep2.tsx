@@ -13,7 +13,7 @@ export const PersonaFamilyStep2: FC = () => {
       textInComponent={t('PERSONA_SHARE_FAMILY_STEP_2')}
       linkInHref="https://www.facebook.com/PersonaShare-110785183877737/"
       buttonText={t('WHAT_MORE')}
-      linkedInLogo={facebookLogo}
+      logo={facebookLogo}
       currentNumber={2}
     />
   );

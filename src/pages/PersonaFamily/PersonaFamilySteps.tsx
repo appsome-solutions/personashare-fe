@@ -10,7 +10,7 @@ export interface PersonaFamilyProps {
   textInComponent: any;
   linkInHref: string;
   buttonText: any;
-  linkedInLogo: string;
+  logo: string;
   currentNumber: number;
 }
 
@@ -54,7 +54,7 @@ export const PersonaFamilySteps: FC<PersonaFamilyProps> = ({
   textInComponent,
   linkInHref,
   buttonText,
-  linkedInLogo,
+  logo,
   currentNumber,
 }) => {
   const history = useHistory();
@@ -74,7 +74,7 @@ export const PersonaFamilySteps: FC<PersonaFamilyProps> = ({
         <TextAndButtonsComponent>
           <TextComponent>{textInComponent}</TextComponent>
           <a href={linkInHref}>
-            <ImgStyled src={linkedInLogo} />
+            <ImgStyled src={logo} />
           </a>
           <WideButtonStyled onClick={onNextClick}>{buttonText}</WideButtonStyled>
         </TextAndButtonsComponent>

@@ -65,7 +65,7 @@ export type InvitationsProps = {
 const sendInvitationSchema = Yup.object({
   emails: Yup.array()
     .required()
-    .of(Yup.string().email(`Email must be valid`)),
+    .of(Yup.string().email('Email must be valid')),
   currentEmail: Yup.string().email(`Email must be valid`),
 });
 

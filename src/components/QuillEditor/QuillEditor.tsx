@@ -40,6 +40,10 @@ const StyledQuillContainer = styled.div`
     border: none;
   }
 
+  &&& img {
+    display: inline-block !important;
+  }
+
   .ql-toolbar {
     border: none;
   }

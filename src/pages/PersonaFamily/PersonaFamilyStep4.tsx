@@ -13,7 +13,7 @@ export const PersonaFamilyStep4: FC = () => {
       textInComponent={t('PERSONA_SHARE_FAMILY_STEP_4')}
       linkInHref="https://docs.google.com/forms/d/e/1FAIpQLSeqmV4JfS2j1U_cctx4nNMFWixJJsa9sltrrSQrtc29-hrN7Q/viewform?usp=sf_link"
       buttonText={t('CONTACT_US')}
-      linkedInLogo={contactUsLogo}
+      logo={contactUsLogo}
       currentNumber={4}
     />
   );
