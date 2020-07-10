@@ -8,7 +8,7 @@ export type BlockButtonType = {
   title?: string;
   className?: string;
   value?: number | string;
-  onClick?: (event: ReactMouseEvent<HTMLElement, MouseEvent>) => void;
+  onClick?: (event?: ReactMouseEvent<HTMLElement, MouseEvent>) => void;
 };
 
 export const EditorButtonWrapper = styled.div`
