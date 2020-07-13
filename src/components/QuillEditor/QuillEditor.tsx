@@ -182,7 +182,7 @@ QuillClass.register(
 
 const Link = QuillClass.import('formats/link');
 Link.sanitize = (url: string): string => {
-  const pattern = /^((http|https|ftp):\/\/)/;
+  const pattern = /^((http|https|ftp|emailto|tel):\/\/)/;
   if (!pattern.test(url)) {
     return 'http://' + url;
   }
@@ -372,7 +372,14 @@ const QuillEditor: FC<Props> = ({
               isVisible={isTurnIntoVisible}
               getContainer="#toolbar"
             >
-              <EditorButtons addInNewLine={true} disabledEmbedElements={disabledEmbedElements} />
+              {(setIsVisible) => (
+                <EditorButtons
+                  addInNewLine={true}
+                  disabledEmbedElements={disabledEmbedElements}
+                  openDrawer={() => setIsVisible(true)}
+                  closeDrawer={() => setIsVisible(false)}
+                />
+              )}
             </DrawerPage>
             <Separator />
             <DrawerPage
@@ -392,7 +399,13 @@ const QuillEditor: FC<Props> = ({
               title={t('TURN_INTO_BUTTON')}
               getContainer="#toolbar"
             >
-              <EditorButtons disabledEmbedElements={disabledEmbedElements} />
+              {(setIsVisible) => (
+                <EditorButtons
+                  disabledEmbedElements={disabledEmbedElements}
+                  openDrawer={() => setIsVisible(true)}
+                  closeDrawer={() => setIsVisible(false)}
+                />
+              )}
             </DrawerPage>
           </ToggleabbleContainer>
           <ToggleabbleContainer isVisible={isInlineVisible}>

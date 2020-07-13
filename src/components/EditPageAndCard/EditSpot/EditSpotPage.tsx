@@ -75,6 +75,7 @@ export const EditSpotPage: FC = () => {
       card={spotData.entity.card}
       onPageSubmitCreateOrUpdate={updateSpot}
       initialValues={initialValues}
+      fileList={data.spot?.page?.fileList}
       nextStepPath={APP_ROUTES.MY_SPOTS}
       previousStepPath={APP_ROUTES.EDIT_SPOT_UUID_STEP_1(uuid)}
       nameSpotOrPersona={t('SPOT_TEXT')}

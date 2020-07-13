@@ -130,6 +130,7 @@ const enTranslations = {
       CREATION_STEP_3_ELEMENT_6: 'Numbered List',
       CREATION_STEP_3_ELEMENT_7: 'Bulleted list',
       CREATION_STEP_3_ELEMENT_8: 'Image',
+      QUILL_VIDEO: 'Video',
       CREATION_STEP_3_ELEMENT_9: 'URL',
       CREATION_STEP_3_ELEMENT_10: 'Upload assets',
       CREATION_STEP_3_ELEMENT_11: 'Manager List',

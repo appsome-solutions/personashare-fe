@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent as ReactMouseEvent } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'components/Icon';
 import { Button } from 'components/Button';
@@ -8,6 +8,7 @@ export type BlockButtonType = {
   title?: string;
   className?: string;
   value?: number | string;
+  onClick?: (event?: ReactMouseEvent<HTMLElement, MouseEvent>) => void;
 };
 
 export const EditorButtonWrapper = styled.div`
@@ -55,11 +56,11 @@ const StyledIcon = styled(Icon)`
   float: left;
 `;
 
-export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value }) => {
+export const BlockButton: FC<BlockButtonType> = ({ svgLink, title, className, value, onClick }) => {
   return (
     <EditorButtonWrapper>
       <EditorButtonIconWrapper>
-        <StyledButton className={className} value={value}>
+        <StyledButton className={className} value={value} onClick={() => onClick && onClick()}>
           <StyledIcon svgLink={svgLink ?? ''} />
         </StyledButton>
       </EditorButtonIconWrapper>
