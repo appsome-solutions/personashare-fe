@@ -211,6 +211,8 @@ export const UPDATE_SPOT = gql`
   mutation updateSpot($uuid: String!, $spot: UpdateSpotInput!) {
     updateSpot(uuid: $uuid, spot: $spot) {
       uuid
+      canBeRecommended
+      canPersonaParticipate
       card {
         name
         description
@@ -230,8 +232,68 @@ export const UPDATE_SPOT = gql`
           status
         }
       }
+      invitedManagerEmails {
+        email
+        status
+      }
       personaUUIDs
       qrCodeLink
+      managers {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      visibilityList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      networkList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      participants {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
     }
   }
 `;

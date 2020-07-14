@@ -4,12 +4,15 @@ import { EntityPreviewWrapper } from './EntityPreviewWrapper';
 import { AgregatedPersona } from 'global/graphqls/schema';
 import { HowMuchPerson } from './HowMuchPerson';
 import CheckIn from 'assets/CheckIn.svg';
-import { useUserContext } from '../../global/UserContext/UserContext';
 import { useMutation } from '@apollo/react-hooks';
-import { GET_SPOT, PARTICIPATE, ParticipateResponse } from '../../global/graphqls/Spot';
+import { GET_SPOT, GetCardType, PARTICIPATE, ParticipateResponse, UPDATE_SPOT } from '../../global/graphqls/Spot';
 import { useParams } from 'react-router-dom';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
+import _ from 'lodash';
+import checkOut from 'assets/checkOut.svg';
+import { useUserContext } from '../../global/UserContext/UserContext';
+import { InputIcon } from '../InputIcon/InputIcon';
 
 export interface PropsType {
   gridCardValue: any;
@@ -63,6 +66,20 @@ const ParticipateText = styled.div`
   margin-left: 20px;
 `;
 
+const CheckOutText = styled.div`
+  ${(props) => props.theme.typography.body1};
+  display: flex;
+  flex-direction: column;
+  color: ${(props) => props.theme.colors.utils.text.light};
+  align-items: center;
+  justify-content: center;
+`;
+
+const InputIconStyle = styled(InputIcon)`
+  color: white;
+  background-color: white;
+`;
+
 export const CardsGrid: FC<PropsType> = ({
   gridCardValue,
   canPersonaParticipate,
@@ -71,9 +88,23 @@ export const CardsGrid: FC<PropsType> = ({
   isWithText,
   isWithAddParticipate,
 }) => {
+  const { user } = useUserContext();
   const [limit, setLimit] = useState(4);
   const { uuid } = useParams();
   const { t } = useTranslation();
+  const isDefaultPersona = () => {
+    return gridCardValue.uuid !== user?.defaultPersona;
+  };
+  const [updateSpot] = useMutation<GetCardType>(UPDATE_SPOT, {
+    variables: {
+      uuid: user?.defaultPersona,
+      spot: {
+        participants: {
+          uuid: gridCardValue.filter(() => isDefaultPersona()),
+        },
+      },
+    },
+  });
   const [addParticipate] = useMutation<ParticipateResponse>(PARTICIPATE, {
     variables: { spotId: uuid },
     update(cache, { data }) {
@@ -97,11 +128,15 @@ export const CardsGrid: FC<PropsType> = ({
       setLimit(limit + 4);
     }
   };
+
   const checkInHandler = () => {
     if (!canPersonaParticipate) {
       return message.info(`${t('CARDS_GRID_LIMIT_FREE')}`);
     } else {
-      return addParticipate();
+      if (_.find(gridCardValue, { uuid: user?.defaultPersona })) return updateSpot();
+      else {
+        return addParticipate();
+      }
     }
   };
 
@@ -121,7 +156,7 @@ export const CardsGrid: FC<PropsType> = ({
             <ComponentWithTable>
               {isWithAddParticipate && (
                 <AddParticipateStyle>
-                  <img src={CheckIn} alt="check in svg" onClick={() => checkInHandler()} />
+                  <IsCheckInFunction />
                 </AddParticipateStyle>
               )}
               {gridCardValue
@@ -143,6 +178,17 @@ export const CardsGrid: FC<PropsType> = ({
         }
       </>
     );
+  };
+
+  const IsCheckInFunction = () => {
+    if (_.find(gridCardValue, { uuid: user?.defaultPersona })) {
+      return (
+        <CheckOutText>
+          <InputIconStyle svgLink={checkOut} onClick={() => checkInHandler()} />
+          Check Out
+        </CheckOutText>
+      );
+    } else return <img src={CheckIn} alt="check in svg" onClick={() => checkInHandler()} />;
   };
 
   return <CheckEntityList />;
