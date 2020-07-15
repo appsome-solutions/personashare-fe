@@ -1,7 +1,34 @@
+
+[[redirects]]
+  from = "/marketing/events/presentation"
+  to = "/pages/marketing/events/presentation.html"
+  status = 302
+
+[[redirects]]
+  from = "/marketing/hotels/presentation"
+  to = "pages/marketing/hotels/presentation.html"
+  status = 302
+
+[[redirects]]
+  from = "/marketing/restaurants/presentation"
+  to = "pages/marketing/restaurants/presentation.html"
+  status = 302
+
+[[redirects]]
+  from = "/marketing/training/presentation"
+  to = "pages/marketing/training/presentation.html"
+  status = 302
+
+[[redirects]]
+  from = "/marketing/university/presentation"
+  to = "pages/marketing/university/presentation.html"
+  status = 302
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
 
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
