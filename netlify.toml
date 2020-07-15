@@ -1,27 +1,26 @@
-
 [[redirects]]
   from = "/marketing/events/presentation"
-  to = "/pages/marketing/events/presentation.html"
+  to = "pages/Marketing/events/presentation.html"
   status = 302
 
 [[redirects]]
   from = "/marketing/hotels/presentation"
-  to = "pages/marketing/hotels/presentation.html"
+  to = "pages/Marketing/hotels//presentation.html"
   status = 302
 
 [[redirects]]
   from = "/marketing/restaurants/presentation"
-  to = "pages/marketing/restaurants/presentation.html"
+  to = "pages/Marketing/restaurant/presentation.html"
   status = 302
 
 [[redirects]]
   from = "/marketing/training/presentation"
-  to = "pages/marketing/training/presentation.html"
+  to = "pages/Marketing/training/presentation.html"
   status = 302
 
 [[redirects]]
   from = "/marketing/university/presentation"
-  to = "pages/marketing/university/presentation.html"
+  to = "pages/Marketing/university/presentation.html"
   status = 302
 
 [[redirects]]
