@@ -1,7 +1,3 @@
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
 
 [[redirects]]
   from = "/marketing/events/presentation"
@@ -27,6 +23,12 @@
   from = "/marketing/university/presentation"
   to = "pages/marketing/university/presentation.html"
   status = 302
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
