@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <object type="image/svg+xml" data="1.svg" style="position: absolute; left: 5%; z-index: -2">
+      Kiwi Logo
+      <!-- fallback image in CSS -->
+    </object>
+
+    <div id="mainMain">
+      <img src="profilePhoto.png" class="face" id="face" />
+
+      <div class="shadow scale" id="shadow"></div>
+      <div class="box" style="z-index: 0" id="box">
+        <p id="descr" class="description">
+          Wiemy, że nie każdy lubi czytać prezentacje. Dlatego jestem zawsze pod telefonem i czekam na Państwa kontakt,
+          chętnie opowiem o PersonaShare osobiście.
+        </p>
+
+        <img src="phone.png" class="phone-icon" id="phone-icon" />
+        <p class="phone-number" id="phone-number"><b>660 - 791 - 170</b></p>
+      </div>
+      <img src="callme.svg" class="call-me-icon" id="call-me-icon" onclick="redirect()" />
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+      crossorigin="anonymous"
+    ></script>
+    <script src="scripts.js"></script>
+  </body>
+</html>
