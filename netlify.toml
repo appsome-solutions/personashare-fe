@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/*"
-  to = "/pages/marketing/events/presentation.html"
+  to = "/index.html"
   status = 200
 
 [[redirects]]
