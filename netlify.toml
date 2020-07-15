@@ -16,11 +16,11 @@
 [[redirects]]
   from = "/marketing/training/presentation"
   to = "pages/Marketing/training/presentation.html"
-  status = 302
+  status = 200
 
 [[redirects]]
   from = "/marketing/university/presentation"
-  to = "pages/Marketing/university/presentation.html"
+  to = "./pages/Marketing/university/presentation.html"
   status = 302
 
 [[redirects]]
