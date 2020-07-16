@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import { Drawer } from 'antd';
 import styled from 'styled-components';
 import { DrawerProps } from 'antd/lib/drawer';
@@ -15,7 +15,7 @@ const StyledDrawer = styled(Drawer)`
 
 type DrawerPageProps = {
   title: string;
-  children: JSX.Element | string;
+  children: ((setIsVisible: Dispatch<SetStateAction<boolean>>) => JSX.Element) | JSX.Element;
   onClose: () => void;
   OnClickComponent: React.ElementType;
   isVisible: boolean;
@@ -88,7 +88,7 @@ export const DrawerPage: FC<DrawerPageProps> = ({
             Cancel
           </CancelLink>
         </TitleMenu>
-        {children}
+        {typeof children === 'function' ? children(setIsOpened) : children}
       </StyledDrawer>
     </>
   );
