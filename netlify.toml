@@ -1,27 +1,8 @@
 [[redirects]]
-  from = "https://www.personashare.com/marketing/events/presentation"
-  to = "/pages/Marketing/events/presentation.html"
-  status = 302
-
-[[redirects]]
-  from = "https://www.personashare.com/marketing/hotels/presentation"
-  to = "pages/Marketing/hotels/presentation.html"
-  status = 301
-
-[[redirects]]
-  from = "https://www.personashare.com/marketing/restaurants/presentation"
-  to = "pages/Marketing/restaurants/presentation.html"
-  status = 302
-
-[[redirects]]
-  from = "/marketing/training/presentation"
-  to = "pages/Marketing/training/presentation.html"
+  from = "/*"
+  to = "/index.html"
   status = 200
 
-[[redirects]]
-  from = "/marketing/university/presentation"
-  to = "./pages/Marketing/university/presentation.html"
-  status = 302
 
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
