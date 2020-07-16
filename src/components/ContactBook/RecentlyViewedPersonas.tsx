@@ -24,6 +24,13 @@ const CardWrapper = styled.div`
   }
 `;
 
+const StyledCarousel = styled(Carousel)`
+  && {
+    .slick-track {
+      margin: auto;
+    }
+  }
+`;
 // todo: remove it when BE will return personas/spots in a bulk
 const useRecentlyViewedPersonas = (recentlyViewedPersonaUuids: Array<string>) => {
   const [loading, setLoading] = useState(true);
@@ -74,7 +81,7 @@ export const RecentlyViewedPersonas = () => {
   return (
     <>
       {!!recentlyViewedPersonas.length && <h6>{t('RECENTLY_VIEWED_PERSONA')}</h6>}
-      <Carousel ref={carousel}>
+      <StyledCarousel ref={carousel}>
         {recentlyViewedPersonas.map((persona: AgregatedPersona) => (
           <CardWrapper key={persona.uuid}>
             <PersonaCard
@@ -90,7 +97,7 @@ export const RecentlyViewedPersonas = () => {
             <SavePersona uuid={persona.uuid} />
           </CardWrapper>
         ))}
-      </Carousel>
+      </StyledCarousel>
     </>
   );
 };

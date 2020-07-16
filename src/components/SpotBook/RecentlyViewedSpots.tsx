@@ -51,6 +51,14 @@ const StyledRecommendButtonSpot = styled(RecommendButtonSpot)`
   position: absolute;
 `;
 
+const StyledCarousel = styled(Carousel)`
+  && {
+    .slick-track {
+      margin: auto;
+    }
+  }
+`;
+
 export const RecentlyViewedSpots = () => {
   const carousel = useRef<AntCarousel>(null);
   const history = useHistory();
@@ -75,7 +83,7 @@ export const RecentlyViewedSpots = () => {
   return (
     <>
       {!!recentlyViewedSpots.length && <h6>{t('RECENTLY_VIEWED_SPOT')}</h6>}
-      <Carousel ref={carousel}>
+      <StyledCarousel ref={carousel}>
         {recentlyViewedSpots.map((spot: AgregatedSpot) => (
           <CardWrapper key={spot.uuid}>
             <PersonaCard
@@ -91,7 +99,7 @@ export const RecentlyViewedSpots = () => {
             <SaveSpotButton uuid={spot.uuid} />
           </CardWrapper>
         ))}
-      </Carousel>
+      </StyledCarousel>
     </>
   );
 };
