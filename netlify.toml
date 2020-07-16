@@ -1,10 +1,10 @@
 [[redirects]]
-  from = "/marketing/events/presentation"
+  from = "https://www.personashare.com/marketing/events/presentation"
   to = "/pages/Marketing/events/presentation.html"
   status = 302
 
 [[redirects]]
-  from = "/marketing/hotels/presentation"
+  from = "https://www.personashare.com/marketing/hotels/presentation"
   to = "pages/Marketing/hotels/presentation.html"
   status = 301
 
@@ -22,11 +22,6 @@
   from = "/marketing/university/presentation"
   to = "./pages/Marketing/university/presentation.html"
   status = 302
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
 
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
