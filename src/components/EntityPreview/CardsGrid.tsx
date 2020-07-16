@@ -5,12 +5,12 @@ import { AgregatedPersona } from 'global/graphqls/schema';
 import { HowMuchPerson } from './HowMuchPerson';
 import CheckIn from 'assets/CheckIn.svg';
 import { useMutation } from '@apollo/react-hooks';
-import { GET_SPOT, GetCardType, PARTICIPATE, ParticipateResponse, UPDATE_SPOT } from '../../global/graphqls/Spot';
+import { CHECK_OUT, CheckOutResponse, GET_SPOT, PARTICIPATE, ParticipateResponse } from '../../global/graphqls/Spot';
 import { useParams } from 'react-router-dom';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash';
-import checkOut from 'assets/checkOut.svg';
+import checkOutSvg from 'assets/checkOut.svg';
 import { useUserContext } from '../../global/UserContext/UserContext';
 import { InputIcon } from '../InputIcon/InputIcon';
 
@@ -95,14 +95,27 @@ export const CardsGrid: FC<PropsType> = ({
   const isDefaultPersona = () => {
     return gridCardValue.uuid !== user?.defaultPersona;
   };
-  const [updateSpot] = useMutation<GetCardType>(UPDATE_SPOT, {
+  const [checkOut] = useMutation<CheckOutResponse>(CHECK_OUT, {
     variables: {
-      uuid: user?.defaultPersona,
+      spotId: uuid,
       spot: {
         participants: {
           uuid: gridCardValue.filter(() => isDefaultPersona()),
         },
       },
+    },
+    update(cache, { data }) {
+      if (!data) {
+        return;
+      }
+
+      cache.writeQuery({
+        query: GET_SPOT,
+        variables: {
+          uuid,
+        },
+        data: { spot: data.checkOut },
+      });
     },
   });
   const [addParticipate] = useMutation<ParticipateResponse>(PARTICIPATE, {
@@ -133,7 +146,7 @@ export const CardsGrid: FC<PropsType> = ({
     if (!canPersonaParticipate) {
       return message.info(`${t('CARDS_GRID_LIMIT_FREE')}`);
     } else {
-      if (_.find(gridCardValue, { uuid: user?.defaultPersona })) return updateSpot();
+      if (_.find(gridCardValue, { uuid: user?.defaultPersona })) return checkOut();
       else {
         return addParticipate();
       }
@@ -184,7 +197,7 @@ export const CardsGrid: FC<PropsType> = ({
     if (_.find(gridCardValue, { uuid: user?.defaultPersona })) {
       return (
         <CheckOutText>
-          <InputIconStyle svgLink={checkOut} onClick={() => checkInHandler()} />
+          <InputIconStyle svgLink={checkOutSvg} onClick={() => checkInHandler()} />
           Check Out
         </CheckOutText>
       );
