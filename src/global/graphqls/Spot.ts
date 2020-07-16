@@ -211,6 +211,8 @@ export const UPDATE_SPOT = gql`
   mutation updateSpot($uuid: String!, $spot: UpdateSpotInput!) {
     updateSpot(uuid: $uuid, spot: $spot) {
       uuid
+      canBeRecommended
+      canPersonaParticipate
       card {
         name
         description
@@ -230,8 +232,68 @@ export const UPDATE_SPOT = gql`
           status
         }
       }
+      invitedManagerEmails {
+        email
+        status
+      }
       personaUUIDs
       qrCodeLink
+      managers {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      visibilityList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      networkList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      participants {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
     }
   }
 `;
@@ -306,6 +368,102 @@ export const REMOVE_SPOT = gql`
 export const GET_SPOT = gql`
   query spot($uuid: String!) {
     spot(uuid: $uuid) {
+      uuid
+      canBeRecommended
+      canPersonaParticipate
+      card {
+        name
+        description
+        avatar
+        background
+      }
+      page {
+        background
+        avatar
+        content
+        fileList {
+          uid
+          url
+          thumbUrl
+          size
+          name
+          status
+        }
+      }
+      invitedManagerEmails {
+        email
+        status
+      }
+      personaUUIDs
+      qrCodeLink
+      managers {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      visibilityList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      networkList {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+      participants {
+        uuid
+        card {
+          name
+          description
+          avatar
+          background
+        }
+        page {
+          background
+          avatar
+          content
+        }
+      }
+    }
+  }
+`;
+
+export interface CheckOutResponse {
+  participate: AgregatedSpot;
+  checkOut: AgregatedSpot;
+}
+
+export const CHECK_OUT = gql`
+  mutation checkOut($spotId: String!) {
+    checkOut(spotId: $spotId) {
       uuid
       canBeRecommended
       canPersonaParticipate
