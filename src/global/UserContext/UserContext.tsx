@@ -22,10 +22,7 @@ const shouldSkip = () => {
   try {
     const decodedToken = jwtDecode(localStorage.getItem(PS_TOKEN_NAME) as string) as any;
     // isTokenExpired:
-    if (Date.now() >= decodedToken.exp * 1000) {
-      return true;
-    }
-    return false;
+    return Date.now() >= decodedToken.exp * 1000;
   } catch (error) {
     // token is invalid
     return true;
@@ -35,7 +32,7 @@ const shouldSkip = () => {
 const UserProvider: FC = ({ children }) => {
   const { data, loading } = useQuery<{ user: gqlUser }>(GET_USER, { skip: shouldSkip() });
   const [user, setUser] = useState<gqlUser | null>(null);
-  const { onAuthStateChanged } = useFirebase();
+  const { onIdTokenChanged } = useFirebase();
 
   useEffect(() => {
     if (data) {
@@ -48,11 +45,12 @@ const UserProvider: FC = ({ children }) => {
   }, [data]);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(async (user) => {
+    const unsubscribe = onIdTokenChanged(async (user) => {
       if (user) {
         const token = await user.getIdToken(true);
         localStorage.setItem(PS_TOKEN_NAME, token);
       } else {
+        console.error('REMOVED TOKEN');
         localStorage.removeItem(PS_TOKEN_NAME);
       }
     });

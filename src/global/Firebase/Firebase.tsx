@@ -66,6 +66,8 @@ class Firebase {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onAuthStateChanged = (observer: (user: User | null) => any): Unsubscribe => auth().onAuthStateChanged(observer);
 
+  onIdTokenChanged = (observer: (user: User | null) => any): Unsubscribe => auth().onIdTokenChanged(observer);
+
   getCurrentUser = (): User | null => auth().currentUser;
 
   googleProvider = (scope?: string): auth.GoogleAuthProvider => {
