@@ -1,6 +1,6 @@
 /*    /index.html   200
-/marketing/events/presentation    ../src/pages/Marketing/events/presentation.html   302
-/marketing/hotels/presentation    ../src/pages/Marketing/hotels//presentation.html   302
+/marketing/events/presentation    src/pages/Marketing/events/presentation.html   302
+/marketing/hotels/presentation    /src/pages/Marketing/hotels//presentation.html   302
 https://www.personashare.com/marketing/restaurants/presentation    ../src/pages/Marketing/restaurant/presentation.html   200
-https://www.personashare.com/marketing/training/presentation    ../src/pages/Marketing/training/presentation.html   302
-/marketing/university/presentation    ../src/pages/Marketing/university/presentation.html   200
+https://www.personashare.com/marketing/training/presentation    /pages/Marketing/training/presentation.html   301
+/marketing/university/presentation    pages/Marketing/university/presentation.html   302
