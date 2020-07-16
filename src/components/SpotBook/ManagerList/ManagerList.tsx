@@ -12,6 +12,13 @@ import styled from 'styled-components';
 import { PersonaCard } from '../../PersonaCard/PersonaCard';
 
 // todo: refactor it, Recommend button should be part of a Card
+const StyledCarousel = styled(Carousel)`
+  && {
+    .slick-track {
+      margin: auto;
+    }
+  }
+`;
 
 export const ManagerList: FC = () => {
   const carousel = useRef<AntCarousel>(null);
@@ -22,7 +29,7 @@ export const ManagerList: FC = () => {
   const history = useHistory();
 
   return (
-    <Carousel ref={carousel}>
+    <StyledCarousel ref={carousel}>
       {data?.spot?.managers?.map((persona: AgregatedPersona) => (
         <div key={persona.uuid}>
           <PersonaCard
@@ -38,6 +45,6 @@ export const ManagerList: FC = () => {
           <SavePersona uuid={persona.uuid} />
         </div>
       ))}
-    </Carousel>
+    </StyledCarousel>
   );
 };

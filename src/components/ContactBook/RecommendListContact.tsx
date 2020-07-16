@@ -20,6 +20,14 @@ type RecommendContactBookType = {
   className?: string;
 };
 
+const StyledCarousel = styled(Carousel)`
+  && {
+    .slick-track {
+      margin: auto;
+    }
+  }
+`;
+
 export const RecommendContactBook: FC<RecommendContactBookType> = ({ entity, className }) => {
   const carousel = useRef<AntCarousel>(null);
   const history = useHistory();
@@ -29,7 +37,7 @@ export const RecommendContactBook: FC<RecommendContactBookType> = ({ entity, cla
   return (
     <MainComponent className={className}>
       {!!allRecommendation.length && <RecommendText>Recommend</RecommendText>}
-      <Carousel ref={carousel}>
+      <StyledCarousel ref={carousel}>
         {allRecommendation.map((entity) => (
           <PersonaCard
             card={entity.card}
@@ -46,7 +54,7 @@ export const RecommendContactBook: FC<RecommendContactBookType> = ({ entity, cla
             }
           />
         ))}
-      </Carousel>
+      </StyledCarousel>
     </MainComponent>
   );
 };
