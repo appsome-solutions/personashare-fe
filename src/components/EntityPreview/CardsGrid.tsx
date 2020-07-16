@@ -100,7 +100,7 @@ export const CardsGrid: FC<PropsType> = ({
       spotId: uuid,
       spot: {
         participants: {
-          uuid: gridCardValue.filter(() => isDefaultPersona()),
+          uuid: gridCardValue?.filter(() => isDefaultPersona()),
         },
       },
     },
