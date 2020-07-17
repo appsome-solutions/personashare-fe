@@ -21,6 +21,7 @@ import { signInWithGoogle } from 'helpers/signInWithGoogle';
 
 import EmailIconSvg from 'assets/email.svg';
 import { useTranslation } from 'react-i18next';
+import { useApiErrorsTranslation } from 'global/Firebase/ApiErrorsTranslations/ApiErrorsTranslations';
 import { Spinner } from 'components/Spinner/Spinner';
 
 const StyledLogo = styled.img`
@@ -97,6 +98,7 @@ const LinkStyleLeft = styled(Link)`
 
 export const Register: FC = () => {
   const [apiError, setApiError] = useState('');
+  const { getErrorMessage } = useApiErrorsTranslation();
   const { setUser, user } = useUserContext();
   const firebase = useFirebase();
   const [signIn, { loading }] = useMutation<SignInResponse>(SIGN_IN);
@@ -150,7 +152,11 @@ export const Register: FC = () => {
         }
       }
     } catch (error) {
-      setApiError(error.message);
+      if (error.code) {
+        setApiError(getErrorMessage(error.code));
+      } else {
+        setApiError(error.message);
+      }
     }
   };
 

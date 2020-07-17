@@ -25,6 +25,7 @@ import { Spinner } from 'components/Spinner/Spinner';
 import { getUrlsParams } from '../../helpers/URLParams';
 import { ActionType } from '../Action/Action';
 import { useTranslation } from 'react-i18next';
+import { useApiErrorsTranslation } from 'global/Firebase/ApiErrorsTranslations/ApiErrorsTranslations';
 
 const Caption = styled.span((props) => props.theme.typography.caption);
 
@@ -103,6 +104,7 @@ export const Login: FunctionComponent = () => {
   const firebase = useFirebase();
   const [signIn, { loading }] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
+  const { getErrorMessage } = useApiErrorsTranslation();
   const { actionCode, action } = getUrlsParams(['actionCode', 'action']);
 
   if (loading) {
@@ -152,6 +154,10 @@ export const Login: FunctionComponent = () => {
   };
 
   const errorMessage = (error: any) => {
+    if (error.code) {
+      return setApiError(getErrorMessage(error.code));
+    }
+
     if (error.message.includes('There is no user record ')) {
       return setApiError(
         error.message + ` There is no such a user in our database or an account hasn't been activated yet.`

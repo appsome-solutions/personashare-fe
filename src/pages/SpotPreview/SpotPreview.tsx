@@ -29,9 +29,14 @@ const MainComponent = styled.div`
   overflow: auto;
 `;
 
-const Wrapper = styled.div`
+const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const StyledRecommendButtonSpot = styled(RecommendButtonSpot)`
+  top: -64px;
+  right: 12px;
 `;
 
 const SecondPartSpot = styled.div`
@@ -85,9 +90,9 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
     <>
       <TopNav isWithBackArrow />
       <MainComponent>
-        <Wrapper key={data.spot.uuid}>
+        <CardWrapper key={data.spot.uuid}>
           <EntityPageComp page={data.spot.page} />
-          <RecommendButtonSpot uuid={uuid} canBeRecommended={data.spot.canBeRecommended} />
+          <StyledRecommendButtonSpot uuid={uuid} canBeRecommended={data.spot.canBeRecommended} />
           <QuillEditor
             editable={false}
             initialValue={data.spot.page.content}
@@ -99,7 +104,7 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
               uuid: data.spot.uuid,
             }}
           />
-        </Wrapper>
+        </CardWrapper>
         {isEditMode && <ManagerList />}
         <SecondPartSpot>
           <SaveSpotButton uuid={uuid} />

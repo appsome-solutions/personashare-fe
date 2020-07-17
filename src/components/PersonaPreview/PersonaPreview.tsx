@@ -31,6 +31,12 @@ const SecondPartPersona = styled.div`
   margin: 0 16px 28px 16px;
 `;
 
+const StyledRecommendButtonPersona = styled(RecommendButtonPersona)`
+  top: 186px;
+  right: 12px;
+  position: absolute;
+`;
+
 export const PersonaPreview: FC = () => {
   const { uuid } = useParams();
   const { t } = useTranslation();
@@ -81,7 +87,7 @@ export const PersonaPreview: FC = () => {
         <Wrapper key={data.persona.uuid}>
           <div>
             <EntityPageComp page={data.persona.page} />
-            <RecommendButtonPersona uuid={uuid} />
+            <StyledRecommendButtonPersona uuid={uuid} />
           </div>
         </Wrapper>
         <SecondPartPersona>

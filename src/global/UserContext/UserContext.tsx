@@ -50,7 +50,6 @@ const UserProvider: FC = ({ children }) => {
         const token = await user.getIdToken(true);
         localStorage.setItem(PS_TOKEN_NAME, token);
       } else {
-        console.error('REMOVED TOKEN');
         localStorage.removeItem(PS_TOKEN_NAME);
       }
     });

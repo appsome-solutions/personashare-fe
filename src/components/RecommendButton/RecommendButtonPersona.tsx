@@ -13,15 +13,18 @@ import { Spinner } from 'components/Spinner/Spinner';
 
 type RecommendPersona = {
   uuid: string;
+  isHigherTop?: boolean;
+  className?: string;
 };
 
 const RecommendEmpty = styled.img`
+  align-self: flex-end;
   position: relative;
-  top: -150px;
-  left: calc(100% - 61px);
+  right: 20px;
+  top: -60px;
 `;
 
-export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
+export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid, className }) => {
   const { user } = useUserContext();
   const [recommendPersona, { loading: recommentPersonaLoading }] = useMutation<RecommendPersonaResponse>(
     RECOMMEND_PERSONA,
@@ -63,7 +66,7 @@ export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
 
   const IsRecommendedFunction = () => {
     if (_.find(data?.persona.recommendList, { uuid })) {
-      return <RecommendEmpty src={recommendOn} alt="Recommend On" />;
+      return <RecommendEmpty src={recommendOn} alt="Recommend On" className={className} />;
     } else
       return (
         <Popconfirm
@@ -73,7 +76,7 @@ export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
           cancelText={t('PERSONA_UUID_RECOMMEND_BUTTONS_NO')}
           placement="bottomRight"
         >
-          <RecommendEmpty src={recommendOff} alt="Recommend Off" />
+          <RecommendEmpty src={recommendOff} alt="Recommend Off" className={className} />
         </Popconfirm>
       );
   };

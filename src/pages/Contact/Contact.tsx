@@ -17,6 +17,7 @@ import LogoWithoutBG from 'assets/logo_nobg.svg';
 import EmailIconSvg from 'assets/email.svg';
 import PersonSvg from 'assets/person-24px.svg';
 import { useTranslation } from 'react-i18next';
+import { useApiErrorsTranslation } from 'global/Firebase/ApiErrorsTranslations/ApiErrorsTranslations';
 
 const StyledLogo = styled.img`
   margin-top: 18px;
@@ -48,6 +49,7 @@ const initialValues: ContactFormValues = {
 
 export const Contact: FC = () => {
   const { sendMail } = useFirebase();
+  const { getErrorMessage } = useApiErrorsTranslation();
   const [apiError, setApiError] = useState('');
   const history = useHistory();
   const { t } = useTranslation();
