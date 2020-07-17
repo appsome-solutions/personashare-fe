@@ -17,7 +17,6 @@ import { CropperWidget, ImageRef } from 'components/CropperWidget/CropperWidget'
 import { Flex } from 'components/FlexBox/FlexBox';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Overlay } from 'components/Overlay/Overlay';
-import { EditIndicator } from 'components/EditIndicator/EditIndicator';
 import QuillEditor from 'components/QuillEditor/QuillEditor';
 import {
   formUploadMapper,
@@ -27,8 +26,8 @@ import {
 } from 'pages/CreatePersona/helpers';
 import { AssetBlob, AssetType, getUrls, uploadAssets } from './uploadAssets';
 import { ExecutionResult } from 'graphql';
-import { UploadAssets, UploadAssetsProps } from 'components/UploadAssets/UploadAssets';
-import { InvitationsProps, ManagerListEditMode } from 'components/SpotBook/ManagerList/EditModeManager';
+import { UploadAssetsProps } from 'components/UploadAssets/UploadAssets';
+import { InvitationsProps } from 'components/SpotBook/ManagerList/EditModeManager';
 import { useMutation } from '@apollo/react-hooks';
 import { CLEAR_CARD, GetCardType } from 'global/graphqls/SpotAndPersona';
 import { UploadFile } from 'antd/es/upload/interface';
@@ -118,10 +117,11 @@ export const EntityPage: FC<LinkProps> = ({
   const { uuid } = useParams();
   const history = useHistory();
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);
-  const [clearCard] = useMutation<GetCardType>(CLEAR_CARD);
+  const [clearCard, { loading }] = useMutation<GetCardType>(CLEAR_CARD);
   const isSpot = nameSpotOrPersona.toLocaleLowerCase().includes('spot');
   const onSpotCreationOrUpdateArray: Array<(arg0: any, values: any, arg2: any) => void> = [];
   const [userAssetsList, setUserAssetsList] = useState<UploadAssetsState>({});
+
   const { values, setFieldValue, handleSubmit, isValid, setStatus, setSubmitting, isSubmitting } = useFormik<PageType>({
     initialValues,
     onSubmit: async (formValues): Promise<void | null> => {
@@ -230,6 +230,10 @@ export const EntityPage: FC<LinkProps> = ({
     },
     validationSchema: pageSchema,
   });
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   if (card && isEqual(cardDefault, card)) {
     return <Redirect to={previousStepPath} />;

@@ -182,7 +182,7 @@ QuillClass.register(
 
 const Link = QuillClass.import('formats/link');
 Link.sanitize = (url: string): string => {
-  const pattern = /^((http|https|ftp|emailto|tel):\/\/)/;
+  const pattern = /^((http|https|ftp|mailto|tel):\/?\/?)/;
   if (!pattern.test(url)) {
     return 'http://' + url;
   }

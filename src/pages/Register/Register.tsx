@@ -21,6 +21,7 @@ import { signInWithGoogle } from 'helpers/signInWithGoogle';
 
 import EmailIconSvg from 'assets/email.svg';
 import { useTranslation } from 'react-i18next';
+import { Spinner } from 'components/Spinner/Spinner';
 
 const StyledLogo = styled.img`
   margin-top: 46px;
@@ -98,9 +99,13 @@ export const Register: FC = () => {
   const [apiError, setApiError] = useState('');
   const { setUser, user } = useUserContext();
   const firebase = useFirebase();
-  const [signIn] = useMutation<SignInResponse>(SIGN_IN);
+  const [signIn, { loading }] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
   const { t } = useTranslation();
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   const validationSchema = object({
     email: string().email(),

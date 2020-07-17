@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useLocalStorage from 'react-use-localstorage';
 import { useTranslation } from 'react-i18next';

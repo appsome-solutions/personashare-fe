@@ -23,7 +23,7 @@ export const EditPersonaPage: FC = () => {
   const { t } = useTranslation();
   const { data, loading } = useQuery(GET_PERSONA, { variables: { uuid }, fetchPolicy: 'no-cache' });
   const { data: spotData, loading: spotLoading } = useQuery<GetCardType>(GET_CARD);
-  const [updatePersona] = useMutation<{ updatePersona: Entity }>(UPDATE_PERSONA, {
+  const [updatePersona, { loading: updatePersonaLoading }] = useMutation<{ updatePersona: Entity }>(UPDATE_PERSONA, {
     update(cache, { data }) {
       if (!data) {
         return;
@@ -53,7 +53,7 @@ export const EditPersonaPage: FC = () => {
     },
   });
   const cardDefaultSpot = cardDefaults;
-  if (loading || spotLoading) {
+  if (loading || spotLoading || updatePersonaLoading) {
     return <Spinner />;
   }
   if (!spotData) {

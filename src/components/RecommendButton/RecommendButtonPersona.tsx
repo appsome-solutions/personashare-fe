@@ -9,6 +9,7 @@ import _ from 'lodash';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { Spinner } from 'components/Spinner/Spinner';
 
 type RecommendPersona = {
   uuid: string;
@@ -22,13 +23,20 @@ const RecommendEmpty = styled.img`
 
 export const RecommendButtonPersona: FC<RecommendPersona> = ({ uuid }) => {
   const { user } = useUserContext();
-  const [recommendPersona] = useMutation<RecommendPersonaResponse>(RECOMMEND_PERSONA, {
-    variables: { recommendedPersonaUuid: uuid },
-  });
-  const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
+  const [recommendPersona, { loading: recommentPersonaLoading }] = useMutation<RecommendPersonaResponse>(
+    RECOMMEND_PERSONA,
+    {
+      variables: { recommendedPersonaUuid: uuid },
+    }
+  );
+  const { data, refetch, loading: getPersonaLoading } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: user?.defaultPersona },
   });
   const { t } = useTranslation();
+
+  if (recommentPersonaLoading || getPersonaLoading) {
+    return <Spinner />;
+  }
 
   const onConfirmFunctions = async () => {
     await recommendPersona();

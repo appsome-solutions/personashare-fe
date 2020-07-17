@@ -86,7 +86,7 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
 
   // todo: remove it when deletion of all elements will be on place [BE]
   // it updates spot to removed data before removal
-  const [updateSpot] = useMutation<{ updateSpot: Entity }>(UPDATE_SPOT_PAYLOAD, {
+  const [updateSpot, { loading: updateSpotLoading }] = useMutation<{ updateSpot: Entity }>(UPDATE_SPOT_PAYLOAD, {
     update(cache, { data }) {
       if (!data) {
         return;
@@ -218,7 +218,13 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
     },
   });
 
-  if (isPersonaRemovalLoading || isSpotRemovalLoading || isSetDefaultPersonaLoading || updatePersonaLoading) {
+  if (
+    isPersonaRemovalLoading ||
+    isSpotRemovalLoading ||
+    isSetDefaultPersonaLoading ||
+    updatePersonaLoading ||
+    updateSpotLoading
+  ) {
     return (
       <StyledOverlay>
         <Spinner />

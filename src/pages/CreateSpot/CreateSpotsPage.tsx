@@ -7,6 +7,7 @@ import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
 import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { useTranslation } from 'react-i18next';
+import { Spinner } from 'components/Spinner/Spinner';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -19,8 +20,8 @@ const pageInitialValues: PageType = {
 export const CreateSpotsPage: FC = () => {
   const { data } = useQuery<GetPageType>(GET_PAGE);
   const { t } = useTranslation();
-  const { data: spotData } = useQuery<GetCardType>(GET_CARD);
-  const [createSpot] = useMutation<{ createSpot: Entity }>(CREATE_SPOT, {
+  const { data: spotData, loading: spotLoading } = useQuery<GetCardType>(GET_CARD);
+  const [createSpot, { loading: createSpotLoading }] = useMutation<{ createSpot: Entity }>(CREATE_SPOT, {
     update(cache, { data }) {
       if (!data) {
         return;
@@ -35,6 +36,10 @@ export const CreateSpotsPage: FC = () => {
   });
   const initialValues = data?.entity?.page || pageInitialValues;
   const cardDefaultSpot = cardDefaults;
+
+  if (spotLoading || createSpotLoading) {
+    return <Spinner />;
+  }
 
   if (!spotData) {
     return null;

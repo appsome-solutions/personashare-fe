@@ -8,6 +8,7 @@ import { GET_CARD, GET_PAGE, GetCardType, GetPageType } from 'global/graphqls/Sp
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { GET_USER } from 'global/graphqls/User';
 import { useTranslation } from 'react-i18next';
+import { Spinner } from 'components/Spinner/Spinner';
 
 const pageInitialValues: PageType = {
   content: null,
@@ -20,8 +21,8 @@ const pageInitialValues: PageType = {
 export const CreatePersonaPage: FC = () => {
   const { data } = useQuery<GetPageType>(GET_PAGE);
   const { t } = useTranslation();
-  const { data: personaData } = useQuery<GetCardType>(GET_CARD);
-  const [createPersona] = useMutation<{ createPersona: Entity }>(CREATE_PERSONA, {
+  const { data: personaData, loading: personaLoading } = useQuery<GetCardType>(GET_CARD);
+  const [createPersona, { loading: createPersonaLoading }] = useMutation<{ createPersona: Entity }>(CREATE_PERSONA, {
     update(cache, { data }) {
       if (!data) {
         return;
@@ -55,6 +56,11 @@ export const CreatePersonaPage: FC = () => {
       }
     },
   });
+
+  if (personaLoading || createPersonaLoading) {
+    return <Spinner />;
+  }
+
   const initialValues = data?.entity?.page || pageInitialValues;
   const cardDefaultPersona = cardDefaults;
 
