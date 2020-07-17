@@ -17,11 +17,12 @@ import { useTranslation } from 'react-i18next';
 // todo: refactor it, Recommend button should be part of a Card
 const CardWrapper = styled.div`
   position: relative;
+`;
 
-  && img:nth-child(2) {
-    position: absolute;
-    top: 165px;
-  }
+const StyledRecommendButtonPersona = styled(RecommendButtonPersona)`
+  top: 162px;
+  right: 12px;
+  position: absolute;
 `;
 
 const StyledCarousel = styled(Carousel)`
@@ -93,7 +94,7 @@ export const RecentlyViewedPersonas = () => {
                 })
               }
             />
-            <RecommendButtonPersona uuid={persona.uuid} />
+            <StyledRecommendButtonPersona uuid={persona.uuid} />
             <SavePersona uuid={persona.uuid} />
           </CardWrapper>
         ))}
