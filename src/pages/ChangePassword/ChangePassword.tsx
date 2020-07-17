@@ -14,6 +14,7 @@ import { StyledErrorMessage } from 'components/StyledErrorMessage/StyledErrorMes
 
 import LogoWithoutBG from 'assets/logo_nobg.svg';
 import { useTranslation } from 'react-i18next';
+import { useApiErrorsTranslation } from 'global/Firebase/ApiErrorsTranslations/ApiErrorsTranslations';
 
 const StyledLogo = styled.img`
   margin-top: 18px;
@@ -27,6 +28,7 @@ const StyledPasswordInput = styled(PasswordInput)`
 
 export const ChangePassword: FC = () => {
   const [apiError, setApiError] = useState('');
+  const { getErrorMessage } = useApiErrorsTranslation();
   const { handleResetPassword } = useFirebase();
   const history = useHistory();
   const { t } = useTranslation();
@@ -53,7 +55,11 @@ export const ChangePassword: FC = () => {
         const redirectUrl = await handleResetPassword(password, oobCode, continueUrl);
         history.push(redirectUrl);
       } catch (e) {
-        setApiError(e.message ? e.message : 'Error while resetting password');
+        if (e.code) {
+          setApiError(getErrorMessage(e.code));
+        } else {
+          setApiError(e.message ? e.message : 'Error while resetting password');
+        }
       }
     },
     [history, handleResetPassword, setApiError]

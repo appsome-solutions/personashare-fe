@@ -315,6 +315,21 @@ const plTranslations = {
       IMAGE: 'Zdjęcie',
       FILE: 'Plik',
       UPLOAD: 'załaduj',
+
+      //auth
+      USER_DISABLED: 'Użytkownik został zablokowany',
+      EMAIL_ALREADY_EXISTS: 'Adres email już istnieje',
+      INTERNAL_ERROR: 'Ups. Coś poszło nie tak...',
+      INVALID_PASSWORD: 'Nieprawidłowe hasło',
+      USER_NOT_FOUND: 'Nie znaleziono użytkownika',
+      WRONG_PASSWORD: 'Hasło jest nieprawidłowe',
+      WEAK_PASSWORD: 'Hasło jest zbyt słabe.',
+      EMAIL_IN_USE: 'Adres email jest już w użyciu',
+      INVALID_EMAIL: 'Nieprawidłowy adres email',
+      OPERATION_NOT_ALLOWED: 'Niedozwolona operacja',
+      ACCOUNT_EXISTS_WITH_DIFFERENT_CRED: 'Konto istnieje i jest powiązane z innymi danymi',
+      CREDENTIAL_IN_USE: 'Podane dane są już w użyciu',
+      TIMEOUT: 'Czas upłynął',
       RECOMMEND_TEXT: 'Polecam',
 
       PERSONA_REMOVE: 'Czy na pewno chcesz usunąć tę personę?',
@@ -322,5 +337,4 @@ const plTranslations = {
     },
   },
 };
-
 export default plTranslations;
