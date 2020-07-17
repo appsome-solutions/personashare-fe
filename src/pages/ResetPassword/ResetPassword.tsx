@@ -15,6 +15,7 @@ import { StyledErrorMessage } from 'components/StyledErrorMessage/StyledErrorMes
 import LogoWithoutBG from 'assets/logo_nobg.svg';
 import EmailIconSvg from 'assets/email.svg';
 import { useTranslation } from 'react-i18next';
+import { useApiErrorsTranslation } from 'global/Firebase/ApiErrorsTranslations/ApiErrorsTranslations';
 
 const StyledLogo = styled.img`
   margin-top: 18px;
@@ -40,6 +41,7 @@ export const ResetPassword: FC = () => {
   const { sendPasswordResetEmail } = useFirebase();
   const history = useHistory();
   const [apiError, setApiError] = useState('');
+  const { getErrorMessage } = useApiErrorsTranslation();
   const { t } = useTranslation();
   const handleSubmit = useCallback(
     async (values) => {
@@ -48,7 +50,11 @@ export const ResetPassword: FC = () => {
         await sendPasswordResetEmail(values.email);
         history.push(APP_ROUTES.LOGIN);
       } catch (e) {
-        setApiError(e.message ? e.message : `${t('ERROR_WHILE_SENDING_EMAIL')}`);
+        if (e.code) {
+          setApiError(getErrorMessage(e.code));
+        } else {
+          setApiError(e.message ? e.message : `${t('ERROR_WHILE_SENDING_EMAIL')}`);
+        }
       }
     },
     [history, sendPasswordResetEmail, setApiError]
