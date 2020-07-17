@@ -15,6 +15,7 @@ import { StorageProvider, Storage } from './global/Storage';
 import { UserProvider } from 'global/UserContext/UserContext';
 import history from 'global/AppRouter/history';
 import { ResponsiveContentReplacer } from './global/ResponsiveContentReplacer/ResponsiveContentReplacer';
+import { ApiErrorsTranslationsProvider } from './global/Firebase/ApiErrorsTranslations/ApiErrorsTranslations';
 
 const firebase = new Firebase();
 
@@ -25,16 +26,18 @@ const App: FunctionComponent = () => (
         <StorageProvider value={new Storage(firebase.getStorageRef())}>
           <UserProvider>
             <RWDProvider>
-              <GlobalStyles />
-              <ResponsiveContentReplacer>
-                <Router history={history}>
-                  <ErrorHandler>
-                    <AppRouter />
-                  </ErrorHandler>
-                  <TermAndCookies />
-                  <StickyNavigation />
-                </Router>
-              </ResponsiveContentReplacer>
+              <ApiErrorsTranslationsProvider>
+                <GlobalStyles />
+                <ResponsiveContentReplacer>
+                  <Router history={history}>
+                    <ErrorHandler>
+                      <AppRouter />
+                    </ErrorHandler>
+                    <TermAndCookies />
+                    <StickyNavigation />
+                  </Router>
+                </ResponsiveContentReplacer>
+              </ApiErrorsTranslationsProvider>
             </RWDProvider>
           </UserProvider>
         </StorageProvider>
