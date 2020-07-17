@@ -1,7 +1,6 @@
 import React, { FC, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Carousel as AntCarousel } from 'antd';
-import { TopNav } from 'components/TopNav/TopNav';
 import { PageWrapper, PageWrapperSpaceBetween } from 'components/PageWrapper';
 import { useQuery } from '@apollo/react-hooks';
 import { PersonaCard } from 'components/PersonaCard/PersonaCard';

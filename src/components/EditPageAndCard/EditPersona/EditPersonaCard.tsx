@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { EntityCard } from 'components/CreateSpotAndPersona/CreateCard/EntityCard';
 import { useMutation, useQuery } from '@apollo/react-hooks';
@@ -19,13 +19,13 @@ const cardInitialValues: CardType = {
 
 export const EditPersonaCard: FC = () => {
   const { uuid } = useParams();
-  const { data, loading } = useQuery<GetCardType>(GET_PERSONA, {
+  const { data, loading: getCardLoading } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid },
   });
-  const [updateCard] = useMutation<GetCardType>(UPDATE_PERSONA_CARD);
+  const [updateCard, { loading: updateCardLoading }] = useMutation<GetCardType>(UPDATE_PERSONA_CARD);
   const { t } = useTranslation();
 
-  if (loading) {
+  if (getCardLoading || updateCardLoading) {
     return <Spinner />;
   }
 

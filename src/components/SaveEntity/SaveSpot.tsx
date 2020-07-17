@@ -7,6 +7,7 @@ import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import styled from 'styled-components';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { useTranslation } from 'react-i18next';
+import { Spinner } from 'components/Spinner/Spinner';
 
 const ButtonSavedStyled = styled(WideButton)`
   && {
@@ -24,16 +25,20 @@ type SaveSpotButtonProps = {
 
 export const SaveSpotButton: FC<SaveSpotButtonProps> = ({ uuid }) => {
   const { user } = useUserContext();
-  const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
+  const { data, refetch, loading: getPersonaLoading } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: user?.defaultPersona },
     skip: !user,
   });
-  const [saveSpot] = useMutation<SaveSpotResponse>(SAVE_SPOT, {
+  const [saveSpot, { loading: saveSpotLoading }] = useMutation<SaveSpotResponse>(SAVE_SPOT, {
     variables: {
       savedSpotUuid: uuid,
     },
   });
   const { t } = useTranslation();
+
+  if (getPersonaLoading || saveSpotLoading) {
+    return <Spinner />;
+  }
 
   const onClickFunctions = async () => {
     await saveSpot();

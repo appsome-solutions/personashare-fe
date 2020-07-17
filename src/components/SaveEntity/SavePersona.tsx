@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { WideButton } from 'components/Button';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { useTranslation } from 'react-i18next';
+import { Spinner } from 'components/Spinner/Spinner';
 
 type SavePersonaUuid = {
   uuid: string;
@@ -23,16 +24,20 @@ const ButtonSavedStyled = styled(WideButton)`
 
 export const SavePersona: FC<SavePersonaUuid> = ({ uuid }) => {
   const { user } = useUserContext();
-  const { data, refetch } = useQuery<GetCardType>(GET_PERSONA, {
+  const { data, refetch, loading: getPersonaLoading } = useQuery<GetCardType>(GET_PERSONA, {
     variables: { uuid: user?.defaultPersona },
     skip: !user,
   });
-  const [savePersona] = useMutation<SavePersonaResponse>(SAVE_PERSONA, {
+  const [savePersona, { loading: savePersonaLoading }] = useMutation<SavePersonaResponse>(SAVE_PERSONA, {
     variables: {
       savedPersonaUuid: uuid,
     },
   });
   const { t } = useTranslation();
+
+  if (getPersonaLoading || savePersonaLoading) {
+    return <Spinner />;
+  }
 
   const onClickFunctions = async () => {
     await savePersona();

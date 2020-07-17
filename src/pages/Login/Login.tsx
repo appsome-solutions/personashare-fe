@@ -15,13 +15,13 @@ import { PasswordInput } from 'components/PasswordInput';
 import { Card } from 'components/Card/Card';
 import { Link } from 'react-router-dom';
 import { PageWrapper } from 'components/PageWrapper/PageWrapper';
-// TODO: Remove after real integration
 import { useUserContext } from 'global/UserContext/UserContext';
 import EmailIconSvg from 'assets/email.svg';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { signInWithGoogle } from 'helpers/signInWithGoogle';
 import { GET_USER } from 'global/graphqls/User';
 import { client } from 'global/ApolloClient/ApolloClient';
+import { Spinner } from 'components/Spinner/Spinner';
 import { getUrlsParams } from '../../helpers/URLParams';
 import { ActionType } from '../Action/Action';
 import { useTranslation } from 'react-i18next';
@@ -102,10 +102,14 @@ export const Login: FunctionComponent = () => {
   const [verified, setVerified] = useState(false);
   const { setUser } = useUserContext();
   const firebase = useFirebase();
-  const [signIn] = useMutation<SignInResponse>(SIGN_IN);
+  const [signIn, { loading }] = useMutation<SignInResponse>(SIGN_IN);
   const history = useHistory();
   const { getErrorMessage } = useApiErrorsTranslation();
   const { actionCode, action } = getUrlsParams(['actionCode', 'action']);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   const validationSchema = object({
     email: string().email(),

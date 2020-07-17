@@ -5,6 +5,7 @@ import { GET_CARD, GetCardType, UPDATE_CARD } from 'global/graphqls/SpotAndPerso
 import { CardType } from 'global/graphqls/schema';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { useTranslation } from 'react-i18next';
+import { Spinner } from 'components/Spinner/Spinner';
 
 const cardInitialValues: CardType = {
   name: '',
@@ -16,10 +17,14 @@ const cardInitialValues: CardType = {
 };
 
 export const CreateSpotsCard: FC = () => {
-  const { data } = useQuery<GetCardType>(GET_CARD);
+  const { data, loading: cardLoading } = useQuery<GetCardType>(GET_CARD);
   const initialValues = data ? data.entity.card : cardInitialValues;
-  const [updateCard] = useMutation<GetCardType>(UPDATE_CARD);
+  const [updateCard, { loading: updateCardLoading }] = useMutation<GetCardType>(UPDATE_CARD);
   const { t } = useTranslation();
+
+  if (cardLoading || updateCardLoading) {
+    return <Spinner />;
+  }
 
   return (
     <EntityCard

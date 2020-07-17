@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { GET_SPOT, GET_SPOTS, UPDATE_SPOT_PAYLOAD } from 'global/graphqls/Spot';
 import { Entity, PageType } from 'global/graphqls/schema';
 import { cardDefaults } from 'global/ApolloLinkState/spotAndPersona';
-import { GET_CARD, GetCardType, GetPageType } from 'global/graphqls/SpotAndPersona';
+import { GET_CARD, GetCardType } from 'global/graphqls/SpotAndPersona';
 import { useParams } from 'react-router-dom';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { Spinner } from '../../Spinner/Spinner';
