@@ -20,6 +20,16 @@ const StyledCarousel = styled(Carousel)`
   }
 `;
 
+const CardWrapper = styled.div`
+  position: relative;
+`;
+
+const StyledRecommendButtonPersona = styled(RecommendButtonPersona)`
+  top: 160px;
+  right: 12px;
+  position: absolute;
+`;
+
 export const ManagerList: FC = () => {
   const carousel = useRef<AntCarousel>(null);
   const { uuid } = useParams();
@@ -31,7 +41,7 @@ export const ManagerList: FC = () => {
   return (
     <StyledCarousel ref={carousel}>
       {data?.spot?.managers?.map((persona: AgregatedPersona) => (
-        <div key={persona.uuid}>
+        <CardWrapper key={persona.uuid}>
           <PersonaCard
             card={persona.card}
             uuid={persona.uuid}
@@ -41,9 +51,9 @@ export const ManagerList: FC = () => {
               })
             }
           />
-          <RecommendButtonPersona uuid={persona.uuid} />
+          <StyledRecommendButtonPersona uuid={persona.uuid} />
           <SavePersona uuid={persona.uuid} />
-        </div>
+        </CardWrapper>
       ))}
     </StyledCarousel>
   );
