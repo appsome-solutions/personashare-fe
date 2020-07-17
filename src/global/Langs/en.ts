@@ -316,6 +316,9 @@ const enTranslations = {
       IMAGE: 'Image',
       FILE: 'File',
       UPLOAD: 'upload',
+      RECOMMEND_TEXT: 'Recommend',
+      PERSONA_REMOVE: 'Are you sure you want to remove this persona?',
+      SPOT_REMOVE: 'Are you sure you want to remove this spot?',
     },
   },
 };

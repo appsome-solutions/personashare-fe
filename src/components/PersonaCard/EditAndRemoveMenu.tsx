@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Dropdown, Menu, message } from 'antd';
+import { Dropdown, Menu, message, Popconfirm } from 'antd';
 import styled from 'styled-components';
 import EditIcon from 'assets/EditIcon.svg';
 import RemoveIcon from 'assets/RemoveIcon.svg';
@@ -297,15 +297,38 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
 
   const RemoveFunctionality = () => (
     <MenuRemoveStyled>
-      <EditAndRemoveBox
-        onClick={() => (pathname.includes('personas') ? removePersonaIfNotLastOne() : removeSpotHandler())}
-      >
-        {t('MY_PERSONA_CARD_MENU_REMOVE')}
-        <img src={RemoveIcon} alt="Remove Icon" />
-      </EditAndRemoveBox>
+      {pathname.includes('personas') ? (
+        <Popconfirm
+          placement="bottom"
+          title={t('PERSONA_REMOVE')}
+          onConfirm={() => removePersonaIfNotLastOne()}
+          okText={t('SPOT_UUID_RECOMMEND_BUTTONS_YES')}
+          cancelText={t('SPOT_UUID_RECOMMEND_BUTTONS_NO')}
+        >
+          <EditAndRemoveBox>
+            {t('MY_PERSONA_CARD_MENU_REMOVE')}
+            <img src={RemoveIcon} alt="Remove Icon" />
+          </EditAndRemoveBox>
+        </Popconfirm>
+      ) : (
+        <Popconfirm
+          placement="bottom"
+          title={t('SPOT_REMOVE')}
+          onConfirm={() => removeSpotHandler()}
+          okText={t('SPOT_UUID_RECOMMEND_BUTTONS_YES')}
+          cancelText={t('SPOT_UUID_RECOMMEND_BUTTONS_NO')}
+        >
+          <EditAndRemoveBox>
+            {t('MY_PERSONA_CARD_MENU_REMOVE')}
+            <img src={RemoveIcon} alt="Remove Icon" />
+          </EditAndRemoveBox>
+        </Popconfirm>
+      )}
     </MenuRemoveStyled>
   );
-
+  {
+    console.log(<RemoveFunctionality />);
+  }
   const menuBuild = (
     <MenuStyled>
       <NavLinkFunctionality />

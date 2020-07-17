@@ -315,6 +315,10 @@ const plTranslations = {
       IMAGE: 'Zdjęcie',
       FILE: 'Plik',
       UPLOAD: 'załaduj',
+      RECOMMEND_TEXT: 'Polecam',
+
+      PERSONA_REMOVE: 'Czy na pewno chcesz usunąć tę personę?',
+      SPOT_REMOVE: 'Czy na pewno chcesz usunąć tego spota?',
     },
   },
 };
