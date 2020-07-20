@@ -94,7 +94,7 @@ export const MySpots: FC = () => {
                         })
                       }
                     >
-                      <PersonaCard card={spots.card} uuid={spots.uuid} isWithEdit={true} />
+                      <PersonaCard card={spots.card} uuid={spots.uuid} isWithEdit={true} isWithAddPhoto={true} />
                     </Wrapper>
                   </CaruouselItem>
                 ))}

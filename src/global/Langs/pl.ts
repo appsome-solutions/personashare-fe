@@ -330,6 +330,10 @@ const plTranslations = {
       ACCOUNT_EXISTS_WITH_DIFFERENT_CRED: 'Konto istnieje i jest powiązane z innymi danymi',
       CREDENTIAL_IN_USE: 'Podane dane są już w użyciu',
       TIMEOUT: 'Czas upłynął',
+      RECOMMEND_TEXT: 'Polecam',
+
+      PERSONA_REMOVE: 'Czy na pewno chcesz usunąć tę personę?',
+      SPOT_REMOVE: 'Czy na pewno chcesz usunąć tego spota?',
     },
   },
 };

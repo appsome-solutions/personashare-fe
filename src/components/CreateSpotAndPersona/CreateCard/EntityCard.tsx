@@ -19,6 +19,7 @@ import { CardBody, CardDescription, CardName } from './CreateCard.styles';
 import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper } from 'pages/CreatePersona/helpers';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
 type PropsCard = {
   initialValues: CardType;
@@ -36,6 +37,9 @@ const initialState: ImageRef = {
   blob: null,
 };
 
+const CardBodyStyled = styled(CardBody)`
+  margin-top: 32px;
+`;
 export const EntityCard: FC<PropsCard> = ({
   nextPathName,
   stepperNumbers,
@@ -112,10 +116,7 @@ export const EntityCard: FC<PropsCard> = ({
                 />
               </PersonaCircleWrapper>
             </BackgroundPlaceholder>
-            <Flex justifyContent="flex-end" mx={14} my={10}>
-              <EditIndicator alt="Edit card" />
-            </Flex>
-            <CardBody>
+            <CardBodyStyled>
               <CardName
                 id="name"
                 name="name"
@@ -136,7 +137,7 @@ export const EntityCard: FC<PropsCard> = ({
                 hasError={!!errors.description}
                 maxLength={69}
               />
-            </CardBody>
+            </CardBodyStyled>
           </Card>
           <WideButton htmlType="submit" disabled={!isValid}>
             {t('CREATION_STEP_2_NEXT_STEP')}

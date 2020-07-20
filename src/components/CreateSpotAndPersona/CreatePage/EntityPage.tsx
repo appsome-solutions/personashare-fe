@@ -32,7 +32,6 @@ import { useMutation } from '@apollo/react-hooks';
 import { CLEAR_CARD, GetCardType } from 'global/graphqls/SpotAndPersona';
 import { UploadFile } from 'antd/es/upload/interface';
 import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
 
 export interface LinkProps {
   previousStepPath: string;
@@ -113,7 +112,6 @@ export const EntityPage: FC<LinkProps> = ({
 }) => {
   const { getCurrentUser } = useFirebase();
   const { storageRef } = useStorage();
-  const { t } = useTranslation();
   const { uuid } = useParams();
   const history = useHistory();
   const [imageRef, setImageRef] = useState<ImageRef>(initialState);

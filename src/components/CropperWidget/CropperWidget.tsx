@@ -42,7 +42,7 @@ export const cropperDefaults: Cropper.Options = {
   minCropBoxHeight: 154,
   viewMode: 2,
   center: true,
-  zoomable: false,
+  zoomable: true,
   cropBoxResizable: false,
   background: true,
   responsive: true,

@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import BgPlaceholder from 'assets/bg_placeholder.svg';
 import AddPhoto from 'assets/add_bg_circle.svg';
+import PersonaCircleSvg from 'assets/PersonaCircle.svg';
 
 const Placeholder = styled.div`
   position: relative;
@@ -13,7 +14,6 @@ const Placeholder = styled.div`
 const BgImage = styled.img`
   max-height: 154px;
   width: 100%;
-
   object-fit: cover;
   border-radius: 6px 6px 0 0;
 `;
@@ -38,14 +38,22 @@ type BackgroundPlaceholderProps = {
   alt: string;
   background?: string;
   className?: any;
+  isWithAddPhoto?: boolean;
 };
 
-export const BackgroundPlaceholder: FC<BackgroundPlaceholderProps> = ({ background, children, alt, className }) => (
+export const BackgroundPlaceholder: FC<BackgroundPlaceholderProps> = ({
+  background,
+  isWithAddPhoto,
+  children,
+  alt,
+  className,
+}) => (
   <Placeholder className={className}>
     <BgWrapper>
       <BgImage src={background || BgPlaceholder} alt={alt} />
     </BgWrapper>
-    {!background && <EditBgIcon src={AddPhoto} alt={alt} />}
+    {!background &&
+      (isWithAddPhoto ? <EditBgIcon src={PersonaCircleSvg} alt={alt} /> : <EditBgIcon src={AddPhoto} alt={alt} />)}
     {children}
   </Placeholder>
 );

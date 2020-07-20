@@ -331,6 +331,9 @@ const enTranslations = {
       ACCOUNT_EXISTS_WITH_DIFFERENT_CRED: 'auth/account-exists-with-different-credential',
       CREDENTIAL_IN_USE: 'auth/credential-already-in-use',
       TIMEOUT: 'auth/timeout',
+      RECOMMEND_TEXT: 'Recommend',
+      PERSONA_REMOVE: 'Are you sure you want to remove this persona?',
+      SPOT_REMOVE: 'Are you sure you want to remove this spot?',
     },
   },
 };

@@ -147,6 +147,7 @@ export const MyPersona: FC = () => {
           <CaruouselItem key={persona.uuid}>
             <Wrapper>
               <PersonaCard
+                isWithAddPhoto={true}
                 card={persona.card}
                 uuid={persona.uuid}
                 isWithEdit={true}

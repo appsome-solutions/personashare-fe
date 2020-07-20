@@ -6,6 +6,7 @@ import { Carousel as AntCarousel } from 'antd';
 import styled from 'styled-components';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const RecommendText = styled.div`
   ${(props) => props.theme.typography.body2}
@@ -31,12 +32,13 @@ const StyledCarousel = styled(Carousel)`
 export const RecommendContactBook: FC<RecommendContactBookType> = ({ entity, className }) => {
   const carousel = useRef<AntCarousel>(null);
   const history = useHistory();
+  const { t } = useTranslation();
 
   const allRecommendation = [...entity.recommendList, ...entity.spotRecommendList];
 
   return (
     <MainComponent className={className}>
-      {!!allRecommendation.length && <RecommendText>Recommend</RecommendText>}
+      {!!allRecommendation.length && <RecommendText>{t(`RECOMMEND_TEXT`)}</RecommendText>}
       <StyledCarousel ref={carousel}>
         {allRecommendation.map((entity) => (
           <PersonaCard

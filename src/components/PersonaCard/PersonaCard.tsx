@@ -13,6 +13,7 @@ type Props = {
   isWithEdit?: boolean;
   onClick?: any;
   isDefaultPersona?: boolean;
+  isWithAddPhoto?: boolean;
 };
 
 const NameStyled = styled.div`
@@ -40,13 +41,13 @@ const StyledCard = styled(Card)`
   width: 262px;
 `;
 
-export const PersonaCard: FC<Props> = ({ card, uuid, isWithEdit, onClick, isDefaultPersona }) => {
+export const PersonaCard: FC<Props> = ({ card, isWithAddPhoto, uuid, isWithEdit, onClick, isDefaultPersona }) => {
   const isLongDescription = card.description.length > 69;
   const isLongName = card.name.length > 69;
 
   return (
     <StyledCard mt={31} mb={40} position="relative" onClick={onClick} className="PersonaCardMain">
-      <BackgroundPlaceholder background={card.background} alt="Card background">
+      <BackgroundPlaceholder background={card.background} alt="Card background" isWithAddPhoto={isWithAddPhoto}>
         <PersonaCircleWrapper>
           <PersonaCircle avatar={card.avatar} alt="Avatar card" />
         </PersonaCircleWrapper>
