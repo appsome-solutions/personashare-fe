@@ -16,7 +16,7 @@ type FileInputProps = InputHTMLAttributes<HTMLInputElement> & {
   onFileChange?: (file: File) => void;
 };
 
-export const FileInput: FC<FileInputProps> = ({ name, id, onFileChange }) => (
+export const FileInput: FC<FileInputProps> = ({ name, id, onFileChange, ...rest }) => (
   <AbsoluteLabel htmlFor={id}>
     <HiddenInput
       type="file"
@@ -27,6 +27,7 @@ export const FileInput: FC<FileInputProps> = ({ name, id, onFileChange }) => (
           onFileChange && onFileChange(e.target.files[0]);
         }
       }}
+      {...rest}
     />
   </AbsoluteLabel>
 );

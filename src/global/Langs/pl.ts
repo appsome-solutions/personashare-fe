@@ -334,6 +334,9 @@ const plTranslations = {
 
       PERSONA_REMOVE: 'Czy na pewno chcesz usunąć tę personę?',
       SPOT_REMOVE: 'Czy na pewno chcesz usunąć tego spota?',
+
+      SCANNER_INFO:
+        'Niewspierana wersja przeglądarki lub brak pozwolenia na korzystanie z kamery. Prosimy o użycie aktualnej wersji Google Chrome, Firefox, Safari lub udzielenie dostępu do kamery. Ustawienia pozwoleń można zmienić w menu dostępnym po kliknięciu w ikonkę informacji znajdującą się na lewo od adresu strony.',
     },
   },
 };

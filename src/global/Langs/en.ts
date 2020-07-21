@@ -334,6 +334,9 @@ const enTranslations = {
       RECOMMEND_TEXT: 'Recommend',
       PERSONA_REMOVE: 'Are you sure you want to remove this persona?',
       SPOT_REMOVE: 'Are you sure you want to remove this spot?',
+
+      SCANNER_INFO:
+        'Browser not supported or camera permissions denied. Please use Google Chrome, Firefox, Safari or allow camera usage to access QR code scanner. If you accidentally blocked video usage, you can change that by tapping info icon on the left side of address bar.',
     },
   },
 };
