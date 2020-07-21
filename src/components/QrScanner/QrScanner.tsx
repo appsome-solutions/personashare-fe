@@ -1,4 +1,5 @@
 import React, { useCallback, RefObject, useRef, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import Webcam from 'react-webcam';
 import { QRCode } from 'jsqr';
@@ -7,14 +8,13 @@ import VideoOverlay from './VideoOverlay';
 import { useWorkerDecode } from './hooks/useWorkerDecode';
 import { LoginOrHamburger } from './LoginOrHamburger';
 import { useHistory } from 'react-router-dom';
-import { Slider } from 'antd';
+import { Alert, Slider } from 'antd';
 /* eslint-disable-next-line */
 import Worker from 'worker-loader!./../decodeWorker.worker';
 import { vh } from 'helpers/styled';
 import { Icon } from 'components/Icon';
 import AddSvg from 'assets/add-24px.svg';
 import RemoveSvg from 'assets/remove.svg';
-import { useTranslation } from 'react-i18next';
 
 const Wrapper = styled.div`
   display: flex;
@@ -42,6 +42,11 @@ const StyledWebcam = styled(Webcam)<ExtendedWebcam | any>`
   width: 100%;
   height: ${(props) => props.theme.contentHeight};
   object-fit: fill;
+`;
+
+const AlertWrapper = styled.div`
+  width: 100%;
+  height: ${(props) => props.theme.contentHeight};
 `;
 
 type defaultProps = {
@@ -140,8 +145,9 @@ const Zoom = ({ webcamRef }: any) => {
 
 export const QrScanner = ({ onError, onUserMediaError, className, videoConstraints, interval, buttonMode }: Props) => {
   const workerRef = useRef<Worker | null>(null);
-  const history = useHistory();
   const { t } = useTranslation();
+  const [isWebcamSupported, setIsWebcamSupported] = useState(true);
+  const history = useHistory();
   const redirectToQr = useCallback((decodedQr: QRCode): void => {
     try {
       history.push(new URL(decodedQr.data).pathname);
@@ -174,24 +180,35 @@ export const QrScanner = ({ onError, onUserMediaError, className, videoConstrain
     <>
       <LoginOrHamburger />
       <Wrapper>
-        <VideoOverlay />
-        {isWebcamStreamVisible && <Zoom webcamRef={webcamRef} />}
-        <StyledWebcam
-          className={className}
-          audio={false}
-          ref={webcamRef}
-          screenshotFormat="image/jpeg"
-          screenshotQuality={1}
-          forceScreenshotSourceSize
-          videoConstraints={videoConstraints}
-          onUserMedia={() => {
-            if (!isWebcamStreamVisible) {
-              setIsWebcamStreamVisible(true);
-            }
-          }}
-          onUserMediaError={onUserMediaError}
-        />
-        {buttonMode ? <Button onClick={capture} /> : null}
+        {isWebcamSupported ? (
+          <>
+            <VideoOverlay />
+            {isWebcamStreamVisible && <Zoom webcamRef={webcamRef} />}
+            <StyledWebcam
+              className={className}
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              screenshotQuality={1}
+              forceScreenshotSourceSize
+              videoConstraints={videoConstraints}
+              onUserMedia={() => {
+                if (!isWebcamStreamVisible) {
+                  setIsWebcamStreamVisible(true);
+                }
+              }}
+              onUserMediaError={(error: any) => {
+                setIsWebcamSupported(false);
+                onUserMediaError?.(error);
+              }}
+            />
+            {buttonMode ? <Button onClick={capture} /> : null}
+          </>
+        ) : (
+          <AlertWrapper>
+            <Alert message="Info" description={t('SCANNER_INFO')} type="info" showIcon />
+          </AlertWrapper>
+        )}
       </Wrapper>
     </>
   );

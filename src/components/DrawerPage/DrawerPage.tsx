@@ -49,6 +49,7 @@ const OnClickComponentWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 50%;
 `;
 
 export const DrawerPage: FC<DrawerPageProps> = ({

@@ -92,7 +92,7 @@ export const UploadAssets: FC<UploadAssetsProps> = ({
             size: options.file.size,
             type: options.file.type,
             uid: v4(),
-            name: options.file.name,
+            name: `${options.file.name}-${Date.now()}`,
             status: 'done',
             url,
             thumbUrl: url,

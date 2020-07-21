@@ -19,6 +19,7 @@ import CodeSvg from 'assets/code.svg';
 import AlignCenterSvg from 'assets/format_align_center-24px.svg';
 import AlignRightSvg from 'assets/format_align_right-24px.svg';
 import JustifySvg from 'assets/format_align_justify-24px.svg';
+import SwapSvg from 'assets/swap_horiz-24px.svg';
 import PureQuill from 'quill';
 import { InlineButton } from './Buttons/InlineButton';
 import EmbedUploadAssets from './EmbedComponents/EmbedUploadAssets';
@@ -97,6 +98,8 @@ export const BarIcon = styled(Icon)`
 const ToggleabbleContainer = styled.div<{ isVisible: boolean }>`
   position: fixed;
   display: ${(props) => (props.isVisible ? 'flex' : 'none')};
+  width: 100%;
+  right: 0;
 `;
 
 const Separator = styled.div`
@@ -385,15 +388,14 @@ const QuillEditor: FC<Props> = ({
             <DrawerPage
               isVisible={isAddVisible}
               OnClickComponent={() => (
-                <TurnInto
+                <BarIcon
+                  svgLink={SwapSvg}
                   onClick={() => {
                     editor?.focus();
                     setIsAddVisible(true);
                     turnIntoRef.current = true;
                   }}
-                >
-                  {t('TURN_INTO_BUTTON')}
-                </TurnInto>
+                />
               )}
               onClose={() => setIsAddVisible(false)}
               title={t('TURN_INTO_BUTTON')}
