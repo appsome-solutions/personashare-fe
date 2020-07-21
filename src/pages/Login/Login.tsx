@@ -193,6 +193,8 @@ export const Login: FunctionComponent = () => {
 
         const idToken = await firebase?.getCurrentUser()?.getIdToken();
 
+        window.location.href = process.env.REACT_APP_BASE_URL || window.location.origin;
+
         if (idToken) {
           handleBEConnection(idToken);
         }
