@@ -95,8 +95,11 @@ const CardButton = styled.button`
   }
 `;
 
+export type GuideOpenedType = '' | 'USAGE_EXAMPLES' | 'MY_FIRST_PERSONA';
+
 const DesktopPreview: FC = () => {
   const [overlay, setOverlay] = useState(false);
+  const [guideOpened, setGuideOpened] = useState<GuideOpenedType>('');
   const { t } = useTranslation();
 
   return (
@@ -106,15 +109,19 @@ const DesktopPreview: FC = () => {
           onOutsideClick={() => {
             setOverlay(false);
           }}
+          guideOpened={guideOpened}
         />
       )}
       <PreviewWrapper>
         <Column flex={1}>
           <PSDesktopLogo />
+
+          <RoadMap />
           <CardHolder>
             <CardButton
               onClick={() => {
                 setOverlay(true);
+                setGuideOpened('USAGE_EXAMPLES');
               }}
             >
               <TextUppercase>{t('I_WANT_TO_READ_ABOUT_USAGE_EXAMPLES')}</TextUppercase>
@@ -123,15 +130,13 @@ const DesktopPreview: FC = () => {
             <CardButton
               onClick={() => {
                 setOverlay(true);
+                setGuideOpened('MY_FIRST_PERSONA');
               }}
             >
               <TextUppercase>{t('I_WANT_TO_CREATE_MY_FIRST_PERSONA')}</TextUppercase>
               <Create />
             </CardButton>
           </CardHolder>
-        </Column>
-        <Column flex={1}>
-          <RoadMap />
         </Column>
         <CookieBar />
       </PreviewWrapper>
