@@ -10,6 +10,9 @@ import { TakeYourPhone } from './TakeYourPhone/TakeYourPhone';
 import { GoOn } from './GoOn/GoOn';
 import { QrCode } from './QrCode/QrCode';
 import { useTranslation } from 'react-i18next';
+import UsageExamplesSvg from 'assets/DesktopQRCode_UsageExamples.svg';
+import MyFirstPersonaSvg from 'assets/DesktopQRCode_MyFirstPersona.svg';
+import { GuideOpenedType } from '../DesktopPreview';
 
 const FlexCenterStyle = css`
   display: flex;
@@ -59,17 +62,21 @@ const GuideButton = styled(WideButton)`
 
 const steps = [1, 2, 3];
 
-const stepMapper = [TakeYourPhone, GoOn, QrCode];
+const stepMapper = [TakeYourPhone, GoOn];
 
 type GuideProps = {
   onOutsideClick(): void;
+  guideOpened: GuideOpenedType;
 };
 
-export const Guide: FC<GuideProps> = ({ onOutsideClick }: GuideProps) => {
+export const Guide: FC<GuideProps> = ({ onOutsideClick, guideOpened }: GuideProps) => {
   const [step, setStep] = useState(1);
   const cardFrontRef = useRef<HTMLDivElement>(null);
   const cardBackRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+
+  // eslint-disable-next-line react/display-name
+  stepMapper[2] = () => <QrCode QrCodeImg={guideOpened === 'USAGE_EXAMPLES' ? UsageExamplesSvg : MyFirstPersonaSvg} />;
 
   const handleClickOutside = useCallback(
     (event: any): void => {

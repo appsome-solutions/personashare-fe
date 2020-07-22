@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import QrCodeImg from 'assets/QrImg.svg';
 import { GuideText } from '../Guide';
 import { useTranslation } from 'react-i18next';
 
@@ -12,7 +11,7 @@ const TakeYourPhoneImg = styled.img`
 
 //TODO add handling spot/register qr code link
 
-export const QrCode: FC = () => {
+export const QrCode: FC<{ QrCodeImg: string }> = ({ QrCodeImg }) => {
   const { t } = useTranslation();
 
   return (
