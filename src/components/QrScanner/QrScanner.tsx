@@ -176,11 +176,12 @@ export const QrScanner = ({ onError, onUserMediaError, className, videoConstrain
 
   useWorkerDecode({ capture, interval: interval, onCode: redirectToQr, workerRef });
 
-  useEffect(() => {
+  // commented due to issues on some devices, it should catch in case of old browser or messengers web view
+  /*  useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true }).catch(() => {
       setIsWebcamSupported(false);
     });
-  }, []);
+  }, []);*/
 
   return (
     <>
