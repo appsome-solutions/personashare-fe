@@ -176,6 +176,12 @@ export const QrScanner = ({ onError, onUserMediaError, className, videoConstrain
 
   useWorkerDecode({ capture, interval: interval, onCode: redirectToQr, workerRef });
 
+  useEffect(() => {
+    navigator.mediaDevices.getUserMedia().catch(() => {
+      setIsWebcamSupported(false);
+    });
+  }, []);
+
   return (
     <>
       <LoginOrHamburger />
