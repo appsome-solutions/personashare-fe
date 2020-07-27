@@ -61,7 +61,7 @@ export const CreatePersonaPage: FC = () => {
     return <Spinner />;
   }
 
-  const initialValues = data?.entity?.page || pageInitialValues;
+  const initialValues = personaData?.entity?.card || pageInitialValues;
   const cardDefaultPersona = cardDefaults;
 
   if (!personaData) {

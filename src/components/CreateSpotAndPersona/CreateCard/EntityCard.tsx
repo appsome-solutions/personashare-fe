@@ -40,6 +40,7 @@ const initialState: ImageRef = {
 const CardBodyStyled = styled(CardBody)`
   margin-top: 32px;
 `;
+
 export const EntityCard: FC<PropsCard> = ({
   nextPathName,
   stepperNumbers,
