@@ -34,7 +34,7 @@ export const CreateSpotsPage: FC = () => {
       });
     },
   });
-  const initialValues = data?.entity?.page || pageInitialValues;
+  const initialValues = spotData?.entity?.card || pageInitialValues;
   const cardDefaultSpot = cardDefaults;
 
   if (spotLoading || createSpotLoading) {

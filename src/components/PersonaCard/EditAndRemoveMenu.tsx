@@ -332,9 +332,7 @@ export const EditRemoveMenu: FC<EditAndRemoveMenuType> = ({ uuid, isDefaultPerso
       )}
     </MenuRemoveStyled>
   );
-  {
-    console.log(<RemoveFunctionality />);
-  }
+
   const menuBuild = (
     <MenuStyled>
       <NavLinkFunctionality />
