@@ -16,6 +16,7 @@ import QuillEditor from 'components/QuillEditor/QuillEditor';
 import _ from 'lodash';
 import { notification } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const PersonaPreviewWrapper = styled.div`
   min-height: ${(props) => props.theme.contentHeight};
@@ -106,6 +107,7 @@ export const PersonaPreview: FC = () => {
           <SavePersona uuid={uuid} />
         </SecondPartPersona>
       </PersonaPreviewWrapper>
+      <StickyNavigation />
     </>
   );
 };

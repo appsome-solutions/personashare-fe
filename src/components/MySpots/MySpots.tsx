@@ -7,7 +7,7 @@ import { PersonaCard } from 'components/PersonaCard/PersonaCard';
 import Carousel from 'components/Carousel/Carousel';
 import { gqlEntity } from 'global/graphqls/schema';
 import { MySpotsWithoutSpots } from './MySpotsWithoutSpots';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, Router, useHistory } from 'react-router-dom';
 import { GET_SPOTS, GetSpotType } from 'global/graphqls/Spot';
 import AddIcon from 'assets/AddIcon.svg';
 import ShareQrCode from 'assets/ShareQrCode.svg';
@@ -16,6 +16,7 @@ import { APP_ROUTES } from 'global/AppRouter/routes';
 import { Loader } from 'components/Loader/Loader';
 import { LoginOrHamburger } from '../QrScanner/LoginOrHamburger';
 import { useTranslation } from 'react-i18next';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const CaruouselItem = styled.div``;
 
@@ -114,6 +115,7 @@ export const MySpots: FC = () => {
           </NavLink>
         </Loader>
       </StyledPageWrapper>
+      <StickyNavigation />
     </div>
   );
 };

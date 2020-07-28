@@ -34,7 +34,6 @@ const App: FunctionComponent = () => (
                       <AppRouter />
                     </ErrorHandler>
                     <TermAndCookies />
-                    <StickyNavigation />
                   </Router>
                 </ResponsiveContentReplacer>
               </ApiErrorsTranslationsProvider>

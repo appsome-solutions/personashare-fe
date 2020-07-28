@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, Router, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { APP_ROUTES } from 'global/AppRouter/routes';
@@ -15,6 +15,7 @@ import EyeImg from 'assets/EyeImg.svg';
 import SchemeImg from 'assets/SchemeImg.svg';
 import CustomImg from 'assets/CustomImg.svg';
 import { useTranslation } from 'react-i18next';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const InformationUnderText = styled(InfoCard)`
   margin: 40px 0 46px 0;
@@ -84,6 +85,7 @@ export const CreateSpotsStep1: FC = () => {
         </InformationUnderText>
         <WideButton onClick={onNextClick}>{t('CREATION_STEP_1_SPOT_NEXT_STEP')}</WideButton>
       </PageWrapperSpaceBetween>
+      <StickyNavigation />
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { VisibilityPersona } from 'pages/MyPersonaPreview/VisibilityPersona';
 import { NetworkPersona } from 'pages/MyPersonaPreview/NetworkPersona';
 import { TopNav } from 'components/TopNav/TopNav';
 import { useTranslation } from 'react-i18next';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 const { TabPane } = Tabs;
 
 const CenteredCol = styled(Tabs)`
@@ -75,6 +76,7 @@ export const NavigationPersonaStats: FC = () => {
           <NetworkPersona />
         </TabPane>
       </CenteredCol>
+      <StickyNavigation />
     </>
   );
 };

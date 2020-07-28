@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { notification } from 'antd';
-import { useHistory } from 'react-router-dom';
+import { Router, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { TopNav } from 'components/TopNav/TopNav';
 import LogoSvg from 'assets/logo_nobg.svg';
@@ -26,6 +26,7 @@ import { getUrlsParams } from '../../helpers/URLParams';
 import { ActionType } from '../Action/Action';
 import { useTranslation } from 'react-i18next';
 import { useApiErrorsTranslation } from 'global/Firebase/ApiErrorsTranslations/ApiErrorsTranslations';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const Caption = styled.span((props) => props.theme.typography.caption);
 
@@ -219,37 +220,40 @@ export const Login: FunctionComponent = () => {
   }
 
   return (
-    <Formik initialValues={initialValues} onSubmit={handleLogin} validationSchema={validationSchema}>
-      {() => (
-        <Form>
-          <div>
-            <TopNav isWithBackArrow />
-            <PageWrapper>
-              <StyledLogo src={LogoSvg} alt="logo" />
-              <StyledCard>
-                <HeyText>{t('LOGIN_HEADING_1')}</HeyText>
-                <LoginText>{t('LOGIN_HEADING_2')}</LoginText>
-                <InputWithSuffixIcon name="email" placeholder={t('LOGIN_EMAIL_INPUT')} svgLink={EmailIconSvg} />
-                <StyledPasswordInput name="password" placeholder={t('LOGIN_FORGOT_PASSWORD')} />
-                <StyledErrorMessage>{apiError}</StyledErrorMessage>
-                <ResetPassword>
-                  {t('LOGIN_PASSWORD_INPUT')} <Link to={APP_ROUTES.RESET_PASSWORD}>{t('LOGIN_RESET_PASSWORD')}</Link>
-                </ResetPassword>
-                <LoginButton block htmlType="submit">
-                  {t('LOGIN_BUTTON')}
-                </LoginButton>
-                <OrLoginCaption>{t('LOGIN_TEXT_BETWEEN_BUTTON')}</OrLoginCaption>
-                <GoogleButton block onClick={handleGoogleLogin}>
-                  {t('LOGIN_GOOGLE')}
-                </GoogleButton>
-              </StyledCard>
-              <RegisterCaption>
-                {t('LOGIN_NO_ACCOUNT')} <Link to={APP_ROUTES.REGISTER}> {t('LOGIN_NO_ACCOUNT_REGISTER')}</Link>
-              </RegisterCaption>
-            </PageWrapper>
-          </div>
-        </Form>
-      )}
-    </Formik>
+    <>
+      <Formik initialValues={initialValues} onSubmit={handleLogin} validationSchema={validationSchema}>
+        {() => (
+          <Form>
+            <div>
+              <TopNav isWithBackArrow />
+              <PageWrapper>
+                <StyledLogo src={LogoSvg} alt="logo" />
+                <StyledCard>
+                  <HeyText>{t('LOGIN_HEADING_1')}</HeyText>
+                  <LoginText>{t('LOGIN_HEADING_2')}</LoginText>
+                  <InputWithSuffixIcon name="email" placeholder={t('LOGIN_EMAIL_INPUT')} svgLink={EmailIconSvg} />
+                  <StyledPasswordInput name="password" placeholder={t('LOGIN_FORGOT_PASSWORD')} />
+                  <StyledErrorMessage>{apiError}</StyledErrorMessage>
+                  <ResetPassword>
+                    {t('LOGIN_PASSWORD_INPUT')} <Link to={APP_ROUTES.RESET_PASSWORD}>{t('LOGIN_RESET_PASSWORD')}</Link>
+                  </ResetPassword>
+                  <LoginButton block htmlType="submit">
+                    {t('LOGIN_BUTTON')}
+                  </LoginButton>
+                  <OrLoginCaption>{t('LOGIN_TEXT_BETWEEN_BUTTON')}</OrLoginCaption>
+                  <GoogleButton block onClick={handleGoogleLogin}>
+                    {t('LOGIN_GOOGLE')}
+                  </GoogleButton>
+                </StyledCard>
+                <RegisterCaption>
+                  {t('LOGIN_NO_ACCOUNT')} <Link to={APP_ROUTES.REGISTER}> {t('LOGIN_NO_ACCOUNT_REGISTER')}</Link>
+                </RegisterCaption>
+              </PageWrapper>
+            </div>
+          </Form>
+        )}
+      </Formik>
+      <StickyNavigation />
+    </>
   );
 };

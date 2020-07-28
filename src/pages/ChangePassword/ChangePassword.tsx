@@ -15,6 +15,7 @@ import { StyledErrorMessage } from 'components/StyledErrorMessage/StyledErrorMes
 import LogoWithoutBG from 'assets/logo_nobg.svg';
 import { useTranslation } from 'react-i18next';
 import { useApiErrorsTranslation } from 'global/Firebase/ApiErrorsTranslations/ApiErrorsTranslations';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const StyledLogo = styled.img`
   margin-top: 18px;
@@ -86,6 +87,7 @@ export const ChangePassword: FC = () => {
           </Formik>
         </FormComponent>
       </PageWrapper>
+      <StickyNavigation />
     </div>
   );
 };

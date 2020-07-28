@@ -18,6 +18,7 @@ import EmailIconSvg from 'assets/email.svg';
 import PersonSvg from 'assets/person-24px.svg';
 import { useTranslation } from 'react-i18next';
 import { useApiErrorsTranslation } from 'global/Firebase/ApiErrorsTranslations/ApiErrorsTranslations';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const StyledLogo = styled.img`
   margin-top: 18px;
@@ -90,6 +91,7 @@ export const Contact: FC = () => {
           </Formik>
         </FormComponent>
       </PageWrapper>
+      <StickyNavigation />
     </div>
   );
 };

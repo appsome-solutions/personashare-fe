@@ -58,9 +58,7 @@ export const AppRouter: FunctionComponent = () => {
         <Route path={APP_ROUTES.ROOT} exact component={Home} />
         <Route path={APP_ROUTES.SCANNER} exact component={QrScanner} />
         <PrivateRoute path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
-        <PrivateRoute path={APP_ROUTES.CHOOSE_PERSONA} exact component={ChoosePersona} />
         <PrivateRoute path={APP_ROUTES.MY_PERSONAS} exact component={MyPersona} />
-        <PrivateRoute path={APP_ROUTES.MY_SPOTS} exact component={MySpots} />
         <Route path={APP_ROUTES.INFORMATIVE_CLAUSE} exact component={InformativeClause} />
         <Route path={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY} exact component={PrivacyAndCookies} />
         <Route path={APP_ROUTES.TERM_OF_USE} exact component={TermOfUse} />
