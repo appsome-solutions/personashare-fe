@@ -14,6 +14,7 @@ import { useUserContext } from '../../global/UserContext/UserContext';
 import { TopNav } from '../TopNav/TopNav';
 import { EmptyPlaceholder } from '../EmptyPlaceholder/EmptyPlaceholder';
 import { useTranslation } from 'react-i18next';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const ContactBookStyled = styled.div`
   padding: 30px 16px 40px 16px;
@@ -91,6 +92,7 @@ export const ContactBook: FC = () => {
           </Wrapper>
         ))}
       </ContactBookStyled>
+      <StickyNavigation />
     </>
   );
 };

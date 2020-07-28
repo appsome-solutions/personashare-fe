@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Router, useHistory } from 'react-router-dom';
 
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { PageWrapperSpaceBetween } from 'components/PageWrapper';
@@ -15,6 +15,7 @@ import GpsImg from 'assets/GpsImg.svg';
 import SchemeImg from 'assets/SchemeImg.svg';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { StickyNavigation } from '../../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const WideButtonStyled = styled(WideButton)`
   margin-top: 46px;
@@ -66,6 +67,7 @@ export const InitialStep: FC = () => {
         />
         <WideButtonStyled onClick={onNextClick}>{t('CREATION_STEP_1_PERSONA_NEXT_STEP')}</WideButtonStyled>
       </PageWrapperSpaceBetween>
+      <StickyNavigation />
     </div>
   );
 };

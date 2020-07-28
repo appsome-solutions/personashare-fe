@@ -6,6 +6,7 @@ import { TopNav } from 'components/TopNav/TopNav';
 import BoxInSpots from 'assets/BoxInSpots.svg';
 import AddIcon from 'assets/AddIcon.svg';
 import { useTranslation } from 'react-i18next';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const Wrapper = styled.div`
   display: flex;
@@ -56,6 +57,7 @@ export const MySpotsWithoutSpots: FC = () => {
           </CreateSpot>
         </NavLink>
       </Wrapper>
+      <StickyNavigation />
     </>
   );
 };

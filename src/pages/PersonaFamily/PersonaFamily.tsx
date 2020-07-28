@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { APP_ROUTES } from '../../global/AppRouter/routes';
 import { useHistory } from 'react-router-dom';
 import { NewsletterForm } from './NewsletterForm';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const MainComponent = styled.div`
   background-color: ${(props) => props.theme.colors.utils.background.mid};
@@ -87,6 +88,7 @@ export const PersonaFamily: FC = () => {
           <WideButtonStyled onClick={onNextClick}>{t('WHAT_MORE')}</WideButtonStyled>
         </TextAndButtonsComponent>
       </MainComponent>
+      <StickyNavigation />
     </>
   );
 };

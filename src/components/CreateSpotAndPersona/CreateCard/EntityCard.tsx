@@ -20,6 +20,7 @@ import { onAvatarChangeHelper, onBgChangeHelper, formUploadMapper } from 'pages/
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import { StickyNavigation } from '../../../global/Layouts/StickyNavigation/StickyNavigation';
 
 type PropsCard = {
   initialValues: CardType;
@@ -146,6 +147,7 @@ export const EntityCard: FC<PropsCard> = ({
         </form>
       </PageWrapperSpaceBetween>
       <CropperWidget imageRef={imageRef} onCrop={onCrop} />
+      <StickyNavigation />
     </div>
   );
 };

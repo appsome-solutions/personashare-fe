@@ -1,7 +1,7 @@
 import React, { useState, FC } from 'react';
 import { object, string, ref, boolean, InferType } from 'yup';
 import { useMutation } from '@apollo/react-hooks';
-import { useHistory } from 'react-router-dom';
+import { Router, useHistory } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import { TopNav } from 'components/TopNav/TopNav';
 import LogoRegister from 'assets/LogoRegister.svg';
@@ -23,6 +23,7 @@ import EmailIconSvg from 'assets/email.svg';
 import { useTranslation } from 'react-i18next';
 import { useApiErrorsTranslation } from 'global/Firebase/ApiErrorsTranslations/ApiErrorsTranslations';
 import { Spinner } from 'components/Spinner/Spinner';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const StyledLogo = styled.img`
   margin-top: 46px;
@@ -182,46 +183,51 @@ export const Register: FC = () => {
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={handleRegister} validationSchema={validationSchema}>
-      {({ values, setFieldTouched, errors }) => (
-        <Form>
-          {console.log(errors)}
-          <div>
-            <TopNav isWithBackArrow />
-            <PageWrapper>
-              <StyledLogo src={LogoRegister} alt="logo" />
-              <StyledCard>
-                <CreateAccountText> {t('REGISTER_HEADING_1')} </CreateAccountText>
-                <InputWithSuffixIcon name="email" placeholder={t('REGISTER_EMAIL_INPUT')} svgLink={EmailIconSvg} />
-                <StyledPasswordInput name="password" placeholder={t('REGISTER_PASSWORD_INPUT')} />
-                <StyledPasswordInput name="repeatPassword" placeholder={t('REGISTER_PASSWORD_REPEAT')} />
-                <StyledErrorMessage>{apiError}</StyledErrorMessage>
-                <StyledCheckbox name="termsAccepted">
-                  <Caption>
-                    {t('REGISTER_REGULATIONS')}{' '}
-                    <LinkStyle to={APP_ROUTES.TERM_OF_USE}>{t('REGISTER_TOS_CONFIRM')}</LinkStyle>
-                    <LinkStyle to={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY}>{t('REGISTER_PRIVACY_POLICY')}</LinkStyle>
-                    {t('REGISTER_AND')}
-                    <LinkStyleLeft to={APP_ROUTES.INFORMATIVE_CLAUSE}>{t('REGISTER_INFORMATIVE_CLAUSE')}</LinkStyleLeft>
-                  </Caption>
-                </StyledCheckbox>
-                <RegisterButton htmlType="submit" block>
-                  {t('REGISTER_REGISTER_BUTTON')}
-                </RegisterButton>
-                <OrRegisterCaption> {t('REGISTER_TEXT_BETWEEN_BUTTONS')}</OrRegisterCaption>
-                <GoogleButton block onClick={() => handleGoogleLogin(values, setFieldTouched)}>
-                  {t('REGISTER_GOOGLE_REGISTER_BUTTON')}
-                </GoogleButton>
-              </StyledCard>
-              <LogInCaption>
-                {t('REGISTER_ALREADY_HAVE_ACCOUNT')}
-                {` `}
-                <Link to={APP_ROUTES.LOGIN}> {t('REGISTER_ALREADY_HAVE_ACCOUNT_LOGIN')}</Link>
-              </LogInCaption>
-            </PageWrapper>
-          </div>
-        </Form>
-      )}
-    </Formik>
+    <>
+      <Formik initialValues={initialValues} onSubmit={handleRegister} validationSchema={validationSchema}>
+        {({ values, setFieldTouched, errors }) => (
+          <Form>
+            {console.log(errors)}
+            <div>
+              <TopNav isWithBackArrow />
+              <PageWrapper>
+                <StyledLogo src={LogoRegister} alt="logo" />
+                <StyledCard>
+                  <CreateAccountText> {t('REGISTER_HEADING_1')} </CreateAccountText>
+                  <InputWithSuffixIcon name="email" placeholder={t('REGISTER_EMAIL_INPUT')} svgLink={EmailIconSvg} />
+                  <StyledPasswordInput name="password" placeholder={t('REGISTER_PASSWORD_INPUT')} />
+                  <StyledPasswordInput name="repeatPassword" placeholder={t('REGISTER_PASSWORD_REPEAT')} />
+                  <StyledErrorMessage>{apiError}</StyledErrorMessage>
+                  <StyledCheckbox name="termsAccepted">
+                    <Caption>
+                      {t('REGISTER_REGULATIONS')}{' '}
+                      <LinkStyle to={APP_ROUTES.TERM_OF_USE}>{t('REGISTER_TOS_CONFIRM')}</LinkStyle>
+                      <LinkStyle to={APP_ROUTES.PRIVACY_AND_COOKIES_POLICY}>{t('REGISTER_PRIVACY_POLICY')}</LinkStyle>
+                      {t('REGISTER_AND')}
+                      <LinkStyleLeft to={APP_ROUTES.INFORMATIVE_CLAUSE}>
+                        {t('REGISTER_INFORMATIVE_CLAUSE')}
+                      </LinkStyleLeft>
+                    </Caption>
+                  </StyledCheckbox>
+                  <RegisterButton htmlType="submit" block>
+                    {t('REGISTER_REGISTER_BUTTON')}
+                  </RegisterButton>
+                  <OrRegisterCaption> {t('REGISTER_TEXT_BETWEEN_BUTTONS')}</OrRegisterCaption>
+                  <GoogleButton block onClick={() => handleGoogleLogin(values, setFieldTouched)}>
+                    {t('REGISTER_GOOGLE_REGISTER_BUTTON')}
+                  </GoogleButton>
+                </StyledCard>
+                <LogInCaption>
+                  {t('REGISTER_ALREADY_HAVE_ACCOUNT')}
+                  {` `}
+                  <Link to={APP_ROUTES.LOGIN}> {t('REGISTER_ALREADY_HAVE_ACCOUNT_LOGIN')}</Link>
+                </LogInCaption>
+              </PageWrapper>
+            </div>
+          </Form>
+        )}
+      </Formik>
+      <StickyNavigation />
+    </>
   );
 };

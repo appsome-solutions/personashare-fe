@@ -7,7 +7,7 @@ import getPixels from 'get-pixels';
 import VideoOverlay from './VideoOverlay';
 import { useWorkerDecode } from './hooks/useWorkerDecode';
 import { LoginOrHamburger } from './LoginOrHamburger';
-import { useHistory } from 'react-router-dom';
+import { Router, useHistory } from 'react-router-dom';
 import { Alert, Slider } from 'antd';
 /* eslint-disable-next-line */
 import Worker from 'worker-loader!./../decodeWorker.worker';
@@ -15,6 +15,7 @@ import { vh } from 'helpers/styled';
 import { Icon } from 'components/Icon';
 import AddSvg from 'assets/add-24px.svg';
 import RemoveSvg from 'assets/remove.svg';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const Wrapper = styled.div`
   display: flex;
@@ -217,6 +218,7 @@ export const QrScanner = ({ onError, onUserMediaError, className, videoConstrain
           </AlertWrapper>
         )}
       </Wrapper>
+      <StickyNavigation />
     </>
   );
 };

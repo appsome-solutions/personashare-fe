@@ -15,6 +15,7 @@ import QuillEditor from '../../components/QuillEditor/QuillEditor';
 import _ from 'lodash';
 import { notification } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 type SpotPreviewType = {
   isEditMode?: boolean;
@@ -110,6 +111,7 @@ export const SpotPreview: FC<SpotPreviewType> = ({ isEditMode }) => {
           <SaveSpotButton uuid={uuid} />
         </SecondPartSpot>
       </MainComponent>
+      <StickyNavigation />
     </>
   );
 };

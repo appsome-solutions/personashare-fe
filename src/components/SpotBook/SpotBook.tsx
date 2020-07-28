@@ -14,6 +14,7 @@ import { useUserContext } from '../../global/UserContext/UserContext';
 import { TopNav } from '../TopNav/TopNav';
 import { EmptyPlaceholder } from '../EmptyPlaceholder/EmptyPlaceholder';
 import { useTranslation } from 'react-i18next';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const SpotBookStyled = styled.div`
   padding: 24px 16px 32px 16px;
@@ -90,6 +91,7 @@ export const SpotBook: FC = () => {
           </Wrapper>
         ))}
       </SpotBookStyled>
+      <StickyNavigation />
     </>
   );
 };

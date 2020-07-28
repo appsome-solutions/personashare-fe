@@ -5,6 +5,7 @@ import { TopNav } from 'components/TopNav/TopNav';
 import { VisibilitySpot } from 'pages/MySpotPreview/VisibilitySpot';
 import { NetworkSpot } from 'pages/MySpotPreview/NetworkSpot';
 import { MySpotPreview } from 'pages/MySpotPreview/MySpotPreview';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 const { TabPane } = Tabs;
 
 const CenteredCol = styled(Tabs)`
@@ -72,6 +73,7 @@ export const NavigationSpotStats: FC = () => {
           <NetworkSpot />
         </TabPane>
       </CenteredCol>
+      <StickyNavigation />
     </>
   );
 };

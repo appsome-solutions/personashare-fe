@@ -11,6 +11,7 @@ import { useUserContext } from 'global/UserContext/UserContext';
 import { Entity } from 'global/graphqls/schema';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { useTranslation } from 'react-i18next';
+import { StickyNavigation } from '../../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const MainComponent = styled.div`
   display: flex;
@@ -84,6 +85,7 @@ export const SpotInvitation: FC = () => {
           </ButtonInvitation>
         </BackgroundBox>
       </MainComponent>
+      <StickyNavigation />
     </>
   );
 };

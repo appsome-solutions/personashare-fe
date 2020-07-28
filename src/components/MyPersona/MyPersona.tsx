@@ -10,7 +10,7 @@ import { Button } from 'components/Button';
 import Carousel from 'components/Carousel/Carousel';
 import { useUserContext } from 'global/UserContext/UserContext';
 import { AgregatedPersona } from 'global/graphqls/schema';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, Router, useHistory } from 'react-router-dom';
 import AddIcon from 'assets/AddIcon.svg';
 import { APP_ROUTES } from 'global/AppRouter/routes';
 import { MySpotsWithoutSpots } from '../MySpots/MySpotsWithoutSpots';
@@ -19,6 +19,7 @@ import { ShareQrComponent } from './ShareQrComponent';
 import { LoginOrHamburger } from '../QrScanner/LoginOrHamburger';
 import { GET_USER } from '../../global/graphqls/User';
 import { useTranslation } from 'react-i18next';
+import { StickyNavigation } from '../../global/Layouts/StickyNavigation/StickyNavigation';
 
 const StyledButton = styled(Button)`
   width: 80%;
@@ -202,6 +203,7 @@ export const MyPersona: FC = () => {
           </NavLink>
         </Loader>
       </StyledPageWrapper>
+      <StickyNavigation />
     </div>
   );
 };

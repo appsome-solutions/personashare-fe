@@ -32,6 +32,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { CLEAR_CARD, GetCardType } from 'global/graphqls/SpotAndPersona';
 import { UploadFile } from 'antd/es/upload/interface';
 import styled from 'styled-components';
+import { StickyNavigation } from '../../../global/Layouts/StickyNavigation/StickyNavigation';
 
 export interface LinkProps {
   previousStepPath: string;
@@ -326,6 +327,7 @@ export const EntityPage: FC<LinkProps> = ({
         </StyledWideButton>
       </StyledPageWrapper>
       <CropperWidget imageRef={imageRef} onCrop={onCrop} />
+      <StickyNavigation />
     </div>
   );
 };
