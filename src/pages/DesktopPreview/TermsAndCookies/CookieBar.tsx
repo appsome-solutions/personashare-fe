@@ -33,7 +33,7 @@ export const CookieBar: FunctionComponent = () => {
         message: t('COOKIES_NOTIFICATION_TEXT'),
         description: (
           <CookieText>
-            {t('COOKIES_NOTIFICATION_TEXT_2')}{' '}
+            {t('COOKIES_NOTIFICATION_TEXT_1')}{' '}
             <a>
               <TextHere
                 onClick={() =>
@@ -44,11 +44,11 @@ export const CookieBar: FunctionComponent = () => {
                   })
                 }
               >
-                {t('COOKIES_NOTIFICATION_TEXT_3')}
+                {t('COOKIES_NOTIFICATION_TEXT_2')}
               </TextHere>
               .
             </a>{' '}
-            {t('COOKIES_NOTIFICATION_TEXT_4')} <br />
+            {t('COOKIES_NOTIFICATION_TEXT_3')} <br />
             <a>
               <TextHere
                 onClick={() =>
@@ -59,7 +59,7 @@ export const CookieBar: FunctionComponent = () => {
                   })
                 }
               >
-                {t('COOKIES_NOTIFICATION_TEXT_5')}
+                {t('COOKIES_NOTIFICATION_TEXT_4')}
               </TextHere>
               .
             </a>
