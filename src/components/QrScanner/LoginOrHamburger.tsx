@@ -3,24 +3,14 @@ import { GET_PERSONA, GetCardType } from 'global/graphqls/Persona';
 import { LoginBar } from 'components/LoginBar/LoginBar';
 import { HamburgerMenu } from 'global/Layouts/HamburgerMenu/HamburgerMenu';
 import React, { FC } from 'react';
-import { Overlay } from '../Overlay/Overlay';
-import { Spinner } from '../Spinner/Spinner';
 import { useUserContext } from '../../global/UserContext/UserContext';
 
 export const LoginOrHamburger: FC = () => {
   const { user } = useUserContext();
-  const { loading: isPersonaLoading, data: personaData } = useQuery<GetCardType>(GET_PERSONA, {
+  const { data: personaData } = useQuery<GetCardType>(GET_PERSONA, {
     skip: !user?.defaultPersona,
     variables: { uuid: user?.defaultPersona },
   });
-
-  if (isPersonaLoading) {
-    return (
-      <Overlay>
-        <Spinner />
-      </Overlay>
-    );
-  }
 
   if (!user) {
     return <LoginBar isLogged={true} />;
